@@ -387,9 +387,9 @@ every
 $\bm{a}\ne {\bf 0}$.
 Here
 $$
-\bm{H}(\hat{\mu},\sigma^2h)= \left( \begin{array}{cc}
-- \frac{n}{\sigma^2h } & 0 \cr
-0   &-\frac{n}{2(\sigma^2h)^2} \end{array} \right)
+\bm{H}(\hat{\mu},\hat \sigma^2)= \left( \begin{array}{cc}
+- \frac{n}{\hat \sigma^2 } & 0 \cr
+0   &-\frac{n}{2(\hat \sigma^2)^2} \end{array} \right)
 $$
 which is clearly negative definite.
 
@@ -430,15 +430,15 @@ provided that
 
 #### Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
 For each $i=1, \ldots, n$
-\begin{eqnarray*}
-E[U_i(\bm \theta)]&=&\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& {{\partial}\over{\partial\theta_i}} 1 =0.
-\end{eqnarray*}
+\begin{align*}
+E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= {{\partial}\over{\partial\theta_i}} 1 =0.
+\end{align*}
 
 #### Bernoulli example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
@@ -504,54 +504,54 @@ provided that
 #### Proof  (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
 
 For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
-\begin{eqnarray*}
-\text{Var}[U(\bm{\theta})]_{ij}&=& E[U_i(\bm \theta)U_j(\bm \theta)]\cr
-&=& \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
+\begin{align*}
+\text{Var}[U(\bm{\theta})]_{ij}&= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
+&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
 {{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
+&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
 {{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
+&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
 {{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
-&=& \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+&= \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
  {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y \cr
-\end{eqnarray*}
+\end{align*}
 
 Now
-\begin{eqnarray*}
-[\mathcal{I}(\bm \theta)]_{ij}&=&E\left[-{{\partial^2}\over
+\begin{align*}
+[\mathcal{I}(\bm \theta)]_{ij}&=E\left[-{{\partial^2}\over
 {\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
-&=&\int -{{\partial^2}\over
+&=\int -{{\partial^2}\over
 {\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=&\int -{{\partial}\over{\partial\theta_i}}\left[
+&=\int -{{\partial}\over{\partial\theta_i}}\left[
 {{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=&\int \left[
+&=\int \left[
 -{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
 + {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
 {{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=& -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
+&= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
 + \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
 {{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
-&=& \text{Var}[U(\bm{\theta})]_{ij}
-\end{eqnarray*}
+&= \text{Var}[U(\bm{\theta})]_{ij}
+\end{align*}
 
 #### Bernoulli example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Here $\bm \theta=(p)$ and
-\begin{eqnarray*}
-u(p)&=& {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
--H(p)&=& {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
-{\cal I}(p)&=& {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
-\end{eqnarray*}
+\begin{align*}
+u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
+-H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
+{\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
+\end{align*}
 
 #### Normal example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. N$(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and,
-\begin{eqnarray*}
-u_1(\mu,\sigma^2) & = &  \frac{n(\bar y-\mu)}{\sigma^2} \\
-u_2(\mu,\sigma^2) & = & -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
-\end{eqnarray*}
+\begin{align*}
+u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
+u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
+\end{align*}
 Therefore
 $$
 -\bm{H}(\mu,\sigma^2) = \left( \begin{array}{cc}
@@ -651,17 +651,17 @@ If $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(
 variables then asymptotically $\hat{p}=\bar y$ has a  $N(p,{p(1-p)}/ n)$
 distribution, and a large sample 95\% confidence interval
 for $p$ is
-\begin{eqnarray*}
-& & [\hat{p}- 1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2},
+\begin{align*}
+& [\hat{p}- 1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2},
 \hat{p}+1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2}]
 \cr
-&= &
+&=
 [\hat{p}-1.96[\hat{p}(1-\hat{p})/n]^{1\over 2},
 \hat{p}+1.96[\hat{p}(1-\hat{p})/n]^{1\over 2}]\cr
-&= &
+&=
 [\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
 \bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}].
-\end{eqnarray*}
+\end{align*}
 
 
 ### Comparing statistical models
@@ -925,12 +925,12 @@ explanatory variables.
 
 Linear models are those for which the relationship between the response and explanatory
 variables is of the form
-\begin{eqnarray*}
-E(Y_i)&=& \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip}\cr
-&=& \sum_{j=1}^p x_{ij} \beta_j\cr
-&=&  \bm{X}_i^T\bm{\beta}\cr
-&= & [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n \hspace{2cm} (1)
-\end{eqnarray*}
+\begin{align}
+E(Y_i)&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip}\cr
+&= \sum_{j=1}^p x_{ij} \beta_j\cr
+&=  \bm{X}_i^T\bm{\beta}\cr
+&= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n \hspace{2cm}   (\#eq:lmNonMat)
+\end{align}
 where
 $$
 E(\bm Y)=\begin{pmatrix}E(Y_1)\cr\vdots\cr E(Y_n) \end{pmatrix} \qquad
@@ -948,11 +948,11 @@ $$
 and
 $\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
 describing the dependence of $Y_i$ on $\bm{X}_i$.
-The four ways of describing the linear model in (1) are equivalent, but the most
+The four ways of describing the linear model in \@ref(eq:lmNonMat) are equivalent, but the most
 economical is the matrix form
-$$
-E(\bm Y)=\bm{X}\bm{\beta}. \eqno{(2)}
-$$
+\begin{equation}
+E(\bm Y)=\bm{X}\bm{\beta}. (\#eq:lmMat)
+\end{equation}
 
 The $n\times p$ matrix $\bm{X}$ consists of known (observed) constants
 and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{X}_i^T$, the
@@ -1020,7 +1020,7 @@ and $p-1$ 'real' variables.
 
 Strictly, the only requirement for a model to be linear is that the relationship
 between the response variables, $\bm Y$, and any explanatory variables
-can be written in the form $(2)$.
+can be written in the form \@ref(eq:lmMat).
 No further specification of the joint distribution of
 $Y_1, \ldots, Y_n$ is required.
 However, the linear model is more useful for statistical analysis
@@ -1044,14 +1044,15 @@ $$
 where $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. N$(0,\sigma^2)$ random variables.
 
 A linear model can now be expressed in matrix form as
-$$
-\bm Y=\bm{X}\bm{\beta}t+\bm{\epsilon} \eqno{(3)}
-$$
+\begin{equation}
+\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon} 
+(\#eq:lmHom)
+\end{equation}
 where $\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ has a multivariate normal distribution
 with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
 (because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
-implies all $Cov(\epsilon_i,\epsilon_j)=0$).
-It follows from (3) that the distribution of $\bm Y$ is multivariate normal
+implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$).
+It follows from \@ref(eq:lmHom) that the distribution of $\bm Y$ is multivariate normal
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
 *i.e.* $\bm Y\sim$ N$(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
 
@@ -1065,27 +1066,21 @@ We use the observed data $y_1, \ldots, y_n$ to *estimate* this pattern of depend
 In least squares estimation, roughly speaking, we choose $\hat{\bm{\beta}}$, the estimates of
 $\bm{\beta}$ to make the fitted values $\hat{E}(\bm Y)=\bm{X}\hat{\bm{\beta}}$ *as close as possible* to the
 observed values $\bm{y}$, *i.e.* $\hat{\bm{\beta}}$ minimises the sum of squares
-\begin{eqnarray*}
-\sum_{i=1}^n [y_i-E(Y_i)]^2&=&\sum_{i=1}^n \left(y_i-\bm{X}_i^T\bm{\beta}\right)^2\cr
-&=&\sum_{i=1}^n \left(y_i-\sum_{j=1}^p x_{ij}\beta_j\right)^2\cr
-%&=\sum_{i=1}^n \left(y_i-[\bm{X}\bm{\beta}]_i\right)^2\cr
-%&=(\bm{y}-\bm{X}\bm{\beta})^T(\bm{y}-\bm{X}\bm{\beta})
-\end{eqnarray*}
+\begin{align*}
+\sum_{i=1}^n [y_i-E(Y_i)]^2&=\sum_{i=1}^n \left(y_i-\bm{X}_i^T\bm{\beta}\right)^2\cr
+&=\sum_{i=1}^n \left(y_i-\sum_{j=1}^p x_{ij}\beta_j\right)^2
+\end{align*}
 as a function of $\beta_1, \ldots, \beta_p$.
 The sum of squares may also be written as $(\bm{y}-\bm{X}\bm{\beta})^T(\bm{y}-\bm{X}\bm{\beta})$.
 
-Differentiating w.r.t. $\beta_k,\;k=1,\ldots ,p$, and setting equal to 0 gives
-\begin{eqnarray*}
- \qquad -2 \sum_{i=1}^n x_{ik}\left(y_i-\sum_{j=1}^p x_{ij}\hat{\beta}_j\right)
-& = &   0\qquad k=1,\ldots ,p\cr
-\Rightarrow  \qquad
-\sum_{i=1}^n x_{ik}y_i & = & \sum_{i=1}^n\sum_{j=1}^p x_{ik}x_{ij}\hat{\beta}_j
-\qquad k=1,\ldots ,p\cr
-\Rightarrow  \qquad
-[\bm{X}^T\bm{y}]_k & = & [\bm{X}^T\bm{X}\hat{\bm{\beta}}]_k\cr
-\Rightarrow  \qquad
-\bm{X}^T\bm{y} & = & \bm{X}^T\bm{X}\hat{\bm{\beta}}\cr
-\end{eqnarray*}
+For each $k = 1,\ldots, p$, differentiating w.r.t. $\beta_k$ and setting equal to $0$ gives
+\[ -2 \sum_{i=1}^n x_{ik}\left(y_i-\sum_{j=1}^p x_{ij}\hat{\beta}_j\right)=   0\]
+or
+\[\sum_{i=1}^n x_{ik}y_i = \sum_{i=1}^n\sum_{j=1}^p x_{ik}x_{ij}\hat{\beta}_j.\]
+In matrix form,
+\[[\bm{X}^T\bm{y}]_k = [\bm{X}^T\bm{X}\hat{\bm{\beta}}]_k\]
+so
+\[\bm{X}^T\bm{y} = \bm{X}^T\bm{X}\hat{\bm{\beta}}\]
 
 The least squares estimates $\hat{\bm{\beta}}$ are the solutions to this
 set of $p$ simultaneous linear equations, which are known as
@@ -1096,25 +1091,25 @@ $$
 \hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}.
 $$
 The corresponding fitted values are
-\begin{eqnarray*}
+\begin{align*}
 & & \qquad\hat{E}(\bm Y)=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\cr
 \Rightarrow & & \qquad \hat{E}(Y_i)=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
-\end{eqnarray*}
+\end{align*}
 Recalling that $\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon}$, we notice that the least squares estimates for
 $\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ are obtained as the difference between the observed
 and fitted values
-\begin{eqnarray*}
+\begin{align*}
 & & \qquad\hat{\bm{\epsilon}}=\bm{y}-\bm{X}\hat{\bm{\beta}}\cr
 \Rightarrow & & \qquad\hat{\epsilon}_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
-\end{eqnarray*}
+\end{align*}
 ${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$ describe the variability in the observed responses $y_1, \ldots, y_n$ which
 has not been explained by the linear model. It is residual variability, and we call
 ${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$, the residuals.
 We call
-\begin{eqnarray*}
-D&=& \sum_{i=1}^n \hat{\epsilon}_i^2\cr
-&=& \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2
-\end{eqnarray*}
+\begin{align*}
+D&= \sum_{i=1}^n \hat{\epsilon}_i^2\cr
+&= \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2
+\end{align*}
 the *residual sum of squares* or *deviance* for the linear model.
 It is the actual minimum value attained in the least squares estimation.
 
@@ -1127,28 +1122,30 @@ This follows by recalling that $\bm Y\sim$ N$(\bm{X}\bm{\beta},\sigma^2\bm{I})$ 
 $\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}$  is a linear function of $\bm{y}$.
 Therefore, from the properties of expectation and variance of a vector random
 variable we have
-\begin{eqnarray*}
-E(\hat{\bm{\beta}})&=&E[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
-&=&(\bm{X}^T\bm{X})^{-1}\bm{X}^TE[\bm Y]\cr
-&=&(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{X}\bm{\beta}\cr
-&=&\bm{\beta}.
-\end{eqnarray*}
-\begin{eqnarray*}
-\text{Var}(\hat{\bm{\beta}})&=&\text{Var}[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
-&=&(\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{Var}[\bm Y][(\bm{X}^T\bm{X})^{-1}\bm{X}^T]^T\cr
-&=&\sigma^2(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{I}\bm{X} (\bm{X}^T\bm{X})^{-1}\cr
-&=&\sigma^2(\bm{X}^T\bm{X})^{-1}.
-\end{eqnarray*}
+\begin{align*}
+E(\hat{\bm{\beta}})&=E[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
+&=(\bm{X}^T\bm{X})^{-1}\bm{X}^TE[\bm Y]\cr
+&=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{X}\bm{\beta}\cr
+&=\bm{\beta}
+\end{align*}
+and
+\begin{align*}
+\text{Var}(\hat{\bm{\beta}})&=\text{Var}[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
+&=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{Var}[\bm Y][(\bm{X}^T\bm{X})^{-1}\bm{X}^T]^T\cr
+&=\sigma^2(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{I}\bm{X} (\bm{X}^T\bm{X})^{-1}\cr
+&=\sigma^2(\bm{X}^T\bm{X})^{-1}.
+\end{align*}
 
-Assuming that $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. N$(0,\sigma^2)$ the least squares estimate $\hat{\bm{\beta}}$
+Assuming that $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. $N(0,\sigma^2)$ the least squares estimate $\hat{\bm{\beta}}$
 is also the maximum likelihood estimate.
 This is obvious when one considers the likelihood for a linear model
-$$
-f_{\bm Y}(\bm{y};\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
+\begin{equation}
+L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
 \exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{X}_i^T\bm{\beta})^2\right).
-$$
+(\#eq:lmLikelihood)
+\end{equation}
 This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
-$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\sigma^2h=D/n$.
+$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\hat \sigma^2=D/n$.
 
 We have
 $\hat{\bm{\beta}}$ is multivariate normal (with mean and variance given above).
@@ -1165,10 +1162,10 @@ least squares, a linear model usually involves the unknown *residual variance*
 $\sigma^2$, representing the variability of observations
 about their mean.
 
-We can estimate $\sigma^2$ using maximum likelihood. Maximising (4)
+We can estimate $\sigma^2$ using maximum likelihood. Maximising \@(eq:lmLikelihood)
 with respect to $\bm{\beta}$ and $\sigma^2$ gives
 $$
-\sigma^2h={D\over n}={1\over n}\sum_{i=1}^n \hat{\epsilon}_i^2.
+\hat \sigma^2={D\over n}={1\over n}\sum_{i=1}^n \hat{\epsilon}_i^2.
 $$
 It is possible to prove (although we shall not do so here)
 that if the model is correct,
@@ -1177,13 +1174,13 @@ $$
 $$
 which implies that
 $$
-E(\sigma^2h)={{n-p}\over n}\sigma^2,
+E(\hat \sigma^2)={{n-p}\over n}\sigma^2,
 $$
 so the maximum likelihood estimator is biased for $\sigma^2$ (although
 still asymptotically unbiased as ${{n-p}\over n}\to 1$ as $n\to\infty$).
 We usually prefer to use the unbiased estimator of $\sigma^2$
 $$
-\sigma^2t={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n \hat{\epsilon}_i^2.
+\tilde \sigma^2={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n \hat{\epsilon}_i^2.
 $$
 The denominator $n-p$, the number of observations minus the number of
 linear coefficients in the model is called the *degrees of freedom* of the model.
@@ -1267,8 +1264,8 @@ $$
 Now, a *generalised likelihood ratio test* of $H_0$ against $H_1$
 has a critical region of the form
 $$
-C=\left\{ \bm{y}:{{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm{\beta},\sigma^2)}\over
-{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm{\beta},\sigma^2)}} >k\right\}
+C=\left\{ \bm{y}:{{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(1)}}L(\bm{\beta},\sigma^2)}\over
+{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(0)}}L(\bm{\beta},\sigma^2)}} >k\right\}
 $$
 where $k$ is determined by $\alpha$, the size of the test, so
 $$
@@ -1276,28 +1273,28 @@ $$
 $$
 For a linear model,
 $$
-f_{\bm Y}(\bm{y};\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
+L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
 \exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{X}_i^T\bm{\beta})^2\right).
 $$
 This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
-$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\sigma^2h=D/n$.
+$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\hat \sigma^2=D/n$.
 Therefore
-\begin{eqnarray*}
-\max_{\bm{\beta},\sigma^2} f_{\bm Y}(\bm{y};\bm{\beta},\sigma^2)&=&(2\pi D/n)^{-{n\over 2}}
+\begin{align*}
+\max_{\bm{\beta},\sigma^2} L(\bm{\beta},\sigma^2)&=(2\pi D/n)^{-{n\over 2}}
 \exp\left(-{n\over{2D}} \sum_{i=1}^n (y_i-\bm{X}_i^T\hat{\bm{\beta}})^2\right)\cr
-&=&(2\pi D/n)^{-{n\over 2}}
+&=(2\pi D/n)^{-{n\over 2}}
 \exp\left(-{n\over2}\right).\cr
-\end{eqnarray*}
+\end{align*}
 This form applies for both $\bm \theta\in\Theta^{(0)}$ and $\bm \theta\in\Theta^{(1)}$, with only the model changing. Let the deviances under models $H_0$ and $H_1$ be denoted by $D_0$ and $D_1$
 respectively.
 Then the critical region for the generalised likelihood ratio test
 is of the form
-\begin{eqnarray*}
+\begin{align*}
 &  \qquad & {{(2\pi D_1/n)^{-{n\over 2}}}\over{(2\pi D_0/n)^{-{n\over 2}}}}>k\cr
 \Rightarrow & &\qquad \left({{D_0}\over{D_1}}\right)^{n\over 2}>k\cr
 \Rightarrow & &\qquad \left({{D_0}\over{D_1}}-1\right){{n-p}\over{p-q}}>k'\cr
 \Rightarrow & &\qquad {{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k'.
-\end{eqnarray*}
+\end{align*}
 We refer to the left hand side of this inequality as the F-statistic.
 We reject the simpler model $H_0$ in favour of the more complex model $H_1$ if
 $F$ is 'too large'.
@@ -1377,7 +1374,7 @@ Cook's distance is a measure of the change in $\hat{\bm{\beta}}$ when the
 observation is omitted from the data set.
 $$
 \text{Cook's distance}=
-{{(\hat{\bm{\beta}}'-\hat{\bm{\beta}})^T\bm{X}^T\bm{X}(\hat{\bm{\beta}}'-\hat{\bm{\beta}})}\over{p\sigma^2h}},
+{{(\hat{\bm{\beta}}'-\hat{\bm{\beta}})^T\bm{X}^T\bm{X}(\hat{\bm{\beta}}'-\hat{\bm{\beta}})}\over{p\hat \sigma^2}},
 $$
 where $\hat{\bm{\beta}}'$ is the least squares estimate of $\bm{\beta}$ based on
 the observed data with the $i$th observation omitted.
