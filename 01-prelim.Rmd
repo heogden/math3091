@@ -245,26 +245,21 @@ that parametric statistical inference should be based on this function.
 We can think of $L(\theta)$ as a function
 of $\bm \theta$ for fixed $\bm{y}$, which describes the relative *likelihoods* of
 different possible (sets of) $\bm \theta,$ given observed data $y_1, \ldots, y_n$.
-
-```{block2, note-text, type='rmdnote'}
-When $f_{\bm Y}(\bm y;\bm \theta)$ is considered as a
-function of $\bm \theta$ for fixed (observed) $y_1, \ldots, y_n$, we call it the
-*likelihood function*.
-```
+We write $L(\bm \theta; \bm y) = f_{\bm Y}(\bm y;\bm \theta)$ for this *likelihood*,
+which is a function of the unknown parameter $\bm \theta$. For convenience, we often
+drop $\bm y$ from the notation, and write $L(\bm \theta)$.
 
 The likelihood function is of central importance in parametric statistical
 inference.
 It provides a means for comparing different possible values of $\bm \theta$, based on
 the probabilities (densities) that they assign to the observed data $y_1, \ldots, y_n$.
 
-
-* Often the likelihood function is written $L(\bm \theta)$ or $L(\bm \theta;\bm{y})$.
-* Frequently it is more convenient to consider the log-likelihood function
-  $\log L(\bm \theta)$. This is often denoted by $\ell(\bm \theta)$ or $\ell(\bm \theta;\bm y)$.
-* Nothing in the definition of the likelihood requires $y_1, \ldots, y_n$ to be
+1. Frequently it is more convenient to consider the log-likelihood function
+  $\log L(\bm \theta)$. This is often denoted by $\ell(\bm \theta)$.
+1. Nothing in the definition of the likelihood requires $y_1, \ldots, y_n$ to be
   observations of independent random variables, although we shall frequently
   make this assumption.
-* Any factors which depend on $y_1, \ldots, y_n$ alone (and not on $\bm \theta$) can be ignored
+1. Any factors which depend on $y_1, \ldots, y_n$ alone (and not on $\bm \theta$) can be ignored
   when writing down the likelihood. Such factors give no information about the   relative likelihoods of different possible values of $\bm \theta$.
 
 #### Bernoulli example {-}
@@ -333,48 +328,54 @@ Similarly, the MLE for any function of parameters $g(\bm \theta)$ is given
 by $g(\hat{\bm \theta})$.
 
 As $\log$ is a strictly increasing
-function, the value of $\bm \theta$ which maximises $L(\theta)$ also maximises $\ell(\theta)$.
-It is almost always easier to maximise $\ell(\theta)$.
+function, the value of $\bm \theta$ which maximises 
+$L(\bm \theta)$ also maximises $\ell(\bm \theta) = \log L (\bm \theta)$.
+It is almost always easier to maximise $\ell(\bm \theta)$.
 This is achieved in the usual way; finding a stationary point by differentiating
-$\ell(\theta)$ with respect to $\theta_1, \ldots, \theta_p$, and solving the resulting $p$
+$\ell(\bm \theta)$ with respect to $\theta_1, \ldots, \theta_p$, and solving the resulting $p$
 simultaneous equations. It should also be checked that the stationary point is a
 maximum.
 
 #### Bernoulli example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 Bernoulli$(p)$ random variables. Here $\bm \theta=(p)$ and
-\begin{eqnarray*}
-&\qquad \ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p)\cr
-&\;\>\,{\partial\over{\partial p}}\ell(\theta){p}=
-{{n\bar y}\over p}-{{n(1-\bar y)}\over{1-p}}\cr
-&\Rightarrow\quad 0=
-{{n\bar y}\over {\hat{p}}}-{{n(1-\bar y)}\over{1-\hat{p}}}\cr
-&\Rightarrow\quad \hat{p}=\bar y.
-\end{eqnarray*}
-Note that ${{\partial^2}\over{\partial p^2}}\ell(\theta){p}=
-{{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0$ everywhere, so the stationary point is
-clearly a maximum.
+the log-likelihood is
+\[\ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p).\]
+  Differentiating with respect to $p$,
+  \[\frac{\partial}{\partial p} \ell(p) = \frac{n\bar y}{p}-\frac{n(1-\bar y)}{1-p}\]
+    so the MLE $\hat p$ solves
+    \[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]
+  Solving this for $\hat{p}$ gives $\hat{p}=\bar y$.
+  Note that
+  $\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0$ 
+   everywhere, so the stationary point is clearly a maximum.
 
 #### Normal example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. N$(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
-\begin{eqnarray*}
-&\ell(\theta){\mu,\sigma^2}=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2\cr
-&{\partial\over{\partial \mu}}\ell(\theta){\mu,\sigma^2}=
-{1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\cr
-&\quad\Rightarrow\quad 0={{n(\bar y-\hat{\mu})}\over{\sigma^2h}}& (1) \cr
-&{\partial\over{\partial \sigma^2}}\ell(\theta){\mu,\sigma^2}=
--{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2\cr
-&\quad\Rightarrow\quad 0=
--{n\over {2\sigma^2h}}+{1\over{2(\sigma^2h)^2}}\sum(y_i-\hat{\mu})^2& (2)
-\end{eqnarray*}
-Solving $(1)$ and $(2)$, we obtain
-\begin{eqnarray*}
-\hat{\mu}&=&\bar y\cr
-\sigma^2h&=&{1\over n}\sum(y_i-\hat{\mu})^2=
-{1\over n}\sum(y_i-\bar y)^2.
-\end{eqnarray*}
+ and the log-likelihood is
+\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+-{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
+   Differentiating with respect to $\mu$
+\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
+  {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]
+  so $(\hat \mu, \hat \sigma^2)$ solve
+\begin{equation}
+  \frac{n(\bar y-\hat{\mu})}{\hat \sigma^2} = 0.
+  (\#eq:normalScoreMu)
+\end{equation}
+  Differentiating with respect to $\sigma^2$
+\[\frac{\partial}{\partial \sigma^2} \ell (\mu,\sigma^2)=
+- \frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum(y_i-\mu)^2,\]
+so
+\begin{equation}
+  -{n\over {2\hat \sigma^2}}+{1\over{2(\hat \sigma^2)^2}}\sum(y_i-\hat{\mu})^2 = 0
+  (\#eq:normalScoreSs)
+\end{equation}
+Solving \@ref(eq:normalScoreMu) and \@ref(eq:normalScoreSs), we obtain
+$\hat{\mu}=  \bar y$ and
+\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
+{1\over n}\sum(y_i-\bar y)^2.\]
 
 
 Strictly,
@@ -405,14 +406,12 @@ and $\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T$. Then 
 *vector of scores* or *score vector*.
 Where $p=1$ and $\bm \theta=(\theta)$, the *score* is the scalar defined as
 $$
-u(\theta)\equiv{{\partial}\over{\partial\theta}}\log L(\theta){\theta}.
+u(\theta)\equiv{{\partial}\over{\partial\theta}}\log L(\theta).
 $$
 The maximum likelihood estimate $\hat{\bm \theta}$ satisfies
-$$
-u(\hat{\bm \theta})={\bf 0}
-\qquad\Leftrightarrow\qquad
- u_i(\hat{\bm \theta})=0\quad i=1,\ldots ,p.
-$$
+\[u(\hat{\bm \theta})={\bm 0},\]
+that is,
+\[u_i(\hat{\bm \theta})=0\quad i=1,\ldots ,p.\]
 Note that $u(\bm{\theta})$ is a function of $\bm \theta$ for fixed (observed) $\bm y$.
 However, if we replace $y_1, \ldots, y_n$ in $u(\bm{\theta})$, by the corresponding random variables
 $Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\equiv
@@ -420,46 +419,44 @@ $Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\e
 
 An important result in likelihood theory is that the expected score
 at the true (but unknown) value of $\bm \theta$ is zero, *i.e.*
-$$
-E[U(\bm{\theta})]={\bf 0}
-\qquad\Leftrightarrow\qquad
-E[U_i(\bm \theta)]= 0
-\quad i=1,\ldots ,p,
-$$
+\[E[U(\bm{\theta})]={\bf 0}\]
+or
+\[E[U_i(\bm \theta)]= 0,
+\quad i=1,\ldots ,p,\]
 provided that
 
 1. The expectation exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
 #### Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
+For each $i=1, \ldots, n$
 \begin{eqnarray*}
-E[U_i(\bm \theta)]&=&\int U_i(\bm \theta)L(\theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}} \ell(\theta) L(\theta) d\bm y\cr
-&=& \int {{{{\partial}\over{\partial\theta_i}}L(\theta)}\over L(\theta)} L(\theta) d\bm y\cr
-&=& \int {{\partial}\over{\partial\theta_i}}L(\theta) d\bm y\cr
-&=& {{\partial}\over{\partial\theta_i}}\int L(\theta) d\bm y\cr
-&=& {{\partial}\over{\partial\theta_i}} 1 =0\qquad i=1,\ldots p.\cr
+E[U_i(\bm \theta)]&=&\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
+&=& \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& {{\partial}\over{\partial\theta_i}} 1 =0.
 \end{eqnarray*}
-
 
 #### Bernoulli example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Here $\bm \theta=(p)$ and,
-\begin{eqnarray*}
-u(p)=n\bar y/ p-n(1-\bar y)/(1-p)\cr
-E[U(p)]=0\quad\Rightarrow\quad E[\bar y]=p.
-\end{eqnarray*}
+variables. Here $\bm \theta=(p)$ and
+\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]
+Since $E[U(p)] = 0$, we must have $E[\bar Y]=p$ (which we already
+know is correct).
 
 #### Normal example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
-N$(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and,
-\begin{eqnarray*}
-u_1(\mu,\sigma^2)&=& {{n(\bar y-\mu)}/{\sigma^2}}\cr
-u_2(\mu,\sigma^2)&=& -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2\cr
-E[\bm{u}(\mu,\sigma^2)]={\bf 0}\quad&\Rightarrow & \quad E[\bar y]=\mu\quad{\rm and}\quad
-E[{\textstyle{1\over n}}\sum(y_i-\mu)^2]=\sigma^2.
-\end{eqnarray*}
-
+N$(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
+\begin{align*}
+u_1(\mu,\sigma^2)&= {{n(\bar y-\mu)}/{\sigma^2}}\cr
+u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
+\end{align*}
+Since $E[\bm U(\mu,\sigma^2)] = {\bm 0}$, we must have
+$E[\bar Y]=\mu$ and 
+$E[{\textstyle{1\over n}}\sum(Y_i-\mu)^2]=\sigma^2.$
 
 ### Information {#info}
 
@@ -477,7 +474,7 @@ We call the matrix $-H(\bm{\theta})$ the *observed information matrix*.
 Where $p=1$ and $\bm \theta=(\theta)$, the *observed information* is a
 scalar defined as
 $$
--H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\log L(\theta){\theta}.
+-H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\log L(\theta).
 $$
 
 <!-- Here, we are interpreting $\bm \theta$ as the true (but unknown) value of -->
@@ -488,18 +485,17 @@ $Y_1, \ldots, Y_n$, we obtain a matrix of random variables.
 Then, we define the *expected information matrix* or
 *Fisher information matrix*
 $$
-[\mathcal{I}]_{ij}=E(-[H(\bm{\theta})]_{ij})
+[\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
 \qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
 $$
 
 An important result in likelihood theory is that the variance-covariance matrix
 of the score vector is equal to the
-expected information matrix {\it i.e.}
-$$
-\text{Var}[U(\bm{\theta})]=\mathcal{I}\quad \Leftrightarrow \quad
-\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}]_{ij}
-\qquad i=1,\ldots ,p;\;j=1,\ldots ,p,
-$$
+expected information matrix *i.e.*
+\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]
+or
+\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
+\quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]
 provided that
 
 1. The variance exists.
@@ -507,34 +503,37 @@ provided that
 
 #### Proof  (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
 
+For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
 \begin{eqnarray*}
 \text{Var}[U(\bm{\theta})]_{ij}&=& E[U_i(\bm \theta)U_j(\bm \theta)]\cr
 &=& \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
-{{\partial}\over{\partial\theta_j}} \ell(\theta) L(\theta) d\bm y\cr
-&=& \int {{{{\partial}\over{\partial\theta_i}}L(\theta)}\over L(\theta)}
-{{{{\partial}\over{\partial\theta_j}}L(\theta)}\over L(\theta)} L(\theta) d\bm y\cr
-&=& \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}L(\theta)
- {{\partial}\over{\partial\theta_j}}  L(\theta)  d\bm y \cr
-& & \hskip 1.2in i=1,\ldots ,p;\;j=1,\ldots ,p.
+{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
+{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
+&=& \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+ {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y \cr
 \end{eqnarray*}
+
 Now
 \begin{eqnarray*}
-[\mathcal{I}]_{ij}&=&E\left[-{{\partial^2}\over
+[\mathcal{I}(\bm \theta)]_{ij}&=&E\left[-{{\partial^2}\over
 {\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
 &=&\int -{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \ell(\theta)L(\theta) d\bm y\cr
+{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &=&\int -{{\partial}\over{\partial\theta_i}}\left[
-{{{{\partial}\over{\partial\theta_j}}L(\theta)}\over L(\theta)}\right]
-L(\theta) d\bm y\cr
+{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &=&\int \left[
--{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}}L(\theta)}\over L(\theta)}
-+ {{{{\partial}\over{\partial\theta_i}}L(\theta)
-{{\partial}\over{\partial\theta_j}}L(\theta)}\over L(\theta)^2} \right]
-L(\theta) d\bm y\cr
-&=& -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int L(\theta) d\bm y
-+ \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}L(\theta)
-{{\partial}\over{\partial\theta_j}}L(\theta)  d\bm y\cr
-&=& \text{Var}[U(\bm{\theta})]_{ij}\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
+-{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
++ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=& -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
++ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
+&=& \text{Var}[U(\bm{\theta})]_{ij}
 \end{eqnarray*}
 
 #### Bernoulli example {-}
@@ -590,7 +589,7 @@ $\hat{\bm \theta}$ is the maximum likelihood estimator of $\bm \theta$.
 
 Then, as $n\to\infty$, the distribution of $\hat{\bm \theta}$ tends to a multivariate
 normal distribution with mean vector $\bm \theta$ and variance covariance matrix
-$\mathcal{I}^{-1}$.
+$\mathcal{I}(\bm \theta)^{-1}$.
 
 Where $p=1$ and $\bm \theta=(\theta)$, the distribution of the MLE $\hat{\theta}$
 tends to $N[\theta,1/{\cal I}(\theta)]$.
@@ -626,20 +625,20 @@ an *interval estimate* or *confidence interval*.
 The asymptotic distribution of the maximum likelihood estimator can be used to
 provide approximate large sample confidence intervals. Asymptotically,
 $\hat{\theta}_i$ has a
-$N(\theta_i,[\mathcal{I}^{-1}]_{ii})$ distribution and we can find $z_{1-\frac{\alpha}{2}}$ such that
+$N(\theta_i,[\mathcal{I}(\bm \theta)^{-1}]_{ii})$ distribution and we can find $z_{1-\frac{\alpha}{2}}$ such that
 $$
-P\left(z_{1-\frac{\alpha}{2}}\le {{\hat{\theta}_i-\theta_i}\over{[\mathcal{I}^{-1}]_{ii}^{1\over 2}}}\le
+P\left(z_{1-\frac{\alpha}{2}}\le {{\hat{\theta}_i-\theta_i}\over{[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}}}\le
 z_{1-\frac{\alpha}{2}}\right) = 1- \alpha.
 $$
 Therefore
 $$
-P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}^{-1}]_{ii}^{1\over 2}\le\theta_i
-\le\hat{\theta}_i+z_{1-\frac{\alpha}{2}}[\mathcal{I}^{-1}]_{ii}^{1\over 2}
+P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}\le\theta_i
+\le\hat{\theta}_i+z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}
 \right) = 1- \alpha.
 $$
 The endpoints of this interval cannot be evaluated
 because they also depend on the unknown parameter vector $\bm \theta$.
-However, if we replace $\mathcal{I}$ by its MLE ${\cal I}(\hat{\bm \theta})$
+However, if we replace $\mathcal{I}(\bm \theta)$ by its MLE ${\cal I}(\hat{\bm \theta})$
 we obtain the approximate large sample 100$\alpha$\% confidence interval
 $$
 [\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{1\over 2},
@@ -737,8 +736,8 @@ possible values for $\bm \theta$.
 A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
 of the form
 \[C=\left\{ \bm{y}: 
-\frac{\max_{\bm \theta\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm \theta)}
-{\max_{\bm \theta\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm \theta)} 
+\frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)} 
 >k\right\}\]
 where $k$ is determined by $\alpha$, the size of the test, so
 \[\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.\]
@@ -748,40 +747,40 @@ much more probable than any distribution under $H_0$.
 This is intuitively appealing and  tends to produce good tests (large power)
 across a wide range of examples.
 
+#### Bernoulli example {-}
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Suppose that we require a size $\alpha$ test of the hypothesis
+$H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
+$\alpha$ and
+$p_0$ are specified.
 
-<!-- \begin{exampl} -->
-<!-- $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random -->
-<!-- variables. Suppose that we require a size $\alpha$ test of the hypothesis -->
-<!-- $H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where -->
-<!-- $\alpha$ and -->
-<!-- $p_0$ are specified. -->
+Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the
+generalised likelihood ratio test rejects $H_0$ when
+\[{{\max_{p\in(0,1)}L(p)}\over{\max_{p=p_0}L(p)}} > k\]
+or equivalently when
+\[{{\bar y^{\sum_i y_i}(1-\bar y)^{n-\sum_i y_i}}\over {p_0^{\sum_i y_i}(1-p_0)^{n-\sum_i y_i}}} > k\]
+or
+\begin{equation}
+\left({{\bar y}\over{p_0}}\right)^{n\bar y}
+\left({{1-\bar y}\over{1-p_0}}\right)^{n(1-\bar y)} >k. 
+  (\#eq:her1)
+\end{equation}
+Now the left hand side of \@ref(eq:her1) is minimised as a function of $\bar y$
+at $\bar y=p_0$ and increases as
+$\bar y$ moves away from $p_0$ in either direction.
+Therefore, the rejection region \@ref(eq:her1) is equivalent to
+$$
+C=\left\{ \bm{y}:\bar y > k' \text{ or } \bar y < k''\right\}
+$$
+where $k'$ and $k''$ are chosen so that
+$$
+P(\bm{y}\in C;p_0)=\alpha.
+$$
+Therefore, we can use the binomial$(n,p_0)$ distribution to find a precise rejection
+region for a test of specified size $\alpha$.
 
-<!-- Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the -->
-<!-- generalised likelihood ratio test rejects $H_0$ when -->
-
-<!-- \begin{eqnarray} -->
-<!-- &  {{\max_{p\in(0,1)}f_{\bm Y}(\bm{y};p)}\over{\max_{p=p_0}f_{\bm Y}(\bm{y};p)}} > & k \nonumber  \cr -->
-<!-- \Rightarrow \quad &  {{\bar y^{\Sigma y_i}(1-\bar y)^{n-\Sigma y_i}}\over {p_0^{\Sigma y_i}(1-p_0)^{n-\Sigma y_i}}} > & k \nonumber \cr -->
-<!-- \Rightarrow\quad &  \left({{\bar y}\over{p_0}}\right)^{n\bar y}  -->
-<!-- \left({{1-\bar y}\over{1-p_0}}\right)^{n(1-\bar y)} & >k. \label{her1}\cr -->
-<!-- \end{eqnarray} -->
-<!-- Now the left hand side of (\ref{her1}), is minimised as a function of $\bar y$ -->
-<!-- at $\bar y=p_0$ and increases as -->
-<!-- $\bar y$ moves away from $p_0$ in either direction. -->
-<!-- Therefore, the rejection region (\ref{her1}) is equivalent to -->
-<!-- $$ -->
-<!-- C=\left\{ \bm{y}:\bar y > k'\;{\rm or}\; \bar y < k''\right\} -->
-<!-- $$ -->
-<!-- where $k'$ and $k''$ are chosen so that  -->
-<!-- $$ -->
-<!-- P(\bm{y}\in C;p_0)=\alpha. -->
-<!-- $$ -->
-<!-- Therefore, we can use the binomial$(n,p_0)$ distribution to find a precise rejection -->
-<!-- region for a test of specified size $\alpha$. -->
-
-<!-- Alternatively, if $n$ is large, we can use the asymptotic distribution of -->
-<!-- $\bar y$, N$(p_0,p_0[1-p_0]/n)$. -->
-<!-- \end{exampl} -->
+Alternatively, if $n$ is large, we can use the asymptotic distribution of
+$\bar y$, $N(p_0,p_0[1-p_0]/n)$.
 
 
 ### The log-likelihood ratio statistic {#sn:lrt}
@@ -789,8 +788,8 @@ across a wide range of examples.
 A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
 of the form
 $$
-C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm \theta)}} >k\right\}
+C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}} L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}} >k\right\}
 $$
 where $k$ is determined by $\alpha$, the size of the test, so
 $$
@@ -808,8 +807,8 @@ First we notice that, as $\log$ is a strictly increasing function, the rejection
 region is equivalent to
 
 $$
-C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm \theta)}}\right) >k'\right\}
+C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
 $$
 where
 $$
@@ -821,48 +820,47 @@ $\Theta^{(1)}$) then under
 $H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
 $n\to\infty$
 $$
-L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm \theta)}}\right)
+L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
 $$
 has a chi-squared distribution with degrees of freedom equal to the difference in
 the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
 
 #### Proof {-}
 First we note that in the case where $\bm \theta$ is one-dimensional and $\bm \theta=(\theta)$,
-a Taylor series expansion of $\log f_{\bm Y}(\bm{y};\theta)$  around the
+a Taylor series expansion of $\ell(\theta)$  around the
 MLE $\hat{\theta}$ gives
 $$
-\log f_{\bm Y}(\bm{y};\theta)=\log f_{\bm Y}(\bm{y};\hat{\theta})+(\theta-\hat{\theta})
+\ell(\theta)=\ell(\hat{\theta})+(\theta-\hat{\theta})
 U(\hat{\theta})+{1\over 2}(\theta-\hat{\theta})^2 U'(\hat{\theta}) +\;\ldots
 $$
 Now, $U(\hat{\theta})=0$, and if we approximate $U'(\hat{\theta})\equiv
 H(\hat{\theta})$ by $E[H(\theta)]\equiv -{\cal I}(\theta)$, and also ignore higher order
 terms, we obtain
 $$
-2[\log f_{\bm Y}(\bm{y};\hat{\theta})-\log f_{\bm Y}(\bm{y};\theta)]=
+2[\ell (\hat{\theta})-\ell(\theta)]=
 (\theta-\hat{\theta})^2 {\cal I}(\theta)
 $$
 As $\hat{\theta}$ is asymptotically
 $N[\theta,{\cal I}(\theta)^{-1}]$, $(\theta-\hat{\theta})^2 {\cal I}(\theta)$ is
-asymptotically $\chi^2_1$, and hence so is $2[\log f_{\bm Y}(\bm{y};\hat{\theta})-\log
-f_{\bm Y}(\bm{y};\theta)]$.
+asymptotically $\chi^2_1$, and hence so is $2[\ell(\hat \theta)-\ell (\theta)]$.
 
 Similarly it can be shown that when $\bm \theta\in\Theta$, a multidimensional space,
-$2[\log f_{\bm Y}(\bm{y};\hat{\bm \theta})-\log f_{\bm Y}(\bm{y};\bm \theta)]$ is asymptotically
+$2[\ell(\bm{\hat \theta})-\ell (\bm \theta)]$ is asymptotically
 $\chi^2_p$, where $p$ is the dimension of $\Theta$.
 
 Let the dimensions of $\Theta^{(0)}$ and $\Theta^{(1)}$ be $d_0$ and $d_1$ respectively. Now, suppose that $H_0$ is true and  $\bm \theta\in\Theta^{(0)}$ and therefore
-$\bm \theta\in\Theta^{(1)}$. Furthermore, suppose that $\log f_{\bm Y}(\bm{y};\hat{\bm \theta})$
+$\bm \theta\in\Theta^{(1)}$. Furthermore, suppose that $\ell(\bm \theta)$
 is maximised in $\Theta^{(0)}$ by $\hat{\bm \theta}^{(0)}$ and is maximised
 in $\Theta^{(1)}$ by $\hat{\bm \theta}^{(1)}$. Then
-\begin{eqnarray*}
-L_{01}&\equiv&  2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}f_{\bm Y}(\bm{y};\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}f_{\bm Y}(\bm{y};\bm \theta)}}\right)\cr
-&=& 2\log f_{\bm Y}(\bm{y};\hat{\bm \theta}^{(1)})-2\log f_{\bm Y}(\bm{y};\hat{\bm \theta}^{(0)})\cr
-&=& 2[\log f_{\bm Y}(\bm{y};\hat{\bm \theta}^{(1)})-\log f_{\bm Y}(\bm{y};\bm \theta)]
- -2[\log f_{\bm Y}(\bm{y};\hat{\bm \theta}^{(0)})-\log f_{\bm Y}(\bm{y};\bm \theta)]\cr
-&=& L_1-L_0.
-\end{eqnarray*}
+\begin{align*}
+L_{01}&\equiv  2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)\cr
+&= 2\log L\hat{\bm \theta}^{(1)})-2\log L\hat{\bm \theta}^{(0)})\cr
+&= 2[\log L(\hat{\bm \theta}^{(1)})-\log L(\bm \theta)]
+ -2[\log L(\hat{\bm \theta}^{(0)})-\log L(\bm \theta)]\cr
+&= L_1-L_0.
+\end{align*}
 
 Therefore $L_1=L_{01}+L_0$ and we know that, under $H_0$, $L_1$ has
 a $\chi^2_{d_1}$ distribution and $L_0$ has
@@ -891,7 +889,7 @@ As $d_1=1$ and $d_0=0$, under $H_0$, the log-likelihood ratio statistic
 has an asymptotic $\chi^2_1$ distribution.
 For a log likelihood ratio test, we only reject $H_0$ in favour of $H_1$ when the test
 statistic is too large (observed data are much more probable under model $H_1$ than
-under model $H_0$), so in this case we reject $H_0$, when the observed value
+under model $H_0$), so in this case we reject $H_0$ when the observed value
 of the test statistic above is 'too large' to have come from a
 $\chi^2_1$ distribution.
 What we mean by 'too large' depends on the significance level $\alpha$ of the
