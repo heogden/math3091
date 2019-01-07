@@ -1028,7 +1028,7 @@ if we can make three further assumptions:
 
 - $Y_1, \ldots, Y_n$ are independent random variables.
 - $Y_1, \ldots, Y_n$ are normally distributed.
-- $\text{Var}(Y_1)=\text{\text{Var}}(Y_2)=\cdots =\text{Var}(Y_n)$ ($Y_1, \ldots, Y_n$ are homoscedastic).
+- $\text{Var}(Y_1)=\text{Var}(Y_2)=\cdots =\text{Var}(Y_n)$ ($Y_1, \ldots, Y_n$ are homoscedastic).
 
 We denote this common variance by $\sigma^2$.
 
