@@ -289,7 +289,7 @@ curve(loglikelihood(x, y), from = 0, to = 1,
 
 
 #### Normal example {-}
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. N$(\mu,\sigma^2)$ random variables.
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
 L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
@@ -351,7 +351,7 @@ the log-likelihood is
    everywhere, so the stationary point is clearly a maximum.
 
 #### Normal example {-}
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. N$(\mu,\sigma^2)$ random variables.
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
  and the log-likelihood is
 \[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
@@ -449,7 +449,7 @@ know is correct).
 
 #### Normal example {-}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
-N$(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
+$N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
 u_1(\mu,\sigma^2)&= {{n(\bar y-\mu)}/{\sigma^2}}\cr
 u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
@@ -546,7 +546,7 @@ u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 \end{align*}
 
 #### Normal example {-}
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. N$(\mu,\sigma^2)$ random variables.
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and,
 \begin{align*}
 u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
@@ -1041,7 +1041,7 @@ Another way of writing this is
 $$
 Y_i=\bm{X}_i^T\bm{\beta}\;+\;\epsilon_i\qquad i = 1, \ldots, n
 $$
-where $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. N$(0,\sigma^2)$ random variables.
+where $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. $N(0,\sigma^2)$ random variables.
 
 A linear model can now be expressed in matrix form as
 \begin{equation}
@@ -1054,7 +1054,7 @@ with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
 implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$).
 It follows from \@ref(eq:lmHom) that the distribution of $\bm Y$ is multivariate normal
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
-*i.e.* $\bm Y\sim$ N$(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
+*i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
 
 
 ### Least squares estimation
@@ -1118,7 +1118,7 @@ It is the actual minimum value attained in the least squares estimation.
 
 We have
 $E(\hat{\bm{\beta}})=\bm{\beta}$ and $\text{Var}(\hat{\bm{\beta}})=\sigma^2(\bm{X}^T\bm{X})^{-1}$. 
-This follows by recalling that $\bm Y\sim$ N$(\bm{X}\bm{\beta},\sigma^2\bm{I})$ and
+This follows by recalling that $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$ and
 $\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}$  is a linear function of $\bm{y}$.
 Therefore, from the properties of expectation and variance of a vector random
 variable we have
