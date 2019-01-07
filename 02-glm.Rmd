@@ -1,0 +1,1078 @@
+# Generalised Linear Models {#glm}
+
+## The Exponential family {#sn:ef}
+A probability distribution is said to be a member of the exponential family if its probability density
+function (or probability function, if discrete) can be written in the form
+\begin{equation}
+  f_Y(y;\theta,\phi)=\exp\left({{y\theta-b(\theta)}\over{a(\phi)}} +c(y,\phi)\right).
+  (\#eq:ef)
+\end{equation}
+The parameter $\theta$ is called the *natural*
+or *canonical* parameter.
+The parameter $\phi$ is usually assumed known. If it is unknown
+then it is often called the *nuisance* parameter.
+
+The density \@ref(eq:ef) can be thought of as a likelihood resulting from a single
+observation $y$. Then
+$$
+\begin{array}{ll}
+& \log f_Y(y;\theta,\phi)={{y\theta-b(\theta)}\over{a(\phi)}}
++c(y,\phi)\cr
+\Rightarrow\quad
+& u(\theta)=\frac{\partial}{\partial \theta}\log f_Y(y;\theta,\phi)
+={{y-\frac{\partial}{\partial \theta} b(\theta)}\over{a(\phi)}}
+={{y- b'(\theta)}\over{a(\phi)}}\cr
+\Rightarrow\quad
+&H(\theta)=\frac{\partial^2}{\partial \theta^2}\log f_Y(y;\theta,\phi)
+=-{{\frac{\partial^2}{\partial \theta^2} b(\theta)}\over{a(\phi)}}
+=-{{b''(\theta)}\over{a(\phi)}}\cr
+\Rightarrow\quad
+&{\cal I}(\theta)=E[-H(\theta)]={{b''(\theta)}\over{a(\phi)}}.
+\end{array}
+$$
+From the properties of the score function in Section \@ref(score), 
+we know that $E[U(\theta)]=0$. Therefore
+
+$$
+E\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=0 
+\quad\Rightarrow\quad E[Y]=b'(\theta).
+$$
+
+Furthermore,
+$$
+\text{Var}[U(\theta)]=
+\text{Var}\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=
+{{\text{Var}[Y]}\over{a(\phi)^2}},
+$$
+as $b'(\theta)$ and $a(\phi)$ are constants (not
+random variables).
+Now, we also know from Section \@ref(info) that $\text{Var}[U(\theta)]={\cal I}(\theta)$.
+Therefore,
+$$
+\text{Var}[Y]=a(\phi)^2\text{Var}[U(\theta)]=a(\phi)^2 {\cal I}(\theta)
+= a(\phi)b''(\theta).
+$$
+and hence the mean and variance of a random variable with
+probability density function (or probability function) of
+the form \eqref{eqn:exponential_family}, are $b'(\theta)$ and $a(\phi)b''(\theta)$ respectively.
+
+We often denote the mean by $\mu$, so $\mu=b'(\theta)$.
+The variance is the product of two functions; $b''(\theta)$
+depends on the canonical parameter $\theta$ (and hence $\mu$) only
+and is called the *variance function* ($V(\mu)\equiv b''(\theta)$);
+$a(\phi)$ is sometimes of the form $a(\phi)=\sigma^2/w$ where $w$ is a known
+*weight* and $\sigma^2$ is called the *dispersion parameter*
+or *scale parameter*.
+
+### Example: Normal distribution
+
+Suppose $Y\sim N(\mu, \, \sigma^2)$. Then
+$$\begin{array}{lcl}
+f_Y(y;\mu,\sigma^2)&= & {1\over{\sqrt{2\pi\sigma^2}}}
+\exp\left(-{1\over{2\sigma^2}}(y-\mu)^2\right)\quad\;\; y\in\mathbb{R};\;\;\mu\in\mathbb{R}\cr
+&=& \exp\left({{y\mu-{1\over 2}\mu^2}\over \sigma^2}-{1\over 2}\left[
+{{y^2}\over\sigma^2}+\log(2\pi\sigma^2)\right]\right).
+\end{array}
+$$
+This is in the form \@ref(eq:ef), with $\theta=\mu$, $b(\theta)={1\over 2}\theta^2$,
+$a(\phi)=\sigma^2$ and
+$$c(y,\phi)=-{1\over 2}\left[
+{{y^2}\over{a(\phi)}}+\log(2\pi a[\phi])\right].
+$$
+Therefore
+$$\begin{array}{l}
+E(Y)=b'(\theta)=\theta=\mu\cr
+\text{Var}(Y)=a(\phi)b''(\theta)=\sigma^2\cr
+V(\mu)=1.
+\end{array}
+$$
+
+### Example: Poisson distribution
+
+Suppose $Y\sim \text{Poisson}(\lambda)$. Then
+$$\begin{array}{lcl}
+f_Y(y;\lambda)&=& {{\exp(-\lambda)\lambda^y}\over{y!}}
+\qquad y\in\{0,1,\ldots\};\quad\lambda\in{\cal R}_+\cr
+&=& \exp\left(y\log\lambda-\lambda-\log y!\right)
+\end{array}
+$$
+This is in the form \@ref(eq:ef), with $\theta=\log\lambda$,
+$b(\theta)=\exp\theta$,
+$a(\phi)=1$ and $c(y,\phi)=-\log y!$.
+Therefore
+$$\begin{array}{l}
+E(Y)=b'(\theta)=\exp\theta=\lambda\cr
+\text{Var}(Y)=a(\phi)b''(\theta)=\exp\theta=\lambda\cr
+V(\mu)=\mu.
+\end{array}
+$$
+
+### Example: Bernoulli distribution
+Suppose $Y\sim \text{Bernoulli}(p)$. Then
+$$\begin{array}{lcl}
+f_Y(y;p)&=& p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
+p\in(0,1)\cr
+&=& \exp\left(y\log{p\over{1-p}}+\log(1-p)\right)
+\end{array}
+$$
+This is in the form \@ref(eq:ef), with $\theta=\log{p\over{1-p}}$,
+$b(\theta)=\log(1+\exp\theta)$,
+$a(\phi)=1$ and $c(y,\phi)=0$.
+Therefore
+$$\begin{array}{l}
+E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p\cr
+\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\cr
+V(\mu)=\mu(1-\mu).
+\end{array} $$
+
+### Example: Binomial distribution
+Suppose $Y^*\sim \text{Binomial}(n,p)$.
+Here, $n$ is assumed known (as usual) and
+the random variable $Y= Y^*/n$ is taken as the *proportion*
+of successes, so
+$$\begin{array}{lcl}
+f_Y(y;p)&=&\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\qquad
+y\in\left\{0,{1\over n},{2\over n},\ldots ,1\right\};  \quad p\in(0,1)\cr
+&=& \exp\left({{y\log{p\over{1-p}}+\log(1-p)}\over{1\over n}}
++\log\!\left({n\atop{ny}}\right)\right).
+\end{array}
+$$
+This is in the form \@ref(eq:ef), with $\theta=\log{p\over{1-p}}$,
+$b(\theta)=\log(1+\exp\theta)$,
+$a(\phi)={1\over n}$ and $c(y,\phi)=\log\!\left({n\atop{ny}}\right)$.
+Therefore
+$$\begin{array}{l}
+E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p\cr
+\text{Var}(Y)=a(\phi)b''(\theta)={1\over n}{{\exp\theta}\over{(1+\exp\theta})^2}=
+{{p(1-p)}\over n}\cr
+V(\mu)=\mu(1-\mu).
+\end{array}
+$$
+Here, we can write $a(\phi)\equiv \sigma^2/w$ where the scale parameter
+$\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
+
+
+## Components of a generalised linear model
+
+### The random component
+
+In practical applications, we often distinguish between a *response*
+variable and a group of *explanatory* variables.
+The aim is to determine the pattern of dependence of the response variable
+on the explanatory variables.
+We denote the $n$ observations of the response by
+$\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
+In a generalised linear model (GLM), these are assumed to be observations of
+*independent* random variables $\bm{Y}=(Y_1,Y_2,\ldots ,Y_n)^T$,
+which take the same distribution
+from the exponential family. In other words, the
+functions $a$, $b$ and $c$ and usually the
+scale parameter $\phi$ are the same for all observations, but the
+canonical parameter $\theta$ may differ.
+Therefore, we write
+$$
+f_{Y_i}(y_i;\theta_i,\phi_i)=
+\exp\left({{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++c(y_i,\phi_i)\right)
+$$
+and the joint density for $\bm{Y}=(Y_1,Y_2,\ldots ,Y_n)^T$ is
+\begin{align}
+f_{\bm{Y}}(\bm{y};\bm{\theta},\bm{\phi})
+&= \prod_{i=1}^n f_{Y_i}(y_i;\theta_i,\phi_i) \\
+&= \exp\left(\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++\sum_{i=1}^nc(y_i,\phi_i)\right) (\#eq:glmrandom)
+\end{align}
+where $\bm{\theta}=(\theta_1,\ldots ,\theta_n)^T$ is the collection
+of canonical parameters and $\bm{\phi}=(\phi_1,\ldots ,\phi_n)^T$
+is the collection of nuisance parameters (where they exist).
+
+Note that for a particular sample of observed
+responses, $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$, \@ref(eq:glmrandom) is the likelihood
+function for $\bm{\theta}$ and $\bm{\phi}$.
+
+
+### The systematic (or structural) component
+
+Associated with each $y_i$ is a vector $\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$
+of values of $p$ explanatory variables.
+In a generalised linear model, the distribution of the response variable
+$Y_i$ depends on $\bm{x}_i$ through the *linear predictor* $\eta_i$
+where
+\begin{align*}
+\eta_i &=\beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip} \notag \\
+&= \sum_{j=1}^p x_{ij} \beta_j \notag \\
+&=  \bm{x}_i^T \bm{\beta} \notag \\
+&= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n,
+  (\#eq:glmsys)
+\end{align*}
+where, as with a linear model,
+$$
+\bm{X}=\left( \begin{array} {c} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{array} \right)
+=\left( \begin{array}{ccc}
+x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}\end{array} \right)
+$$
+and
+$\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
+describing the dependence of $Y_i$ on $\bm{x}_i$.
+The four ways of describing the linear predictor in \@ref(eq:glmsys) are equivalent, but
+the most economical is the matrix form
+\begin{equation}
+\bm{\eta}=\bm{X}\bm{\beta}.
+  (\#eq:eta)
+\end{equation}
+
+Again, we call the $n\times p$ matrix $\bm{X}$ the *design matrix*.
+The $i$th row of $\bm{X}$ is $\bm{x}_i^T$, the
+explanatory data corresponding to the $i$th observation of the response.
+The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th
+explanatory variable.
+
+### The link function
+
+For specifying the pattern of dependence of the response variable
+on the explanatory variables, the canonical parameters
+$\theta_1,\ldots,\theta_n$ in \@ref(eq:glmrandom) are not of direct interest.
+Furthermore, we have already specified that the distribution
+of $Y_i$ should depend on $\bm{x}_i$ through the linear predictor $\eta_i$.
+It is the parameters $\beta_1,\ldots ,\beta_p$ of the linear predictor
+which are of primary interest.
+
+The link between the distribution of $\bm{Y}$ and the linear predictor $\bm{\eta}$
+is provided by the *link function* $g$,
+$$
+\eta_i=g(\mu_i)\qquad i = 1, \ldots, n,
+$$
+where $\mu_i\equiv E(Y_i),\;i = 1, \ldots, n$.
+Hence, the dependence of the distribution of the response
+on the explanatory variables is established as
+$$
+g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta}\qquad i = 1, \ldots, n,
+$$
+
+In principle, the link function $g$ can be any one-to-one
+differentiable function. However, we note that $\eta_i$ can in principle
+take any value in $\mathbb{R}$ (as we make no restriction on possible values
+taken by explanatory variables or model parameters).
+However, for some exponential family distributions $\mu_i$ is restricted.
+For example, for the Poisson distribution $\mu_i\in\mathbb{R}_+$;
+for the Bernoulli distribution $\mu_i\in(0,1)$.
+If $g$ is not chosen carefully, then there may exist a possible $\bm{x}_i$
+and $\bm{\beta}$ such that $\eta_i\ne g(\mu_i)$ for any possible value of $\mu_i$.
+Therefore,  'sensible' choices of link function map
+the set of allowed values for $\mu_i$ onto $\mathbb{R}$.
+
+
+Recall that for a random variable $Y$ with a distribution from the
+exponential family, $E(Y)=b'(\theta)$. Hence, for a generalised linear model
+$$
+\mu_i=E(Y_i)=b'(\theta_i)\qquad i = 1, \ldots, n.
+$$
+Therefore
+$$
+\theta_i=b^{'-1}(\mu_i)\qquad i = 1, \ldots, n
+$$
+and as $g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta}$, then
+\begin{equation}
+\theta_i=b^{'-1}(g^{-1}[\bm{x}_i^T\bm{\beta}])\qquad i = 1, \ldots, n.
+(\#eq:thetai)
+\end{equation}
+Hence, we can express the joint density \@ref(eq:glmrandom) in terms of
+the coefficients $\bm{\beta}$, and for observed data $\bm{y}$, this
+is the likelihood $f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})$ for $\bm{\beta}$.
+As $\bm{\beta}$ is our parameter of real interest (describing the
+dependence of the response on the explanatory variables)
+this likelihood will play a crucial role.
+
+Note that considerable simplification is obtained in \@ref(eq:thetai) if
+the functions $g$ and $b^{'-1}$ are identical.
+Then
+$$
+\theta_i=\bm{x}_i^T\bm{\beta}\qquad i = 1, \ldots, n
+$$
+and the resulting likelihood is
+$$
+f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})=
+\exp\left(\sum_{i=1}^n{{y_i\bm{x}_i^T\bm{\beta}-b(\bm{x}_i^T\bm{\beta})}\over{a(\phi_i)}}
++\sum_{i=1}^nc(y_i,\phi_i)\right).
+$$
+The link function
+$$
+g(\mu)\equiv b^{'-1}(\mu)
+$$
+is called the *canonical* link function. Under the canonical link, the
+canonical parameter is equal to the linear predictor.
+
+The canonical link functions are:
+
+| Distribution               | Normal               | Poisson          | Binomial / Bernoulli              |
+|----------------------------|----------------------|------------------|-----------------------------------|
+| $b(\theta)$                | ${1\over 2}\theta^2$ | $\exp\theta$     | $\log(1+\exp\theta)$              |
+| $b'(\theta)\equiv\mu$      | $\theta$             | $\exp\theta$     | $\frac{\exp\theta}{1+\exp\theta}$ |
+| $b^{'-1}(\mu)\equiv\theta$ | $\mu$                | $\log\mu$        | $\log{\frac{\mu}{1-\mu}}$         |
+| Link                       | $g(\mu)=\mu$         | $g(\mu)=\log\mu$ | $g(\mu)=\log{\frac{\mu}{1-\mu}}$  |
+|                            | Identity link        | Log link         | Logistic (Logit) link             |
+
+
+
+### The linear model
+
+Clearly the linear model considered in Section \@ref(sn:lm) is also a generalised linear
+model. We assume ${Y_1,\ldots ,Y_n}$ are independent normally distributed
+random variables. The normal distribution is a member of the
+exponential family.
+
+Furthermore, the explanatory variables enter a linear model
+through the linear predictor
+$$
+\eta_i=\bm{x}_i^T\bm{\beta}\qquad i = 1, \ldots, n.
+$$
+
+Finally, the link between $E(\bm{Y})=\bm{\mu}$ and the linear predictor
+$\bm{\eta}$ is through the (canonical) identity link function
+$$
+\mu_i=\eta_i\qquad i = 1, \ldots, n.
+$$
+
+## Maximum likelihood estimation
+
+The regression coefficients ${\beta_1,\ldots ,\beta_p}$ describe
+the pattern by which the response depends on the explanatory variables.
+We use the observed data ${y_1,\ldots ,y_n}$ to *estimate* this pattern of dependence.
+
+Recall the maximum likelihood estimate (MLE) $\hat{\bm{\beta}}$ of $\bm{\beta}$ is
+the value of $\bm{\beta}$ which maximises ${f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}$ as a function of $\bm{\beta}$.
+Recall also that the MLE has  'good' properties.
+It is intuitively sensible and asymptotically normal and unbiased.
+
+As usual, we maximise the log likelihood function
+which, from \@ref(eq:glmrandom), can be written
+\begin{equation}
+\log f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})=
+\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++\sum_{i=1}^nc(y_i,\phi_i)
+  (\#eq:glmloglikelihood)
+\end{equation}
+and depends on $\bm{\beta}$ through
+$$\begin{array}{l}
+\mu_i=b'(\theta_i)\qquad i = 1, \ldots, n\cr
+g(\mu_i)=\eta_i\qquad i = 1, \ldots, n\cr
+\eta_i=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij}\bm{\eta}a_j\qquad i = 1, \ldots, n.
+\end{array}
+$$
+To find $\hat{\bm{\beta}}$, we consider the scores
+$$
+u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
+\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}\qquad k=1,\ldots ,p
+$$
+and then
+$$\begin{array}{l}
+u_k(\hat{\bm{\beta}})=0\qquad k=1,\ldots ,p\cr
+\Rightarrow\quad  {\bm{u}}(\hat{\bm{\beta}})={\bf 0}.
+\end{array}$$
+
+Now from \@ref(eq:glmloglikelihood)
+$$\begin{array}{ll}
+u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}\cr
+&= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++{\partial\over{\partial\beta_k}}\sum_{i=1}^nc(y_i,\phi_i)\cr
+&= \sum_{i=1}^n{\partial\over{\partial\beta_k}}
+\left[{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}\right]\cr
+&=\sum_{i=1}^n{\partial\over{\partial\theta_i}}\left[{{y_i\theta_i-b(\theta_i)}
+\over{a(\phi_i)}}\right]{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\qquad{k=1,\ldots ,p}\cr
+&= \sum_{i=1}^n{{y_i-b'(\theta_i)}
+\over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\qquad{k=1,\ldots ,p},\cr
+\end{array}
+$$
+where
+$$\begin{array}{ll}
+{{\partial\theta_i}\over{\partial\mu_i}}&=\left[{{\partial\mu_i}\over{\partial\theta_i}}\right]^{-1}
+={1\over{b''(\theta_i)}}\cr
+{{\partial\mu_i}\over{\partial\eta_i}}&=\left[{{\partial\eta_i}\over{\partial\mu_i}}\right]^{-1}
+={1\over{g'(\mu_i)}}\cr
+{{\partial\eta_i}\over{\partial\beta_k}}&=
+{\partial\over{\partial\beta_k}}\sum_{j=1}^p x_{ij}\beta_j=x_{ik}.
+\end{array}$$
+Therefore
+\begin{align}
+u_k(\bm{\beta})&=& \sum_{i=1}^n{{y_i-b'(\theta_i)}\over{a(\phi_i)}}
+{{x_{ik}}\over{b''(\theta_i)g'(\mu_i)}}
+&=&\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\qquad{k=1,\ldots ,p},
+  (\#eq:scoreglm)
+\end{align}
+which depends on $\bm{\beta}$ through $\mu_i\equiv E(Y_i)$ and $\text{Var}(Y_i),$
+$i = 1, \ldots, n$.
+
+In theory, we solve the $p$ simultaneous equations
+$u_k(\hat{\bm{\beta}})=0,\;{k=1,\ldots ,p}$ to evaluate $\hat{\bm{\beta}}$. In practice, these equations are
+usually non-linear and have no analytic solution.
+Therefore, we rely on numerical methods to solve them.
+
+First, we note that the Hessian and Fisher information matrices
+can be derived directly from \@ref(eq:scoreglm).
+$$
+[\bm{H}(\bm{\beta})]_{jk}={{\partial^2}\over{\partial\beta_j\partial\beta_k}}\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}
+={\partial\over{\partial\beta_j}}u_k(\bm{\beta}).
+$$
+Therefore
+$$\begin{array}{ll}
+[\bm{H}(\bm{\beta})]_{jk}
+&={\partial\over{\partial\beta_j}}\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&=\sum_{i=1}^n{{-{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&\hskip 2cm +\sum_{i=1}^n(y_i-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g'(\mu_i)}}\right]\cr
+\end{array}$$
+and
+$$\begin{array}{ll}
+[{\cal I}(\bm{\beta})]_{jk}
+&=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&\hskip 2cm -\sum_{i=1}^n(E[Y_i]-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g'(\mu_i)}}\right]\cr
+&=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&=\sum_{i=1}^n{{x_{ij}x_{ik}}\over{\text{Var}(Y_i)g'(\mu_i)^2}}.
+\end{array}
+$$
+
+Hence we can write
+\begin{equation}
+{\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}
+  (\#eq:infoglm)
+\end{equation}
+where
+$$
+\bm{X}=\left( \begin{array}{c} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{array} \right)
+=\left( \begin{array}{ccc}
+x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}
+\end{array} \right),
+$$
+$$
+\bm{W}={\rm diag}(\bm{w})=
+\left( \begin{array}{cccc}
+w_1&0&\cdots&0\cr
+0&w_2&&\vdots\cr
+\vdots&&\ddots&0\cr
+0&\cdots&0&w_n\cr
+\end{array} \right)
+$$
+and
+$$
+w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}}\qquad i = 1, \ldots, n.
+$$
+The Fisher information matrix $\mathcal{I}(\bm{\beta})$ depends on $\bm{\beta}$
+through $\bm{\mu}$ and $\text{Var}(Y_i),\;i = 1, \ldots, n$.
+
+We notice that the score in \@ref(eq:scoreglm) may now be written as
+$$\begin{array}{ll}
+u_k(\bm{\beta})&=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig'(\mu_i)\cr
+&=\sum_{i=1}^n x_{ik}w_iz_i\qquad{k=1,\ldots ,p},
+\end{array}$$
+where
+$$
+z_i=(y_i-\mu_i)g'(\mu_i)\qquad i = 1, \ldots, n.
+$$
+Therefore
+\begin{equation}
+\bm{u}(\bm{\beta})=\bm{X}^T\bm{W}\bm{z}.
+  (\#eq:scoreglmsimple)
+\end{equation}
+
+One possible method to solve the $p$ simultaneous equations
+${\bm{u}}(\hat{\bm{\beta}})={\bf 0}$ that give $\hat{\bm{\beta}}$ is the
+(multivariate) Newton-Raphson method.
+[Recall that the univariate Newton-Raphson method
+obtains a solution to $u(\beta)=0$ by iteratively updating $\beta^{(m)}$, the
+current estimate of the solution to
+$\beta^{(m+1)}=\beta^{(m)}-[u(\beta^{(m)})/u'(\beta^{(m)})]$.]
+
+If $\bm{\beta}^{(m)}$ is the current estimate of $\hat{\bm{\beta}}$
+then the next estimate is
+\begin{equation}
+\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}-\bm{H}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).
+(\#eq:NRiter)
+\end{equation}
+In practice, an alternative to Newton-Raphson replaces $\bm{H}(\bm{\theta})$ in
+\@ref(eq:NRiter) with $E[\bm{H}(\bm{\theta})]\equiv-\mathcal{I}(\bm{\beta})$.
+Therefore, if $\bm{\beta}^{(m)}$ is the current estimate of $\hat{\bm{\beta}}$
+then the next estimate is
+\begin{equation}
+\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}+{\cal I}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).
+(\#eq:FSiter)
+\end{equation}
+The resulting iterative algorithm is called *Fisher scoring*. 
+Notice that if we substitute \@ref(eq:infoglm) and \@ref(eq:scoreglmsimple) into \@ref(eq:FSiter) we get
+$$\begin{array}{ll}
+\bm{\beta}^{(m+1)}&=\bm{\beta}^{(m)}+[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}[\bm{X}^T\bm{W}^{(m)}\bm{X}\bm{\beta}^{(m)}+\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}]\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{X}\bm{\beta}^{(m)}+\bm{z}^{(m)}]\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}],
+\end{array}$$
+where $\bm{\eta}^{(m)},\,\bm{W}^{(m)}$ and $\bm{z}^{(m)}$ are all functions of $\bm{\beta}^{(m)}$.
+
+Note that this is a weighted least squares equation, that is $\bm{\beta}^{(m+1)}$
+minimises the weighted sum of squares
+$$
+(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})^T\bm{W}(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})=
+\sum_{i=1}^n w_i\left(\eta_i+z_i-\bm{x}_i^T\bm{\beta}\right)^2
+$$
+as a function of $\bm{\beta}$ where $w_1,\ldots ,w_n$ are the weights
+and $\bm{\eta}+\bm{z}$ is called the *adjusted dependent variable*.
+Therefore, the Fisher scoring algorithm proceeds as follows.
+
+1. Choose an initial estimate $\bm{\beta}^{(m)}$ for $\hat{\bm{\beta}}$ at $m=0$.
+1. Evaluate $\bm{\eta}^{(m)},\,\bm{W}^{(m)}$ and $\bm{z}^{(m)}$ at $\bm{\beta}^{(m)}$.
+1. Calculate 
+  \[\bm{\beta}^{(m+1)} =[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}].\]
+1. If $||\bm{\beta}^{(m+1)}-\bm{\beta}^{(m)} ||> \epsilon$, for some prespecified (small) 
+tolerance $\epsilon$ then
+set $m\to m+1$ and go to 2.
+1. Use $\bm{\beta}^{(m+1)}$ as the solution for $\hat{\bm{\beta}}$.
+
+As this algorithm involves iteratively minimising a weighted sum
+of squares, it is sometimes known as *iteratively (re)weighted least squares*.
+
+**Notes**
+
+1. Recall that the canonical link function is 
+ $g(\mu)=b^{'-1}(\mu)$ and with this link $\eta_i=g(\mu_i)=\theta_i$.
+Then
+$$
+{1\over{g'(\mu_i)}}={{\partial\mu_i}\over{\partial\eta_i}}
+={{\partial\mu_i}\over{\partial\theta_i}}=b''(\theta_i)\qquad i = 1, \ldots, n.
+$$
+Therefore $\text{Var}(Y_i)g'(\mu_i)=a(\phi_i)$ which does not depend on $\bm{\beta}$,
+and hence
+$$
+{\partial\over{\partial\beta_j}}\left[{{x_{ik}}\over{\text{Var}(Y_i)g'(\mu_i)}}\right]=0
+$$
+for all $j=1,\ldots ,p$.
+It follows that $\bm{H}(\bm{\theta})=-\mathcal{I}(\bm{\beta})$ and, for the canonical link, Newton-Raphson and
+Fisher scoring are equivalent.
+1. The linear model is a generalised linear model with
+identity link, $\eta_i=g(\mu_i)=\mu_i$ and $\text{Var}(Y_i)=\sigma^2$ for all $i = 1, \ldots, n$.
+Therefore $w_i=[\text{Var}(Y_i)g'(\mu_i)^2]^{-1}=\sigma^{-2}$ and
+$z_i=(y_i-\mu_i)g'(\mu_i)=y_i-\eta_i,\,i = 1, \ldots, n$.
+1. Hence $\bm{z}+\bm{\eta}=\bm{y}$ and $\bm{W}=\sigma^{-2}\bm{I}$, neither of which
+depend on $\bm{\beta}$. Hence, the Fisher scoring algorithm converges in a
+single iteration to the usual least squares estimate.
+1. Estimation of an unknown scale parameter $\sigma^2$ is discussed later.
+A common (to all $i$) $\sigma^2$ has no effect on $\hat{\bm{\beta}}$.
+
+## Inference {#sn:glminfer}
+
+Recall from Section \@ref(sn:asnmle) that the maximum likelihood estimator $\hat{\bm{\beta}}$ is
+asymptotically normally distributed with mean $\bm{\beta}$ (it is unbiased)
+and variance covariance matrix ${\cal I}(\bm{\beta})^{-1}$.
+For  'large enough $n$' we  treat this distribution as
+an approximation.
+
+Therefore, standard errors (estimated standard deviations) are given by
+$$
+s.e.(\hat{\beta}_i)=[{\cal I}(\hat{\bm{\beta}})^{-1}]_{ii}^{{1\over 2}}
+=[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{ii}^{{1\over 2}}
+\qquad i=1,\ldots ,p.
+$$
+where the diagonal matrix $\hat{\bm{W}}={\rm diag}(\hat{\bm{w}})$ is evaluated at
+$\hat{\bm{\beta}}$, that is
+$\hat{w}_i=(\hat{\text{Var}}(Y_i)g'(\hat{\mu}_i)^2)^{-1}$ where $\hat{\mu}_i$
+and $\hat{\text{Var}}(Y_i)$ are evaluated at $\hat{\bm{\beta}}$ for $i = 1, \ldots, n$.
+Furthermore, if $\text{Var}(Y_i)$ depends on an unknown scale parameter,
+then this too must be estimated in the standard error.
+
+The asymptotic distribution of the maximum likelihood estimator can be used to
+provide approximate large sample confidence intervals.
+For given $\alpha$ we can find $z_{1-\frac{\alpha}{2}}$ such that
+$$
+P\left(-z_{1-\frac{\alpha}{2}}\le {{\hat{\beta}_i-\beta_i}\over{[\mathcal{I}(\bm{\beta})^{-1}]_{ii}^{1\over 2}}}\le
+z_{1-\frac{\alpha}{2}}\right) =1-\alpha.
+$$
+Therefore
+$$
+P\left(\hat{\beta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm{\beta})^{-1}]_{ii}^{1\over 2}\le\beta_i
+\le\hat{\beta}_i+z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm{\beta})^{-1}]_{ii}^{1\over 2}
+\right) =1-\alpha.
+$$
+The endpoints of this interval cannot be evaluated
+because they also depend on the unknown parameter vector $\bm{\beta}$.
+However, if we replace ${\cal I}(\bm{\beta})$ by its MLE ${\cal I}(\hat{\bm{\beta}})$
+we obtain the approximate large sample 100$(1-\alpha)$\% confidence interval
+$$
+[\hat{\beta}_i-s.e.(\hat{\beta}_i)z_{1-\frac{\alpha}{2}}\,,\,
+\hat{\beta}_i+s.e.(\hat{\beta}_i)z_{1-\frac{\alpha}{2}}].
+$$
+For $\alpha=0.10,0.05,0.01$, $z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58$, respectively.
+
+## Comparing generalised linear models {#sn:compglm}
+
+
+### The generalised likelihood ratio test {#sn:glmlrt}
+
+If we have a set of competing generalised linear models
+which might explain the dependence of the response
+on the explanatory variables, we will want to determine which of
+the models is most appropriate.
+Recall that we have three main requirements of a statistical model;
+plausibility, parsimony and goodness of fit, of which parsimony
+and goodness of fit are statistical issues.
+
+As with linear models, we proceed by comparing models pairwise
+using a generalised likelihood ratio test.
+This kind of comparison is restricted to situations where
+one of the models, $H_0$, is *nested* in the other, $H_1$.
+Then the asymptotic distribution of the log likelihood ratio statistic
+under $H_0$ is a chi-squared distribution with known degrees of freedom.
+
+For generalised linear models,  'nested' means that $H_0$ and $H_1$ are
+
+1. based on the same exponential family distribution, and
+1. have the same link function, but
+1. the explanatory variables present in $H_0$ are a subset of
+those present in $H_1$.
+
+We will assume that model $H_1$ contains $p$ linear parameters and
+model $H_0$ a subset of $q<p$ of these.
+Without loss of generality, we can think of $H_1$ as the model
+$$
+\eta_i=\sum_{j=1}^p x_{ij} \beta_j \qquad i = 1, \ldots, n
+$$
+and $H_0$ is the same model with
+\begin{center}
+$\beta_{q+1}=\beta_{q+2}=\cdots=\beta_p=0.$
+\end{center}
+Then model $H_0$ is a special case of model $H_1$, where certain coefficients
+are set equal to zero, and therefore
+$\Theta^{(0)}$, the set of values of the canonical parameter $\bm{\theta}$
+allowed by $H_0$, is a subset of $\Theta^{(1)}$, the set of values
+allowed by $H_1$.
+
+
+Now, the log likelihood ratio statistic for a test of $H_0$ against $H_1$ is
+\begin{align}
+L_{01}&\equiv 2\log \left({{\max_{\bm{\theta}\in \Theta^{(1)}}f_{\bm{Y}}(\bm{y};\bm{\theta})}\over
+{\max_{\bm{\theta}\in \Theta^{(0)}}f_{\bm{Y}}(\bm{y};\bm{\theta})}}\right)\cr
+&=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)}),  
+  (\#eq:LRglm)
+\end{align}
+where $\hat{\bm{\theta}}^{(1)}$ and  $\hat{\bm{\theta}}^{(0)}$ follow from
+$b'(\hat{\theta}_i)=\hat{\mu}_i$, $g(\hat{\mu}_i)=\hat{\eta_i}$, $i = 1, \ldots, n$
+where $\hat{\bm{\eta}}$ for each model is the linear predictor evaluated
+at the corresponding maximum likelihood estimate for $\bm{\beta}$.
+Here, we assume that $a(\phi_i),\;i = 1, \ldots, n$ are known; unknown $a(\phi)$ is
+discussed in Section \@ref(sn:unknowndisp).
+
+Recall that we reject $H_0$ in favour of $H_1$ when $L_{01}$ is  'too large'
+(the observed data are much more probable under $H_1$ than $H_0$).
+To determine a threshold value $k$ for $L_{01}$, beyond which we
+reject $H_0$, we set the size of the test $\alpha$
+and use the result of Section \@ref(sn:lrt) that, because $H_0$ is nested in $H_1$,
+$L_{01}$ has an asymptotic chi-squared distribution with $p-q$ degrees
+of freedom. For example, if $\alpha=0.05$, we reject $H_0$ in favour of $H_1$ when
+$L_{01}$ is greater than the 95\% point of the  $\chi^2_{p-q}$ distribution.
+
+Note that setting up our model selection procedure in this way is
+consistent with our desire for parsimony. The simpler model is $H_0$,
+and we do not reject $H_0$ in favour of the more complex model $H_1$
+unless the data provide convincing evidence for $H_1$ over $H_0$, that is unless
+$H_1$ fits the data significantly better.
+
+## Scaled deviance and the saturated model
+
+Consider a model where $\bm{\beta}$ is $n$-dimensional, and therefore
+$\bm{\eta}=\bm{X}\bm{\beta}$. Assuming that $\bm{X}$ is invertible, then this model
+places no constraints on the linear predictor $\bm{\eta}=(\eta_1,\ldots ,\eta_n)$.
+It can take any value in $\mathbb{R}^n$.
+Correspondingly the means $\bm{\mu}$ and the canonical parameters $\bm{\theta}$ are
+unconstrained.
+The model is of dimension $n$ and can be parameterised equivalently
+using $\bm{\beta}$, $\bm{\eta}$, $\bm{\mu}$ or $\bm{\theta}$.
+Such a model is called the *saturated* model.
+
+As the canonical parameters $\bm{\theta}$ are unconstrained, we can calculate their
+maximum likelihood estimates $\hat{\bm{\theta}}$ directly from their likelihood \@ref(eq:glmrandom)
+(without first having to calculate $\hat{\bm{\beta}}$)
+\begin{equation}
+\log f_{\bm{Y}}(\bm{y};\bm{\theta})=\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}
+\over{a(\phi_i)}}+\sum_{i=1}^nc(y_i,\phi_i).
+(\#eq:lsaturated)
+\end{equation}
+We obtain $\hat{\bm{\theta}}$ by first differentiating with respect to
+$\theta_1,\ldots ,\theta_n$ to give
+$$
+{\partial\over{\partial\theta_k}}\log f_{\bm{Y}}(\bm{y};\bm{\theta})={{y_k-b'(\theta_k)}
+\over{a(\phi_k)}}\qquad k=1,\ldots ,n.
+$$
+Therefore $b'(\hat{\theta}_k)=y_k,\;k=1,\ldots ,n$, and it follows immediately
+that $\hat{\mu}_k=y_k,\;k=1,\ldots ,n$. Hence the saturated model fits
+the data perfectly, as the *fitted values* $\hat{\mu}_k$ and observed
+values $y_k$ are the same for every observation $k=1,\ldots ,n$.
+
+The saturated model is rarely of any scientific interest in its own right.
+It is highly parameterised, having as many parameters as there are
+observations. This goes against our desire for parsimony in a model.
+However, every other model is necessarily nested in the saturated model,
+and a test comparing a model $H_0$ against the saturated model $H_S$ can be
+interpreted as a goodness of fit test. If the saturated model, which fits the
+observed data perfectly, does not provide a significantly better fit than
+model $H_0$, we can conclude that $H_0$ is an acceptable fit to the data.
+
+The log likelihood ratio statistic for a test of $H_0$ against $H_S$ is, from \@ref(eq:LRglm)
+$$
+L_{0s}=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)}),
+$$
+where $\hat{\bm{\theta}}^{(s)}$ follows from $b'(\hat{\bm{\theta}})=\hat{\bm{\mu}}=\bm{y}$
+and $\hat{\bm{\theta}}^{(0)}$ is a function of the corresponding maximum likelihood
+estimate for $\bm{\beta}=(\beta_1,\ldots ,\beta_q)^T$.
+Under $H_0$, $L_{0s}$ has an asymptotic chi-squared distribution with
+$n-q$ degrees of freedom. Therefore, if $L_{0s}$ is  'too large'
+(for example, larger than the 95\% point of the $\chi^2_{n-q}$ distribution)
+then we reject $H_0$ as a plausible model for the data, as it does not
+fit the data adequately.
+
+The *degrees of freedom*
+of model $H_0$ is defined to be the degrees of freedom for this test, $n-q$,
+the number of observations minus the number of linear parameters of $H_0$.
+We call $L_{0s}$ the *scaled deviance* (`R` calls it
+the *residual deviance*) of model $H_0$.
+
+From \@ref(eq:LRglm) and \@ref(eq:lsaturated) we can write the deviance of model $H_0$ as
+\begin{equation}
+L_{0s}=2\sum_{i=1}^n{{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
+\over{a(\phi_i)}},
+  (\#eq:dsaturated)
+\end{equation}
+which can be calculated using the observed data, provided that $a(\phi_i),\;
+i = 1, \ldots, n$ is known.
+
+**Notes**
+
+1. The log likelihood ratio statistic \@ref(eq:LRglm) for testing $H_0$
+against a non-saturated alternative $H_1$ can be written as
+\begin{align}
+L_{01}&=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)})\cr
+&=[2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)})]
+-[2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})]\cr
+&=L_{0s}-L_{1s}. 
+  (\#eq:LRsaturated)
+\end{align}
+Therefore the log likelihood ratio statistic for comparing two
+nested models is the difference of their deviances.
+Furthermore, as $p-q=(n-q)-(n-p)$, the degrees of freedom for the test
+is the difference in degrees of freedom of the two models.
+1. The asymptotic theory used to derive the distribution
+of the log likelihood ratio statistic under $H_0$ does not really apply to
+the goodness of fit test (comparison with the saturated model).
+However, for binomial or Poisson data, we can proceed as long as
+the relevant binomial or Poisson distributions are likely to be reasonably
+approximated by normal distributions (*i.e.* for binomials with large
+denominators or Poissons with large means).
+However, for Bernoulli data, we cannot use the scaled deviance as
+a goodness of fit statistic in this way.
+1. An alternative goodness of fit statistic for a model $H_0$ is
+Pearson's $X^2$ given by
+\begin{equation}
+X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\text{Var}}(Y_i)}}.
+  (\#eq:pearsonGoF)
+\end{equation}
+$X^2$ is small when the squared differences
+between observed and fitted values (scaled by variance)
+is small. Hence, large values of $X^2$ correspond to poor fitting models.
+In fact, $X^2$ and $L_{0s}$ are asymptotically equivalent and
+under $H_0$, $X^2$, like $L_{0s}$, has an asymptotic chi-squared distribution with
+$n-q$ degrees of freedom.
+However, the asymptotics associated with $X^2$ are often more reliable
+for small samples, so if there is a discrepancy between
+$X^2$ and $L_{0s}$, it is usually safer to base a test of
+goodness of fit on $X^2$.
+1. Although the deviance for a model is expressed in \@ref(eq:dsaturated) in terms
+of the maximum likelihood estimates of the canonical parameters, it is more
+usual to express it in terms of the maximum likelihood estimates $\hat{\mu}_i,\;
+i = 1, \ldots, n$ of the mean parameters. For the saturated model, these are just
+the observed values $y_i,\;i = 1, \ldots, n$, and for the model of interest, $H_0$,
+we call them the *fitted values*. Hence, for a particular generalised
+linear model, the scaled deviance function describes how discrepancies between
+the observed and fitted values are penalised.
+
+
+
+### Example: Poisson
+
+Suppose $Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n$.
+Recall from Section \@ref(sn:ef) that $\theta=\log\lambda$,
+$b(\theta)=\exp\theta$, $\mu=b'(\theta)=\exp\theta$ and
+$\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu$.
+Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
+$$\begin{array}{ll}
+%L_{0s}&=\sum_{i=1}^n y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+%-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]\cr
+L_{0s}&=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
+-[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
+&=2\sum_{i=1}^n y_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
+-y_i+\hat{\mu}^{(0)}_i\cr
+\end{array}
+$$
+and
+$$
+X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
+$$
+
+### Example: Binomial
+Suppose $n_iY_i\sim$ Binomial$(n_i,p_i),\;i = 1, \ldots, n$.
+Recall from Section \@ref(sn:ef) that $\theta=\log{p\over{1-p}}$,
+$b(\theta)=\log(1+\exp\theta)$,
+$\mu=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}$ and
+$\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)$.
+Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
+$$\begin{array}{ll}
+L_{0s}&=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
+-\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] \cr
+&\hskip 1in + 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
+&=2\sum_{i=1}^n \left[ n_iy_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
++n_i(1-y_i) \log \left({{1-y_i}\over{1-\hat{\mu}^{(0)}_i}}\right) \right]
+\end{array}
+$$
+and
+$$
+X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
+(1-\hat{\mu}^{(0)}_i)}}.
+$$
+Bernoulli data are binomial with $n_i=1,\;i = 1, \ldots, n$.
+
+## Models with unknown $a(\phi)$ {#sn:unknowndisp}
+
+The theory of Section \@ref(sn:compglm) has assumed
+that $a(\phi)$ is known.
+This is the case for both the Poisson distribution ($a(\phi)=1$) and
+the binomial distribution ($a(\phi)=1/n$).
+Neither the scaled deviance \@ref(eq:dsaturated) nor Pearson $X^2$ statistic \@ref(eq:pearsonGoF)
+can be evaluated unless $a(\phi)$ is known.
+Therefore, when $a(\phi)$ is not known, we cannot use the scaled deviance
+as a measure of goodness of fit, or to compare models using \@ref(eq:LRsaturated).
+For such models, there is no equivalent goodness of fit test, but
+we can develop a test for comparing nested models.
+
+Here assume that $a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n$ where $\sigma^2$ is a common unknown
+scale parameter and $m_1,\ldots ,m_n$ are known weights.
+(A normal generalised linear model takes this form, if we assume that
+$\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, in which case $m_i=1,\;i = 1, \ldots, n$.)
+Under this assumption
+\begin{align}
+L_{0s}&={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-m_i[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]\cr
+&={1\over\sigma^2}D_{0s},
+(\#eq:devunknowndisp)
+\end{align}
+where $D_{0s}$ is defined to be twice the sum above, which can
+be calculated using the observed data. We call $D_{0s}$ the
+*deviance* of the model.
+
+In order to test nested models $H_0$ and $H_1$ as set up in
+Section \@ref(sn:glmlrt)
+we calculate the test statistic
+\begin{align}
+&F={{L_{01}/(p-q)}\over{L_{1s}/(n-p)}}={{(L_{0s}-L_{1s})/(p-q)}\over{L_{1s}/(n-p)}}
+\hbox{\hskip 1.2in}\cr
+&\;={{\left({1\over\sigma^2}D_{0s}-{1\over\sigma^2}D_{1s}\right)/(p-q)}
+\over{{1\over\sigma^2}D_{1s}/(n-p)}}
+={{(D_{0s}-D_{1s})/(p-q)}\over{D_{1s}/(n-p)}}.
+(\#eq:LRunknowndisp)
+\end{align}
+This statistic does not depend on the unknown scale parameter $\sigma^2$,
+so can be calculated using the observed data.
+Asymptotically, if $H_0$ is true, we know that $L_{01}$ has
+a $\chi^2_{p-q}$ distribution and $L_{1s}$ has
+a $\chi^2_{n-p}$ distribution. Furthermore, $L_{01}$ and $L_{1s}$ are independent
+(not proved here) so $F$ has an asymptotic F distribution with
+$p-q$ degrees of freedom in the numerator and $n-p$
+degrees of freedom in the denominator. Hence, we compare nested generalised
+linear models by calculating $F$ and rejecting $H_0$ in favour of $H_1$
+if $F$ is too large (for example, greater than the 95\% point of
+the relevant F distribution).
+
+The dependence of the maximum likelihood equations
+ $\bm{u}(\hat{\bm{\beta}})={\bf 0}$
+on $\sigma^2$ (where $\bm{u}$ is given by \@ref(eq:scoreglm)) can be eliminated by multiplying
+through by $\sigma^2$.
+However, inference based on the maximum likelihood estimates, as described
+in Section \@ref(sn:glminfer) does require knowledge of $\sigma^2$.
+This is because asymptotically  $\text{Var}(\hat{\bm{\beta}})$ is the Fisher information
+matrix ${\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}$, and this
+depends on $w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}}$ where
+$\text{Var}(Y_i)=a(\phi_i)b''(\theta_i)=\sigma^2 b''(\theta_i)/m_i$ here.
+
+Therefore, to calculate standard errors and confidence intervals,
+we need to supply an estimate $\sigma^2h$ of $\sigma^2$.
+Generally, we do not use the maximum likelihood estimate.
+Instead, we notice that, from \@ref(eq:devunknowndisp), $L_{0s}=D_{0s}/\sigma^2$, and we know that
+asymptotically, if model $H_0$ is an adequate fit, $L_{0s}$ has a $\chi^2_{n-q}$
+distribution. Hence
+$$
+E(L_{0s})=E\left({1\over{\sigma^2}}D_{0s}\right)=n-q\quad\Rightarrow\quad
+E\left({1\over{n-q}}D_{0s}\right)=\sigma^2.
+$$
+Therefore the deviance of a model divided by its degrees of freedom
+is an asymptotically unbiased estimator of the scale parameter $\sigma^2$.
+Hence $\sigma^2h=D_{0s}/(n-q)$.
+
+An alternative estimator of $\sigma^2$ is based on the Pearson $X^2$ statistic.
+As $\text{Var}(Y)=a(\phi)V(\mu)=\sigma^2 V(\mu)/m$ here, then from \@ref(eq:pearsonGoF)
+\begin{equation}
+X^2={1\over\sigma^2}
+\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i)}}.
+  (\#eq:pearsonGoFunknown)
+\end{equation}
+Again, if $H_0$ is an adequate fit,  $X^2$ has an chi-squared distribution with
+$n-q$ degrees of freedom, so
+$$
+\sigma^2h={1\over{n-q}}
+\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i)}}
+$$
+is an alternative unbiased estimator of $\sigma^2$.
+This estimator tends to be more reliable in small samples.
+
+### Example: Normal
+Suppose $Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n$.
+Recall from Section \@ref(sn:ef) that $\theta=\mu$,
+$b(\theta)=\theta^2/2$,
+$\mu=b'(\theta)=\theta$ and
+$\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1$, so $m_i=1,\;i = 1, \ldots, n$.
+Therefore, by \@ref(eq:devunknowndisp),
+\begin{align}
+D_{0s}&=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
+-[\frac{1}{2}{{\hat{\mu}}^{(s)^2}_i}-\frac{1}{2}{{\hat{\mu}}^{(0)^2}_i}]\cr
+&=\sum_{i=1}^n [y_i-\hat{\mu}^{(0)}_i]^2,
+(\#eq:devnormal)
+\end{align}
+which is just the residual sum of squares for model $H_0$. Therefore, we estimate
+$\sigma^2$ for a normal GLM by its residual sum of squares for the model
+divided by its degrees of freedom.
+From \@ref(eq:pearsonGoFunknown), the estimate for $\sigma^2$ based on $X^2$ is identical.
+
+
+
+## Residuals
+
+Recall that for linear models, we define the residuals
+to be the differences between the observed and fitted values
+$y_i-\hat{\mu}^{(0)}_i,\;i = 1, \ldots, n$. From \@ref(eq:devnormal) we notice that both the
+scaled deviance
+and Pearson $X^2$ statistic for a normal GLM are the sum
+of the squared residuals divided by $\sigma^2$.
+We can generalise this to define residuals
+for other  generalised linear models in a natural way.
+
+For any GLM we define the *Pearson residuals* to be
+$$
+r^P_i={{y_i-\hat{\mu}_i^{(0)}}\over{\hat{\text{Var}}(Y_i)^{1\over 2}}}\qquad i = 1, \ldots, n.
+$$
+Then, from \@ref(eq:pearsonGoF), $X^2$ is the sum of the squared Pearson residuals.
+
+For any GLM we define the *deviance residuals* to be
+$$\begin{array}{ll}
+r^D_i&={\rm sign}(y_i-\hat{\mu}_i^{(0)})
+\left[ 2 {{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
+\over{a(\phi_i)}}\right]^{1\over 2}
+\cr&\hskip 2.5ini = 1, \ldots, n,
+\end{array}$$
+where ${\rm sign}(x)=1$ if $x>0$ and $-1$ if $x<0$.
+Then, from \@ref(eq:dsaturated), the scaled deviance, $L_{0s}$,
+is the sum of the squared deviance residuals.
+
+When $a(\phi)=\sigma^2/m$ and $\sigma^2$ is unknown, as in Section \@ref(sn:unknowndisp),
+the residuals are based on \@ref(eq:devunknowndisp) and \@ref(eq:pearsonGoFunknown), and the expressions above need to be
+multiplied through by $\sigma^2$ to eliminate dependence on the unknown
+scale parameter.
+Therefore, for a normal GLM the Pearson and deviance residuals are both
+equal to the usual residuals, $y_i-\hat{\mu}^{(0)}_i,\;i = 1, \ldots, n$.
+
+Residual plots are most commonly of use in normal linear models, where
+they provide an essential check of the model assumptions.
+This kind of check is less important for a model without an unknown
+scale parameter as the scaled deviance provides a useful overall assessment
+of fit which takes into account most aspects of the model.
+
+However, when data have been collected in serial order, a plot of the
+deviance or Pearson residuals against the order may again be used as
+a check for potential serial correlation.
+
+Otherwise, residual plots are most useful when a model fails to fit
+(scaled deviance is too high).
+Then, examining the residuals may give an indication of the
+reason(s) for lack of fit.
+For example, there may be a small number of outlying observations.
+
+A plot of deviance or Pearson residuals against the linear predictor
+should produce something that looks like a random scatter. If not,
+then this may be due to incorrect link function, wrong scale for an explanatory
+variable, or perhaps a missing polynomial term in an explanatory variable.
+
+
+## Example: Binary Regression
+
+ In binary regression the data either follow the binomial or
+the  Bernoulli distribution (equivalently). The objective is to model
+the success probability $p$ as a function of the covariates.
+Because $p(\bm{x})$ is a probability we think of it as the cumulative distribution
+function (cdf) of a random variable. For the logit link the random variable follows the
+logistic distribution. But we can use the cdfs of other
+random variables such as the standard
+normal and the log-Weibull distribution to model the probability $p(\bm{x})$.
+These will still fall under the glm but with different link functions.
+
+
+When the canonical link, i.e., the logit,  is used we have
+$$
+\theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
+$$
+This implies
+$$
+p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
+$$
+This is the cdf of the logistic distribution taking values in the real line
+$(-\infty < \eta < \infty)$. It can be easily verified that
+$F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is a cdf of a random variable since it is
+non-negative and  increases  monotonically to 1 from zero. The logistic distribution
+behaves almost like the $t$-distribution with 8-degrees of freedom.
+
+
+If we use the cdf of the standard normal distribution to model the $p(\bm{x})$ we get
+what is called the probit link. For this link we set
+$$
+p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
+$$
+where $\Phi(\cdot)$ is the cdf of the standard normal distribution.
+Note that for this the link function
+$$
+g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
+$$
+is called the probit link.
+
+
+The cdf of the log-Weibull distribution is given by:
+$$
+p = 1 - e^{-e^{\eta}}, -\infty < \eta < \infty.
+$$
+It is easy to verify that this defines a cdf.  Solving back we get
+$$
+\eta = \log \{ - \log(1-p) \}.
+$$
+This is called the complimentary log-log link function.
+
+For the logit and probit link functions the cdf's are symmetric about 1/2. However,
+this is not the case for the complimentary log-log link. Hence this should be
+used when  asymmetry as a function of the linear predictor
+is suspected. The logistic distribution is heavier tailed than the
+standard normal distribution, hence the logit link is often used when outliers are
+suspected in the linear predictor.
+
+
+
+
