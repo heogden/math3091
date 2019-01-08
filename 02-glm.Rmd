@@ -304,15 +304,11 @@ canonical parameter is equal to the linear predictor.
 
 The canonical link functions are:
 
-| Distribution               | Normal               | Poisson          | Binomial / Bernoulli              |
-|----------------------------|----------------------|------------------|-----------------------------------|
-| $b(\theta)$                | ${1\over 2}\theta^2$ | $\exp\theta$     | $\log(1+\exp\theta)$              |
-| $b'(\theta)\equiv\mu$      | $\theta$             | $\exp\theta$     | $\frac{\exp\theta}{1+\exp\theta}$ |
-| $b^{'-1}(\mu)\equiv\theta$ | $\mu$                | $\log\mu$        | $\log{\frac{\mu}{1-\mu}}$         |
-| Link                       | $g(\mu)=\mu$         | $g(\mu)=\log\mu$ | $g(\mu)=\log{\frac{\mu}{1-\mu}}$  |
-|                            | Identity link        | Log link         | Logistic (Logit) link             |
-
-
+| Distribution | $b(\theta)$ | $b'(\theta)\equiv\mu$ | $b^{'-1}(\mu)\equiv\theta$ | Link | Name |
+|-------------------------|-------------------------|-----------------------|-------------------------|--------------------------------| -------------------- |
+| Normal | ${1\over 2}\theta^2$ | $\theta$ | $\mu$ | $g(\mu)=\mu$ | Identity |
+| Poisson | $\exp\theta$ | $\exp\theta$ | $\log\mu$ | $g(\mu)=\log\mu$ | Log |
+| Binomial | $\log(1+\exp\theta)$ | $\frac{\exp\theta}{1+\exp\theta}$ | $\log{\frac{\mu}{1-\mu}}$ | $g(\mu)=\log{\frac{\mu}{1-\mu}}$ | Logit |
 
 ### The linear model
 
