@@ -16,14 +16,14 @@ The density \@ref(eq:ef) can be thought of as a likelihood resulting from a sing
 observation $y$. Then
 $$
 \begin{array}{ll}
-& \log f_Y(y;\theta,\phi)={{y\theta-b(\theta)}\over{a(\phi)}}
+& \ell(\theta,\phi)={{y\theta-b(\theta)}\over{a(\phi)}}
 +c(y,\phi)\cr
 \Rightarrow\quad
-& u(\theta)=\frac{\partial}{\partial \theta}\log f_Y(y;\theta,\phi)
+& u(\theta)=\frac{\partial}{\partial \theta}\ell(\theta,\phi)
 ={{y-\frac{\partial}{\partial \theta} b(\theta)}\over{a(\phi)}}
 ={{y- b'(\theta)}\over{a(\phi)}}\cr
 \Rightarrow\quad
-&H(\theta)=\frac{\partial^2}{\partial \theta^2}\log f_Y(y;\theta,\phi)
+&H(\theta)=\frac{\partial^2}{\partial \theta^2}\ell(\theta,\phi)
 =-{{\frac{\partial^2}{\partial \theta^2} b(\theta)}\over{a(\phi)}}
 =-{{b''(\theta)}\over{a(\phi)}}\cr
 \Rightarrow\quad
@@ -343,7 +343,7 @@ It is intuitively sensible and asymptotically normal and unbiased.
 As usual, we maximise the log likelihood function
 which, from \@ref(eq:glmrandom), can be written
 \begin{equation}
-\log f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})=
+\ell(\bm{\beta},\bm{\phi})=
 \sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
 +\sum_{i=1}^nc(y_i,\phi_i)
   (\#eq:glmloglikelihood)
@@ -358,7 +358,7 @@ $$
 To find $\hat{\bm{\beta}}$, we consider the scores
 $$
 u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
-\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}\qquad k=1,\ldots ,p
+\ell(\bm{\beta},\bm{\phi})\qquad k=1,\ldots ,p
 $$
 and then
 $$\begin{array}{l}
@@ -368,7 +368,7 @@ u_k(\hat{\bm{\beta}})=0\qquad k=1,\ldots ,p\cr
 
 Now from \@ref(eq:glmloglikelihood)
 $$\begin{array}{ll}
-u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}\cr
+u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
 &= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
 +{\partial\over{\partial\beta_k}}\sum_{i=1}^nc(y_i,\phi_i)\cr
 &= \sum_{i=1}^n{\partial\over{\partial\beta_k}}
@@ -409,7 +409,7 @@ Therefore, we rely on numerical methods to solve them.
 First, we note that the Hessian and Fisher information matrices
 can be derived directly from \@ref(eq:scoreglm).
 $$
-[\bm{H}(\bm{\beta})]_{jk}={{\partial^2}\over{\partial\beta_j\partial\beta_k}}\log{f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}
+[\bm{H}(\bm{\beta})]_{jk}={{\partial^2}\over{\partial\beta_j\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})
 ={\partial\over{\partial\beta_j}}u_k(\bm{\beta}).
 $$
 Therefore
@@ -651,9 +651,9 @@ allowed by $H_1$.
 
 Now, the log likelihood ratio statistic for a test of $H_0$ against $H_1$ is
 \begin{align}
-L_{01}&\equiv 2\log \left({{\max_{\bm{\theta}\in \Theta^{(1)}}f_{\bm{Y}}(\bm{y};\bm{\theta})}\over
-{\max_{\bm{\theta}\in \Theta^{(0)}}f_{\bm{Y}}(\bm{y};\bm{\theta})}}\right)\cr
-&=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)}),  
+L_{01}&\equiv 2\log \left({{\max_{\bm{\theta}\in \Theta^{(1)}} L(\bm{\theta})}\over
+{\max_{\bm{\theta}\in \Theta^{(0)}}L(\bm{\theta})}}\right)\cr
+&=2\log L(\hat{\bm{\theta}}^{(1)})-2\log L(\hat{\bm{\theta}}^{(0)}),  
   (\#eq:LRglm)
 \end{align}
 where $\hat{\bm{\theta}}^{(1)}$ and  $\hat{\bm{\theta}}^{(0)}$ follow from
@@ -694,14 +694,14 @@ As the canonical parameters $\bm{\theta}$ are unconstrained, we can calculate th
 maximum likelihood estimates $\hat{\bm{\theta}}$ directly from their likelihood \@ref(eq:glmrandom)
 (without first having to calculate $\hat{\bm{\beta}}$)
 \begin{equation}
-\log f_{\bm{Y}}(\bm{y};\bm{\theta})=\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}
+\ell(\bm{\theta})=\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}
 \over{a(\phi_i)}}+\sum_{i=1}^nc(y_i,\phi_i).
 (\#eq:lsaturated)
 \end{equation}
 We obtain $\hat{\bm{\theta}}$ by first differentiating with respect to
 $\theta_1,\ldots ,\theta_n$ to give
 $$
-{\partial\over{\partial\theta_k}}\log f_{\bm{Y}}(\bm{y};\bm{\theta})={{y_k-b'(\theta_k)}
+{\partial\over{\partial\theta_k}}\ell(\bm{\theta})={{y_k-b'(\theta_k)}
 \over{a(\phi_k)}}\qquad k=1,\ldots ,n.
 $$
 Therefore $b'(\hat{\theta}_k)=y_k,\;k=1,\ldots ,n$, and it follows immediately
@@ -720,7 +720,7 @@ model $H_0$, we can conclude that $H_0$ is an acceptable fit to the data.
 
 The log likelihood ratio statistic for a test of $H_0$ against $H_S$ is, from \@ref(eq:LRglm)
 $$
-L_{0s}=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)}),
+L_{0s}=2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)}),
 $$
 where $\hat{\bm{\theta}}^{(s)}$ follows from $b'(\hat{\bm{\theta}})=\hat{\bm{\mu}}=\bm{y}$
 and $\hat{\bm{\theta}}^{(0)}$ is a function of the corresponding maximum likelihood
@@ -752,9 +752,9 @@ i = 1, \ldots, n$ is known.
 1. The log likelihood ratio statistic \@ref(eq:LRglm) for testing $H_0$
 against a non-saturated alternative $H_1$ can be written as
 \begin{align}
-L_{01}&=2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)})\cr
-&=[2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(0)})]
--[2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(s)})-2\log f_{\bm{Y}}(\bm{y};\hat{\bm{\theta}}^{(1)})]\cr
+L_{01}&=2\log L(\hat{\bm{\theta}}^{(1)})-2\log L(\hat{\bm{\theta}}^{(0)})\cr
+&=[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)})]
+-[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(1)})]\cr
 &=L_{0s}-L_{1s}. 
   (\#eq:LRsaturated)
 \end{align}
@@ -806,8 +806,6 @@ $b(\theta)=\exp\theta$, $\mu=b'(\theta)=\exp\theta$ and
 $\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu$.
 Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
 $$\begin{array}{ll}
-%L_{0s}&=\sum_{i=1}^n y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
-%-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]\cr
 L_{0s}&=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
 -[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
 &=2\sum_{i=1}^n y_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
