@@ -28,7 +28,7 @@ job_table <- xtabs(Count ~ Income + Satisfaction, data = job)
 \begin{tabular}{lrrrr}
 \toprule
   & \multicolumn{4}{c}{Job Satisfaction} \\
-Income (\$)  & Very Dissatisfied & A Little Dissatisfied & Moderately Satisfied & Very Satisfied\\
+Income (\$) & Very Dissat. & A Little Dissat. & Moderately Sat. & Very Sat. \\
 \midrule
 <6000 & 20 & 24 & 80 & 82\\
 6000-15000 & 22 & 38 & 104 & 125\\
@@ -86,7 +86,7 @@ job_table_margins <- addmargins(job_table)
 \toprule
   & \multicolumn{4}{c}{Job Satisfaction}  & \\
   \cmidrule{2-5}
-Income (\$) & Very Dissatisfied & A Little Dissatisfied & Moderately Satisfied & Very Satisfied & 
+Income (\$) & Very Dissat. & A Little Dissat. & Moderately Sat. & Very Sat. & 
 {\bf Sum}\\
 \midrule
 <6000 & 20 & 24 & 80 & 82 & {\bf 206}\\
