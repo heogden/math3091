@@ -42,38 +42,37 @@ This is a *two-way table*, as there are two classifying variables.
 It might also be describe as a $4\times 4$ contingency table
 (as each of the classifying variables takes one of four possible levels).
 
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill &\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&&\multispan2\hfill \qquad Remission\hfill\cr
-\noalign{\vskip -4 true pt}
-Cell Type&Sex&No&Yes\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&Male&1&4\cr
-\noalign{\vskip -7pt}
-Nodular\cr
-\noalign{\vskip -7pt}
-&Female&2&6\cr
-\noalign{\vskip 4pt}
-&Male&12&1\cr
-\noalign{\vskip -7pt}
-Diffuse\cr
-\noalign{\vskip -7pt}
-&Female&3&1\cr
-\noalign{\vskip 4pt}
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-The  above `lymphoma` dataset, representing 30 lymphoma
-patients classified by cell type of lymphoma, sex and response to treatment, is an example of a
+The `lymphoma` dataset gives information about 30 patients, classified
+by cell type of lymphoma, sex, and response to treatment.
+It may be summarised as
+
+```{r, echo = FALSE}
+lymphoma <- read.csv("datasets/lymphoma.csv")
+lymphoma_table <- xtabs(Count ~ Cell + Sex + Remis, data = lymphoma)
+#kable(rbind(lymphoma_table[1, , ], lymphoma_table[2, , ]), format = "latex", booktabs = TRUE)
+```
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+ & & \multicolumn{2}{c}{Remission} \\
+ \cmidrule{3-4}
+Cell Type & Sex  & No & Yes\\
+\midrule
+\multirow{2}{*}{Diffuse} & Female & 3 & 1\\
+ & Male & 12 & 1\\
+ \midrule
+\multirow{2}{*}{Nodular} & Female & 2 & 6\\
+ & Male & 1 & 4\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This is an example of a
 three-way contingency table. It is a $2\times 2\times 2$ or $2^3$ table.
 
 Each position in a contingency table is called a *cell* and the
 number of individuals in a particular cell is the *cell count*.
+
 Partial classifications derived from the table are called *margins*.
 For a two-way table these are often displayed in the
 margins of the table as below.
@@ -101,26 +100,24 @@ Income (\$) & Very Dissatisfied & A Little Dissatisfied & Moderately Satisfied &
 These are one-way margins as they represent the classification of items by
 a single variable; Income group and Response respectively.
 
-
 For *multiway* tables, higher order margins may be calculated.
 For example, for `lymphoma`, the two-way Cell type/Sex margin is
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&\multispan2\hfill \qquad Cell Type\hfill\cr
-\noalign{\vskip -4 true pt}
-Sex&Nodular&Diffuse\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-Male&5&13\cr
-Female&8&4\cr
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
+```{r, echo = FALSE}
+lymphoma_table_cs <- margin.table(lymphoma_table, c(1, 2))
+#kable(lymphoma_table_cs, format = "latex", booktabs = TRUE)
+```
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+&  \multicolumn{2}{c}{Sex} \\
+\cmidrule{2-3}
+Cell Type  & Female & Male\\
+\midrule
+Diffuse & 4 & 13\\
+Nodular & 8 & 5\\
+\bottomrule
+\end{tabular}
+\end{center}
 
 We can model contingency table data using generalised linear models.
 To do this, we assume that the cell counts are observations
@@ -145,7 +142,7 @@ them. Interpretation of these models will be discussed further in
 Section \@ref(sn:loginter).
 
 The original data structure of the `job` dataset allows
-us to fit a log-linear model for the contitency table
+us to fit a log-linear model for the contingency table
 ```{r, echo = FALSE}
 job <- read.csv("datasets/job.csv")
 knitr::kable(job, format = "markdown")
@@ -157,36 +154,16 @@ the response variable is `Count`, and `Income`
 and `Satisfaction` are explanatory variables.
 
 The original data structure of the `lymphoma` dataset allows
-us to fit a log-linear model for the contitency table
+us to fit a log-linear model for the contingency table
 ```{r, echo = FALSE}
 lymphoma <- read.csv("datasets/lymphoma.csv")
 knitr::kable(lymphoma, format = "markdown")
 ```
 
-\small
-$$\vbox{\halign{\hfill # \quad\hfill &\hfill # \qquad\hfill
-&\hfill # \quad\hfill&\hfill # \quad\hfill&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&&\multispan3\hfill Explanatory variables\hfill\cr
-\noalign{\vskip -7pt}
-Cell ($i$)&Response ($y_i$)\cr
-\noalign{\vskip -7pt}
-&&Cell Type&Sex&Remission\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-1&1&Nodular&Male&No\cr
-2&2&Nodular&Female&No\cr
-3&12&Diffuse&Male&No\cr
-4&3&Diffuse&Female&No\cr
-5&4&Nodular&Male&Yes\cr
-6&6&Nodular&Female&Yes\cr
-7&1&Diffuse&Male&Yes\cr
-8&1&Diffuse&Female&Yes\cr
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
+Again, a log-linear model for the contingency table is a Poisson GLM
+for this data, where in this case
+the response variable is `Cell`, and `Sex`
+and `Remis` are explanatory variables.
 
 ## Multinomial sampling
 
@@ -201,40 +178,25 @@ so the assumption of Poisson sampling is invalid as the sample space
 is bounded. Furthermore, with a fixed total, the observations can no
 longer be observations of independent random variables.
 
-For example, consider the `lymphoma` dataset.
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill &\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&&\multispan2\hfill \qquad Remission\hfill\cr
-\noalign{\vskip -4 true pt}
-Cell Type&Sex&No&Yes\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&Male&1&4\cr
-\noalign{\vskip -7pt}
-Nodular\cr
-\noalign{\vskip -7pt}
-&Female&2&6\cr
-\noalign{\vskip 4pt}
-&Male&12&1\cr
-\noalign{\vskip -7pt}
-Diffuse\cr
-\noalign{\vskip -7pt}
-&Female&3&1\cr
-\noalign{\vskip 4pt}
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
+For example, consider the `lymphoma` contingency table
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+&  \multicolumn{2}{c}{Sex} \\
+\cmidrule{2-3}
+Cell Type  & Female & Male\\
+\midrule
+Diffuse & 4 & 13\\
+Nodular & 8 & 5\\
+\bottomrule
+\end{tabular}
+\end{center}
+
 It may be that these data were collected over a fixed period of time,
 and that in that time there happened to be 30 patients. In this case, the
 Poisson assumption is perfectly valid. However, it may have been decided
 at the outset to collect data on 30 patients, in which case
 the grand total is fixed at 30, and the Poisson assumption is not valid.
-
 
 When the grand total is fixed, a more appropriate distribution for the
 cell counts is the *multinomial* distribution.
