@@ -205,15 +205,15 @@ when a prespecified total of $N$ items are each independently assigned to
 one of $n$ cells, where the probability of being classified into cell
 $i$ is $p_i$, ${i=1,\ldots ,n}$, so $\sum_{i=1}^n p_i=1.$
 The probability function for the multinomial distribution is
-$$\begin{array}{lcl}
-f_{\bm{Y}}(\bm{y};{\bf p})&=&P(Y_1=y_1,\ldots ,Y_n=y_n)\cr
-&=& \left\{\begin{array}{ll}
-N!\prod_{i=1}^n {{p_i^{y_i}}\over{y_i!}} & \mbox{if }
-\displaystyle\sum_{i=1}^n y_i=N\cr
-0&\mbox{otherwise} \  \ \ \ \ \  \ \  (1)
-\end{array}
-\right.
-\end{array}$$
+\begin{align}
+f_{\bm{Y}}(\bm{y};{\bf p})
+&= P(Y_1=y_1,\ldots ,Y_n=y_n) \\
+&= \begin{cases} 
+N!\prod_{i=1}^n \frac{p_i^{y_i}}{y_i!} & \text{if $\sum_{i=1}^n y_i=N$} \\
+0 & \text{otherwise.}
+\end{cases}
+(\#eq:multinom)
+\end{align}
 It is straightforward to see that the binomial is the special
 case of the multinomial with two cells ($n=2$).
 
@@ -253,9 +253,9 @@ explanatory variables.
 However, such a model must preserve $\sum_{i=1}^n \mu_i=N$, the grand total
 which is fixed in advance, by design.
 
-From (1), the log likelihood for a multinomial log-linear model is
+From \@ref(eq:multinom), the log likelihood for a multinomial log-linear model is
 $$
-\log f_{\bm{Y}}(\bm{y};\bm{\mu})=
+\ell(\bm{\mu})=
 \sum_{i=1}^n y_i\log\mu_i -N\log N -\sum_{i=1}^n \log y_i!+\log N!.
 $$
 Therefore, the maximum likelihood estimates $\hat{\bm{\mu}}$ maximise
@@ -266,38 +266,40 @@ $\log\bm{\mu}=\bm{X}\bm{\beta}$ (imposed by the model).
 
 For a Poisson log-linear model,
 $$
-f_{\bm{Y}}(\bm{y};\bm{\mu})=\prod_{i=1}^n {{e^{-\mu_i} \mu_i^{y_i}}\over{y_i!}}.
+L(\bm{\mu})=\prod_{i=1}^n {{e^{-\mu_i} \mu_i^{y_i}}\over{y_i!}}.
 $$
 Therefore,
-$$\begin{array}{ll}
-\log f_{\bm{Y}}(\bm{y};\bm{\mu})&=-\sum_{i=1}^n \mu_i
-+\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i! \ \ \ \ \ \  (2)\cr
+\begin{align}
+\ell(\bm{\mu})&=-\sum_{i=1}^n \mu_i
++\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i! 
+(\#eq:loglinlik)
+\\
 &=-\sum_{i=1}^n \exp(\log\mu_i)
 +\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i!.
-\end{array}
-$$
+\end{align}
 Now any Poisson log-linear model with an intercept can be expressed as
 $$
 \log\mu_i=\alpha + \text{other terms depending on $i$},\qquad {i=1,\ldots ,n}
 $$
 so that
-$$\begin{array}{ll}
-&\qquad{\partial\over{\partial\alpha}}\log f_{\bm{Y}}(\bm{y};\bm{\mu})=-\sum_{i=1}^n \exp(\log\mu_i)
-+\sum_{i=1}^ny_i.\cr
-&\Rightarrow\qquad \sum_{i=1}^n \hat{\mu}_i=\sum_{i=1}^n y_i. \ \ \ \ \ \ \  (3)
-\end{array}
-$$
-From (2), we notice that, at $\alpha=\hat{\alpha}$ the log likelihood takes the
+\begin{align}
+&\qquad{\partial\over{\partial\alpha}} \ell(\bm{\mu})=-\sum_{i=1}^n \exp(\log\mu_i)
++\sum_{i=1}^ny_i. \\
+&\Rightarrow\qquad \sum_{i=1}^n \hat{\mu}_i=\sum_{i=1}^n y_i.
+(\#eq:loglinscore)
+\end{align}
+From \@ref(eq:loglinlik), we notice that, at $\alpha=\hat{\alpha}$ the log likelihood takes the
 form
 $$
-\log f_{\bm{Y}}(\bm{y};{\bm{\mu}})=-\sum_{i=1}^n y_i
+\ell(\bm{\mu})=-\sum_{i=1}^n y_i
 +\sum_{i=1}^ny_i\log{\mu}_i-\sum_{i=1}^n \log y_i!.
 $$
 Hence, when we maximise the log-likelihood, for a Poisson log-linear model with
 intercept, with respect to the other log-linear parameters, we are
 maximising
-$\sum_{i=1}^ny_i\log{\mu}_i$ subject to the constraints $\sum_{i=1}^n
-\mu_i=\sum_{i=1}^n y_i$ from (3) and $\log\bm{\mu}=\bm{X}\bm{\beta}$
+$\sum_{i=1}^ny_i\log{\mu}_i$ subject to the constraints 
+$\sum_{i=1}^n \mu_i=\sum_{i=1}^n y_i$ from \@ref(eq:loglinscore) 
+and $\log\bm{\mu}=\bm{X}\bm{\beta}$
 (imposed by the model).
 
 
@@ -384,7 +386,7 @@ four fixed-total patient subgroups.
 
 When the data are modelled using independent multinomials, then the joint
 distribution of the cell counts $Y_1, \ldots, Y_n$ is the product of terms
-of the same form as (1), one for each fixed-total subgroup.
+of the same form as \@ref(eq:multinom), one for each fixed-total subgroup.
 We call this a distribution a *product multinomial*.
 Each subgroup has its own fixed total.
 The full joint density  is a product of $n$ terms, as before,
