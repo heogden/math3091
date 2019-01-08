@@ -9,32 +9,38 @@ Here, the data are observations of one or more categorical variables
 on each of a number of units (often individuals).
 Therefore, each of the units are *cross-classified* by the categorical
 variables.
-For example, the dataset `job` represents the cross-classification of 901
-individuals according to their income (4 levels) and job satisfaction
-(4 levels).
 
-```{r}
-job <- data.frame()
+For example, the `job` dataset gives the job satisfaction
+and income band of 901
+individuals, from the 1984 General Social Survey.
+The data can be summarised as
+
+```{r, echo = FALSE}
+library(knitr)
+job <- read.csv("datasets/job.csv", stringsAsFactors = FALSE)
+job$Income <- factor(job$Income, levels = c("<6000", "6000-15000", "15000-25000", ">25000"))
+job$Satisfaction <- factor(job$Satisfaction, 
+levels = c("Very Dissatisfied", "A Little Dissatisfied", "Moderately Satisfied", "Very Satisfied"))
+job_table <- xtabs(Count ~ Income + Satisfaction, data = job)
+#kable(job_table, format = "latex", booktabs = TRUE)
 ```
-Could put this in a table in markdown.
-But better would be to read the data into `R` directly.
-Can I get more recent data?
-\begin{tabular}{lcccc}
-\hline \\
-& \multicolumn{4}{c}{Job Satisfaction} \\ \cline{2-5}
-% & \multicolumn{4}{c}{\hline} \\
-& Very & Little & Moderately & Very \\
-Income (US\$) & Dissatisfied & Dissatisfied & Satisfied & Satisfied \\ \hline
-$<$6000  & 20 & 24 & 80 & 82 \\
-6000--15000 & 22 & 38 & 104 & 125 \\
-15000--25000 & 13 & 28 & 81 & 113 \\
-$>$25000 & 7 & 18 & 54 & 92 \\ \hline
-\end{tabular}
-*Source:* 1984 General Social Survey.
 
-A cross-classification table, like the one above is called a *contingency table*. 
+\begin{tabular}{lrrrr}
+\toprule
+  & \multicolumn{4}{c}{Job Satisfaction} \\
+Income (\$)  & Very Dissatisfied & A Little Dissatisfied & Moderately Satisfied & Very Satisfied\\
+\midrule
+<6000 & 20 & 24 & 80 & 82\\
+6000-15000 & 22 & 38 & 104 & 125\\
+15000-25000 & 13 & 28 & 81 & 113\\
+>25000 & 7 & 18 & 54 & 92\\
+\bottomrule
+\end{tabular}
+
+A cross-classification table like the one above is called a *contingency table*. 
 This is a *two-way table*, as there are two classifying variables.
-We also describe the table above as a $4\times 4$ contingency table.
+It might also be describe as a $4\times 4$ contingency table
+(as each of the classifying variables takes one of four possible levels).
 
 \small
 $$\vbox{\halign{\hfill # \qquad\hfill &\hfill # \qquad\hfill
@@ -72,16 +78,24 @@ Partial classifications derived from the table are called *margins*.
 For a two-way table these are often displayed in the
 margins of the table as below.
 
-\begin{tabular}{lcccc|c}
-\hline \\
-& \multicolumn{4}{c}{Job Satisfaction} &  \\ \cline{2-5}
-& Very & Little & Moderately & Very & \\
-Income (US\$) & Dissatisfied & Dissatisfied & Satisfied & Satisfied & Total \\ \hline
-$<$6000  & 20 & 24 & 80 & 82 & {\bf 206} \\
-6000--15000 & 22 & 38 & 104 & 125 & {\bf 289} \\
-15000--25000 & 13 & 28 & 81 & 113 & {\bf 235} \\
-$>$25000 & 7 & 18 & 54 & 92 & {\bf 171}  \\ \hline
-Total & {\bf 62}  & {\bf 108} &   {\bf 319} &   {\bf 412} & {\bf 901} \\ \hline
+```{r, echo = FALSE}
+job_table_margins <- addmargins(job_table)
+#kable(job_table_margins, format = "latex", booktabs = TRUE)
+```
+
+\begin{tabular}{lrrrrr}
+\toprule
+  & \multicolumn{4}{c}{Job Satisfaction}  & \\
+  \cmidrule{2-5}
+Income (\$) & Very Dissatisfied & A Little Dissatisfied & Moderately Satisfied & Very Satisfied & 
+{\bf Sum}\\
+\midrule
+<6000 & 20 & 24 & 80 & 82 & {\bf 206}\\
+6000-15000 & 22 & 38 & 104 & 125 & {\bf 289}\\
+15000-25000 & 13 & 28 & 81 & 113 & {\bf 235}\\
+>25000 & 7 & 18 & 54 & 92 & {\bf 171}\\
+{\bf Sum} & {\bf 62} & {\bf 108} & {\bf 319} & {\bf 412} & {\bf 901} \\
+\bottomrule
 \end{tabular}
 
 These are one-way margins as they represent the classification of items by
@@ -130,30 +144,25 @@ in each cell depends on the classifying variables, and any interactions between
 them. Interpretation of these models will be discussed further in
 Section \@ref(sn:loginter).
 
-Log-linear data structure for the `job` dataset.
+The original data structure of the `job` dataset allows
+us to fit a log-linear model for the contitency table
+```{r, echo = FALSE}
+job <- read.csv("datasets/job.csv")
+knitr::kable(job, format = "markdown")
+```
 
-\begin{tabular}{clrr} \hline
-Cell(i) & income & satis & count ($y_i$) \\ \hline
- 1 &  $<$6000  &  Dissatis  &   20 \\
- 2 &  $<$6000 & L.Dissatis  &   24 \\
- 3 &  $<$6000 &     MSatis  &   80 \\
- 4 &  $<$6000 &   VSatis   &  82 \\
- 5 &   6-15   & Dissatis    & 22 \\
- 6 &   6-15  & L.Dissatis   &  38 \\
- 7 &   6-15  &    MSatis  &  104 \\
- 8 &   6-15  &    VSatis  &  125 \\
- 9 &  15-25  &  Dissatis  &    13 \\
-10 &  15-25 & L.Dissatis  &   28 \\
-11 &  15-25 &     MSatis  &   81 \\
-12 &  15-25 &     VSatis  &  113 \\
-13 & $>$25000 &   Dissatis  &    7 \\
-14 & $>$25000 & L.Dissatis   &  18 \\
-15 & $>$25000 &     MSatis  &  54 \\
-16 & $>$25000 &     VSatis  &   92 \\
-\hline
-\end{tabular}
+A log-linear model for the contingency table is just a Poisson GLM
+for this data, where
+the response variable is `Count`, and `Income`
+and `Satisfaction` are explanatory variables.
 
-Log-linear data structure for the `lymphoma` dataset.
+The original data structure of the `lymphoma` dataset allows
+us to fit a log-linear model for the contitency table
+```{r, echo = FALSE}
+lymphoma <- read.csv("datasets/lymphoma.csv")
+knitr::kable(lymphoma, format = "markdown")
+```
+
 \small
 $$\vbox{\halign{\hfill # \quad\hfill &\hfill # \qquad\hfill
 &\hfill # \quad\hfill&\hfill # \quad\hfill&\hfill # \hfill\cr
@@ -182,7 +191,7 @@ Cell ($i$)&Response ($y_i$)\cr
 ## Multinomial sampling
 
 Although the assumption of Poisson distributed observations is convenient
-for the purposes of modelling, it is often untenable, as a result of
+for the purposes of modelling, it might not be a realistic assumption, because of
 the way in which the data have been collected.
 Frequently, when contingency table data are obtained, the total number of
 observations (the *grand total*, the sum of all the cell counts) is fixed
@@ -307,7 +316,7 @@ $$\begin{array}{ll}
 $$
 Now any Poisson log-linear model with an intercept can be expressed as
 $$
-\log\mu_i=\alpha + {\rm  other terms depending on} i,\qquad {i=1,\ldots ,n}
+\log\mu_i=\alpha + \text{other terms depending on $i$},\qquad {i=1,\ldots ,n}
 $$
 so that
 $$\begin{array}{ll}
