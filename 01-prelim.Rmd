@@ -1064,7 +1064,7 @@ the pattern by which the response depends on the explanatory variables.
 We use the observed data $y_1, \ldots, y_n$ to *estimate* this pattern of dependence.
 
 In least squares estimation, roughly speaking, we choose $\hat{\bm{\beta}}$, the estimates of
-$\bm{\beta}$ to make the fitted values $\hat{E}(\bm Y)=\bm{X}\hat{\bm{\beta}}$ *as close as possible* to the
+$\bm{\beta}$ to make the fitted values $\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}$ *as close as possible* to the
 observed values $\bm{y}$, *i.e.* $\hat{\bm{\beta}}$ minimises the sum of squares
 \begin{align*}
 \sum_{i=1}^n [y_i-E(Y_i)]^2&=\sum_{i=1}^n \left(y_i-\bm{X}_i^T\bm{\beta}\right)^2\cr
@@ -1092,8 +1092,8 @@ $$
 $$
 The corresponding fitted values are
 \begin{align*}
-& & \qquad\hat{E}(\bm Y)=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\cr
-\Rightarrow & & \qquad \hat{E}(Y_i)=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
+& & \hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\cr
+\Rightarrow & & \qquad \hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
 \end{align*}
 Recalling that $\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon}$, we notice that the least squares estimates for
 $\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ are obtained as the difference between the observed
