@@ -715,16 +715,13 @@ of $H_0$ in favour of $H_1$, *i.e.*
 
 As $\bm Y$ is a random variable, there remains the possibility that a hypothesis
 test will produce an erroneous result.
-We define
-\begin{align*}
-\alpha &= \max_{\bm \theta\in\Theta^{(0)}}P(\bm Y\in C;\bm \theta) \\
-\omega(\bm \theta)&= P(\bm Y\in C;\bm \theta)
-\end{align*}
-We call $\alpha$  the *size* (or *significance level*) of the
-test; it is the maximum probability of erroneously rejecting $H_0$, over all
+We define the *size* (or *significance level*) of the test
+\[\alpha = \max_{\bm \theta\in\Theta^{(0)}}P(\bm Y\in C;\bm \theta)\]
+This is the maximum probability of erroneously rejecting $H_0$, over all
 possible distributions for $\bm Y$ implied by $H_0$.
-The function $\omega(\bm \theta)$ is  called the
-*power function*. It represents the probability of rejecting $H_0$
+We also define the power function 
+\[\omega(\bm \theta)= P(\bm Y\in C;\bm \theta)\]
+It represents the probability of rejecting $H_0$
 for a particular value of $\bm \theta$.
 Clearly we would like to find a test with where
 $\omega(\bm \theta)$ is large for every $\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}$, 
