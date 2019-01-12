@@ -12,8 +12,7 @@ variables.
 
 For example, the `job` dataset gives the job satisfaction
 and income band of 901
-individuals, from the 1984 General Social Survey.
-The data can be summarised as
+individuals from the 1984 General Social Survey, as shown in Table \ref{tab:job}.
 
 ```{r, echo = FALSE}
 library(knitr)
@@ -25,6 +24,8 @@ job_table <- xtabs(Count ~ Income + Satisfaction, data = job)
 #kable(job_table, format = "latex", booktabs = TRUE)
 ```
 
+\begin{table}[h]
+\centering
 \begin{tabular}{lrrrr}
 \toprule
   & \multicolumn{4}{c}{Job Satisfaction} \\
@@ -36,22 +37,28 @@ Income (\$) & Very Dissat. & A Little Dissat. & Moderately Sat. & Very Sat. \\
 >25000 & 7 & 18 & 54 & 92\\
 \bottomrule
 \end{tabular}
+\caption{\label{tab:job} The \texttt{job} dataset}
+\end{table}
 
-A cross-classification table like the one above is called a *contingency table*. 
+A cross-classification table like this is called a *contingency table*. 
 This is a *two-way table*, as there are two classifying variables.
 It might also be describe as a $4\times 4$ contingency table
 (as each of the classifying variables takes one of four possible levels).
 
 The `lymphoma` dataset gives information about 30 patients, classified
-by cell type of lymphoma, sex, and response to treatment.
-It may be summarised as
+by cell type of lymphoma, sex, and response to treatment,
+as shown in Table \ref{tab:lymphoma}. This is an example of a
+three-way contingency table. It is a $2\times 2\times 2$ or $2^3$ table.
+
 
 ```{r, echo = FALSE}
 lymphoma <- read.csv("lymphoma.csv")
 lymphoma_table <- xtabs(Count ~ Cell + Sex + Remis, data = lymphoma)
 #kable(rbind(lymphoma_table[1, , ], lymphoma_table[2, , ]), format = "latex", booktabs = TRUE)
 ```
-\begin{center}
+
+\begin{table}[h]
+\centering
 \begin{tabular}{lrrr}
 \toprule
  & & \multicolumn{2}{c}{Remission} \\
@@ -65,10 +72,9 @@ Cell Type & Sex  & No & Yes\\
  & Male & 1 & 4\\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{\label{tab:lymphoma} The \texttt{lymphoma} dataset}
+\end{table}
 
-This is an example of a
-three-way contingency table. It is a $2\times 2\times 2$ or $2^3$ table.
 
 Each position in a contingency table is called a *cell* and the
 number of individuals in a particular cell is the *cell count*.
