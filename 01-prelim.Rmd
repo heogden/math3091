@@ -286,7 +286,7 @@ the probabilities (densities) that they assign to the observed data $y_1, \ldots
 1. Any factors which depend on $y_1, \ldots, y_n$ alone (and not on $\bm \theta$) can be ignored
   when writing down the likelihood. Such factors give no information about the   relative likelihoods of different possible values of $\bm \theta$.
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, independent identically distributed
 (i.i.d.) Bernoulli$(p)$ random
 variables. Here $\theta=(p)$ and
@@ -299,7 +299,7 @@ $$
 
 
 
-#### Normal example {-}
+**Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
@@ -347,7 +347,7 @@ $\ell(\bm \theta)$ with respect to $\theta_1, \ldots, \theta_p$, and solving the
 simultaneous equations. It should also be checked that the stationary point is a
 maximum.
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 Bernoulli$(p)$ random variables. Here $\bm \theta=(p)$ and
 the log-likelihood is
@@ -361,7 +361,7 @@ the log-likelihood is
   $\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0$ 
    everywhere, so the stationary point is clearly a maximum.
 
-#### Normal example {-}
+**Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
  and the log-likelihood is
@@ -451,14 +451,14 @@ E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
 &= {{\partial}\over{\partial\theta_i}} 1 =0.
 \end{align*}
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Here $\bm \theta=(p)$ and
 \[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]
 Since $E[U(p)] = 0$, we must have $E[\bar Y]=p$ (which we already
 know is correct).
 
-#### Normal example {-}
+**Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 $N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
@@ -547,7 +547,7 @@ Now
 &= \text{Var}[U(\bm{\theta})]_{ij}
 \end{align*}
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Here $\bm \theta=(p)$ and
 \begin{align*}
@@ -556,7 +556,7 @@ u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 {\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
 \end{align*}
 
-#### Normal example {-}
+**Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and,
 \begin{align*}
@@ -657,7 +657,7 @@ $$
 $$
 For $\alpha=0.9,0.95,0.99$, $z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58$.
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 If $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables then asymptotically $\hat{p}=\bar y$ has a  $N(p,{p(1-p)}/ n)$
 distribution, and a large sample 95\% confidence interval
@@ -755,7 +755,7 @@ much more probable than any distribution under $H_0$.
 This is intuitively appealing and  tends to produce good tests (large power)
 across a wide range of examples.
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Suppose that we require a size $\alpha$ test of the hypothesis
 $H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
@@ -880,7 +880,7 @@ can be expressed as a quadratic form of normal random variables.
 Therefore, it follows that under $H_0$, the log likelihood ratio
 statistic $L_{01}$ has a $\chi^2_{d_1-d_0}$ distribution.
 
-#### Bernoulli example {-}
+**Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Suppose that we require a size $\alpha$ test of the hypothesis
 $H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
