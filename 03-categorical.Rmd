@@ -17,7 +17,7 @@ The data can be summarised as
 
 ```{r, echo = FALSE}
 library(knitr)
-job <- read.csv("datasets/job.csv", stringsAsFactors = FALSE)
+job <- read.csv("job.csv", stringsAsFactors = FALSE)
 job$Income <- factor(job$Income, levels = c("<6000", "6000-15000", "15000-25000", ">25000"))
 job$Satisfaction <- factor(job$Satisfaction, 
 levels = c("Very Dissatisfied", "A Little Dissatisfied", "Moderately Satisfied", "Very Satisfied"))
@@ -47,7 +47,7 @@ by cell type of lymphoma, sex, and response to treatment.
 It may be summarised as
 
 ```{r, echo = FALSE}
-lymphoma <- read.csv("datasets/lymphoma.csv")
+lymphoma <- read.csv("lymphoma.csv")
 lymphoma_table <- xtabs(Count ~ Cell + Sex + Remis, data = lymphoma)
 #kable(rbind(lymphoma_table[1, , ], lymphoma_table[2, , ]), format = "latex", booktabs = TRUE)
 ```
@@ -144,7 +144,7 @@ Section \@ref(sn:loginter).
 The original data structure of the `job` dataset allows
 us to fit a log-linear model for the contingency table
 ```{r, echo = FALSE}
-job <- read.csv("datasets/job.csv")
+job <- read.csv("job.csv")
 knitr::kable(job, format = "markdown")
 ```
 
@@ -156,7 +156,7 @@ and `Satisfaction` are explanatory variables.
 The original data structure of the `lymphoma` dataset allows
 us to fit a log-linear model for the contingency table
 ```{r, echo = FALSE}
-lymphoma <- read.csv("datasets/lymphoma.csv")
+lymphoma <- read.csv("lymphoma.csv")
 knitr::kable(lymphoma, format = "markdown")
 ```
 

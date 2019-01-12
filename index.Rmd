@@ -11,6 +11,11 @@ link-citations: yes
 description: "The course notes for MATH3012: Statistical Methods II"
 
 ---
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = 'datasets')
+```
+
 # Preface {-}
 ## Aims and Synopsis of MATH3012 {-}
 

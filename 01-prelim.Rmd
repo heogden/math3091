@@ -66,45 +66,70 @@ statistical modeller's task is to 'separate' these out.
 ### `nitric`: Nitric acid
 
 This data set represents 21 successive days of operation of a plant
-oxidising ammonia to nitric acid. The variables `x1`, `x2` and `x3`
-are respectively, flow of air to the plant, temperature of the cooling water
-entering the absorption tower, and concentration of nitric acid in the
-absorbing liquid. The response `y` is ten times the percentage of ingoing
+oxidising ammonia to nitric acid. The response `yield` is ten times the percentage of ingoing
 ammonia that is lost as unabsorbed nitric acid (an indirect measure of the
-yield). These data will be analysed  in worksheet 2 using multiple linear 
-regression models.   
+yield). The aim here is to study how the yield depends on flow of air to the plant (`flow`),
+temperature of the cooling water
+entering the absorption tower (`temp`) and concentration of nitric acid in the
+absorbing liquid (`conc`). Figure \@ref(fig:nitric) gives a plot
+of the data.
 
+```{r nitric, echo = FALSE, fig.pos = "tb", fig.cap = "A pairs plot of the `nitric` data"}
+nitric <- read.csv("nitric.csv")
+pairs(nitric)
+```
+
+These data will be analysed  in worksheet 2 using multiple linear 
+regression models.   
 
 ### `birth`: Weight of newborn babies
 
 This data set contains weights of 24 newborn babies. There are two explanatory 
 variables,  sex and gestational age  in weeks together with the response
 variable, birth weight in grams.  The aim here is to study how birth weight
-depends on sex and  gestational age. This data set will be analysed  in
+depends on sex and  gestational age. Figure \@ref(fig:birth) gives a plot
+of the data.
+
+```{r birth, echo = FALSE, fig.pos = "tb", fig.cap = "The `birth` data"}
+birth <- read.csv("birth.csv")
+plot(birth$Age, birth$Weight, xlab="Age (weeks)", ylab="Birthweight (g)",
+     col = birth$Sex, pch = birth$Sex)
+legend("bottomright", legend = c("Male", "Female"), pch = 1:2, col = 1:2)
+```
+
+This data set will be analysed  in
 worksheet 3 by using the multiple linear regression models that can include
 both categorical and continuous explanatory variables.  
-
-```{r, root.dir = "datasets"}
-birth <- read.table("datasets/birth.txt", header = TRUE)
-head(birth)
-plot(birth$Age, birth$Weight, xlab="Age (weeks)", ylab="Birthweight (g)",
-     col = birth$Sex)
-legend("bottomright", legend = c("Male", "Female"), pch = 1, col = 1:2)
-```
 
 ### `survival`: Time to death
 
 This data set, analysed in worksheet 4,  represents survival 
 times (in 10 hour units) of 48 rats each allocated to one of 12 combinations
-of  3 poisons and 4 treatments. The aim here is to study the analysis of
-variance techniques with multiple factors. 
+of  3 poisons and 4 treatments. The aim here is to study how survival time depends
+on the poison and the treatment, and to determine whether there is an interaction
+between these two categorical variables.
+
+```{r, include = FALSE, fig.pos = "tb", fig.cap = "The `survival` data"}
+survival <- read.csv("survival.csv")
+survival$poison <- as.factor(survival$poison)
+survival$treatment <- as.factor(survival$treatment)
+par(mfrow = c(1, 2))
+plot(time ~ poison + treatment, data = survival)
+```
 
 ### `beetle`: Mortality from carbon disulphide
 
-This data set represents the number of beetles exposed ($n$) and number 
-killed ($y$) in eight groups exposed to different doses ($x$)
+This data set represents the number of beetles exposed (`exposed`) and number 
+killed (`killed`) in eight groups exposed to different doses (`dose`)
 of a particular insecticide. Interest is focussed on how mortality is 
-related to dose. It seems sensible to model the number of beetles 
+related to dose. 
+
+```{r, include = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle
+```
+
+It seems sensible to model the number of beetles 
 killed in each group as the binomial random variable with 
 probability of death depending on dose. 
 This will be discussed in worksheet 5.
@@ -123,34 +148,51 @@ carried out and the name of the orbiter ($S$; coded $1=$ "Atlantis",
 $2=$ "Challenger", $3=$ "Columbia", $4=$ "Discovery").
 The Challenger launch
 temperature on 20th January 1986 was 31F.
-By fitting a **GLM** to this data, we can 
-predict the probability of
+
+```{r, include = FALSE}
+shuttle <- read.csv("shuttle.csv")
+head(shuttle) 
+```
+The aim is to predict the probability of
 O-ring damage at the Challenger launch. 
  This will be discussed in worksheet 6.
-
-
+ 
 ### `heart`: Treatment for heart attack
 
 This data set represents the results of a clinical trial
 to assess the effectiveness of a thrombolytic (clot-busting) treatment
 for patients who have suffered an acute myocardial infarction (heart attack).
-The data set provides the number of patients who did and did not survive
-for 35 days. There are four categorical explanatory variables, representing
+There are four categorical explanatory variables, representing
 
-- the site of infarction, $S$: anterior, inferior or other
-- time between infarction and treatment, $T$: $\le 12$ or $>12$ hours
-- whether the patient was already taking Beta-blocker medication prior to the infarction,
-$B$: yes or no
-- the treatment the patient was given, $R$: active or placebo.
+- the `site` of infarction: anterior, inferior or other
+- the `time` between infarction and treatment: $\le 12$ or $>12$ hours
+- whether the patient was already taking Beta-blocker medication prior to the infarction, `blocker`: yes or no
+- the `treatment` the patient was given: active or placebo.
 
-These data will be analysed in worksheet 7.
+For each combination of these categorical variables, 
+the dataset gives the total number of patients (`n_patients`),
+and the number who survived for
+for 35 days (`n_survived`). The aim is to find out how
+these categorical variables affect a patient's chance
+of survival. These data will be analysed in worksheet 7.
+
+```{r, include = FALSE}
+heart <- read.csv("heart.csv")
+head(heart)
+```
 
 ### `accident`: Road traffic accidents
 
 This example concerns the number of road accidents and the 
 volume of traffic observed on Mill Road and Trumptington 
 Road in Cambridge during morning, midday and afternoon. 
-By fitting a GLM, we should be able to answer questions like:  
+
+```{r, include = FALSE}
+accident <- read.csv("accident.csv")
+head(accident)
+```
+
+We should be able to answer questions like:  
 
 1. Is Mill Road more dangerous than Trumpington Road?
 1. How does time of day affect the rate of road accident? 
@@ -166,28 +208,10 @@ contingency table. The aim here is to study the
 complex dependence structures between the three clasifying factors. 
 This is taken up in worksheet 9. 
 
-### `car`: Car insurance claims
-
-The data set `car` is based on  one-year vehicle insurance policies 
-taken out in 2004-2005. There are 67,856 policies, of which 4624 (6.8\%) 
-had at least one claim. We shall model the probability of at 
-least one claim based on the amount of car usage, the gender, age and the 
-area of residence of the driver, and other factors such as the car body type.
-We should be able to answer questions like 
-
-1. how much more likely the younger drivers are to make claim than the older 
-  drivers? 
-1. Does the area of residence significantly affect the  probability of a claim?
-1. Are female drivers better than male drivers?
-
-### `credit`: Credit scoring
-
-We shall also analyse a  `credit` scoring data set where the response 
-variable takes two values: 1 for credit-worthy and 0 for not. The modelling
-problem here is how the probability of credit-worthiness can be related to
-demographic variables such as age, sex, marital status, occupation and many
-other relevant factors. 
-
+```{r, include = FALSE}
+lymphoma <- read.csv("lymphoma.csv")
+head(lymphoma)
+```
 
 ## Likelihood based statistical theory
 
