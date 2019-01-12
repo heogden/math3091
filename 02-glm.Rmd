@@ -47,14 +47,14 @@ $$
 as $b'(\theta)$ and $a(\phi)$ are constants (not
 random variables).
 Now, we also know from Section \@ref(info) that $\text{Var}[U(\theta)]={\cal I}(\theta)$.
-Therefore,
+Therefore
 $$
 \text{Var}[Y]=a(\phi)^2\text{Var}[U(\theta)]=a(\phi)^2 {\cal I}(\theta)
 = a(\phi)b''(\theta).
 $$
 and hence the mean and variance of a random variable with
 probability density function (or probability function) of
-the form \eqref{eqn:exponential_family}, are $b'(\theta)$ and $a(\phi)b''(\theta)$ respectively.
+the form \@ref(eq:ef), are $b'(\theta)$ and $a(\phi)b''(\theta)$ respectively.
 
 We often denote the mean by $\mu$, so $\mu=b'(\theta)$.
 The variance is the product of two functions; $b''(\theta)$
@@ -198,13 +198,13 @@ of values of $p$ explanatory variables.
 In a generalised linear model, the distribution of the response variable
 $Y_i$ depends on $\bm{x}_i$ through the *linear predictor* $\eta_i$
 where
-\begin{align*}
+\begin{align}
 \eta_i &=\beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip} \notag \\
 &= \sum_{j=1}^p x_{ij} \beta_j \notag \\
 &=  \bm{x}_i^T \bm{\beta} \notag \\
 &= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n,
   (\#eq:glmsys)
-\end{align*}
+\end{align}
 where, as with a linear model,
 $$
 \bm{X}=\left( \begin{array} {c} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{array} \right)

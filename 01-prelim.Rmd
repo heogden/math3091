@@ -1170,7 +1170,7 @@ least squares, a linear model usually involves the unknown *residual variance*
 $\sigma^2$, representing the variability of observations
 about their mean.
 
-We can estimate $\sigma^2$ using maximum likelihood. Maximising \@(eq:lmLikelihood)
+We can estimate $\sigma^2$ using maximum likelihood. Maximising \@ref(eq:lmLikelihood)
 with respect to $\bm{\beta}$ and $\sigma^2$ gives
 $$
 \hat \sigma^2={D\over n}={1\over n}\sum_{i=1}^n \hat{\epsilon}_i^2.
