@@ -294,22 +294,9 @@ $$
 L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}
 $$
 $$
-\log L(p)=n\bar y\log p+n(1-\bar y)\log(1-p).
+\ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
 $$
 
-
-We can plot the log-likelihood function in R
-```{r, bernoulli_loglikelihood}
-loglikelihood <- function(p, y) {
-  y_bar <- mean(y)
-  n <- length(y)
-  n * y_bar * log(p) + n* (1 - y_bar) * log(1 - p)
-} 
-
-y <- c(1, 0, 1, 0, 0, 1, 0, 0, 0, 0)
-curve(loglikelihood(x, y), from = 0, to = 1, 
-      xlab = "p", ylab = "loglikelihood")
-```
 
 
 #### Normal example {-}
@@ -324,7 +311,7 @@ L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
 \end{align*}
 so
-\[\log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
 -{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
 
 
