@@ -435,9 +435,9 @@ contain the Cell type/Sex interaction, and all marginal terms
 (the Cell type main effect, the Sex main effect and the intercept).
 
 Therefore, when analysing product multinomial data using
-a Poisson log-linear model, certain terms must be present in any
-model we fit. Their removal is prohibited. Otherwise the inferences
-do not remain valid.
+a Poisson log-linear model, certain terms **must** be present in any
+model we fit. If they are removed, the inferences would no longer be
+valid.
 
 ## Interpreting log linear models {#sn:loginter}
 
