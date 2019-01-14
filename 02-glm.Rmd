@@ -13,30 +13,22 @@ The parameter $\phi$ is usually assumed known. If it is unknown
 then it is often called the *nuisance* parameter.
 
 The density \@ref(eq:ef) can be thought of as a likelihood resulting from a single
-observation $y$. Then
-$$
-\begin{array}{ll}
-& \ell(\theta,\phi)={{y\theta-b(\theta)}\over{a(\phi)}}
-+c(y,\phi)\cr
-\Rightarrow\quad
-& u(\theta)=\frac{\partial}{\partial \theta}\ell(\theta,\phi)
+observation $y$. Then the log-likelihood is
+\[\ell(\theta,\phi)={{y\theta-b(\theta)}\over{a(\phi)}} +c(y,\phi)\]
+and the score is
+\[u(\theta)=\frac{\partial}{\partial \theta}\ell(\theta,\phi)
 ={{y-\frac{\partial}{\partial \theta} b(\theta)}\over{a(\phi)}}
-={{y- b'(\theta)}\over{a(\phi)}}\cr
-\Rightarrow\quad
-&H(\theta)=\frac{\partial^2}{\partial \theta^2}\ell(\theta,\phi)
+={{y- b'(\theta)}\over{a(\phi)}}.\]
+The Hessian is
+\[H(\theta)=\frac{\partial^2}{\partial \theta^2}\ell(\theta,\phi)
 =-{{\frac{\partial^2}{\partial \theta^2} b(\theta)}\over{a(\phi)}}
-=-{{b''(\theta)}\over{a(\phi)}}\cr
-\Rightarrow\quad
-&{\cal I}(\theta)=E[-H(\theta)]={{b''(\theta)}\over{a(\phi)}}.
-\end{array}
-$$
+=-{{b''(\theta)}\over{a(\phi)}}\]
+so the expected information is
+\[{\cal I}(\theta)=E[-H(\theta)]={{b''(\theta)}\over{a(\phi)}}.\]
 From the properties of the score function in Section \@ref(score), 
 we know that $E[U(\theta)]=0$. Therefore
-
-$$
-E\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=0 
-\quad\Rightarrow\quad E[Y]=b'(\theta).
-$$
+\[E\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=0\]
+so $E[Y]=b'(\theta)$
 
 Furthermore,
 $$
@@ -67,87 +59,76 @@ or *scale parameter*.
 ### Example: Normal distribution
 
 Suppose $Y\sim N(\mu, \, \sigma^2)$. Then
-$$\begin{array}{lcl}
-f_Y(y;\mu,\sigma^2)&= & {1\over{\sqrt{2\pi\sigma^2}}}
+\begin{align*}
+f_Y(y;\mu,\sigma^2)&= {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}(y-\mu)^2\right)\quad\;\; y\in\mathbb{R};\;\;\mu\in\mathbb{R}\cr
-&=& \exp\left({{y\mu-{1\over 2}\mu^2}\over \sigma^2}-{1\over 2}\left[
+&= \exp\left({{y\mu-{1\over 2}\mu^2}\over \sigma^2}-{1\over 2}\left[
 {{y^2}\over\sigma^2}+\log(2\pi\sigma^2)\right]\right).
-\end{array}
-$$
+\end{align*}
 This is in the form \@ref(eq:ef), with $\theta=\mu$, $b(\theta)={1\over 2}\theta^2$,
 $a(\phi)=\sigma^2$ and
 $$c(y,\phi)=-{1\over 2}\left[
 {{y^2}\over{a(\phi)}}+\log(2\pi a[\phi])\right].
 $$
 Therefore
-$$\begin{array}{l}
-E(Y)=b'(\theta)=\theta=\mu\cr
-\text{Var}(Y)=a(\phi)b''(\theta)=\sigma^2\cr
-V(\mu)=1.
-\end{array}
-$$
+\[E(Y)=b'(\theta)=\theta=\mu,\]
+\[\text{Var}(Y)=a(\phi)b''(\theta)=\sigma^2\]
+and
+\[V(\mu)=1.\]
 
 ### Example: Poisson distribution
 
 Suppose $Y\sim \text{Poisson}(\lambda)$. Then
-$$\begin{array}{lcl}
-f_Y(y;\lambda)&=& {{\exp(-\lambda)\lambda^y}\over{y!}}
+\begin{align*}
+f_Y(y;\lambda)&= {{\exp(-\lambda)\lambda^y}\over{y!}}
 \qquad y\in\{0,1,\ldots\};\quad\lambda\in{\cal R}_+\cr
-&=& \exp\left(y\log\lambda-\lambda-\log y!\right)
-\end{array}
-$$
+&= \exp\left(y\log\lambda-\lambda-\log y!\right).
+\end{align*}
 This is in the form \@ref(eq:ef), with $\theta=\log\lambda$,
 $b(\theta)=\exp\theta$,
 $a(\phi)=1$ and $c(y,\phi)=-\log y!$.
 Therefore
-$$\begin{array}{l}
-E(Y)=b'(\theta)=\exp\theta=\lambda\cr
-\text{Var}(Y)=a(\phi)b''(\theta)=\exp\theta=\lambda\cr
-V(\mu)=\mu.
-\end{array}
-$$
+\[E(Y)=b'(\theta)=\exp\theta=\lambda,\]
+\[\text{Var}(Y)=a(\phi)b''(\theta)=\exp\theta=\lambda\]
+and
+\[V(\mu)=\mu.\]
 
 ### Example: Bernoulli distribution
 Suppose $Y\sim \text{Bernoulli}(p)$. Then
-$$\begin{array}{lcl}
-f_Y(y;p)&=& p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
+\begin{align*}
+f_Y(y;p)&= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
 p\in(0,1)\cr
-&=& \exp\left(y\log{p\over{1-p}}+\log(1-p)\right)
-\end{array}
-$$
+&= \exp\left(y\log{p\over{1-p}}+\log(1-p)\right)
+\end{align*}
 This is in the form \@ref(eq:ef), with $\theta=\log{p\over{1-p}}$,
 $b(\theta)=\log(1+\exp\theta)$,
 $a(\phi)=1$ and $c(y,\phi)=0$.
 Therefore
-$$\begin{array}{l}
-E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p\cr
-\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\cr
-V(\mu)=\mu(1-\mu).
-\end{array} $$
+\[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
+\[\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\]
+and
+\[V(\mu)=\mu(1-\mu).\]
 
 ### Example: Binomial distribution
 Suppose $Y^*\sim \text{Binomial}(n,p)$.
 Here, $n$ is assumed known (as usual) and
 the random variable $Y= Y^*/n$ is taken as the *proportion*
 of successes, so
-$$\begin{array}{lcl}
-f_Y(y;p)&=&\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\qquad
+\begin{align*}
+f_Y(y;p)&=\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\qquad
 y\in\left\{0,{1\over n},{2\over n},\ldots ,1\right\};  \quad p\in(0,1)\cr
-&=& \exp\left({{y\log{p\over{1-p}}+\log(1-p)}\over{1\over n}}
+&= \exp\left({{y\log{p\over{1-p}}+\log(1-p)}\over{1\over n}}
 +\log\!\left({n\atop{ny}}\right)\right).
-\end{array}
-$$
+\end{align*}
 This is in the form \@ref(eq:ef), with $\theta=\log{p\over{1-p}}$,
 $b(\theta)=\log(1+\exp\theta)$,
 $a(\phi)={1\over n}$ and $c(y,\phi)=\log\!\left({n\atop{ny}}\right)$.
 Therefore
-$$\begin{array}{l}
-E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p\cr
-\text{Var}(Y)=a(\phi)b''(\theta)={1\over n}{{\exp\theta}\over{(1+\exp\theta})^2}=
-{{p(1-p)}\over n}\cr
-V(\mu)=\mu(1-\mu).
-\end{array}
-$$
+\[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
+\[\text{Var}(Y)=a(\phi)b''(\theta)={1\over n}{{\exp\theta}\over{(1+\exp\theta})^2}=
+{{p(1-p)}\over n}\]
+and
+\[V(\mu)=\mu(1-\mu).\]
 Here, we can write $a(\phi)\equiv \sigma^2/w$ where the scale parameter
 $\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
 
@@ -207,9 +188,9 @@ where
 \end{align}
 where, as with a linear model,
 $$
-\bm{X}=\left( \begin{array} {c} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{array} \right)
-=\left( \begin{array}{ccc}
-x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}\end{array} \right)
+\bm{X}=\begin{pmatrix} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{pmatrix}
+=\begin{pmatrix}
+x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}\end{pmatrix}
 $$
 and
 $\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
@@ -349,25 +330,23 @@ which, from \@ref(eq:glmrandom), can be written
   (\#eq:glmloglikelihood)
 \end{equation}
 and depends on $\bm{\beta}$ through
-$$\begin{array}{l}
-\mu_i=b'(\theta_i)\qquad i = 1, \ldots, n\cr
-g(\mu_i)=\eta_i\qquad i = 1, \ldots, n\cr
-\eta_i=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij}\bm{\eta}a_j\qquad i = 1, \ldots, n.
-\end{array}
-$$
+\begin{align*}
+\mu_i&=b'(\theta_i)\qquad i = 1, \ldots, n\cr
+g(\mu_i)&=\eta_i\qquad i = 1, \ldots, n\cr
+\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij}\bm{\eta}a_j\qquad i = 1, \ldots, n.
+\end{align*}
 To find $\hat{\bm{\beta}}$, we consider the scores
 $$
 u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
 \ell(\bm{\beta},\bm{\phi})\qquad k=1,\ldots ,p
 $$
 and then
-$$\begin{array}{l}
-u_k(\hat{\bm{\beta}})=0\qquad k=1,\ldots ,p\cr
-\Rightarrow\quad  {\bm{u}}(\hat{\bm{\beta}})={\bf 0}.
-\end{array}$$
+\[u_k(\hat{\bm{\beta}})=0\qquad k=1,\ldots ,p\]
+or
+\[{\bm{u}}(\hat{\bm{\beta}})={\bf 0}.\]
 
 Now from \@ref(eq:glmloglikelihood)
-$$\begin{array}{ll}
+\begin{align*}
 u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
 &= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
 +{\partial\over{\partial\beta_k}}\sum_{i=1}^nc(y_i,\phi_i)\cr
@@ -379,17 +358,16 @@ u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
 &= \sum_{i=1}^n{{y_i-b'(\theta_i)}
 \over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
 {{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\qquad{k=1,\ldots ,p},\cr
-\end{array}
-$$
+\end{align*}
 where
-$$\begin{array}{ll}
+\begin{align*}
 {{\partial\theta_i}\over{\partial\mu_i}}&=\left[{{\partial\mu_i}\over{\partial\theta_i}}\right]^{-1}
 ={1\over{b''(\theta_i)}}\cr
 {{\partial\mu_i}\over{\partial\eta_i}}&=\left[{{\partial\eta_i}\over{\partial\mu_i}}\right]^{-1}
 ={1\over{g'(\mu_i)}}\cr
 {{\partial\eta_i}\over{\partial\beta_k}}&=
 {\partial\over{\partial\beta_k}}\sum_{j=1}^p x_{ij}\beta_j=x_{ik}.
-\end{array}$$
+\end{align*}
 Therefore
 \begin{align}
 u_k(\bm{\beta})&=& \sum_{i=1}^n{{y_i-b'(\theta_i)}\over{a(\phi_i)}}
@@ -413,29 +391,26 @@ $$
 ={\partial\over{\partial\beta_j}}u_k(\bm{\beta}).
 $$
 Therefore
-$$\begin{array}{ll}
+\begin{align*}
 [\bm{H}(\bm{\beta})]_{jk}
 &={\partial\over{\partial\beta_j}}\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
 {{x_{ik}}\over{g'(\mu_i)}}\cr
 &=\sum_{i=1}^n{{-{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
-{{x_{ik}}\over{g'(\mu_i)}}\cr
-&\hskip 2cm +\sum_{i=1}^n(y_i-\mu_i){\partial\over{\partial\beta_j}}
+{{x_{ik}}\over{g'(\mu_i)}} +\sum_{i=1}^n(y_i-\mu_i){\partial\over{\partial\beta_j}}
 \left[{{x_{ik}}\over{\text{Var}(Y_i)
-g'(\mu_i)}}\right]\cr
-\end{array}$$
+g'(\mu_i)}}\right]
+\end{align*}
 and
-$$\begin{array}{ll}
+\begin{align*}
 [{\cal I}(\bm{\beta})]_{jk}
 &=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
-{{x_{ik}}\over{g'(\mu_i)}}\cr
-&\hskip 2cm -\sum_{i=1}^n(E[Y_i]-\mu_i){\partial\over{\partial\beta_j}}
+{{x_{ik}}\over{g'(\mu_i)}} -\sum_{i=1}^n(E[Y_i]-\mu_i){\partial\over{\partial\beta_j}}
 \left[{{x_{ik}}\over{\text{Var}(Y_i)
 g'(\mu_i)}}\right]\cr
 &=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
 {{x_{ik}}\over{g'(\mu_i)}}\cr
 &=\sum_{i=1}^n{{x_{ij}x_{ik}}\over{\text{Var}(Y_i)g'(\mu_i)^2}}.
-\end{array}
-$$
+\end{align*}
 
 Hence we can write
 \begin{equation}
@@ -444,19 +419,19 @@ Hence we can write
 \end{equation}
 where
 $$
-\bm{X}=\left( \begin{array}{c} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{array} \right)
-=\left( \begin{array}{ccc}
+\bm{X}=\begin{pmatrix} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{pmatrix}
+=\begin{pmatrix}
 x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}
-\end{array} \right),
+\end{pmatrix},
 $$
 $$
 \bm{W}={\rm diag}(\bm{w})=
-\left( \begin{array}{cccc}
+\begin{pmatrix}
 w_1&0&\cdots&0\cr
 0&w_2&&\vdots\cr
 \vdots&&\ddots&0\cr
-0&\cdots&0&w_n\cr
-\end{array} \right)
+0&\cdots&0&w_n
+\end{pmatrix}
 $$
 and
 $$
@@ -466,10 +441,10 @@ The Fisher information matrix $\mathcal{I}(\bm{\beta})$ depends on $\bm{\beta}$
 through $\bm{\mu}$ and $\text{Var}(Y_i),\;i = 1, \ldots, n$.
 
 We notice that the score in \@ref(eq:scoreglm) may now be written as
-$$\begin{array}{ll}
+\begin{align*}
 u_k(\bm{\beta})&=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig'(\mu_i)\cr
 &=\sum_{i=1}^n x_{ik}w_iz_i\qquad{k=1,\ldots ,p},
-\end{array}$$
+\end{align*}
 where
 $$
 z_i=(y_i-\mu_i)g'(\mu_i)\qquad i = 1, \ldots, n.
@@ -504,12 +479,12 @@ then the next estimate is
 \end{equation}
 The resulting iterative algorithm is called *Fisher scoring*. 
 Notice that if we substitute \@ref(eq:infoglm) and \@ref(eq:scoreglmsimple) into \@ref(eq:FSiter) we get
-$$\begin{array}{ll}
+\begin{align*}
 \bm{\beta}^{(m+1)}&=\bm{\beta}^{(m)}+[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}\cr
 &=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}[\bm{X}^T\bm{W}^{(m)}\bm{X}\bm{\beta}^{(m)}+\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}]\cr
 &=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{X}\bm{\beta}^{(m)}+\bm{z}^{(m)}]\cr
 &=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}],
-\end{array}$$
+\end{align*}
 where $\bm{\eta}^{(m)},\,\bm{W}^{(m)}$ and $\bm{z}^{(m)}$ are all functions of $\bm{\beta}^{(m)}$.
 
 Note that this is a weighted least squares equation, that is $\bm{\beta}^{(m+1)}$
@@ -805,13 +780,12 @@ Recall from Section \@ref(sn:ef) that $\theta=\log\lambda$,
 $b(\theta)=\exp\theta$, $\mu=b'(\theta)=\exp\theta$ and
 $\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu$.
 Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
-$$\begin{array}{ll}
+\begin{align*}
 L_{0s}&=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
 -[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
 &=2\sum_{i=1}^n y_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
--y_i+\hat{\mu}^{(0)}_i\cr
-\end{array}
-$$
+-y_i+\hat{\mu}^{(0)}_i
+\end{align*}
 and
 $$
 X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
@@ -824,14 +798,13 @@ $b(\theta)=\log(1+\exp\theta)$,
 $\mu=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}$ and
 $\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)$.
 Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
-$$\begin{array}{ll}
+\begin{align*}
 L_{0s}&=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
 -\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] \cr
 &\hskip 1in + 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
 &=2\sum_{i=1}^n \left[ n_iy_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
 +n_i(1-y_i) \log \left({{1-y_i}\over{1-\hat{\mu}^{(0)}_i}}\right) \right]
-\end{array}
-$$
+\end{align*}
 and
 $$
 X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
@@ -969,14 +942,14 @@ $$
 Then, from \@ref(eq:pearsonGoF), $X^2$ is the sum of the squared Pearson residuals.
 
 For any GLM we define the *deviance residuals* to be
-$$\begin{array}{ll}
-r^D_i&={\rm sign}(y_i-\hat{\mu}_i^{(0)})
+\begin{align*}
+r^D_i&=\text{sign}(y_i-\hat{\mu}_i^{(0)})
 \left[ 2 {{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
 -[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
 \over{a(\phi_i)}}\right]^{1\over 2}
 \cr&\hskip 2.5ini = 1, \ldots, n,
-\end{array}$$
-where ${\rm sign}(x)=1$ if $x>0$ and $-1$ if $x<0$.
+\end{align*}
+where $\text{sign}(x)=1$ if $x>0$ and $-1$ if $x<0$.
 Then, from \@ref(eq:dsaturated), the scaled deviance, $L_{0s}$,
 is the sum of the squared deviance residuals.
 

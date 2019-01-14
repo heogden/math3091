@@ -400,15 +400,14 @@ with each cell count appearing exactly once.
 
 For example, if the Sex margin is fixed for `lymphoma`,
 then the product multinomial distribution has the form
-\[
-f_{\bm{Y}}(\bm{y};{\bf p})=\displaystyle \left \{ \begin{array}{ll}
+\[f_{\bm{Y}}(\bm{y};{\bf p})=
+\begin{cases}
 N_m!\prod_{i=1}^4 {{p_{mi}^{y_{mi}}}\over{y_{mi}!}}
 N_f!\prod_{i=1}^4 {{p_{fi}^{y_{fi}}}\over{y_{fi}!}} &
-\qquad\quad {\rm if} \displaystyle\sum_{i=1}^4 y_{mi}=N_m {\rm and} 
-\displaystyle\sum_{i=1}^4 y_{fi}=N_f; \\
-0 & {\rm otherwise},
-\end{array}
-\right.
+\text{if $\sum_{i=1}^4 y_{mi}=N_m$ and
+$\sum_{i=1}^4 y_{fi}=N_f$} \\
+0 & \text{otherwise,}
+\end{cases}
 \]
 where $N_m$ and $N_f$ are the two fixed marginal totals (18 and 12
 respectively), $y_{m1},\ldots ,y_{m4}$  are the cell counts for the
@@ -673,39 +672,33 @@ $$
 k=1,\ldots ,c.
 $$
 Therefore
-$$\begin{array}{ll}
-P(R=j,C=k)&=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
-&\qquad\qquad\qquad j=1,\ldots ,r,\quad
-k=1,\ldots ,c,
-\end{array}$$
+\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\qquad j=1,\ldots ,r,\quad
+k=1,\ldots ,c,\]
 so
-$$\begin{array}{ll}
+\begin{align*}
 1&=\sum_{j=1}^r\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
 &={1\over N}\exp[\alpha]\sum_{j=1}^r\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)].
-\end{array}
-$$
+\end{align*}
 Furthermore
-$$\begin{array}{ll}
+\begin{align*}
 P(R=j)&=\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
 &={1\over N}\exp[\alpha]\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)]
 \quad j=1,\ldots,r,
-\end{array}
-$$
+\end{align*}
 and
-$$\begin{array}{ll}
+\begin{align*}
 P(C=k)&=\sum_{j=1}^r\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
 &={1\over N}\exp[\alpha]\exp[\beta_C(k)]\sum_{j=1}^r\exp[\beta_R(j)]
 \quad k=1,\ldots,c.
-\end{array}
-$$
+\end{align*}
 Therefore
-$$\begin{array}{ll}
+\begin{align*}
 P(R=j)P(C=k)&=
 {1\over N}\exp[\alpha]\exp[\beta_C(k)]\exp[\beta_R(j)]\times 1\cr
 &=P(R=j,C=k)\cr
 &\qquad\qquad\qquad j=1,\ldots ,r,\quad
 k=1,\ldots ,c.
-\end{array}$$
+\end{align*}
 Absence of the interaction $RC$ in a log linear
 model implies that $R$ and
 $C$ are independent variables.

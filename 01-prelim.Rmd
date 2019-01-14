@@ -398,9 +398,9 @@ every
 $\bm{a}\ne {\bf 0}$.
 Here
 $$
-\bm{H}(\hat{\mu},\hat \sigma^2)= \left( \begin{array}{cc}
+\bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
 - \frac{n}{\hat \sigma^2 } & 0 \cr
-0   &-\frac{n}{2(\hat \sigma^2)^2} \end{array} \right)
+0   &-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
 $$
 which is clearly negative definite.
 
@@ -568,18 +568,17 @@ u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^
 \end{align*}
 Therefore
 $$
--\bm{H}(\mu,\sigma^2) = \left( \begin{array}{cc}
+-\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
 \frac{n}{\sigma^2} & \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
 \frac{n(\bar y-\mu)}{(\sigma^2)^2}&
  \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
-\end{array}
-\right)
+\end{pmatrix}
 $$
 $$
-{\cal I}(\mu,\sigma^2)= \left( \begin{array}{cc}
+{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
 \frac{n}{\sigma^2} & 0 \cr
 0& \frac{n}{2(\sigma^2)^2}
-\end{array} \right).
+\end{pmatrix}.
 $$
 
 ### Asymptotic distribution of the MLE {#sn:asnmle}
@@ -946,16 +945,16 @@ E(Y_i)&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip}\cr
 where
 $$
 E(\bm Y)=\begin{pmatrix}E(Y_1)\cr\vdots\cr E(Y_n) \end{pmatrix} \qquad
-\bm{X}=\left( \begin{array}{c}
-\bm{X}_1^T \cr
-\vdots
-\cr \bm{X}_n^T \\
-\end{array} \right)
-=\left( \begin{array}{ccc}
+\bm{X}= \begin{pmatrix}
+\bm{X}_1^T \\
+\vdots \\
+\bm{X}_n^T
+\end{pmatrix}
+=\begin{pmatrix}
 x_{11} & \cdots &x_{1p}\cr
 \vdots & \ddots &\vdots\cr
 x_{n1} &\cdots &x_{np}
-\end{array} \right)
+\end{pmatrix}
 $$
 and
 $\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
@@ -977,12 +976,12 @@ $$
 E(Y_i)=\beta_1\qquad i = 1, \ldots, n
 $$
 $$
-\bm{X}=\left( \begin{array}{c}
+\bm{X}=\begin{pmatrix}
 1\cr
 1\cr
 \vdots
 \cr 1
-\end{array} \right)
+\end{pmatrix}
 \qquad
 \bm{\beta}=(\beta_1).
 $$
@@ -995,9 +994,8 @@ $$
 E(Y_i)=\beta_1+\beta_2 x_i\qquad i = 1, \ldots, n
 $$
 $$
-\bm{X}=\left( \begin{array}{cc} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n
-\end{array} \right)
-\qquad \bm{\beta}=\left( \begin{array}{c} \beta_1\cr\beta_2 \end{array} \right)
+\bm{X}=\begin{pmatrix} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n \end{pmatrix}
+\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2 \end{pmatrix}
 $$
 Two explanatory variables; the dummy variable
 and one 'real' variable.
@@ -1007,11 +1005,12 @@ $$
 E(Y_i)=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1}\qquad i = 1, \ldots, n
 $$
 $$
-\bm{X}=\left( \begin{array}{ccccc} 1&x_1&x_1^2&\cdots&x_1^{p-1}\cr
+\bm{X}= \begin{pmatrix}
+1&x_1&x_1^2&\cdots&x_1^{p-1}\cr
 1&x_2&x_2^2&\cdots&x_2^{p-1}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
-1&x_n&x_n^2&\cdots&x_n^{p-1} \end{array} \right)
-\qquad \bm{\beta}=\left( \begin{array}{c} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{array} \right)
+1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix}
+\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
 $$
 $p$ explanatory variables; the dummy variable
 and one 'real' variable, transformed to $p-1$ variables.
@@ -1021,11 +1020,12 @@ $$
 E(Y_i)=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1}\qquad i = 1, \ldots, n
 $$
 $$
-\bm{X}=\left( \begin{array}{ccccc} 1&x_{11}&x_{12}&\cdots&x_{1\,p-1}\cr
+\bm{X}= \begin{pmatrix} 1&x_{11}&x_{12}&\cdots&x_{1\,p-1}\cr
 1&x_{21}&x_{22}&\cdots&x_{2\,p-1}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
-1&x_{n1}&x_{n2}&\cdots&x_{n\,p-1} \end{array} \right)
-\qquad \bm{\beta}=\left( \begin{array}{c} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{array} \right)
+1&x_{n1}&x_{n2}&\cdots&x_{n\,p-1} 
+\end{pmatrix}
+\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
 $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
@@ -1103,25 +1103,20 @@ $$
 \hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}.
 $$
 The corresponding fitted values are
-\begin{align*}
-& & \hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\cr
-\Rightarrow & & \qquad \hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
-\end{align*}
+\[\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
+so
+\[\hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
 Recalling that $\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon}$, we notice that the least squares estimates for
 $\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ are obtained as the difference between the observed
 and fitted values
-\begin{align*}
-& & \qquad\hat{\bm{\epsilon}}=\bm{y}-\bm{X}\hat{\bm{\beta}}\cr
-\Rightarrow & & \qquad\hat{\epsilon}_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.
-\end{align*}
+\[\hat{\bm{\epsilon}}=\bm{y}-\bm{X}\hat{\bm{\beta}}\]
+so
+\[\hat{\epsilon}_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
 ${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$ describe the variability in the observed responses $y_1, \ldots, y_n$ which
 has not been explained by the linear model. It is residual variability, and we call
 ${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$, the residuals.
 We call
-\begin{align*}
-D&= \sum_{i=1}^n \hat{\epsilon}_i^2\cr
-&= \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2
-\end{align*}
+\[D= \sum_{i=1}^n \hat{\epsilon}_i^2 = \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2\]
 the *residual sum of squares* or *deviance* for the linear model.
 It is the actual minimum value attained in the least squares estimation.
 
@@ -1301,12 +1296,13 @@ This form applies for both $\bm \theta\in\Theta^{(0)}$ and $\bm \theta\in\Theta^
 respectively.
 Then the critical region for the generalised likelihood ratio test
 is of the form
-\begin{align*}
-&  \qquad & {{(2\pi D_1/n)^{-{n\over 2}}}\over{(2\pi D_0/n)^{-{n\over 2}}}}>k\cr
-\Rightarrow & &\qquad \left({{D_0}\over{D_1}}\right)^{n\over 2}>k\cr
-\Rightarrow & &\qquad \left({{D_0}\over{D_1}}-1\right){{n-p}\over{p-q}}>k'\cr
-\Rightarrow & &\qquad {{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k'.
-\end{align*}
+\[{{(2\pi D_1/n)^{-{n\over 2}}}\over{(2\pi D_0/n)^{-{n\over 2}}}}>k\]
+so
+\[\left({{D_0}\over{D_1}}\right)^{n\over 2}>k,\]
+and
+\[\left({{D_0}\over{D_1}}-1\right){{n-p}\over{p-q}}>k'\]
+for some $k'$. Rearranging,
+\[{{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k'.\]
 We refer to the left hand side of this inequality as the F-statistic.
 We reject the simpler model $H_0$ in favour of the more complex model $H_1$ if
 $F$ is 'too large'.
