@@ -439,7 +439,8 @@ provided that
 1. The expectation exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-#### Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
+\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
+
 For each $i=1, \ldots, n$
 \begin{align*}
 E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
@@ -450,6 +451,7 @@ E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
 &= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &= {{\partial}\over{\partial\theta_i}} 1 =0.
 \end{align*}
+\end{proof}
 
 **Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
@@ -512,7 +514,7 @@ provided that
 1. The variance exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-#### Proof  (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$) {-}
+\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
 
 For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
 \begin{align*}
@@ -524,7 +526,7 @@ For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
 &= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
 {{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
 &= \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
- {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y \cr
+ {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
 \end{align*}
 
 Now
@@ -546,6 +548,7 @@ Now
 {{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
 &= \text{Var}[U(\bm{\theta})]_{ij}
 \end{align*}
+\end{proof}
 
 **Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
@@ -834,7 +837,7 @@ $$
 has a chi-squared distribution with degrees of freedom equal to the difference in
 the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
 
-#### Proof {-}
+\begin{proof}
 First we note that in the case where $\bm \theta$ is one-dimensional and $\bm \theta=(\theta)$,
 a Taylor series expansion of $\ell(\theta)$  around the
 MLE $\hat{\theta}$ gives
@@ -879,6 +882,7 @@ It can also be shown that under $H_0$  the difference $ L_1-L_0$
 can be expressed as a quadratic form of normal random variables.
 Therefore, it follows that under $H_0$, the log likelihood ratio
 statistic $L_{01}$ has a $\chi^2_{d_1-d_0}$ distribution.
+\end{proof}
 
 **Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
