@@ -46,6 +46,41 @@ This is a *two-way table*, as there are two classifying variables.
 It might also be describe as a $4\times 4$ contingency table
 (as each of the classifying variables takes one of four possible levels).
 
+Each position in a contingency table is called a *cell* and the
+number of individuals in a particular cell is the *cell count*.
+
+Partial classifications derived from the table are called *margins*.
+For a two-way table these are often displayed in the
+margins of the table, as in Table \ref{tab:job_margins}.
+These are one-way margins as they represent the classification of items by
+a single variable; income group and job satisfaction respectively.
+
+```{r, echo = FALSE}
+job_table_margins <- addmargins(job_table)
+#kable(job_table_margins, format = "latex", booktabs = TRUE)
+```
+
+\begin{table}
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+  & \multicolumn{4}{c}{Job Satisfaction}  & \\
+  \cmidrule{2-5}
+Income (\$) & Very Dissat. & A Little Dissat. & Moderately Sat. & Very Sat. & 
+{\bf Sum}\\
+\midrule
+<6000 & 20 & 24 & 80 & 82 & {\bf 206}\\
+6000-15000 & 22 & 38 & 104 & 125 & {\bf 289}\\
+15000-25000 & 13 & 28 & 81 & 113 & {\bf 235}\\
+>25000 & 7 & 18 & 54 & 92 & {\bf 171}\\
+{\bf Sum} & {\bf 62} & {\bf 108} & {\bf 319} & {\bf 412} & {\bf 901} \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:job_margins} A contingency table of the \texttt{job} dataset,
+including one-way margins.}
+\end{table}
+
+
 The `lymphoma` dataset gives information about 30 patients, classified
 by cell type of lymphoma, sex, and response to treatment,
 as shown in Table \ref{tab:lymphoma}. This is an example of a
@@ -77,50 +112,15 @@ Cell Type & Sex  & No & Yes\\
 \end{table}
 
 
-Each position in a contingency table is called a *cell* and the
-number of individuals in a particular cell is the *cell count*.
-
-Partial classifications derived from the table are called *margins*.
-For a two-way table these are often displayed in the
-margins of the table, as in Table \ref{tab:job_margins}.
-These are one-way margins as they represent the classification of items by
-a single variable; Income group and Response respectively.
-
-```{r, echo = FALSE}
-job_table_margins <- addmargins(job_table)
-#kable(job_table_margins, format = "latex", booktabs = TRUE)
-```
-
-\begin{table}
-\centering
-\begin{tabular}{lrrrrr}
-\toprule
-  & \multicolumn{4}{c}{Job Satisfaction}  & \\
-  \cmidrule{2-5}
-Income (\$) & Very Dissat. & A Little Dissat. & Moderately Sat. & Very Sat. & 
-{\bf Sum}\\
-\midrule
-<6000 & 20 & 24 & 80 & 82 & {\bf 206}\\
-6000-15000 & 22 & 38 & 104 & 125 & {\bf 289}\\
-15000-25000 & 13 & 28 & 81 & 113 & {\bf 235}\\
->25000 & 7 & 18 & 54 & 92 & {\bf 171}\\
-{\bf Sum} & {\bf 62} & {\bf 108} & {\bf 319} & {\bf 412} & {\bf 901} \\
-\bottomrule
-\end{tabular}
-\caption{\label{tab:job_margins} A contingency table of the \texttt{job} dataset,
-including one-way margins.}
-\end{table}
-
-
 
 For *multiway* tables, higher order margins may be calculated.
 For example, for `lymphoma`, the two-way Cell type/Sex margin is
-shown in Table \ref{tab:lymphoma_margins}
+shown in Table \ref{tab:lymphoma_margins}.
 ```{r, echo = FALSE}
 lymphoma_table_cs <- margin.table(lymphoma_table, c(1, 2))
 #kable(lymphoma_table_cs, format = "latex", booktabs = TRUE)
 ```
-\begin{table}
+\begin{table}[h]
 \centering
 \begin{tabular}{lrr}
 \toprule
