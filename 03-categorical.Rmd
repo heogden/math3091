@@ -517,57 +517,75 @@ In multiway tables, absence of a two-factor interaction
 does not necessarily mean that the two variables are independent.
 For example, consider the `lymphoma` dataset, with 3 binary classifying
 variables Sex ($S$), Cell type ($C$) and Remission ($R$).
-A reasonable log linear model for these data is $R*C+C*S$.
-Hence the $RS$ interaction is absent. The estimated cell means,
-converted to probabilities, for this model are
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill &\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&&\multispan2\hfill \qquad Remission\hfill\cr
-\noalign{\vskip -4 true pt}
-Cell Type&Sex&No&Yes\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&Male&0.0385&0.1282\cr
-\noalign{\vskip -7pt}
-Nodular\cr
-\noalign{\vskip -7pt}
-&Female&0.0615&0.2051\cr
-\noalign{\vskip 4pt}
-&Male&0.3824&0.0510\cr
-\noalign{\vskip -7pt}
-Diffuse\cr
-\noalign{\vskip -7pt}
-&Female&0.1176&0.0157\cr
-\noalign{\vskip 4pt}
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
-Hence the estimated probabilities for the two-way Sex/Remission
+After comparing the fit of several possible models, we find that a reasonable
+log linear model for these data is $R * C + C * S$.
+Hence the interaction between remission and sex is absent.
+This log-linear model may be fitted in `R` with
+```{r}
+fit <- glm(Count ~ Remis * Cell + Cell * Sex, data = lymphoma, 
+           family = poisson)
+```
+The estimated cell means may be extracted and converted to probabilities
+```{r}
+cell_means <- fitted(fit)
+N <- sum(lymphoma$Count)
+cell_probs <- cell_means/N
+```
+These cell probabilities are shown in Table \ref{tab:lymphoma_p}
+
+```{r, include = FALSE}
+N <- sum(lymphoma$Count)
+p <- fitted(fit)/N
+lymphoma_p_table <- xtabs(p ~ Cell + Sex + Remis, data = lymphoma)
+knitr::kable(rbind(lymphoma_p_table[1, , ], lymphoma_p_table[2, , ]), digits = 4,
+             format = "latex", booktabs = TRUE)
+```
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+ & & \multicolumn{2}{c}{Remission} \\
+ \cmidrule{3-4}
+Cell Type & Sex  & No & Yes\\
+\midrule
+\multirow{2}{*}{Diffuse} & Female & 0.1176 & 0.0157\\
+ & Male & 0.3824 & 0.0510\\
+ \midrule
+\multirow{2}{*}{Nodular} & Female & 0.0615 & 0.2051\\
+ & Male & 0.0385 & 0.1282\\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:lymphoma_p} Fitted probabilities of each cell in the \texttt{lymphoma} dataset.}
+\end{table}
+
+The estimated probabilities for the two-way Sex/Remission
 margin (together with the corresponding one-way margins) are
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\qquad\quad&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&\multispan2\hfill Remission\quad\hfill\cr
-\noalign{\vskip -4 true pt}
-Sex&No&Yes\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-Male&0.4208&0.1792&0.6\cr
-Female&0.1792&0.2208&0.4\cr
-\noalign{\vskip 4pt}
-&0.6&0.4&1\cr
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
+shown in Table \ref{tab:lymphoma_p_margins}.
+
+```{r, include = FALSE}
+lymphoma_p_margins <- margin.table(lymphoma_p_table, margin = c(2, 3))
+lymphoma_p_margins <- addmargins(lymphoma_p_margins)
+knitr::kable(lymphoma_p_margins, digits = 4,
+             format = "latex", booktabs = TRUE)
+```
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+  & \multicolumn{2}{c}{Remission}  & \\
+  \cmidrule{2-3}
+Sex  & No & Yes & {\bf Sum}\\
+\midrule
+Female & 0.1792 & 0.2208 & {\bf 0.4}\\
+Male & 0.4208 & 0.1792 & {\bf 0.6}\\
+\bf{Sum} & {\bf 0.6} & {\bf 0.4} & {\bf 1.0} \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:lymphoma_p_margins} Fitted marginal probabilities for the \texttt{lymphoma} dataset.}
+\end{table}
+
 It can immediately be seen that this model does not imply independence
 of $R$ and $S$, as $\hat{P}(R,S)\ne\hat{P}(R)\hat{P}(S)$.
 What the model $R*C+C*S$ implies is that $R$ is independent of $S$
@@ -582,38 +600,38 @@ $$
 that is, the probability of each level of $R$
 given a particular combination of $S$ and $C$, does not
 depend on which level $S$ takes.
-[Equivalently, we can write $P(S|R,C)=P(S|C)$].
+Equivalently, we can write $P(S|R,C)=P(S|C)$.
 This can be observed by calculating the estimated odds in favour
-of $R=$ yes over $R=$ no for the `lymphoma` dataset.
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill &\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\qquad\qquad&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&&\multispan2\hfill  Remission\qquad\hfill\cr
-\noalign{\vskip -4 true pt}
-Cell Type&Sex&No&Yes&Odds\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&Male&0.0385&0.1282&3.33\cr
-\noalign{\vskip -7pt}
-Nodular\cr
-\noalign{\vskip -7pt}
-&Female&0.0615&0.2051&3.33\cr
-\noalign{\vskip 4pt}
-&Male&0.3824&0.0510&0.13\cr
-\noalign{\vskip -7pt}
-Diffuse\cr
-\noalign{\vskip -7pt}
-&Female&0.1176&0.0157&0.13\cr
-\noalign{\vskip 4pt}
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
-Therefore, the odds depend only on a patient's Cell type, and not on their
+of $R=$ yes over $R=$ no for the `lymphoma` dataset,
+as shown in Table \ref{tab:lymphoma_odds}. 
+The odds depend only on a patient's Cell type, and not on their
 Sex.
+
+
+```{r, include = FALSE}
+p_no <- lymphoma_p_table[, , 1]
+p_yes <- lymphoma_p_table[, , 2]
+odds_yes <- p_yes / p_no
+```
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+ & & \multicolumn{2}{c}{Remission} & \\
+ \cmidrule{3-4}
+Cell Type & Sex  & No & Yes & Odds\\
+\midrule
+\multirow{2}{*}{Diffuse} & Female & 0.1176 & 0.0157 & 0.13\\
+ & Male & 0.3824 & 0.0510 & 0.13\\
+ \midrule
+\multirow{2}{*}{Nodular} & Female & 0.0615 & 0.2051 & 3.33\\
+ & Male & 0.0385 & 0.1282 & 3.33\\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:lymphoma_odds} Fitted probabilities of each cell and odds of remission in the \texttt{lymphoma} dataset.}
+\end{table}
+
 
 In general, if we have an $r$-way contingency table with classifying
 variables $X_1,\ldots ,X_r$, then a log linear model which does not contain the
@@ -633,33 +651,18 @@ or
 $$
 P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
 $$
-Although, for the `lymphoma` dataset,  $R$ and $S$ are conditionally independent given $C$,
-we have already seen that they are not marginally independent.
-\small
-$$\vbox{\halign{\hfill # \qquad\hfill
-&\hfill\qquad # \qquad\hfill&\hfill # \hfill\qquad\qquad&\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&\multispan2\hfill \qquad Remission\hfill\cr
-\noalign{\vskip -4 true pt}
-Sex&No&Yes&Odds\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-Male&0.4208&0.1792&0.43\cr
-Female&0.1792&0.2208&1.23\cr
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
+
+Although for the `lymphoma` dataset,  $R$ and $S$ are conditionally independent given $C$,
+ they are not marginally independent. Using the marginal cell probabilities from Table 
+ \ref{tab:lymphoma_p_margins}, we find that the odds of remission are $0.43$ for
+ men and $1.23$ for women.
 Male patients have a much lower probability of remission.
 The reason for this is that, although $R$ and $S$ are not directly associated,
 they are both associated with $C$.
-Observing the estimated values it is clear that patients with $C=$ nodular
+Observing the estimated values it is clear that patients with nodular cell type
 have a greater probability of remission, and furthermore, that female
 patients are more likely to have this cell type than males.
-Hence females are more likely to have $R=$ yes than males.
-
+Hence women are more likely to have remission than men.
 
 Suppose the factors for a three-way tables are $X_1$, $X_2$ and $X_3$.
 We can list all possible dependence structures using graphs
@@ -678,7 +681,7 @@ the highest order interaction term.
 No more simplification of dependence structure is possible.
 
 Conditional and marginal association of two variables can therefore often
-appear somewhat different. Sometimes, the association can be `reversed'
+appear somewhat different. Sometimes, the association can be 'reversed'
 so that what looks like a positive association marginally,
 becomes a negative association conditionally.
 This is known as *Simpson's paradox*.
@@ -688,20 +691,26 @@ A follow-up survey was carried out 20 years later.
 Among the variables observed in the initial survey was whether or
 not the individual was a smoker and among those in the follow-up survey
 was whether the individual was still alive, or had died in the intervening
-period.
+period. A summary of the responses is shown in Table \ref{tab:odds_smoking}.
 
-\begin{tabular}{cccc} \hline
-Smoker&Dead&Alive&Odds(Dead)\\ \hline
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Smoker&Dead&Alive&Odds (Dead)\\
+\midrule
 Yes & 139 & 443 & 0.31 \\
-No & 230 & 502 & 0.46 \\ \hline
+No & 230 & 502 & 0.46 \\
+\bottomrule
 \end{tabular}
+\caption{\label{tab:odds_smoking} Number of respondents dead or alive at follow up, by smoking status}
+\end{table}
 
-
-Therefore, looking at this table, it appears that the non-smokers had
+Looking at this table, it appears that the non-smokers had
 a greater probability of dying.
 However, there is an important extra variable to be considered, related
 to both smoking habit and mortality -- age (at the time of the initial survey).
-When we consider this variable, we get the table below.
+When we consider this variable, we get Table \ref{tab:odds_smoking_age}.
 Conditional on every age at outset, it is now the smokers
 who have a higher probability of dying.
 The marginal association is reversed in the table conditional on age,
@@ -709,56 +718,29 @@ because mortality (obviously) and smoking are associated with age.
 There are proportionally many fewer smokers in the older age-groups
 (where the probability of death is greater).
 
-\small
-$$\vbox{\halign{\hfill # \quad\hfill &\hfill # \qquad\hfill
-&\hfill\quad # \hfill&\quad\hfill # \hfill\qquad&\hfill # \hfill
-&\quad\hfill # \hfill\cr
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-Age&Smoker&Dead&Alive&Odds(Dead)& Odds ratio\cr
-\noalign{\vskip 8 pt}
-\noalign{\hrule}
-\noalign{\vskip 8 pt}
-&Yes&5&174&0.029\cr
-\noalign{\vskip -7pt}
-18--34&&&&&1.02\cr
-\noalign{\vskip -7pt}
-&No&6&213&0.028\cr
-\noalign{\vskip 4pt}
-&Yes&14&95&0.147\cr
-\noalign{\vskip -7pt}
-35--44&&&&&2.40\cr
-\noalign{\vskip -7pt}
-&No&7&114&0.061\cr
-\noalign{\vskip 4pt}
-&Yes&27&103&0.262\cr
-\noalign{\vskip -7pt}
-45--54&&&&&1.44\cr
-\noalign{\vskip -7pt}
-&No&12&66&0.182\cr
-\noalign{\vskip 4pt}
-&Yes&51&64&0.797\cr
-\noalign{\vskip -7pt}
-55--64&&&&&1.61\cr
-\noalign{\vskip -7pt}
-&No&40&81&0.494\cr
-\noalign{\vskip 4pt}
-&Yes&29&7&4.143\cr
-\noalign{\vskip -7pt}
-65--74&&&&&1.15\cr
-\noalign{\vskip -7pt}
-&No&101&28&3.607\cr
-\noalign{\vskip 4pt}
-&Yes&13&0&---\cr
-\noalign{\vskip -7pt}
-75--&&&&&---\cr
-\noalign{\vskip -7pt}
-&No&64&0&---\cr
-\noalign{\vskip 4pt}
-\noalign{\vskip 8pt}
-\noalign{\hrule}
-}}$$
-\rm
+\begin{table}
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+Age&Smoker&Dead&Alive&Odds(Dead)& Odds ratio \\
+\midrule
+\multirow{2}{*}{18--34} & Yes & 5 & 174 & 0.029 & \multirow{2}{*}{1.02} \\
+&No&6&213&0.028 & \cr
+\multirow{2}{*}{35--44} &Yes&14&95&0.147& \multirow{2}{*}{2.40} \\
+&No&7&114&0.061 &\cr
+\multirow{2}{*}{45--54} &Yes&27&103&0.262 & \multirow{2}{*}{1.44}\cr
+&No&12&66&0.182 & \cr
+\multirow{2}{*}{55--64} &Yes&51&64&0.797 & \multirow{2}{*}{1.61}\cr
+&No&40&81&0.494 & \cr
+\multirow{2}{*}{65--74} &Yes&29&7&4.143 & \multirow{2}{*}{1.15}\cr
+&No&101&28&3.607 & \cr
+\multirow{2}{*}{75--} &Yes&13&0&--- & \multirow{2}{*}{---}\cr
+&No&64&0&--- &\cr
+\bottomrule
+\end{tabular}
+\caption{\label{tab:odds_smoking_age} Number of respondents dead or alive at follow up, by smoking status
+and age.}
+\end{table}
 
 When making inferences about associations between variables, it is
 important that all other variables which are relevant are considered.
