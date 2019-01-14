@@ -486,24 +486,24 @@ so
 1&=\sum_{j=1}^r\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
 &={1\over N}\exp[\alpha]\sum_{j=1}^r\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)].
 \end{align*}
+
 Furthermore
 \begin{align*}
 P(R=j)&=\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
-&={1\over N}\exp[\alpha]\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)]
+&={1\over N}\exp[\alpha]\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)],
 \quad j=1,\ldots,r,
 \end{align*}
 and
 \begin{align*}
 P(C=k)&=\sum_{j=1}^r\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
-&={1\over N}\exp[\alpha]\exp[\beta_C(k)]\sum_{j=1}^r\exp[\beta_R(j)]
+&={1\over N}\exp[\alpha]\exp[\beta_C(k)]\sum_{j=1}^r\exp[\beta_R(j)],
 \quad k=1,\ldots,c.
 \end{align*}
 Therefore
 \begin{align*}
 P(R=j)P(C=k)&=
 {1\over N}\exp[\alpha]\exp[\beta_C(k)]\exp[\beta_R(j)]\times 1\cr
-&=P(R=j,C=k)\cr
-&\qquad\qquad\qquad j=1,\ldots ,r,\quad
+&=P(R=j,C=k), \quad j=1,\ldots ,r,\quad
 k=1,\ldots ,c.
 \end{align*}
 Absence of the interaction $RC$ in a log linear
