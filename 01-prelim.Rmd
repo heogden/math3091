@@ -941,7 +941,7 @@ variables is of the form
 E(Y_i)&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip}\cr
 &= \sum_{j=1}^p x_{ij} \beta_j\cr
 &=  \bm{X}_i^T\bm{\beta}\cr
-&= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n \hspace{2cm}   (\#eq:lmNonMat)
+&= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n  (\#eq:lmNonMat)
 \end{align}
 where
 $$
@@ -1295,7 +1295,7 @@ Therefore
 \max_{\bm{\beta},\sigma^2} L(\bm{\beta},\sigma^2)&=(2\pi D/n)^{-{n\over 2}}
 \exp\left(-{n\over{2D}} \sum_{i=1}^n (y_i-\bm{X}_i^T\hat{\bm{\beta}})^2\right)\cr
 &=(2\pi D/n)^{-{n\over 2}}
-\exp\left(-{n\over2}\right).\cr
+\exp\left(-{n\over2}\right).
 \end{align*}
 This form applies for both $\bm \theta\in\Theta^{(0)}$ and $\bm \theta\in\Theta^{(1)}$, with only the model changing. Let the deviances under models $H_0$ and $H_1$ be denoted by $D_0$ and $D_1$
 respectively.
