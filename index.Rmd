@@ -1,5 +1,4 @@
 --- 
-title: "MATH3012: Statistical Methods II"
 author: "Helen Ogden"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
