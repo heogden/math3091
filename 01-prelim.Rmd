@@ -608,7 +608,7 @@ an approximation. The fact that $E(\hat{\bm \theta})\approx\bm \theta$ means tha
 likelihood estimator is *approximately unbiased*
 for large samples. The variance of $\hat{\bm \theta}$ is approximately $\mathcal{I}(\bm \theta)^{-1}$. 
 It is possible to show that this is the smallest possible variance of any unbiased estimator of 
-$\bm \theta$ (this result is called the Cramer-Rao lower bound, which we do not prove here).
+$\bm \theta$ (this result is called the Cramér--Rao lower bound, which we do not prove here).
 Therefore the MLE is the 'best possible' estimator in large samples
 (and therefore we hope also reasonable in
 small samples, though we should investigate this case by case).
