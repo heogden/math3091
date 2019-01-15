@@ -367,13 +367,13 @@ where
 {\partial\over{\partial\beta_k}}\sum_{j=1}^p x_{ij}\beta_j=x_{ik}.
 \end{align*}
 Therefore
-\begin{align}
-u_k(\bm{\beta})&=& \sum_{i=1}^n{{y_i-b'(\theta_i)}\over{a(\phi_i)}}
+\begin{equation}
+u_k(\bm{\beta})= \sum_{i=1}^n{{y_i-b'(\theta_i)}\over{a(\phi_i)}}
 {{x_{ik}}\over{b''(\theta_i)g'(\mu_i)}}
-&=&\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
-{{x_{ik}}\over{g'(\mu_i)}}\qquad{k=1,\ldots ,p},
+=\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}},\quad{k=1,\ldots ,p},
   (\#eq:scoreglm)
-\end{align}
+\end{equation}
 which depends on $\bm{\beta}$ through $\mu_i\equiv E(Y_i)$ and $\text{Var}(Y_i),$
 $i = 1, \ldots, n$.
 
@@ -433,19 +433,17 @@ w_1&0&\cdots&0\cr
 $$
 and
 $$
-w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}}\qquad i = 1, \ldots, n.
+w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}},\quad i = 1, \ldots, n.
 $$
 The Fisher information matrix $\mathcal{I}(\bm{\beta})$ depends on $\bm{\beta}$
 through $\bm{\mu}$ and $\text{Var}(Y_i),\;i = 1, \ldots, n$.
 
 We notice that the score in \@ref(eq:scoreglm) may now be written as
-\begin{align*}
-u_k(\bm{\beta})&=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig'(\mu_i)\cr
-&=\sum_{i=1}^n x_{ik}w_iz_i\qquad{k=1,\ldots ,p},
-\end{align*}
+\[u_k(\bm{\beta})=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig'(\mu_i)
+=\sum_{i=1}^n x_{ik}w_iz_i,\quad{k=1,\ldots ,p},\]
 where
 $$
-z_i=(y_i-\mu_i)g'(\mu_i)\qquad i = 1, \ldots, n.
+z_i=(y_i-\mu_i)g'(\mu_i),\quad i = 1, \ldots, n.
 $$
 Therefore
 \begin{equation}
@@ -514,7 +512,7 @@ of squares, it is sometimes known as *iteratively (re)weighted least squares*.
 Then
 $$
 {1\over{g'(\mu_i)}}={{\partial\mu_i}\over{\partial\eta_i}}
-={{\partial\mu_i}\over{\partial\theta_i}}=b''(\theta_i)\qquad i = 1, \ldots, n.
+={{\partial\mu_i}\over{\partial\theta_i}}=b''(\theta_i),\quad i = 1, \ldots, n.
 $$
 Therefore $\text{Var}(Y_i)g'(\mu_i)=a(\phi_i)$ which does not depend on $\bm{\beta}$,
 and hence
@@ -795,8 +793,8 @@ $\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)$.
 Therefore, by \@ref(eq:dsaturated) and \@ref(eq:pearsonGoF)
 \begin{align*}
 L_{0s}&=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
--\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] \cr
-&\hskip 1in + 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
+-\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] 
++ 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
 &=2\sum_{i=1}^n \left[ n_iy_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
 +n_i(1-y_i) \log \left({{1-y_i}\over{1-\hat{\mu}^{(0)}_i}}\right) \right]
 \end{align*}
@@ -825,12 +823,12 @@ scale parameter and $m_1,\ldots ,m_n$ are known weights.
 (A normal generalised linear model takes this form, if we assume that
 $\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, in which case $m_i=1,\;i = 1, \ldots, n$.)
 Under this assumption
-\begin{align}
-L_{0s}&={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
--m_i[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]\cr
-&={1\over\sigma^2}D_{0s},
+\begin{equation}
+L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-m_i[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]
+={1\over\sigma^2}D_{0s},
 (\#eq:devunknowndisp)
-\end{align}
+\end{equation}
 where $D_{0s}$ is defined to be twice the sum above, which can
 be calculated using the observed data. We call $D_{0s}$ the
 *deviance* of the model.
@@ -937,13 +935,10 @@ $$
 Then, from \@ref(eq:pearsonGoF), $X^2$ is the sum of the squared Pearson residuals.
 
 For any GLM we define the *deviance residuals* to be
-\begin{align*}
-r^D_i&=\text{sign}(y_i-\hat{\mu}_i^{(0)})
+\[r^D_i=\text{sign}(y_i-\hat{\mu}_i^{(0)})
 \left[ 2 {{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
 -[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
-\over{a(\phi_i)}}\right]^{1\over 2}
-\cr&\hskip 2.5ini = 1, \ldots, n,
-\end{align*}
+\over{a(\phi_i)}}\right]^{1\over 2}, \quad i = 1, \ldots, n,\]
 where $\text{sign}(x)=1$ if $x>0$ and $-1$ if $x<0$.
 Then, from \@ref(eq:dsaturated), the scaled deviance, $L_{0s}$,
 is the sum of the squared deviance residuals.
