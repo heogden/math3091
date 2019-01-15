@@ -589,7 +589,7 @@ for a number of reasons.
 It is intuitively sensible (choosing $\bm \theta$ which makes the observed data
 most probable) and usually reasonably straightforward to carry out.
 Even when the simultaneous equations we obtain by
-differentiating the log likelihood function are impossible to solve directly,
+differentiating the log-likelihood function are impossible to solve directly,
 solution by numerical methods is usually feasible.
 
 Perhaps the most compelling reason for considering maximum likelihood
@@ -897,7 +897,7 @@ $$
 L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
 +2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).
 $$
-As $d_1=1$ and $d_0=0$, under $H_0$, the log-likelihood ratio statistic
+As $d_1=1$ and $d_0=0$, under $H_0$, the log likelihood ratio statistic
 has an asymptotic $\chi^2_1$ distribution.
 For a log likelihood ratio test, we only reject $H_0$ in favour of $H_1$ when the test
 statistic is too large (observed data are much more probable under model $H_1$ than

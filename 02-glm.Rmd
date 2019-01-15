@@ -319,7 +319,7 @@ the value of $\bm{\beta}$ which maximises ${f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\ph
 Recall also that the MLE has  'good' properties.
 It is intuitively sensible and asymptotically normal and unbiased.
 
-As usual, we maximise the log likelihood function
+As usual, we maximise the log-likelihood function
 which, from \@ref(eq:glmrandom), can be written
 \begin{equation}
 \ell(\bm{\beta},\bm{\phi})=

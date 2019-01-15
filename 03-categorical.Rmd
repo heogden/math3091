@@ -301,7 +301,7 @@ explanatory variables.
 However, such a model must preserve $\sum_{i=1}^n \mu_i=N$, the grand total
 which is fixed in advance, by design.
 
-From \@ref(eq:multinom), the log likelihood for a multinomial log-linear model is
+From \@ref(eq:multinom), the log-likelihood for a multinomial log-linear model is
 $$
 \ell(\bm{\mu})=
 \sum_{i=1}^n y_i\log\mu_i -N\log N -\sum_{i=1}^n \log y_i!+\log N!.
@@ -336,7 +336,7 @@ so that
 &\Rightarrow\qquad \sum_{i=1}^n \hat{\mu}_i=\sum_{i=1}^n y_i.
 (\#eq:loglinscore)
 \end{align}
-From \@ref(eq:loglinlik), we notice that, at $\alpha=\hat{\alpha}$ the log likelihood takes the
+From \@ref(eq:loglinlik), we notice that, at $\alpha=\hat{\alpha}$ the log-likelihood takes the
 form
 $$
 \ell(\bm{\mu})=-\sum_{i=1}^n y_i
