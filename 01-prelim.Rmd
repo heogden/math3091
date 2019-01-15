@@ -206,7 +206,7 @@ The  `lymphoma` data set represents 30 lymphoma
 patients classified by sex, cell type of lymphoma and response to 
 treatment and it is an example of a three-way ($2\times 2\times 2$)
 contingency table. The aim here is to study the 
-complex dependence structures between the three clasifying factors. 
+complex dependence structures between the three classifying factors. 
 This is taken up in worksheet 9. 
 
 ```{r, include = FALSE}

@@ -982,7 +982,7 @@ function (cdf) of a random variable. For the logit link the random variable foll
 logistic distribution. But we can use the cdfs of other
 random variables such as the standard
 normal and the log-Weibull distribution to model the probability $p(\bm{x})$.
-These will still fall under the glm but with different link functions.
+These will still fall under the GLM but with different link functions.
 
 
 When the canonical link, i.e., the logit,  is used we have
