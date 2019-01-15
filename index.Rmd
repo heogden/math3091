@@ -16,7 +16,6 @@ knitr::opts_knit$set(root.dir = 'datasets')
 ```
 
 # Preface {-}
-## Aims and Synopsis of MATH3012 {-}
 
 The pre-requisite module MATH2010: Statistical Methods I covered in detail the theory of linear
 regression models, where explanatory variables are used to explain the variation in a
@@ -37,30 +36,17 @@ to **determine the pattern of interdependence of the cross-classifying variables
 **generalised linear models** (GLMs). This is an extremely broad class of
 statistical models, which incorporates the linear regression models studied in
 MATH2010, but also allows binary or count response data to be modelled coherently.
-A series of flexible estimation and model comparison procedures will be
-introduced and used to analyse many real life data sets.
-
-## Teaching plan {-}
 
 The inference methods for the generalised linear models require extension of the theory
 developed in MATH2010. In Chapter \@ref(prelim) we shall develop or review the general
 likelihood based theory for estimation and model comparison. We shall also
 show that the inference methods used for linear and multiple regression models are
-special cases of this general theory. While this is done in the lectures, the interactive
-and compulsory practical classes in first four weeks will review and extend the analysis
-methods of multiple linear regression using the software package R which will
-be revised the first week.
+special cases of this general theory. 
 
 The generalised linear model will be introduced in Chapter \@ref(glm) and we will develop
-general estimation and model comparison techniques by appealing to the likelihood
-based theory discussed in Chapter \@ref(prelim). Finally, Chapter 3 will apply the techniques to
+general estimation and model comparison techniques by appealing to the 
+likelihood-based theory discussed in Chapter \@ref(prelim). Finally, 
+Chapter \@ref(chap:categorical) will apply the techniques to
 analyse dependence structures in multiway cross-classified
-tables known as contingency tables. The weekly practical classes will demonstrate
-the theory in real life data sets.
-
-We have three contact hours per week, timetabled as **two lectures** and **one computer lab**. In
-addition, there will be a **tutorial every week**. The coursework will be handed out about two week
-before the deadline. You are recommended to read quickly through these notes before lectures and
-bring them to lectures. In lectures informal notes will be written on the board, giving step-by-step
-derivations and examples. Exercises will be given during the computer labs and 'theory' worksheets
-will be available from Blackboard. Past papers and their solutions can also be downloaded from there.
+tables known as contingency tables. The weekly practical classes will 
+demonstrate how to use `R` to fit these models to real data sets.
