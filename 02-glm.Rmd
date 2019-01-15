@@ -331,7 +331,7 @@ and depends on $\bm{\beta}$ through
 \begin{align*}
 \mu_i&=b'(\theta_i)\qquad i = 1, \ldots, n\cr
 g(\mu_i)&=\eta_i\qquad i = 1, \ldots, n\cr
-\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij}\bm{\eta}a_j\qquad i = 1, \ldots, n.
+\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij} \beta_j \qquad i = 1, \ldots, n.
 \end{align*}
 To find $\hat{\bm{\beta}}$, we consider the scores
 $$
