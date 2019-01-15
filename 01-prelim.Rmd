@@ -1042,111 +1042,53 @@ $$
 Y_i\sim N\left(\bm{X}_i^T\bm{\beta}, \sigma^2\right)\qquad i = 1, \ldots, n .
 $$
 
-### Least squares estimation
+### Maximum likelihood estimation
 
 The regression coefficients $\beta_1, \ldots, \beta_p$ describe
 the pattern by which the response depends on the explanatory variables.
 We use the observed data $y_1, \ldots, y_n$ to *estimate* this pattern of dependence.
 
-In least squares estimation, roughly speaking, we choose $\hat{\bm{\beta}}$, the estimates of
-$\bm{\beta}$ to make the fitted values $\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}$ *as close as possible* to the
-observed values $\bm{y}$, *i.e.* $\hat{\bm{\beta}}$ minimises the sum of squares
-\begin{align*}
-\sum_{i=1}^n [y_i-E(Y_i)]^2&=\sum_{i=1}^n \left(y_i-\bm{X}_i^T\bm{\beta}\right)^2\cr
-&=\sum_{i=1}^n \left(y_i-\sum_{j=1}^p x_{ij}\beta_j\right)^2
-\end{align*}
-as a function of $\beta_1, \ldots, \beta_p$.
-The sum of squares may also be written as $(\bm{y}-\bm{X}\bm{\beta})^T(\bm{y}-\bm{X}\bm{\beta})$.
-
-For each $k = 1,\ldots, p$, differentiating w.r.t. $\beta_k$ and setting equal to $0$ gives
-\[ -2 \sum_{i=1}^n x_{ik}\left(y_i-\sum_{j=1}^p x_{ij}\hat{\beta}_j\right)=   0\]
-or
-\[\sum_{i=1}^n x_{ik}y_i = \sum_{i=1}^n\sum_{j=1}^p x_{ik}x_{ij}\hat{\beta}_j.\]
-In matrix form,
-\[[\bm{X}^T\bm{y}]_k = [\bm{X}^T\bm{X}\hat{\bm{\beta}}]_k\]
-so
-\[\bm{X}^T\bm{y} = \bm{X}^T\bm{X}\hat{\bm{\beta}}\]
-
-The least squares estimates $\hat{\bm{\beta}}$ are the solutions to this
-set of $p$ simultaneous linear equations, which are known as
-the *normal equations*.
-If $\bm{X}^T\bm{X}$ is invertible (as it usually is if we specify the model carefully) then the least squares
-estimates are given by
-$$
-\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}.
-$$
-The corresponding fitted values are
-\[\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
-so
-\[\hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
-Recalling that $\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon}$, we notice that the least squares estimates for
-$\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ are obtained as the difference between the observed
-and fitted values
-\[\hat{\bm{\epsilon}}=\bm{y}-\bm{X}\hat{\bm{\beta}}\]
-so
-\[\hat{\epsilon}_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
-${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$ describe the variability in the observed responses $y_1, \ldots, y_n$ which
-has not been explained by the linear model. It is residual variability, and we call
-${\hat{\epsilon}_1,\ldots ,\hat{\epsilon}_n}$, the residuals.
-We call
-\[D= \sum_{i=1}^n \hat{\epsilon}_i^2 = \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2\]
-the *residual sum of squares* or *deviance* for the linear model.
-It is the actual minimum value attained in the least squares estimation.
-
-
-### Properties of the least squares estimator
-
-We have
-$E(\hat{\bm{\beta}})=\bm{\beta}$ and $\text{Var}(\hat{\bm{\beta}})=\sigma^2(\bm{X}^T\bm{X})^{-1}$. 
-This follows by recalling that $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$ and
-$\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}$  is a linear function of $\bm{y}$.
-Therefore, from the properties of expectation and variance of a vector random
-variable we have
-\begin{align*}
-E(\hat{\bm{\beta}})&=E[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
-&=(\bm{X}^T\bm{X})^{-1}\bm{X}^TE[\bm Y]\cr
-&=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{X}\bm{\beta}\cr
-&=\bm{\beta}
-\end{align*}
-and
-\begin{align*}
-\text{Var}(\hat{\bm{\beta}})&=\text{Var}[(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm Y]\cr
-&=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{Var}[\bm Y][(\bm{X}^T\bm{X})^{-1}\bm{X}^T]^T\cr
-&=\sigma^2(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{I}\bm{X} (\bm{X}^T\bm{X})^{-1}\cr
-&=\sigma^2(\bm{X}^T\bm{X})^{-1}.
-\end{align*}
-
-Assuming that $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. $N(0,\sigma^2)$ the least squares estimate $\hat{\bm{\beta}}$
-is also the maximum likelihood estimate.
-This is obvious when one considers the likelihood for a linear model
+The likelihood for a linear model is
 \begin{equation}
 L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
 \exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{X}_i^T\bm{\beta})^2\right).
 (\#eq:lmLikelihood)
 \end{equation}
 This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
-$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\hat \sigma^2=D/n$.
+$$
+\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}
+$$
+and
+$$
+\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2
+$$
 
-We have
-$\hat{\bm{\beta}}$ is multivariate normal (with mean and variance given above).
-As $\bm Y$ is normally distributed, and $\hat{\bm{\beta}}$ is
+The corresponding fitted values are
+\[\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
+so
+\[\hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
+
+The residuals $\bm{r} = (r_1, \ldots, r_n)$ are
+\[\bm{r}=\bm{y}-\bm{\hat y}\]
+so $r_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
+These residuals describe the variability in the observed responses $y_1, \ldots, y_n$ which
+has not been explained by the linear model.
+We call
+\[D= \sum_{i=1}^n r_i^2 = \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2\]
+the *residual sum of squares* or *deviance* for the linear model.
+
+### Properties of the MLE
+
+
+
+As $\bm Y$ is normally distributed, and $\hat{\bm{\beta}}= (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{Y}$ is
 a linear function of $\bm Y$, then $\hat{\bm{\beta}}$
  must also be normally distributed.
+ We have
+$E(\hat{\bm{\beta}})=\bm{\beta}$ and $\text{Var}(\hat{\bm{\beta}})=\sigma^2(\bm{X}^T\bm{X})^{-1}$,
+so
+ \[\hat{\bm{\beta}} \sim N(\bm{\beta}, \sigma^2(\bm{X}^T\bm{X})^{-1}).\]
 
-
-### Estimation of $\sigma^2$
-
-
-In addition to the linear coefficients $\beta_1, \ldots, \beta_p$ estimated using
-least squares, a linear model usually involves the unknown *residual variance*
-$\sigma^2$, representing the variability of observations
-about their mean.
-
-We can estimate $\sigma^2$ using maximum likelihood. Maximising \@ref(eq:lmLikelihood)
-with respect to $\bm{\beta}$ and $\sigma^2$ gives
-$$
-\hat \sigma^2={D\over n}={1\over n}\sum_{i=1}^n \hat{\epsilon}_i^2.
-$$
 It is possible to prove (although we shall not do so here)
 that if the model is correct,
 $$
@@ -1158,7 +1100,7 @@ E(\hat \sigma^2)={{n-p}\over n}\sigma^2,
 $$
 so the maximum likelihood estimator is biased for $\sigma^2$ (although
 still asymptotically unbiased as ${{n-p}\over n}\to 1$ as $n\to\infty$).
-We usually prefer to use the unbiased estimator of $\sigma^2$
+We often use the unbiased estimator of $\sigma^2$
 $$
 \tilde \sigma^2={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n \hat{\epsilon}_i^2.
 $$
