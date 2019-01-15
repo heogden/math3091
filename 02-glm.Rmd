@@ -27,8 +27,8 @@ so the expected information is
 \[{\cal I}(\theta)=E[-H(\theta)]={{b''(\theta)}\over{a(\phi)}}.\]
 From the properties of the score function in Section \@ref(score), 
 we know that $E[U(\theta)]=0$. Therefore
-\[E\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=0\]
-so $E[Y]=b'(\theta)$
+\[E\left[{{Y- b'(\theta)}\over{a(\phi)}}\right]=0,\]
+so $E[Y]=b'(\theta)$. We often denote the mean by $\mu$, so $\mu=b'(\theta)$.
 
 Furthermore,
 $$
@@ -38,7 +38,7 @@ $$
 $$
 as $b'(\theta)$ and $a(\phi)$ are constants (not
 random variables).
-Now, we also know from Section \@ref(info) that $\text{Var}[U(\theta)]={\cal I}(\theta)$.
+We also know from Section \@ref(info) that $\text{Var}[U(\theta)]={\cal I}(\theta)$.
 Therefore
 $$
 \text{Var}[Y]=a(\phi)^2\text{Var}[U(\theta)]=a(\phi)^2 {\cal I}(\theta)
@@ -46,9 +46,8 @@ $$
 $$
 and hence the mean and variance of a random variable with
 probability density function (or probability function) of
-the form \@ref(eq:ef), are $b'(\theta)$ and $a(\phi)b''(\theta)$ respectively.
+the form \@ref(eq:ef) are $b'(\theta)$ and $a(\phi)b''(\theta)$ respectively.
 
-We often denote the mean by $\mu$, so $\mu=b'(\theta)$.
 The variance is the product of two functions; $b''(\theta)$
 depends on the canonical parameter $\theta$ (and hence $\mu$) only
 and is called the *variance function* ($V(\mu)\equiv b''(\theta)$);
@@ -72,7 +71,7 @@ $$
 Therefore
 \[E(Y)=b'(\theta)=\theta=\mu,\]
 \[\text{Var}(Y)=a(\phi)b''(\theta)=\sigma^2\]
-and
+and the variance function is
 \[V(\mu)=1.\]
 
 **Example (Poisson distribution)**.
@@ -88,7 +87,7 @@ $a(\phi)=1$ and $c(y,\phi)=-\log y!$.
 Therefore
 \[E(Y)=b'(\theta)=\exp\theta=\lambda,\]
 \[\text{Var}(Y)=a(\phi)b''(\theta)=\exp\theta=\lambda\]
-and
+and the variance function is
 \[V(\mu)=\mu.\]
 
 **Example (Bernoulli distribution)**.
@@ -104,7 +103,7 @@ $a(\phi)=1$ and $c(y,\phi)=0$.
 Therefore
 \[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
 \[\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\]
-and
+and the variance function is
 \[V(\mu)=\mu(1-\mu).\]
 
 **Example (Binomial distribution)**.
@@ -125,7 +124,7 @@ Therefore
 \[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
 \[\text{Var}(Y)=a(\phi)b''(\theta)={1\over n}{{\exp\theta}\over{(1+\exp\theta})^2}=
 {{p(1-p)}\over n}\]
-and
+and the variance function is
 \[V(\mu)=\mu(1-\mu).\]
 Here, we can write $a(\phi)\equiv \sigma^2/w$ where the scale parameter
 $\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
@@ -135,10 +134,8 @@ $\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
 
 ### The random component
 
-In practical applications, we often distinguish between a *response*
-variable and a group of *explanatory* variables.
-The aim is to determine the pattern of dependence of the response variable
-on the explanatory variables.
+As in a linear model, the aim is to determine the pattern of dependence of a response variable
+on explanatory variables.
 We denote the $n$ observations of the response by
 $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
 In a generalised linear model (GLM), these are assumed to be observations of
@@ -157,7 +154,7 @@ $$
 and the joint density for $\bm{Y}=(Y_1,Y_2,\ldots ,Y_n)^T$ is
 \begin{align}
 f_{\bm{Y}}(\bm{y};\bm{\theta},\bm{\phi})
-&= \prod_{i=1}^n f_{Y_i}(y_i;\theta_i,\phi_i) \\
+&= \prod_{i=1}^n f_{Y_i}(y_i;\theta_i,\phi_i) \cr
 &= \exp\left(\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
 +\sum_{i=1}^nc(y_i,\phi_i)\right) (\#eq:glmrandom)
 \end{align}
@@ -167,13 +164,13 @@ is the collection of nuisance parameters (where they exist).
 
 Note that for a particular sample of observed
 responses, $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$, \@ref(eq:glmrandom) is the likelihood
-function for $\bm{\theta}$ and $\bm{\phi}$.
+function $L(\bm{\theta}, \bm{\phi})$ for $\bm{\theta}$ and $\bm{\phi}$.
 
 
 ### The systematic (or structural) component
 
 Associated with each $y_i$ is a vector $\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$
-of values of $p$ explanatory variables.
+of $p$ explanatory variables.
 In a generalised linear model, the distribution of the response variable
 $Y_i$ depends on $\bm{x}_i$ through the *linear predictor* $\eta_i$
 where
@@ -219,13 +216,13 @@ which are of primary interest.
 The link between the distribution of $\bm{Y}$ and the linear predictor $\bm{\eta}$
 is provided by the *link function* $g$,
 $$
-\eta_i=g(\mu_i)\qquad i = 1, \ldots, n,
+\eta_i=g(\mu_i),\quad i = 1, \ldots, n,
 $$
 where $\mu_i\equiv E(Y_i),\;i = 1, \ldots, n$.
 Hence, the dependence of the distribution of the response
 on the explanatory variables is established as
 $$
-g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta}\qquad i = 1, \ldots, n,
+g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta},\quad i = 1, \ldots, n,
 $$
 
 In principle, the link function $g$ can be any one-to-one
@@ -244,20 +241,20 @@ the set of allowed values for $\mu_i$ onto $\mathbb{R}$.
 Recall that for a random variable $Y$ with a distribution from the
 exponential family, $E(Y)=b'(\theta)$. Hence, for a generalised linear model
 $$
-\mu_i=E(Y_i)=b'(\theta_i)\qquad i = 1, \ldots, n.
+\mu_i=E(Y_i)=b'(\theta_i),\quad i = 1, \ldots, n.
 $$
 Therefore
 $$
-\theta_i=b^{'-1}(\mu_i)\qquad i = 1, \ldots, n
+\theta_i=b^{'-1}(\mu_i),\quad i = 1, \ldots, n
 $$
 and as $g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta}$, then
 \begin{equation}
-\theta_i=b^{'-1}(g^{-1}[\bm{x}_i^T\bm{\beta}])\qquad i = 1, \ldots, n.
+\theta_i=b^{'-1}(g^{-1}[\bm{x}_i^T\bm{\beta}]),\quad i = 1, \ldots, n.
 (\#eq:thetai)
 \end{equation}
 Hence, we can express the joint density \@ref(eq:glmrandom) in terms of
 the coefficients $\bm{\beta}$, and for observed data $\bm{y}$, this
-is the likelihood $f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})$ for $\bm{\beta}$.
+is the likelihood $L(\bm{\beta})$ for $\bm{\beta}$.
 As $\bm{\beta}$ is our parameter of real interest (describing the
 dependence of the response on the explanatory variables)
 this likelihood will play a crucial role.
@@ -270,7 +267,7 @@ $$
 $$
 and the resulting likelihood is
 $$
-f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})=
+L(\bm{\beta})=
 \exp\left(\sum_{i=1}^n{{y_i\bm{x}_i^T\bm{\beta}-b(\bm{x}_i^T\bm{\beta})}\over{a(\phi_i)}}
 +\sum_{i=1}^nc(y_i,\phi_i)\right).
 $$
@@ -291,21 +288,21 @@ The canonical link functions are:
 
 ### The linear model
 
-Clearly the linear model considered in Section \@ref(sn:lm) is also a generalised linear
+The linear model considered in Section \@ref(sn:lm) is also a generalised linear
 model. We assume ${Y_1,\ldots ,Y_n}$ are independent normally distributed
-random variables. The normal distribution is a member of the
+random variables, and the normal distribution is a member of the
 exponential family.
 
 Furthermore, the explanatory variables enter a linear model
 through the linear predictor
 $$
-\eta_i=\bm{x}_i^T\bm{\beta}\qquad i = 1, \ldots, n.
+\eta_i=\bm{x}_i^T\bm{\beta}, \quad i = 1, \ldots, n.
 $$
 
 Finally, the link between $E(\bm{Y})=\bm{\mu}$ and the linear predictor
 $\bm{\eta}$ is through the (canonical) identity link function
 $$
-\mu_i=\eta_i\qquad i = 1, \ldots, n.
+\mu_i=\eta_i, \quad i = 1, \ldots, n.
 $$
 
 ## Maximum likelihood estimation
@@ -313,11 +310,6 @@ $$
 The regression coefficients ${\beta_1,\ldots ,\beta_p}$ describe
 the pattern by which the response depends on the explanatory variables.
 We use the observed data ${y_1,\ldots ,y_n}$ to *estimate* this pattern of dependence.
-
-Recall the maximum likelihood estimate (MLE) $\hat{\bm{\beta}}$ of $\bm{\beta}$ is
-the value of $\bm{\beta}$ which maximises ${f_{\bm{Y}}(\bm{y};\bm{\beta},\bm{\phi})}$ as a function of $\bm{\beta}$.
-Recall also that the MLE has  'good' properties.
-It is intuitively sensible and asymptotically normal and unbiased.
 
 As usual, we maximise the log-likelihood function
 which, from \@ref(eq:glmrandom), can be written
@@ -329,21 +321,18 @@ which, from \@ref(eq:glmrandom), can be written
 \end{equation}
 and depends on $\bm{\beta}$ through
 \begin{align*}
-\mu_i&=b'(\theta_i)\qquad i = 1, \ldots, n\cr
-g(\mu_i)&=\eta_i\qquad i = 1, \ldots, n\cr
-\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij} \beta_j \qquad i = 1, \ldots, n.
+\theta_i &= (b')^{-1}(\mu_i), \cr
+\mu_i&= g^{-1}(\eta_i), \cr
+\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij} \beta_j, \quad i = 1, \ldots, n.
 \end{align*}
 To find $\hat{\bm{\beta}}$, we consider the scores
 $$
 u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
 \ell(\bm{\beta},\bm{\phi})\qquad k=1,\ldots ,p
 $$
-and then
-\[u_k(\hat{\bm{\beta}})=0\qquad k=1,\ldots ,p\]
-or
-\[{\bm{u}}(\hat{\bm{\beta}})={\bf 0}.\]
+and then find $\hat{\bm{\beta}}$ to solve $u_k(\hat{\bm{\beta}})=0$ for $k=1,\ldots ,p.$
 
-Now from \@ref(eq:glmloglikelihood)
+From \@ref(eq:glmloglikelihood)
 \begin{align*}
 u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
 &= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
@@ -352,10 +341,10 @@ u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
 \left[{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}\right]\cr
 &=\sum_{i=1}^n{\partial\over{\partial\theta_i}}\left[{{y_i\theta_i-b(\theta_i)}
 \over{a(\phi_i)}}\right]{{\partial\theta_i}\over{\partial\mu_i}}
-{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\qquad{k=1,\ldots ,p}\cr
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\cr
 &= \sum_{i=1}^n{{y_i-b'(\theta_i)}
 \over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
-{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\qquad{k=1,\ldots ,p},\cr
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}, \quad{k=1,\ldots ,p},\cr
 \end{align*}
 where
 \begin{align*}
@@ -454,10 +443,6 @@ Therefore
 One possible method to solve the $p$ simultaneous equations
 ${\bm{u}}(\hat{\bm{\beta}})={\bf 0}$ that give $\hat{\bm{\beta}}$ is the
 (multivariate) Newton-Raphson method.
-[Recall that the univariate Newton-Raphson method
-obtains a solution to $u(\beta)=0$ by iteratively updating $\beta^{(m)}$, the
-current estimate of the solution to
-$\beta^{(m+1)}=\beta^{(m)}-[u(\beta^{(m)})/u'(\beta^{(m)})]$.]
 
 If $\bm{\beta}^{(m)}$ is the current estimate of $\hat{\bm{\beta}}$
 then the next estimate is
@@ -525,9 +510,9 @@ Fisher scoring are equivalent.
 1. The linear model is a generalised linear model with
 identity link, $\eta_i=g(\mu_i)=\mu_i$ and $\text{Var}(Y_i)=\sigma^2$ for all $i = 1, \ldots, n$.
 Therefore $w_i=[\text{Var}(Y_i)g'(\mu_i)^2]^{-1}=\sigma^{-2}$ and
-$z_i=(y_i-\mu_i)g'(\mu_i)=y_i-\eta_i,\,i = 1, \ldots, n$.
-1. Hence $\bm{z}+\bm{\eta}=\bm{y}$ and $\bm{W}=\sigma^{-2}\bm{I}$, neither of which
-depend on $\bm{\beta}$. Hence, the Fisher scoring algorithm converges in a
+$z_i=(y_i-\mu_i)g'(\mu_i)=y_i-\eta_i$ for $i = 1, \ldots, n$.
+Hence $\bm{z}+\bm{\eta}=\bm{y}$ and $\bm{W}=\sigma^{-2}\bm{I}$, neither of which
+depend on $\bm{\beta}$. So the Fisher scoring algorithm converges in a
 single iteration to the usual least squares estimate.
 1. Estimation of an unknown scale parameter $\sigma^2$ is discussed later.
 A common (to all $i$) $\sigma^2$ has no effect on $\hat{\bm{\beta}}$.
@@ -818,10 +803,10 @@ as a measure of goodness of fit, or to compare models using \@ref(eq:LRsaturated
 For such models, there is no equivalent goodness of fit test, but
 we can develop a test for comparing nested models.
 
-Here assume that $a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n$ where $\sigma^2$ is a common unknown
+Here we assume that $a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n$ where $\sigma^2$ is a common unknown
 scale parameter and $m_1,\ldots ,m_n$ are known weights.
-(A normal generalised linear model takes this form, if we assume that
-$\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, in which case $m_i=1,\;i = 1, \ldots, n$.)
+(A linear model takes this form, as
+$\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, so $m_i=1,\;i = 1, \ldots, n$.)
 Under this assumption
 \begin{equation}
 L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
@@ -834,7 +819,7 @@ be calculated using the observed data. We call $D_{0s}$ the
 *deviance* of the model.
 
 In order to test nested models $H_0$ and $H_1$ as set up in
-Section \@ref(sn:glmlrt)
+Section \@ref(sn:glmlrt),
 we calculate the test statistic
 \begin{align}
 &F={{L_{01}/(p-q)}\over{L_{1s}/(n-p)}}={{(L_{0s}-L_{1s})/(p-q)}\over{L_{1s}/(n-p)}}
@@ -846,12 +831,10 @@ we calculate the test statistic
 \end{align}
 This statistic does not depend on the unknown scale parameter $\sigma^2$,
 so can be calculated using the observed data.
-Asymptotically, if $H_0$ is true, we know that $L_{01}$ has
-a $\chi^2_{p-q}$ distribution and $L_{1s}$ has
-a $\chi^2_{n-p}$ distribution. Furthermore, $L_{01}$ and $L_{1s}$ are independent
-(not proved here) so $F$ has an asymptotic F distribution with
-$p-q$ degrees of freedom in the numerator and $n-p$
-degrees of freedom in the denominator. Hence, we compare nested generalised
+Asymptotically, if $H_0$ is true, we know that $L_{01} \sim \chi^2_{p-q}$ and 
+$L_{1s} \sim \chi^2_{n-p}$. Furthermore, $L_{01}$ and $L_{1s}$ are independent
+(not proved here) so $F$ has an asymptotic $F_{p-q, n-p}$ distribution.
+Hence, we compare nested generalised
 linear models by calculating $F$ and rejecting $H_0$ in favour of $H_1$
 if $F$ is too large (for example, greater than the 95\% point of
 the relevant F distribution).
@@ -861,14 +844,15 @@ The dependence of the maximum likelihood equations
 on $\sigma^2$ (where $\bm{u}$ is given by \@ref(eq:scoreglm)) can be eliminated by multiplying
 through by $\sigma^2$.
 However, inference based on the maximum likelihood estimates, as described
-in Section \@ref(sn:glminfer) does require knowledge of $\sigma^2$.
-This is because asymptotically  $\text{Var}(\hat{\bm{\beta}})$ is the Fisher information
+in Section \@ref(sn:glminfer), does require knowledge of $\sigma^2$.
+This is because asymptotically  $\text{Var}(\hat{\bm{\beta}})$ is the 
+inverse of the Fisher information
 matrix ${\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}$, and this
-depends on $w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}}$ where
+depends on $w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}},$ where
 $\text{Var}(Y_i)=a(\phi_i)b''(\theta_i)=\sigma^2 b''(\theta_i)/m_i$ here.
 
 Therefore, to calculate standard errors and confidence intervals,
-we need to supply an estimate $\sigma^2h$ of $\sigma^2$.
+we need to supply an estimate $\hat \sigma^2$ of $\sigma^2$.
 Generally, we do not use the maximum likelihood estimate.
 Instead, we notice that, from \@ref(eq:devunknowndisp), $L_{0s}=D_{0s}/\sigma^2$, and we know that
 asymptotically, if model $H_0$ is an adequate fit, $L_{0s}$ has a $\chi^2_{n-q}$
@@ -879,7 +863,7 @@ E\left({1\over{n-q}}D_{0s}\right)=\sigma^2.
 $$
 Therefore the deviance of a model divided by its degrees of freedom
 is an asymptotically unbiased estimator of the scale parameter $\sigma^2$.
-Hence $\sigma^2h=D_{0s}/(n-q)$.
+Hence $\hat\sigma^2=D_{0s}/(n-q)$.
 
 An alternative estimator of $\sigma^2$ is based on the Pearson $X^2$ statistic.
 As $\text{Var}(Y)=a(\phi)V(\mu)=\sigma^2 V(\mu)/m$ here, then from \@ref(eq:pearsonGoF)
@@ -891,7 +875,7 @@ X^2={1\over\sigma^2}
 Again, if $H_0$ is an adequate fit,  $X^2$ has an chi-squared distribution with
 $n-q$ degrees of freedom, so
 $$
-\sigma^2h={1\over{n-q}}
+\hat \sigma^2={1\over{n-q}}
 \sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i)}}
 $$
 is an alternative unbiased estimator of $\sigma^2$.
@@ -904,12 +888,12 @@ $b(\theta)=\theta^2/2$,
 $\mu=b'(\theta)=\theta$ and
 $\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1$, so $m_i=1,\;i = 1, \ldots, n$.
 Therefore, by \@ref(eq:devunknowndisp),
-\begin{align}
-D_{0s}&=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
--[\frac{1}{2}{{\hat{\mu}}^{(s)^2}_i}-\frac{1}{2}{{\hat{\mu}}^{(0)^2}_i}]\cr
-&=\sum_{i=1}^n [y_i-\hat{\mu}^{(0)}_i]^2,
+\begin{equation}
+D_{0s}=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
+-[\frac{1}{2}{{\hat{\mu}}^{(s)^2}_i}-\frac{1}{2}{{\hat{\mu}}^{(0)^2}_i}]
+=\sum_{i=1}^n [y_i-\hat{\mu}^{(0)}_i]^2,
 (\#eq:devnormal)
-\end{align}
+\end{equation}
 which is just the residual sum of squares for model $H_0$. Therefore, we estimate
 $\sigma^2$ for a normal GLM by its residual sum of squares for the model
 divided by its degrees of freedom.
@@ -975,17 +959,11 @@ variable, or perhaps a missing polynomial term in an explanatory variable.
 ## Example: Binary Regression
 
  In binary regression the data either follow the binomial or
-the  Bernoulli distribution (equivalently). The objective is to model
-the success probability $p$ as a function of the covariates.
-Because $p(\bm{x})$ is a probability we think of it as the cumulative distribution
-function (cdf) of a random variable. For the logit link the random variable follows the
-logistic distribution. But we can use the cdfs of other
-random variables such as the standard
-normal and the log-Weibull distribution to model the probability $p(\bm{x})$.
-These will still fall under the GLM but with different link functions.
+the  Bernoulli distribution. The objective is to model
+the success probability $p$ as a function of the explanatory variables.
 
 
-When the canonical link, i.e., the logit,  is used we have
+When the canonical (logit) link is used, we have
 $$
 \theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
 $$
@@ -993,42 +971,24 @@ This implies
 $$
 p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
 $$
-This is the cdf of the logistic distribution taking values in the real line
+This is the cumulative distribution function (cdf)
+of the logistic distribution taking values in the real line
 $(-\infty < \eta < \infty)$. It can be easily verified that
 $F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is a cdf of a random variable since it is
-non-negative and  increases  monotonically to 1 from zero. The logistic distribution
-behaves almost like the $t$-distribution with 8-degrees of freedom.
+non-negative and  increases  monotonically to 1 from zero. 
 
-
-If we use the cdf of the standard normal distribution to model the $p(\bm{x})$ we get
-what is called the probit link. For this link we set
+The cumulative distribution functions of other distributions are also
+commonly used to generate link functions for binary regression.
+For example, if we let
 $$
 p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
 $$
-where $\Phi(\cdot)$ is the cdf of the standard normal distribution.
-Note that for this the link function
+where $\Phi(\cdot)$ is the cdf of the standard normal distribution,
+then we get the link function
 $$
 g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
 $$
-is called the probit link.
-
-
-The cdf of the log-Weibull distribution is given by:
-$$
-p = 1 - e^{-e^{\eta}}, -\infty < \eta < \infty.
-$$
-It is easy to verify that this defines a cdf.  Solving back we get
-$$
-\eta = \log \{ - \log(1-p) \}.
-$$
-This is called the complimentary log-log link function.
-
-For the logit and probit link functions the cdf's are symmetric about 1/2. However,
-this is not the case for the complimentary log-log link. Hence this should be
-used when  asymmetry as a function of the linear predictor
-is suspected. The logistic distribution is heavier tailed than the
-standard normal distribution, hence the logit link is often used when outliers are
-suspected in the linear predictor.
+which is called the probit link.
 
 
 
