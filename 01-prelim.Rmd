@@ -140,22 +140,23 @@ This data set concerns the 23 space shuttle flights
 before the Challenger disaster.  The disaster is thought to have 
 been caused by the failure of a number of O-rings, 
 of which there are six in total. The data 
-consist of four columns, the number $Y$ of
+consist of four variables, the number of
 damaged O-rings for each
-pre-Challenger flight, together with the launch temperature $T$ in degrees
-Fahrenheit, the pressure $P$ at which the pre-launch test of O-ring leakage was
-carried out and the name of the orbiter ($S$; coded $1=$ "Atlantis",
-$2=$ "Challenger", $3=$ "Columbia", $4=$ "Discovery").
+pre-Challenger flight (`n_damaged`), 
+together with the launch temperature in degrees
+Fahrenheit (`temp`), the pressure at which the pre-launch test of O-ring leakage was
+carried out (`pressure`) and the name of the orbiter (`orbiter`).
 The Challenger launch
 temperature on 20th January 1986 was 31F.
+The aim is to predict the probability of
+O-ring damage at the Challenger launch. 
+ This will be discussed in worksheet 6.
 
 ```{r, include = FALSE}
 shuttle <- read.csv("shuttle.csv")
 head(shuttle) 
 ```
-The aim is to predict the probability of
-O-ring damage at the Challenger launch. 
- This will be discussed in worksheet 6.
+
  
 ### `heart`: Treatment for heart attack
 
