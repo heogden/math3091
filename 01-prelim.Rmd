@@ -935,18 +935,15 @@ $\bm Y=(Y_1,Y_2,\ldots ,Y_n)^T$.
 Associated with each $y_i$ is a vector $\bm{X}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$ of values of $p$
 explanatory variables.
 
-Linear models are those for which the relationship between the response and explanatory
-variables is of the form
+In a linear model, we assume that 
 \begin{align}
-E(Y_i)&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip}\cr
-&= \sum_{j=1}^p x_{ij} \beta_j\cr
-&=  \bm{X}_i^T\bm{\beta}\cr
-&= [\bm{X}\bm{\beta}]_i,\qquad i=1,\ldots ,n  (\#eq:lmNonMat)
+Y_i&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip} + \epsilon_i \cr
+&= \sum_{j=1}^p x_{ij} \beta_j + \epsilon_i \cr
+&=  \bm{X}_i^T\bm{\beta} + \epsilon_i \cr
+&= [\bm{X}\bm{\beta}]_i + \epsilon_i,\qquad i=1,\ldots ,n  (\#eq:lmNonMat)
 \end{align}
-where
-$$
-E(\bm Y)=\begin{pmatrix}E(Y_1)\cr\vdots\cr E(Y_n) \end{pmatrix} \qquad
-\bm{X}= \begin{pmatrix}
+where $\epsilon_i \sim N(0, \sigma^2)$ independently, and
+\[\bm{X}= \begin{pmatrix}
 \bm{X}_1^T \\
 \vdots \\
 \bm{X}_n^T
@@ -955,26 +952,34 @@ E(\bm Y)=\begin{pmatrix}E(Y_1)\cr\vdots\cr E(Y_n) \end{pmatrix} \qquad
 x_{11} & \cdots &x_{1p}\cr
 \vdots & \ddots &\vdots\cr
 x_{n1} &\cdots &x_{np}
-\end{pmatrix}
-$$
+\end{pmatrix}\]
 and
 $\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
 describing the dependence of $Y_i$ on $\bm{X}_i$.
 The four ways of describing the linear model in \@ref(eq:lmNonMat) are equivalent, but the most
 economical is the matrix form
 \begin{equation}
-E(\bm Y)=\bm{X}\bm{\beta}. (\#eq:lmMat)
+\bm{Y}=\bm{X}\bm{\beta} + \bm{\epsilon}. (\#eq:lmMat)
 \end{equation}
+where $\bm{\epsilon}=(\epsilon_1,\epsilon_2,\ldots ,\epsilon_n)^T$.
 
 The $n\times p$ matrix $\bm{X}$ consists of known (observed) constants
 and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{X}_i^T$, the
 explanatory data corresponding to the $i$th observation of the response.
 The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th explanatory variable.
 
+We note that $\bm{\epsilon}$ has a multivariate normal distribution
+with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
+(because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
+implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$).
+It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate normal
+with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
+*i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
+
 #### Example: The null model {-}
  The null model
 $$
-E(Y_i)=\beta_1\qquad i = 1, \ldots, n
+Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
 $$
 $$
 \bm{X}=\begin{pmatrix}
@@ -992,7 +997,7 @@ in all models.
 #### Example: simple linear regression {-}
  Simple linear regression
 $$
-E(Y_i)=\beta_1+\beta_2 x_i\qquad i = 1, \ldots, n
+Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
 $$
 $$
 \bm{X}=\begin{pmatrix} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n \end{pmatrix}
@@ -1003,7 +1008,7 @@ and one 'real' variable.
 
 #### Example: Polynomial regression {-}
 $$
-E(Y_i)=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1}\qquad i = 1, \ldots, n
+Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
 $$
 $$
 \bm{X}= \begin{pmatrix}
@@ -1018,7 +1023,7 @@ and one 'real' variable, transformed to $p-1$ variables.
 
 #### Example: Multiple regression {-}
 $$
-E(Y_i)=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1}\qquad i = 1, \ldots, n
+Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
 $$
 $$
 \bm{X}= \begin{pmatrix} 1&x_{11}&x_{12}&\cdots&x_{1\,p-1}\cr
@@ -1031,44 +1036,11 @@ $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
 
-Strictly, the only requirement for a model to be linear is that the relationship
-between the response variables, $\bm Y$, and any explanatory variables
-can be written in the form \@ref(eq:lmMat).
-No further specification of the joint distribution of
-$Y_1, \ldots, Y_n$ is required.
-However, the linear model is more useful for statistical analysis
-if we can make three further assumptions:
-
-- $Y_1, \ldots, Y_n$ are independent random variables.
-- $Y_1, \ldots, Y_n$ are normally distributed.
-- $\text{Var}(Y_1)=\text{Var}(Y_2)=\cdots =\text{Var}(Y_n)$ ($Y_1, \ldots, Y_n$ are homoscedastic).
-
-We denote this common variance by $\sigma^2$.
-
-With these assumptions the linear model completely specifies the distribution
-of $\bm Y$, in that $Y_1, \ldots, Y_n$ are independent and
+We may write the linear model more compactly by noting that 
+$Y_1, \ldots, Y_n$ are independent and
 $$
-Y_i\sim N\left(\bm{X}_i^T\bm{\beta}\; ,\;\sigma^2\right)\qquad i = 1, \ldots, n .
+Y_i\sim N\left(\bm{X}_i^T\bm{\beta}, \sigma^2\right)\qquad i = 1, \ldots, n .
 $$
-Another way of writing this is
-$$
-Y_i=\bm{X}_i^T\bm{\beta}\;+\;\epsilon_i\qquad i = 1, \ldots, n
-$$
-where $\epsilon_1, \ldots, \epsilon_n$ are i.i.d. $N(0,\sigma^2)$ random variables.
-
-A linear model can now be expressed in matrix form as
-\begin{equation}
-\bm Y=\bm{X}\bm{\beta}+\bm{\epsilon} 
-(\#eq:lmHom)
-\end{equation}
-where $\bm{\epsilon}=(\epsilon_1, \ldots, \epsilon_n)^T$ has a multivariate normal distribution
-with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
-(because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
-implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$).
-It follows from \@ref(eq:lmHom) that the distribution of $\bm Y$ is multivariate normal
-with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
-*i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
-
 
 ### Least squares estimation
 
