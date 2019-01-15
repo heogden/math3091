@@ -158,8 +158,9 @@ them. Interpretation of these models will be discussed further in
 Section \@ref(sn:loginter).
 
 Table \ref{tab:job_long} shows the original data structure of the `job` dataset.
-A log-linear model for the contingency table (Table \ref{tab:job}) is just a Poisson GLM
-for this data, where
+It provides exactly the same data as the contingency table in Table \ref{tab:job},
+but in a different format, sometimes called *long* format.
+A log-linear model is just a Poisson GLM, where
 the response variable is `Count`, and `Income`
 and `Satisfaction` are explanatory variables.
 ```{r, echo = FALSE}
@@ -196,7 +197,7 @@ Income & Satisfaction & Count\\
 \end{table}
 
 
-Table \ref{tab:lymphoma_long} shows the original data structure of the `lymphoma` dataset.
+Table \ref{tab:lymphoma_long} shows the `lymphoma` dataset in long format.
 Again, a log-linear model for the contingency table (Table \ref{tab:lymphoma}) is just a Poisson GLM
 for this data, where in this case
 the response variable is `Cell`, and `Sex`
@@ -255,43 +256,15 @@ $i$ is $p_i$, ${i=1,\ldots ,n}$, so $\sum_{i=1}^n p_i=1.$
 The probability function for the multinomial distribution is
 \begin{align}
 f_{\bm{Y}}(\bm{y};{\bf p})
-&= P(Y_1=y_1,\ldots ,Y_n=y_n) \\
+&= P(Y_1=y_1,\ldots ,Y_n=y_n) \cr
 &= \begin{cases} 
 N!\prod_{i=1}^n \frac{p_i^{y_i}}{y_i!} & \text{if $\sum_{i=1}^n y_i=N$} \\
 0 & \text{otherwise.}
 \end{cases}
 (\#eq:multinom)
 \end{align}
-It is straightforward to see that the binomial is the special
+The binomial is the special
 case of the multinomial with two cells ($n=2$).
-
-The expected value of a vector of multinomial cell counts $\bm{Y}$
-is $N{\bf p}$, that is
-$$
-\mu_i=E(Y_i)=Np_i\qquad {i=1,\ldots ,n}.
-$$
-It is easy to show that variance of $Y_i$, var$(Y_i)$ is $Np_i(1-p_i)$.
-Use the corresponding result from the Binomial distribution by considering
-the outcome of classifying each item to be a
-success if it goes to the $i$th cell and failure otherwise.
-Then the success probability in each trial (classifying each item)
-will be $p_i$ and $Y_i \sim \mbox{Binomial}(N, p_i)$.
- Similarly, we can claim that $Y_i+Y_j \sim
-\mbox{Binomial}(N, p_i+p_j)$ since it is the number of items
-classified either in cell $i$ or $j$.  Hence we can write down that:
-$$
-\mbox{var}(Y_i+Y_j) = N(p_i+p_j)(1-p_i-p_j), \ i\neq j=1, \ldots, n.
-$$
-Now using the result:
-$$
-\mbox{var}(Y_i+Y_j) = \mbox{var}(Y_i) + \mbox{var}(Y_j) + 2
-\mbox{cov}(Y_i, Y_j),
-$$
-we can prove that $\mbox{cov}(Y_i, Y_j) = - N p_i p_j$. This makes
-sense intuitively since if on the average $Y_i$ goes up then $Y_j$
-will go down  and vice versa.
-
-
 
 
 We can still use a log-linear model for contingency table data when the data
@@ -299,7 +272,7 @@ have been obtained by multinomial sampling. We model
 $\log\mu_i=\log(Np_i)$, ${i=1,\ldots ,n}$ as a linear function of
 explanatory variables.
 However, such a model must preserve $\sum_{i=1}^n \mu_i=N$, the grand total
-which is fixed in advance, by design.
+which is fixed in advance.
 
 From \@ref(eq:multinom), the log-likelihood for a multinomial log-linear model is
 $$
@@ -366,9 +339,8 @@ contains an intercept term.
 
 ## Product multinomial sampling
 
-Sometimes, the grand total is fixed
-in advance, as a result of certain margins being prespecified.
-For example, consider the `lymphoma` contingency table as shown in
+Sometimes margins other than just the grand total may be prespecified.
+For example, consider the `lymphoma` contingency table in
 Table \ref{tab:lymphoma}.
 It may have been decided
 at the outset to collect data on 18 male patients and 12 female patients.
@@ -379,7 +351,7 @@ fixed total subgroups, defined by the fixed margin. Neither Poisson
 nor multinomial sampling assumptions are valid.
 The appropriate distribution combines a separate, independent
 multinomial for each subgroup.
-For example, if just the Sex margin is fixed above, then the
+For example, if just the Sex margin is fixed as above, then the
 appropriate distribution for modelling the data is two independent
 multinomials, one for males with $N=18$ and one for females with $N=12$.
 Each of these multinomials has four cells, representing the
@@ -439,9 +411,9 @@ a Poisson log-linear model, certain terms **must** be present in any
 model we fit. If they are removed, the inferences would no longer be
 valid.
 
-## Interpreting log linear models {#sn:loginter}
+## Interpreting log-linear models {#sn:loginter}
 
-Log linear models for contingency tables enable us to determine
+Log-linear models for contingency tables enable us to determine
 important properties concerning the joint distribution
 of the classifying variables. In particular, the form of our preferred
 log linear model for a table will have implications for how
@@ -475,11 +447,11 @@ in exactly one cell, it is also convenient to replace the cell label
 $i$ by the pair of labels $j$ and $k$ representing the corresponding levels
 of $R$ and $C$ respectively. Hence
 $$
-\log p_{jk}=\alpha+\beta_R(j)+\beta_C(k)-\log N\quad j=1,\ldots ,r,\quad
+\log p_{jk}=\alpha+\beta_R(j)+\beta_C(k)-\log N, \quad j=1,\ldots ,r,\quad
 k=1,\ldots ,c.
 $$
 Therefore
-\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\qquad j=1,\ldots ,r,\quad
+\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N], \quad j=1,\ldots ,r,\quad
 k=1,\ldots ,c,\]
 so
 \begin{align*}
@@ -506,11 +478,11 @@ P(R=j)P(C=k)&=
 &=P(R=j,C=k), \quad j=1,\ldots ,r,\quad
 k=1,\ldots ,c.
 \end{align*}
-Absence of the interaction $RC$ in a log linear
+Absence of the interaction $R*C$ in a log-linear
 model implies that $R$ and
 $C$ are independent variables.
-Absence of main effects is generally less interesting (implying uniformity of
-a particular margin). Generally, main effects are not removed from a log linear
+Absence of main effects is generally less interesting,
+and main effects are typically not removed from a log-linear
 model.
 
 In multiway tables, absence of a two-factor interaction
@@ -518,22 +490,13 @@ does not necessarily mean that the two variables are independent.
 For example, consider the `lymphoma` dataset, with 3 binary classifying
 variables Sex ($S$), Cell type ($C$) and Remission ($R$).
 After comparing the fit of several possible models, we find that a reasonable
-log linear model for these data is $R * C + C * S$.
+log-linear model for these data is $R * C + C * S$.
 Hence the interaction between remission and sex is absent.
-This log-linear model may be fitted in `R` with
-```{r}
-fit <- glm(Count ~ Remis * Cell + Cell * Sex, data = lymphoma, 
-           family = poisson)
-```
-The estimated cell means may be extracted and converted to probabilities
-```{r}
-cell_means <- fitted(fit)
-N <- sum(lymphoma$Count)
-cell_probs <- cell_means/N
-```
-These cell probabilities are shown in Table \ref{tab:lymphoma_p}
+The fitted cell probabilities from this log-linear model 
+are shown in Table \ref{tab:lymphoma_p}.
 
 ```{r, include = FALSE}
+fit <- glm(Count ~ Remis * Cell + Cell * Sex, data = lymphoma, family = poisson)
 N <- sum(lymphoma$Count)
 p <- fitted(fit)/N
 lymphoma_p_table <- xtabs(p ~ Cell + Sex + Remis, data = lymphoma)
@@ -635,7 +598,7 @@ Cell Type & Sex  & No & Yes & Odds\\
 
 In general, if we have an $r$-way contingency table with classifying
 variables $X_1,\ldots ,X_r$, then a log linear model which does not contain the
-$X_1X_2$ interaction (and therefore by the principle of marginality
+$X_1 * X_2$ interaction (and therefore by the principle of marginality
 contains no interaction involving both $X_1$ and $X_2$)
 implies that $X_1$ and $X_2$ are *conditionally independent*
 given $X_3,\ldots ,X_r$, that is
@@ -652,7 +615,7 @@ $$
 P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
 $$
 
-Although for the `lymphoma` dataset,  $R$ and $S$ are conditionally independent given $C$,
+Although for the `lymphoma` dataset  $R$ and $S$ are conditionally independent given $C$,
  they are not marginally independent. Using the marginal cell probabilities from Table 
  \ref{tab:lymphoma_p_margins}, we find that the odds of remission are $0.43$ for
  men and $1.23$ for women.
@@ -665,8 +628,7 @@ patients are more likely to have this cell type than males.
 Hence women are more likely to have remission than men.
 
 Suppose the factors for a three-way tables are $X_1$, $X_2$ and $X_3$.
-We can list all possible dependence structures using graphs
-(drawn in class) and the following.
+We can list all possible models and the implications for the conditional independence structure:
 
 1. Model 1 containing the terms $X_1, X_2, X_3$. All factors are mutually
 independent.
