@@ -1115,47 +1115,6 @@ If we have a set of competing linear models
 which might explain the dependence of the response
 on the explanatory variables, we will want to determine which of
 the models is most appropriate.
-Recall that we have three main requirements of a statistical model;
-plausibility, parsimony and goodness of fit, of which parsimony
-and goodness of fit are statistical issues.
-
-The goodness of fit of a linear model to the observed data is
-encapsulated by its deviance or residual sum of squares.
-Models which fit the data well have a low deviance, whereas those which
-fit the data poorly have a high deviance.
-However, the calibration of 'low' and 'high' is unclear, and depends
-on the scale of measurement of the response.
-We can calibrate the deviance by dividing it by
-the *natural variation in the data*, $\sum_{i=1}^n(y_i-\bar y)^2$.
-Then
-$$
-R^2=1-{D\over{\sum_{i=1}^n(y_i-\bar y)^2}}
-$$
-is the proportion of natural variation in the data which has been
-accounted for, or explained, by the linear model.
-
-$R^2$ is still not an entirely satisfactory measure by which to compare models
-(although it is an easily interpretable summary of the goodness-of-fit
-of a selected model) because adding terms to a model increases $R^2$ whether
-or not the increased complexity is justified.
-
-The $C_p$ statistic
-combines the deviance (a measure of goodness of fit)
-and the number of linear parameters of the model (a measure of complexity)
-into an overall measure for a model.
-The $C_p$ statistic calculated by `R` is
-$$
-C_p=D+2p\sigma^2
-$$
-which clearly penalises a model for lack of fit (through $D$)
-and complexity (through $p$, the number of linear parameters).
-Here $\sigma^2$ is replaced by the most reliable estimate of $\sigma^2$ available, in practice
-the estimate based on the most complex model under consideration.
-
-Although $C_p$ provides a mechanism for comparing any pair of
-models, it is essentially an *ad hoc* summary measure.
-In practice, we use it as a guide to direct a
-model comparison strategy based on hypothesis tests.
 
 As described previously, we proceed by comparing models pairwise
 using a generalised likelihood ratio test.
@@ -1176,7 +1135,7 @@ We will assume that model $H_1$ contains $p$ linear parameters and
 model $H_0$ a subset of $q<p$ of these.
 Without loss of generality, we can think of $H_1$ as the model
 $$
-E(Y_i)=\sum_{j=1}^p x_{ij} \beta_j \qquad i = 1, \ldots, n
+Y_i=\sum_{j=1}^p x_{ij} \beta_j + \epsilon_i \qquad i = 1, \ldots, n
 $$
 and $H_0$ being the same model with
 $$\beta_{q+1}=\beta_{q+2}=\cdots=\beta_p=0.
