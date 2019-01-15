@@ -214,7 +214,7 @@ lymphoma <- read.csv("lymphoma.csv")
 head(lymphoma)
 ```
 
-## Likelihood based statistical theory
+## Likelihood-based statistical theory
 
 ### The likelihood function
 
