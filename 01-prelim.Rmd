@@ -1120,7 +1120,7 @@ As described previously, we proceed by comparing models pairwise
 using a generalised likelihood ratio test.
 For linear models this kind of comparison is restricted to situations where
 one of the models, $H_0$, is *nested* in the other, $H_1$.
-For linear models, this usually means that the explanatory variables
+This usually means that the explanatory variables
 present in $H_0$ are a subset of those present in $H_1$.
 In this case model $H_0$ is a special case of model $H_1$, where certain coefficients
 are set equal to zero.
