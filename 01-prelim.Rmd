@@ -43,16 +43,14 @@ account of this.
 
 
 ## Regression Models
-Almost all statistical models, and all the ones we shall deal 
+Many statistical models, and all the ones we shall deal 
 with in MATH3012, can 
 be formulated as *regression* models.
 
 In practical applications, we often distinguish between a *response*
 variable and a group of *explanatory* variables. The aim is to determine
 the pattern of dependence of the response variable on the explanatory
-variables. General regression models often provide an attractive and 
-convenient way to quantify the relationships between the two sets 
-of variables.  A regression model has the general form
+variables.  A regression model has the general form
 
 > response = function(structure and randomness)
 
@@ -65,7 +63,7 @@ statistical modeller's task is to 'separate' these out.
 
 ### `nitric`: Nitric acid
 
-This data set represents 21 successive days of operation of a plant
+This data set relates to 21 successive days of operation of a plant
 oxidising ammonia to nitric acid. The response `yield` is ten times the percentage of ingoing
 ammonia that is lost as unabsorbed nitric acid (an indirect measure of the
 yield). The aim here is to study how the yield depends on flow of air to the plant (`flow`),
@@ -87,7 +85,7 @@ This data set contains weights of 24 newborn babies. There are two explanatory
 variables, sex (`Sex`) and gestational age in weeks (`Age`) together with the response
 variable, birth weight in grams (`Weight`).  The aim here is to study how birth weight
 depends on sex and  gestational age. This data set will be analysed  in
-worksheet 3 by using the multiple linear regression models that can include
+worksheet 3 by using multiple linear regression models including
 both categorical and continuous explanatory variables.  
 
 
@@ -121,24 +119,24 @@ plot(time ~ poison + treatment, data = survival)
 This data set represents the number of beetles exposed (`exposed`) and number 
 killed (`killed`) in eight groups exposed to different doses (`dose`)
 of a particular insecticide. Interest is focussed on how mortality is 
-related to dose. 
+related to dose. It seems sensible to model the number of beetles 
+killed in each group as the binomial random variable with 
+probability of death depending on dose. 
+This will be discussed in worksheet 5.
 
 ```{r, include = FALSE}
 beetle <- read.csv("beetle.csv")
 beetle
 ```
 
-It seems sensible to model the number of beetles 
-killed in each group as the binomial random variable with 
-probability of death depending on dose. 
-This will be discussed in worksheet 5.
+
 
 ### `shuttle`: Challenger disaster
 
 This data set concerns the 23 space shuttle flights
 before the Challenger disaster.  The disaster is thought to have 
 been caused by the failure of a number of O-rings, 
-of which there are six in total. The data 
+of which there were six in total. The data 
 consist of four variables, the number of
 damaged O-rings for each
 pre-Challenger flight (`n_damaged`), 
@@ -183,21 +181,20 @@ head(heart)
 
 ### `accident`: Road traffic accidents
 
-This example concerns the number of road accidents and the 
-volume of traffic observed on Mill Road and Trumptington 
-Road in Cambridge during morning, midday and afternoon. 
-
-```{r, include = FALSE}
-accident <- read.csv("accident.csv")
-head(accident)
-```
-
+This example concerns the number of road accidents (`number`) and the 
+volume of traffic (`volume`), on each of two roads in Cambridge (`road`),
+at various times of day (`time`, taking values `morning`, `midday` or `afternoon`).
 We should be able to answer questions like:  
 
 1. Is Mill Road more dangerous than Trumpington Road?
 1. How does time of day affect the rate of road accident? 
 
 These issues will be considered in worksheet 8. 
+
+```{r, include = FALSE}
+accident <- read.csv("accident.csv")
+head(accident)
+```
 
 
 ### `lymphoma`: Lymphoma patients
@@ -252,12 +249,9 @@ $\theta_1,\theta_2,\ldots ,\theta_p$. In this case, we usually write $f_{\bm Y}$
 $f_{\bm Y}(\bm y;\bm \theta)$, to make explicit the dependence on the unknown
 $\bm \theta$.
 
-An important concept for parametric statistical inference,
-particularly for complex statistical models is the *likelihood*.
-
 Until now, we have thought of the joint density $f_{\bm Y}(\bm y;\bm \theta)$ as a function
 of $\bm{y}$ for fixed $\bm \theta$, which describes the relative probabilities of different
-possible (sets of) $\bm y$, given a particular set of parameters $\bm \theta$.
+possible values of $\bm y$, given a particular set of parameters $\bm \theta$.
 However, in statistical inference, we have observed $y_1, \ldots, y_n$ (values of $Y_1, \ldots, Y_n$).
 Knowledge of the probability of alternative possible realisations of $\bm Y$
 is largely irrelevant.
@@ -267,20 +261,23 @@ Our only link between the observed data $y_1, \ldots, y_n$ and
 $\bm \theta$ is through the function $f_{\bm Y}(\bm y;\bm \theta)$. 
 Therefore, it seems sensible
 that parametric statistical inference should be based on this function.
-We can think of $L(\theta)$ as a function
+We can think of $f_{\bm Y}(\bm y;\bm \theta)$ as a function
 of $\bm \theta$ for fixed $\bm{y}$, which describes the relative *likelihoods* of
 different possible (sets of) $\bm \theta,$ given observed data $y_1, \ldots, y_n$.
-We write $L(\bm \theta; \bm y) = f_{\bm Y}(\bm y;\bm \theta)$ for this *likelihood*,
+We write 
+\[L(\bm \theta; \bm y) = f_{\bm Y}(\bm y;\bm \theta)\]
+for this *likelihood*,
 which is a function of the unknown parameter $\bm \theta$. For convenience, we often
 drop $\bm y$ from the notation, and write $L(\bm \theta)$.
 
 The likelihood function is of central importance in parametric statistical
 inference.
 It provides a means for comparing different possible values of $\bm \theta$, based on
-the probabilities (densities) that they assign to the observed data $y_1, \ldots, y_n$.
+the probabilities (or probability densities) that they assign to the observed data $y_1, \ldots, y_n$.
 
-1. Frequently it is more convenient to consider the log-likelihood function
-  $\log L(\bm \theta)$. This is often denoted by $\ell(\bm \theta)$.
+**Notes**
+1. Frequently it is more convenient to consider the *log-likelihood* function
+  $\ell(\bm \theta) = \log L(\bm \theta)$.
 1. Nothing in the definition of the likelihood requires $y_1, \ldots, y_n$ to be
   observations of independent random variables, although we shall frequently
   make this assumption.
@@ -290,10 +287,11 @@ the probabilities (densities) that they assign to the observed data $y_1, \ldots
 **Example (Bernoulli)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, independent identically distributed
 (i.i.d.) Bernoulli$(p)$ random
-variables. Here $\theta=(p)$ and
+variables. Here $\theta=(p)$ and the likelihood is
 $$
-L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}
+L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}.
 $$
+The log-likelihood is
 $$
 \ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
 $$
@@ -302,16 +300,16 @@ $$
 
 **Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and
+Here $\bm \theta=(\mu,\sigma^2)$ and the likelihood is
 \begin{align*}
 L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
 &=(2\pi\sigma^2)^{-{n\over 2}}
 \exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
 &\propto (\sigma^2)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
+\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
 \end{align*}
-so
+The log-likelihood is
 \[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
 -{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
 
@@ -320,7 +318,7 @@ so
 
 One of the primary tasks of parametric statistical inference is
 *estimation* of the unknown parameters $\theta_1, \ldots, \theta_p$.
-Consider the value of $\bm \theta$, which maximises the
+Consider the value of $\bm \theta$ which maximises the
 likelihood function. This is the 'most likely' value of $\bm \theta$, the one which makes
 the observed data 'most probable'. When we are searching for an estimate of
 $\bm \theta$, this would seem to be a good candidate.
@@ -359,7 +357,7 @@ the log-likelihood is
     \[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]
   Solving this for $\hat{p}$ gives $\hat{p}=\bar y$.
   Note that
-  $\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0$ 
+  \[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0\]
    everywhere, so the stationary point is clearly a maximum.
 
 **Example (Normal)**.
@@ -407,23 +405,20 @@ which is clearly negative definite.
 
 ### Score {#score}
 
-Suppose that $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, whose joint p.d.f.
-$L(\theta)$ is completely specified except
-for the values of $p$ unknown parameters $\bm \theta=(\theta_1, \ldots, \theta_p)^T$.
 Let
 $$
-u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta)\qquad i=1,\ldots ,p
+u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta), \quad i=1,\ldots ,p
 $$
 and $\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T$. Then we call $\bm{u}(\bm \theta)$ the
 *vector of scores* or *score vector*.
 Where $p=1$ and $\bm \theta=(\theta)$, the *score* is the scalar defined as
 $$
-u(\theta)\equiv{{\partial}\over{\partial\theta}}\log L(\theta).
+u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
 $$
 The maximum likelihood estimate $\hat{\bm \theta}$ satisfies
 \[u(\hat{\bm \theta})={\bm 0},\]
 that is,
-\[u_i(\hat{\bm \theta})=0\quad i=1,\ldots ,p.\]
+\[u_i(\hat{\bm \theta})=0, \quad i=1,\ldots ,p.\]
 Note that $u(\bm{\theta})$ is a function of $\bm \theta$ for fixed (observed) $\bm y$.
 However, if we replace $y_1, \ldots, y_n$ in $u(\bm{\theta})$, by the corresponding random variables
 $Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\equiv
@@ -466,11 +461,11 @@ $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 $N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
 u_1(\mu,\sigma^2)&= {{n(\bar y-\mu)}/{\sigma^2}}\cr
-u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
+u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
 \end{align*}
 Since $E[\bm U(\mu,\sigma^2)] = {\bm 0}$, we must have
 $E[\bar Y]=\mu$ and 
-$E[{\textstyle{1\over n}}\sum(Y_i-\mu)^2]=\sigma^2.$
+$E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.$
 
 ### Information {#info}
 
@@ -488,7 +483,7 @@ We call the matrix $-H(\bm{\theta})$ the *observed information matrix*.
 Where $p=1$ and $\bm \theta=(\theta)$, the *observed information* is a
 scalar defined as
 $$
--H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\log L(\theta).
+-H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\ell(\theta).
 $$
 
 <!-- Here, we are interpreting $\bm \theta$ as the true (but unknown) value of -->
@@ -526,7 +521,7 @@ For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
 {{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
 {{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
-&= \int \frac{1}{L(\theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+&= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
  {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
 \end{align*}
 
@@ -565,7 +560,7 @@ $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^
 Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
 u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
-u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
+u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
 \end{align*}
 Therefore
 $$
@@ -586,8 +581,8 @@ $$
 
 Maximum likelihood estimation is an attractive method of estimation
 for a number of reasons.
-It is intuitively sensible (choosing $\bm \theta$ which makes the observed data
-most probable) and usually reasonably straightforward to carry out.
+It is intuitively sensible
+and usually reasonably straightforward to carry out.
 Even when the simultaneous equations we obtain by
 differentiating the log-likelihood function are impossible to solve directly,
 solution by numerical methods is usually feasible.
@@ -610,11 +605,13 @@ tends to $N[\theta,1/{\cal I}(\theta)]$.
 
 For 'large enough $n$', we can treat the asymptotic distribution of the MLE as
 an approximation. The fact that $E(\hat{\bm \theta})\approx\bm \theta$ means that the maximum
-likelihood estimator is approximately *unbiased*
-for large samples. Furthermore, its variability, as measured by its
-variance ${\cal I}(\bm \theta)^{-1}$ is the smallest possible amongst unbiased
-estimators (the Cramér-Rao lower bound), so the maximum likelihood has good precision.
-Therefore the MLE is a desirable estimator in large samples (and therefore we hope also reasonable in small samples, though we should investigate this case by case).
+likelihood estimator is *approximately unbiased*
+for large samples. The variance of $\hat{\bm \theta}$ is approximately $\mathcal{I}(\bm \theta)^{-1}$. 
+It is possible to show that this is the smallest possible variance of any unbiased estimator of 
+$\bm \theta$ (this result is called the Cramer-Rao lower bound, which we do not prove here).
+Therefore the MLE is the 'best possible' estimator in large samples
+(and therefore we hope also reasonable in
+small samples, though we should investigate this case by case).
 
 
 The usefulness of an estimate is always enhanced
@@ -628,13 +625,13 @@ s.e.(\hat{\theta})={1\over{{\cal I}(\hat{\theta})^{{1\over 2}}}},
 $$
 and for a vector parameter $\bm \theta$
 $$
-s.e.(\hat{\theta}_i)=[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{{1\over 2}}
-\qquad i=1,\ldots ,p.
+s.e.(\hat{\theta}_i)=[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{{1\over 2}},
+\quad i=1,\ldots ,p.
 $$
 
 An alternative summary of the information provided by the observed data about the
 location of a parameter $\theta$ and the associated precision is
-an *interval estimate* or *confidence interval*.
+a *confidence interval*.
 
 The asymptotic distribution of the maximum likelihood estimator can be used to
 provide approximate large sample confidence intervals. Asymptotically,
@@ -867,7 +864,7 @@ in $\Theta^{(1)}$ by $\hat{\bm \theta}^{(1)}$. Then
 \begin{align*}
 L_{01}&\equiv  2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)\cr
-&= 2\log L\hat{\bm \theta}^{(1)})-2\log L\hat{\bm \theta}^{(0)})\cr
+&= 2\log L(\hat{\bm \theta}^{(1)})-2\log L(\hat{\bm \theta}^{(0)})\cr
 &= 2[\log L(\hat{\bm \theta}^{(1)})-\log L(\bm \theta)]
  -2[\log L(\hat{\bm \theta}^{(0)})-\log L(\bm \theta)]\cr
 &= L_1-L_0.
@@ -930,7 +927,7 @@ In practical applications, we often distinguish between a *response* variable an
 The aim is to determine the pattern of dependence of the response variable on the explanatory
 variables.
 We denote the $n$ observations of the response variable by $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
-In a statistical model, these are assumed to be observations of *random variables*
+These are assumed to be observations of *random variables*
 $\bm Y=(Y_1,Y_2,\ldots ,Y_n)^T$.
 Associated with each $y_i$ is a vector $\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$ of values of $p$
 explanatory variables.
@@ -968,10 +965,10 @@ and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{x}_i^T$, th
 explanatory data corresponding to the $i$th observation of the response.
 The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th explanatory variable.
 
-We note that $\bm{\epsilon}$ has a multivariate normal distribution
+The error vector $\bm{\epsilon}$ has a multivariate normal distribution
 with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
-because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
-implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$.
+since $\text{Var}(\epsilon_i)=\sigma^2$, and $\text{Cov}(\epsilon_i,\epsilon_j)=0$
+as $\epsilon_1, \ldots, \epsilon_n$ are independent of one another.
 It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate normal
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
 *i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
@@ -1036,12 +1033,6 @@ $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
 
-We may write the linear model more compactly by noting that 
-$Y_1, \ldots, Y_n$ are independent and
-$$
-Y_i\sim N\left(\bm{x}_i^T\bm{\beta}, \sigma^2\right)\qquad i = 1, \ldots, n .
-$$
-
 ### Maximum likelihood estimation
 
 The regression coefficients $\beta_1, \ldots, \beta_p$ describe
@@ -1060,17 +1051,17 @@ $$
 $$
 and
 $$
-\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2
+\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2.
 $$
 
 The corresponding fitted values are
-\[\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
-so
-\[\hat{Y}_i=\bm{x}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
+\[\hat{\bm{y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
+or
+\[\hat{y}_i=\bm{x}_i^T\hat{\bm{\beta}}, \quad i = 1, \ldots, n.\]
 
 The residuals $\bm{r} = (r_1, \ldots, r_n)$ are
-\[\bm{r}=\bm{y}-\bm{\hat y}\]
-so $r_i=y_i-\bm{x}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
+$\bm{r}=\bm{y}-\bm{\hat y}$
+or $r_i=y_i-\bm{x}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
 These residuals describe the variability in the observed responses $y_1, \ldots, y_n$ which
 has not been explained by the linear model.
 We call
@@ -1090,7 +1081,7 @@ so
  \[\hat{\bm{\beta}} \sim N(\bm{\beta}, \sigma^2(\bm{X}^T\bm{X})^{-1}).\]
 
 It is possible to prove (although we shall not do so here)
-that if the model is correct,
+that
 $$
 {D\over\sigma^2}\sim\chi^2_{n-p}
 $$
@@ -1102,7 +1093,7 @@ so the maximum likelihood estimator is biased for $\sigma^2$ (although
 still asymptotically unbiased as ${{n-p}\over n}\to 1$ as $n\to\infty$).
 We often use the unbiased estimator of $\sigma^2$
 $$
-\tilde \sigma^2={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n \hat{\epsilon}_i^2.
+\tilde \sigma^2={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n r_i^2.
 $$
 The denominator $n-p$, the number of observations minus the number of
 linear coefficients in the model is called the *degrees of freedom* of the model.
@@ -1135,14 +1126,14 @@ We will assume that model $H_1$ contains $p$ linear parameters and
 model $H_0$ a subset of $q<p$ of these.
 Without loss of generality, we can think of $H_1$ as the model
 $$
-Y_i=\sum_{j=1}^p x_{ij} \beta_j + \epsilon_i \qquad i = 1, \ldots, n
+Y_i=\sum_{j=1}^p x_{ij} \beta_j + \epsilon_i, \quad i = 1, \ldots, n
 $$
 and $H_0$ being the same model with
 $$\beta_{q+1}=\beta_{q+2}=\cdots=\beta_p=0.
 $$
 
 
-Now, a *generalised likelihood ratio test* of $H_0$ against $H_1$
+Now, a generalised likelihood ratio test of $H_0$ against $H_1$
 has a critical region of the form
 $$
 C=\left\{ \bm{y}:{{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(1)}}L(\bm{\beta},\sigma^2)}\over
@@ -1177,25 +1168,24 @@ and
 \[\left({{D_0}\over{D_1}}-1\right){{n-p}\over{p-q}}>k'\]
 for some $k'$. Rearranging,
 \[{{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k'.\]
-We refer to the left hand side of this inequality as the F-statistic.
+We refer to the left hand side of this inequality as the $F$-statistic.
 We reject the simpler model $H_0$ in favour of the more complex model $H_1$ if
 $F$ is 'too large'.
 
-As we have required $H_0$ to be nested in $H_1$, $F$ has a known distribution
-when $H_0$ is true. It is an F distribution with $p-q$ degrees of freedom
-in the numerator and $n-p$ degrees of freedom in the denominator.
+As we have required $H_0$ to be nested in $H_1$, $F \sim F_{p-q, \, n-p}$
+when $H_0$ is true. 
 To see this, note that
 $$
 {{D_0}\over\sigma^2}={{D_0-D_1}\over\sigma^2}+{{D_1}\over\sigma^2}.
 $$
-Furthermore, we know that, under $H_0$,
-$D_1/\sigma^2$ has a $\chi^2_{n-p}$ distribution and
-$D_0/\sigma^2$ has a $\chi^2_{n-q}$ distribution.
+Furthermore, under $H_0$,
+$D_1/\sigma^2 \sim \chi^2_{n-p}$ and
+$D_0/\sigma^2 \sim \chi^2_{n-q}$.
 It is possible to show (although we will not do so here)
 that under $H_0$, $(D_0-D_1)/\sigma^2$ and $D_0/\sigma^2$ are independent.
 Therefore, from the properties of the chi-squared distribution, it follows that
-under $H_0$, $(D_0-D_1)/\sigma^2$ has a  $\chi^2_{p-q}$ distribution, and
-$F$ has a $F_{p-q,\,n-p}$ distribution.
+under $H_0$, $(D_0-D_1)/\sigma^2 \sim \chi^2_{p-q}$, and
+$F \sim F_{p-q,\,n-p}$ distribution.
 
 
 Therefore, the precise critical region can be evaluated given the
