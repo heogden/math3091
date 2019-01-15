@@ -561,7 +561,7 @@ u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 
 **Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and,
+Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
 u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
 u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2
