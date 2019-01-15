@@ -921,7 +921,7 @@ $\chi^2_1$ distribution.
 <!-- \end{exampl} -->
 
 
-## Linear Models (a brief revision) {#sn:lm}
+## Linear Models {#sn:lm}
 
 ### Introduction
 
@@ -932,21 +932,21 @@ variables.
 We denote the $n$ observations of the response variable by $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
 In a statistical model, these are assumed to be observations of *random variables*
 $\bm Y=(Y_1,Y_2,\ldots ,Y_n)^T$.
-Associated with each $y_i$ is a vector $\bm{X}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$ of values of $p$
+Associated with each $y_i$ is a vector $\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$ of values of $p$
 explanatory variables.
 
 In a linear model, we assume that 
 \begin{align}
 Y_i&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip} + \epsilon_i \cr
 &= \sum_{j=1}^p x_{ij} \beta_j + \epsilon_i \cr
-&=  \bm{X}_i^T\bm{\beta} + \epsilon_i \cr
+&=  \bm{x}_i^T\bm{\beta} + \epsilon_i \cr
 &= [\bm{X}\bm{\beta}]_i + \epsilon_i,\qquad i=1,\ldots ,n  (\#eq:lmNonMat)
 \end{align}
-where $\epsilon_i \sim N(0, \sigma^2)$ independently, and
+where $\epsilon_i \sim N(0, \sigma^2)$ independently,
 \[\bm{X}= \begin{pmatrix}
-\bm{X}_1^T \\
+\bm{x}_1^T \\
 \vdots \\
-\bm{X}_n^T
+\bm{x}_n^T
 \end{pmatrix}
 =\begin{pmatrix}
 x_{11} & \cdots &x_{1p}\cr
@@ -955,7 +955,7 @@ x_{n1} &\cdots &x_{np}
 \end{pmatrix}\]
 and
 $\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
-describing the dependence of $Y_i$ on $\bm{X}_i$.
+describing the dependence of $Y_i$ on $\bm{x}_i$.
 The four ways of describing the linear model in \@ref(eq:lmNonMat) are equivalent, but the most
 economical is the matrix form
 \begin{equation}
@@ -964,14 +964,14 @@ economical is the matrix form
 where $\bm{\epsilon}=(\epsilon_1,\epsilon_2,\ldots ,\epsilon_n)^T$.
 
 The $n\times p$ matrix $\bm{X}$ consists of known (observed) constants
-and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{X}_i^T$, the
+and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{x}_i^T$, the
 explanatory data corresponding to the $i$th observation of the response.
 The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th explanatory variable.
 
 We note that $\bm{\epsilon}$ has a multivariate normal distribution
 with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
-(because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
-implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$).
+because all $\text{Var}(\epsilon_i)=\sigma^2$ and $\epsilon_1, \ldots, \epsilon_n$ are independent
+implies all $\text{Cov}(\epsilon_i,\epsilon_j)=0$.
 It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate normal
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
 *i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
@@ -1039,7 +1039,7 @@ and $p-1$ 'real' variables.
 We may write the linear model more compactly by noting that 
 $Y_1, \ldots, Y_n$ are independent and
 $$
-Y_i\sim N\left(\bm{X}_i^T\bm{\beta}, \sigma^2\right)\qquad i = 1, \ldots, n .
+Y_i\sim N\left(\bm{x}_i^T\bm{\beta}, \sigma^2\right)\qquad i = 1, \ldots, n .
 $$
 
 ### Maximum likelihood estimation
@@ -1051,7 +1051,7 @@ We use the observed data $y_1, \ldots, y_n$ to *estimate* this pattern of depend
 The likelihood for a linear model is
 \begin{equation}
 L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{X}_i^T\bm{\beta})^2\right).
+\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{x}_i^T\bm{\beta})^2\right).
 (\#eq:lmLikelihood)
 \end{equation}
 This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
@@ -1060,21 +1060,21 @@ $$
 $$
 and
 $$
-\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2
+\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2
 $$
 
 The corresponding fitted values are
 \[\hat{\bm{Y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
 so
-\[\hat{Y}_i=\bm{X}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
+\[\hat{Y}_i=\bm{x}_i^T\hat{\bm{\beta}}\qquad i = 1, \ldots, n.\]
 
 The residuals $\bm{r} = (r_1, \ldots, r_n)$ are
 \[\bm{r}=\bm{y}-\bm{\hat y}\]
-so $r_i=y_i-\bm{X}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
+so $r_i=y_i-\bm{x}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
 These residuals describe the variability in the observed responses $y_1, \ldots, y_n$ which
 has not been explained by the linear model.
 We call
-\[D= \sum_{i=1}^n r_i^2 = \sum_{i=1}^n \left(y_i-\bm{X}_i^T\hat{\bm{\beta}}\right)^2\]
+\[D= \sum_{i=1}^n r_i^2 = \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2\]
 the *residual sum of squares* or *deviance* for the linear model.
 
 ### Properties of the MLE
@@ -1155,14 +1155,14 @@ $$
 For a linear model,
 $$
 L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{X}_i^T\bm{\beta})^2\right).
+\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{x}_i^T\bm{\beta})^2\right).
 $$
 This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
 $\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\hat \sigma^2=D/n$.
 Therefore
 \begin{align*}
 \max_{\bm{\beta},\sigma^2} L(\bm{\beta},\sigma^2)&=(2\pi D/n)^{-{n\over 2}}
-\exp\left(-{n\over{2D}} \sum_{i=1}^n (y_i-\bm{X}_i^T\hat{\bm{\beta}})^2\right)\cr
+\exp\left(-{n\over{2D}} \sum_{i=1}^n (y_i-\bm{x}_i^T\hat{\bm{\beta}})^2\right)\cr
 &=(2\pi D/n)^{-{n\over 2}}
 \exp\left(-{n\over2}\right).
 \end{align*}
