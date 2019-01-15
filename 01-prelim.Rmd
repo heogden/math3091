@@ -71,41 +71,40 @@ ammonia that is lost as unabsorbed nitric acid (an indirect measure of the
 yield). The aim here is to study how the yield depends on flow of air to the plant (`flow`),
 temperature of the cooling water
 entering the absorption tower (`temp`) and concentration of nitric acid in the
-absorbing liquid (`conc`). Figure \@ref(fig:nitric) gives a plot
-of the data.
+absorbing liquid (`conc`). These data will be analysed  in worksheet 2 using multiple linear 
+regression models.   
 
-```{r nitric, echo = FALSE, fig.pos = "tb", fig.cap = "A pairs plot of the `nitric` data"}
+```{r nitric, include = FALSE, fig.pos = "tb", fig.cap = "A pairs plot of the `nitric` data"}
 nitric <- read.csv("nitric.csv")
 pairs(nitric)
 ```
 
-These data will be analysed  in worksheet 2 using multiple linear 
-regression models.   
+
 
 ### `birth`: Weight of newborn babies
 
 This data set contains weights of 24 newborn babies. There are two explanatory 
-variables,  sex and gestational age  in weeks together with the response
-variable, birth weight in grams.  The aim here is to study how birth weight
-depends on sex and  gestational age. Figure \@ref(fig:birth) gives a plot
-of the data.
+variables, sex (`Sex`) and gestational age in weeks (`Age`) together with the response
+variable, birth weight in grams (`Weight`).  The aim here is to study how birth weight
+depends on sex and  gestational age. This data set will be analysed  in
+worksheet 3 by using the multiple linear regression models that can include
+both categorical and continuous explanatory variables.  
 
-```{r birth, echo = FALSE, fig.pos = "tb", fig.cap = "The `birth` data"}
+
+```{r birth, include = FALSE, fig.pos = "tb", fig.cap = "The `birth` data"}
 birth <- read.csv("birth.csv")
 plot(birth$Age, birth$Weight, xlab="Age (weeks)", ylab="Birthweight (g)",
      col = birth$Sex, pch = birth$Sex)
 legend("bottomright", legend = c("Male", "Female"), pch = 1:2, col = 1:2)
 ```
 
-This data set will be analysed  in
-worksheet 3 by using the multiple linear regression models that can include
-both categorical and continuous explanatory variables.  
 
 ### `survival`: Time to death
 
-This data set, analysed in worksheet 4,  represents survival 
-times (in 10 hour units) of 48 rats each allocated to one of 12 combinations
-of  3 poisons and 4 treatments. The aim here is to study how survival time depends
+This data set, analysed in worksheet 4, contains survival 
+times in 10 hour units (`time`) of 48 rats each allocated to one of 12 combinations
+of  3 poisons (`poison`) and 4 treatments (`treatment`). 
+The aim here is to study how survival time depends
 on the poison and the treatment, and to determine whether there is an interaction
 between these two categorical variables.
 
@@ -203,8 +202,9 @@ These issues will be considered in worksheet 8.
 
 ### `lymphoma`: Lymphoma patients
 The  `lymphoma` data set represents 30 lymphoma 
-patients classified by sex, cell type of lymphoma and response to 
-treatment and it is an example of a three-way ($2\times 2\times 2$)
+patients classified by sex (`Sex`), cell type of lymphoma (`Cell`) and response to 
+treatment (`Remis`). It is an example of data which may be represented as
+a three-way ($2\times 2\times 2$)
 contingency table. The aim here is to study the 
 complex dependence structures between the three classifying factors. 
 This is taken up in worksheet 9. 
