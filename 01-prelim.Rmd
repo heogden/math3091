@@ -510,6 +510,7 @@ provided that
 1. The variance exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
+\newpage
 \begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
 
 For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
@@ -554,6 +555,8 @@ u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 -H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
 {\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
 \end{align*}
+
+\newpage
 
 **Example (Normal)**.
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
