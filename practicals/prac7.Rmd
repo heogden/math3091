@@ -1,0 +1,7 @@
+---
+title: 'MATH3012, Worksheet 1: R Revision'
+author: "Helen Ogden"
+date: ""
+output: pdf_document
+---
+

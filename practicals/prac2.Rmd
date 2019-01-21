@@ -1,0 +1,175 @@
+---
+title: 'MATH3012, Worksheet 2: Multiple linear regression'
+author: "Helen Ogden"
+date: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+In this lab, we will go over the `R` multiple regression commands, 
+which you should have seen before. Please take your time and make 
+sure that you understand what each command is doing, as the later 
+material on generalised linear models depends on you understanding this.
+
+## Import the nitric acid data
+
+Use the `read.csv` command to read in the file `nitric.csv`.
+```{r}
+nitric <- read.csv("nitric.csv")
+```
+This data set relates to 21 successive days of operation of a plant
+oxidising ammonia to nitric acid. The response `yield` is ten times 
+the percentage of ingoing ammonia that is lost as unabsorbed nitric 
+acid (an indirect measure of the yield). The aim here is to study how 
+the yield depends on flow of air to the plant (`flow`), temperature of 
+the cooling water entering the absorption tower (`temp`) and concentration
+of nitric acid in the absorbing liquid (`conc`).
+
+Get a plot of the data. 
+```{r}
+pairs(nitric)
+```
+
+
+## Fit a linear model
+
+We fit the linear model
+\[Y_i=\alpha+\beta_1x_{i1}+\beta_2x_{i2} + \beta_3 x_{i3}+\epsilon_i, \quad i=1,\ldots, 21,\]
+where $Y_i$ is the `yield`, $x_{i1}$ is the `flow`, $x_{i2}$ is the `temp` and $x_{i4}$
+is the `conc` on the $i$th day.
+To fit this model to the `nitric` data, we can use
+```{r}
+nitric_lm1 <- lm(yield ~ flow + temp + conc, data = nitric)
+summary(nitric_lm1)
+```
+**Interpretation**. It looks like `conc` is not
+required in the model because its $p$-value is 0.344. The other parameters
+are all significant.
+The model explained about 91.36\% of total variation in the data.
+
+## Remove a term from the model
+
+We can refit by omitting `conc`. 
+```{r}
+nitric_lm2 <- lm(yield ~ flow + temp, data = nitric)
+```
+
+Alternatively, we could use `update` to drop a term from `nitric_lm1`:
+```{r}
+nitric_lm2_alt <- update(nitric_lm1, . ~ . - conc)
+```
+This updates the linear model object `nitric_lm1` by removing
+`conc` from the formula. Check that `nitric_lm2` and 
+`nitric_lm2_alt` are the same.
+
+We can write this second model mathematically as
+\[Y_i=\alpha+\beta_1 x_{i1}+\beta_2 x_{i2}+\epsilon_i, \quad i = 1, \ldots, 21.\]
+
+We can get a summary of the fitted model with
+```{r}
+summary(nitric_lm2)
+```
+Do you think you should drop any other variables?
+
+## Find confidence intervals for the regression coefficients
+
+We could find a $95\%$ confidence interval for each regression coefficient $\beta_i$ by
+using the Estimate and standard error columns of the
+summary output. From those we can obtain a confidence interval using
+\[\text{Estimate $\pm$ Std. Error $\times$ critical value}.\]
+For a 95\% confidence interval the critical value is 
+```{r}
+qt(0.975, 18)
+```
+which is $2.1$. Therefore $0.671 \pm 0.127 \times 2.1$ or
+$(0.404, 0.937)$ is a $95\%$ confidence interval for $\beta_1$ under model 2.
+Find $95\%$ confidence intervals for the intercept $\alpha$
+and regression coefficient $\beta_2$.
+
+`R` has a built in function `confint` to find confidence intervals.
+You can find out more about the arguments of `confint` by checking the help
+```{r}
+?confint
+```
+Try
+```{r}
+confint(nitric_lm2)
+```
+How does this compare to the confidence intervals you found
+"by hand" above? 
+
+Can you find $90\%$ confidence
+intervals for the parameters of `nitric_lm2` using `confint`?
+
+
+
+## Check the diagnostic plots
+
+For the selected model we should check the assumptions. We do this
+by issuing the command 
+```{r}
+plot(nitric_lm2)
+```
+It produces four plots. If the model is good,
+the first plot should
+not show any systematic pattern,  the residuals should be random.
+
+The second plot is the normal qqplot. This  is used
+to check normality.  If the residuals are normally distributed
+then all the points should lie close to a straight line. In our case
+observation 21 shows some outlying behaviour. Otherwise the plot
+seems to be fine.
+
+## How can we predict using a fitted linear model?
+
+We can predict using the linear model output very easily
+using the predict function. Look at the help file
+```{r}
+?predict.lm
+```
+If we just wanted to predict the means at the values for the explanatory variables
+we have used to fit, we just use
+```{r}
+predict(nitric_lm2, se.fit = TRUE, interval = "confidence")
+```
+This gives the
+predicted means, standard errors and the default $95\%$ confidence interval.
+
+If we want to predict future actual observations 
+(NOT the means) at the values for the explanatory variables
+which we have used to fit, we use
+```{r}
+predict(nitric_lm2, interval = "prediction")
+```
+This gives the
+predicted observations and  the default 95\% confidence interval.
+
+If we want to predict at new values for the explanatory variables then we first create a data set
+which has the column names exactly as the original data set. The response
+`yield` column is not needed.  Then put the values for the explanatory variables
+for which we want to predict as rows. Then  use the above commands,  but   the second argument
+should be the name of the new data set.
+
+Suppose that we want to predict the `yield` value at
+`flow = 60`, `temp = 20` using the model with two covariates `flow` and `temp`.
+We create a new data frame, `newdata` for example, by using
+```{r}
+newdata <- data.frame(flow = 60, temp = 20)
+```
+Then issue the command
+```{r}
+predict(nitric_lm2, newdata = newdata, se.fit = TRUE, interval = "confidence")
+```
+This gives the
+predicted mean, standard errors and the default $95\%$ confidence interval.
+The command 
+```{r}
+predict(nitric_lm2,  newdata = newdata, se.fit = TRUE, interval= "prediction")
+```
+gives the
+predicted observation and the default 95\% confidence interval.
+
