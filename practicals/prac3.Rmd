@@ -1,7 +1,142 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
+title: 'MATH3012, Worksheet 3: Linear models with both continuous and categorical covariates'
 author: "Helen Ogden"
 date: ""
 output: pdf_document
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+The dataset in `birth.csv` contains data on the weight of 24 newborn babies. 
+Read the data into `R` using 
+```{r}
+birth <- read.csv("birth.csv")
+```
+
+There are two explanatory variables; sex (`Sex`)
+and gestational age in weeks (`Age`) together
+with the response variable, birthweight in grams (`Weight`).
+
+`Sex` is a categorical variables, taking two values, 1 for male and 2 for female.
+Because it is a categorical variable, it should be
+be declared as a factor in `R`, using
+
+```{r}
+birth$Sex <- as.factor(birth$Sex)
+```
+
+The data can be plotted, with males and females distinguished, using
+```{r}
+plot(birth$Age, birth$Weight, xlab = "Age (weeks)", ylab = "Birthweight (grams)",
+     col = birth$Sex)
+legend("bottomright", legend = c("Male", "Female"), pch = 1, col = 1:2)
+```
+Do you see what the legend command has done? Read the help file on
+legend by issuing the command `?legend`. Can you move the legend
+to the top left of the plot?
+
+We can now fit models which include both qualitative and
+quantitative explanatory variables.
+Such models are sometimes called *Analysis of Covariance* models.
+For example
+```{r}
+birth_lm1 <- lm(Weight ~ Sex + Age, data = birth)
+```
+
+fits the model
+$$
+Y_i=\mu+\alpha(s_i)+\beta x_i+\epsilon_i,\quad i=1,\ldots ,n\eqno{(1)}
+$$
+where $Y_i$ is the `Weight`, $s_{i}$ is the `Sex`, $x_{i}$ is the `Age` of
+the $i$th baby.
+Remember to use the `summary` command to see the results of the fitting.
+
+Note that $\alpha(s_i)$ is a function of $s_i$, sex of the $i$th baby. This
+$\alpha(s_i)$ can only take two possible values, say $\alpha_m$ and $\alpha_f$
+because $s_i$ can only take two possible values: male or female.  By setting
+```{r}
+options(contrasts=c("contr.treatment", "contr.poly"))
+```
+
+we force the first of the two possible values of  $\alpha(s_i)$ to be zero.
+Which one is going to be zero? The one for the male, $\alpha_m$ since that is the
+first level of the factor `Sex`, check `levels(birth$Sex)`.  Then  $\alpha_f$
+for female will be interpreted as the average
+difference between the female and male babies. Hence the model  will be:
+$$
+Y_i=\mu+ \beta x_i+\epsilon_i
+$$
+when the $i$th baby is male and
+$$
+Y_i=\mu+ \alpha_f+ \beta x_i+\epsilon_i
+$$
+when the $i$th baby is female. In the model for female babies $\mu+\alpha_f$ is the intercept
+while in the model for male babies $\mu$ will be the intercept. The two models will define
+a pair of  parallel straight lines for $E(Y)$.
+
+Try removing terms from this model.
+If we remove `Sex`, the model is just a linear regression of `Weight` on `Age`,
+and allows no dependence of `Weight` on `Sex`.
+If we remove `Age`, then the expected `Weight` is the same for any value of `Age`,
+and just differs between the levels of `Sex`.
+
+Model (1) states that `Sex` and `Age` affect `Weight` but that they do so independently.
+The difference between the expected `Weight` for two different values of `Age` is the
+same for either `Sex`. Similarly, the difference between the expected
+`Weight` between the two levels of `Sex` is the
+same for every value of `Age`.
+However, we can also incorporate an interaction between a factor and
+a continuous explanatory variable.
+
+```{r}
+birth_lm2 <- lm(Weight ~ Sex + Age + Sex:Age, data = birth)
+```
+fits the model
+$$
+Y_i=\mu+\alpha(s_i)+\beta x_i+\gamma(s_i)
+x_i+\epsilon_i, \quad i=1,\ldots ,n\eqno{(2)}
+$$
+where $\alpha(s)$ and $\gamma(s)$ are constrained to be equal to 0
+at the first level of `Sex`.
+The interpretation of this model is that the expected `Weight` depends linearly on `Age`,
+and that the linear relationship has a different
+intercept *and a different slope* for the different levels of `Sex`.
+The parameter $\gamma(s)$ describes the differences in the slopes.
+
+Again, we can compare nested models using $F$-tests, and again it only
+makes sense for an interaction to be present if all the corresponding
+main effects are also present.
+
+\benum
+\item Which model do you feel best describes the relationship between
+birthweight, sex and gestational age?
+\item Let us do prediction for a female baby with 39 weeks of gestational age
+ and  a male baby with 42 weeks of gestation.
+```{r}
+newdata <- data.frame(Age = c(39, 42), Sex = c("2", "1"))
+predict(birth_lm1, newdata, se.fit = TRUE, interval = "confidence")
+predict(birth_lm1, newdata, interval = "prediction")
+```
+\item How can we check the above results?
+```{r}
+summary(birth_lm1)
+# For female with 39 weeks
+120.89 * 39 - 163.04 - 1610.28
+# For male with 42 weeks
+120.89 * 42 - 1610.28
+```
+\item We can plot the regression lines using the `abline` command.
+```{r}
+plot(birth$Age, birth$Weight, xlab = "Age (weeks)", ylab = "Birthweight (grams)",
+     col = birth$Sex)
+legend("bottomright", legend = c("Male", "Female"), pch = 1, col = 1:2)
+abline(-1610, 120.9, lty = 2, col = 1)  # for the males
+abline(-1773, 120.9, lty = 2, col = 2) # for the females
+```
+\eenum
