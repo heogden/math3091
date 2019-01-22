@@ -1,7 +1,163 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
+title: 'MATH3012, Worksheet 4: Linear models with factors'
 author: "Helen Ogden"
 date: ""
 output: pdf_document
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
 ---
 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+## Explore the data
+
+Load the data in `survival.csv` into a variable `survival`.
+```{r, include = FALSE}
+survival <- read.csv("survival.csv")
+```
+
+This dataset represent survival times in 10 hour units (`time`) of 48
+animals each allocated to one of 12 combinations of 3 poisons (`poison`)
+and 4 treatments (`treatment`).
+The aim of the experiment is to determine the dependence of survival time
+on the explanatory variables poison and treatment.
+
+The values of these explanatory variables are categories.
+We refer to categorical explanatory variables as `factors`.
+The values assigned to the variables are just labels distinguishing
+between categories.
+Even if we used numerical labels, their values would have no
+intrinsic meaning. Therefore, we cannot include such variables directly
+in a linear model. We need to convert the two explanatory variables into
+factors.
+```{r}
+survival$poison <- as.factor(survival$poison)
+survival$treatment <- as.factor(survival$treatment)
+```
+
+Plot the data. Issue 
+```{r}
+plot(time ~ poison + treatment, data = survival)
+```
+You can plot both on the same
+graph sheet if you first issue `par(mfrow = c(2,1))` and then the plot command.
+Can you order the poison types? How about the treatments?
+
+## Modelling with factors
+
+To model the dependence of the response on an explanatory factor,
+we include a model coefficient for each level of the factor.
+For example,  a model which allows survival time  to depend on poison type
+might be written as
+$$
+Y_i=\mu+\alpha(p_i)+\epsilon_i,\quad i=1,\ldots ,n\eqno{(1)}
+$$
+where $Y_i$ is the survival `time` and $p_i$ is the type of `poison` for the $i$th observation.
+Here $\alpha(p_i)$ takes three different values depending on the three possible
+levels of the factor `poison`.
+
+Note that this model is overparameterised, in that it would be possible
+to add some fixed constant to each $\alpha(p_i)$ and subtract the same
+constant from $\mu$ and end up with exactly the same dependence of  `time` on `poison`.
+Therefore, in practice, we impose a constraint on
+$\alpha(p_i)$. The easiest to interpret is to constrain $\alpha(p)$ to be equal to 0
+at the first  level of `poison`.  Which one is the first level of `poison`? Issue the command
+```{r}
+levels(survival$poison)
+```
+Thus $\alpha(p_i)=0$ when $p_i=1$.
+In `R` we do this by
+```{r}
+options(contrasts=c("contr.treatment", "contr.poly"))
+```
+
+Once the above options command has been issued, it will set the first level of
+all categorical factors to zero in the `lm` function.  The `contr.treatment`
+has nothing to do with the treatment types in this example.
+We would have used the same command even if the treatment in the data set
+was called `drugs` instead.
+
+
+## Models
+
+The model $(1)$ is then fitted by
+```{r}
+survival_lm1 <- lm(time ~ poison, data = survival)
+```
+Factors are included in the standard linear model structure by
+creating a dummy variable for every level of the factor. The dummy variable
+at level $f$ of a factor $F$ takes the value 1 for every observation
+where $F=f$ and 0 for all other observations.
+The dummy variables are incorporated in the design matrix in the usual way.
+The model coefficient $\alpha(f)$ corresponds to the dummy variable
+at level $f$.
+
+Factorial models may include more than one factor.
+For example, we can model the dependence of `time` on `treatment` and `poison`
+using the linear model
+$$
+Y_i=\mu+\alpha(p_i)+\beta(t_i)+\epsilon_i,\quad i=1,\ldots ,n,
+$$
+where $t_i$ is the `treatment` for the $i$th observation.
+This can be fitted in `R` with
+```{r}
+survival_lm2 <- lm(time ~ poison + treatment, data = survival)
+```
+
+This is an additive model, which assumes that the effect of a treatment is
+the same for every poison, and conversely that the
+effects of a poison are the same for every treatment.
+These effects of poison and treatment are called *main effects*.
+
+## Models with interactions
+
+The additive model may not be appropriate.
+Different poisons may respond differently in
+combination with different treatments.
+We call this *interaction*.
+A model with interaction is
+$$
+Y_i=\mu+\alpha(p_i)+\beta(t_i)+\gamma(p_i,t_i)+\epsilon_i,\quad i=1,\ldots ,n.
+$$
+We require constraints on the interaction parameters $\gamma$, similar to those
+on the main effects.
+Usually, we constrain $\gamma(p_i,t_i)$ to be equal to 0 for all combinations
+where either `poison` or `treatment` are at their first level.
+
+The model with interaction can be fitted using
+```{r}
+survival_lm3 <- lm(time ~ poison + treatment + poison:treatment, data = survival)
+```
+
+where `poison:treatment` indicates an interaction between `poison` and `treatment`.
+Do not attempt to include an interaction term without the
+corresponding main effects (the model is meaningless).
+
+Note that in factorial models it rarely makes sense to model some
+of the levels of a factor but not others. Therefore, when we add
+an explanatory factor $F$ into the model, we are adding $l_F-1$
+extra coefficients, where $l_F$ is the number of levels of
+the factor concerned.
+As usual, we can use an $F$ test to determine whether adding a factor leads
+to a significant improvement in fit.
+
+## Further exercises
+
+\benum
+\item By comparing models using $F$ tests (remember the `anova`
+command) determine which model you prefer. Is it a good model?
+\item
+Now transform the response to death rate (reciprocal of
+survival time). Try modelling death rate using factorial models.
+Which model do you prefer now?
+\item
+In each case, write down your model and the corresponding
+parameter estimates. Overall, what is your preferred model.
+What conclusions do you draw about the effects of
+the different poisons and treatments?
+\eenum
