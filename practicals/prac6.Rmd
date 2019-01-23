@@ -1,7 +1,129 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
+title: 'MATH3012, Worksheet 6: More logistic regression'
 author: "Helen Ogden"
 date: ""
 output: pdf_document
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+
+Read the data from the file `shuttle.csv` into a data frame called 
+`shuttle`.
+
+```{r, include = FALSE}
+shuttle <- read.csv("shuttle.csv")
+```
+
+
+This data set concerns the 23 space shuttle flights
+before the Challenger disaster.  The disaster is thought to have 
+been caused by the failure of a number of O-rings, 
+of which there were six in total. The data 
+consist of four variables, the number of
+damaged O-rings for each
+pre-Challenger flight (`n_damaged`), 
+together with the launch temperature in degrees
+Fahrenheit (`temp`), the pressure at which the pre-launch test of O-ring leakage was
+carried out (`pressure`) and the name of the orbiter (`orbiter`).
+
+The Challenger launch
+temperature on 20th January 1986 was 31F.
+By fitting generalised linear models to this data, we will predict the probability of
+O-ring damage at the Challenger launch. Is the prediction sensitive to the
+choice of link function?
+
+We need to add a column `n` to the data for the total number of O-rings on each shuttle,
+which should be $6$ in all cases
+```{r}
+shuttle$n <- rep(6, nrow(shuttle))
+```
+                 
+We first find the best model. We issue the following commands.
+
+```{r}
+shuttle_glm1 <- glm(n_damaged / n ~ temp + pressure + orbiter,
+                    data = shuttle, family = binomial, weights = n)
+summary(shuttle_glm1)
+anova(shuttle_glm1, test = "Chisq")
+```
+```{r}
+shuttle_glm2 <- update(shuttle_glm1, . ~ . - orbiter - pressure)
+anova(shuttle_glm2, test = "Chisq")
+```
+
+## Notes
+\benum
+  \item `orbiter` is a factor, `temp`  and `pressure` are continuous
+covariates.
+\item The first anova command reveals that `name` and `pressure`
+      are not significant predictors.
+\item We drop those using the update command.
+\item The last anova command shows that temperature is significant.
+\eenum
+
+To see that the model with only temperature is not a bad fit we
+work with the residual deviance. Using the following commands we see
+where the observed value of the deviance is in the theoretical $\chi^2$
+distribution.
+
+```{r}
+curve(dchisq(x, 21), from = 0, to = 50)
+abline(v = 18.09)
+```
+
+
+Now we come to do the prediction at 31 F.
+
+We first get a new data set. We copy the shuttle data and add another
+row. Type
+```{r}
+shnew <- shuttle
+```
+Add a 24th row to the bottom, with values `NA`, 31, `NA`, `NA`
+and `NA`. This row gives the value 31 to `temp` and 'Not Available'
+to all other variables. We will use this row to predict the probability
+of O-ring damage at
+31 F.
+
+The command
+```{r}
+pred_glm2 <- predict(shuttle_glm2, shnew, se.fit = TRUE, type = "response")
+pred_glm2
+```
+predicts the probabilities for all 24 rows of data in
+`shnew`. The values for the first 23 rows are the
+fitted values corresponding to the observed data.  The last row gives the
+predicted value when the temperature is 31 F.
+
+We have the predictions and their standard errors, so we can obtain an asymptotic confidence interval, as follows:
+
+```{r}
+CInterval <- c(pred_glm2$fit - qnorm(0.975) * pred_glm2$se.fit, 
+               pred_glm2$fit + qnorm(0.975) * pred_glm2$se.fit)
+CInterval
+```
+
+What do you notice about the interval obtained?
+
+Try repeating the predict and the following commands without `type="response`. 
+This does the prediction on the scale of the linear predictor. 
+Can you work out how to back-transform the prediction and confidence 
+interval to the scale of the data?
+
+Note that we have used the logit link so far.
+Repeat the model fitting process with the probit link (c.f., Worksheet 5). 
+How much does the predicted probability of O-ring damage for
+the challenger launch change?
+
+All of these predictions
+should be treated wih extreme caution,
+as we are extrapolating far outside the range of the observed data.
+However, in the presence of such high uncertainty, it may have
+been unwise to launch at such a low temperature. 
