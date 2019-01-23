@@ -27,11 +27,6 @@ Use `xtabs` to find a three-way ($2\times 2\times 2$) contingency table for this
 xtabs(Count ~ Cell + Sex + Remis, data = lymphoma)
 ```
 
-As usual we first set the treatment contrasts.
-```{r}
-options(contrasts=c("contr.treatment", "contr.poly"))
-```
-
 Here the saturated model is the three factor
 interaction model `Cell * Remis * Sex`. We issue:
 

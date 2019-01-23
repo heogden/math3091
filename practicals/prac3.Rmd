@@ -59,12 +59,8 @@ Remember to use the `summary` command to see the results of the fitting.
 
 Note that $\alpha(s_i)$ is a function of $s_i$, sex of the $i$th baby. This
 $\alpha(s_i)$ can only take two possible values, say $\alpha_m$ and $\alpha_f$
-because $s_i$ can only take two possible values: male or female.  By setting
-```{r}
-options(contrasts=c("contr.treatment", "contr.poly"))
-```
-
-we force the first of the two possible values of  $\alpha(s_i)$ to be zero.
+because $s_i$ can only take two possible values: male or female.  By default,
+`R` forces the first of the two possible values of  $\alpha(s_i)$ to be zero.
 Which one is going to be zero? The one for the male, $\alpha_m$ since that is the
 first level of the factor `Sex`, check `levels(birth$Sex)`.  Then  $\alpha_f$
 for female will be interpreted as the average

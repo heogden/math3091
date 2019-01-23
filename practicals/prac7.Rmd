@@ -59,14 +59,8 @@ Similarly,  $\beta_{R}$ depends on the level of
 $R$ (two values) and $\gamma_{S,R}$ depends jointly on the levels of
 $S$ and $R$ (six values).
 
-In practice, by setting
-```{r}
-options(contrasts=c("contr.treatment", "contr.poly"))
-```
-we constrain any main effect to be equal to 0 at the
-first level of a factor.
-
-If the factor levels
+By default, `R` constrains any main effect to be equal to 0 at the
+first level of a factor. If the factor levels
 are not labelled numerically, `R` interprets the 'first' level
 to be the first in alphabetical order.
 If a factor has been coded using numeric labels, then
@@ -78,10 +72,7 @@ response to depend jointly on three factors.
 Hence $SBR$, the three factor interaction
 between $S$ $B$ and $R$, corresponds to coefficients of the
 form $\gamma_{S,B,R}(s_i,b_i,r_i)$.
-Setting
-```{r}
-options(contrasts=c("contr.treatment","contr.poly"))
-```
+By default, `R`
 constrains any interaction to be equal to 0 for all
 combinations where any of the factors are at their first level.
 Hence, where the main effect $S$ involves $l_S-1$ free

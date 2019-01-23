@@ -66,21 +66,14 @@ to add some fixed constant to each $\alpha(p_i)$ and subtract the same
 constant from $\mu$ and end up with exactly the same dependence of  `time` on `poison`.
 Therefore, in practice, we impose a constraint on
 $\alpha(p_i)$. The easiest to interpret is to constrain $\alpha(p)$ to be equal to 0
-at the first  level of `poison`.  Which one is the first level of `poison`? Issue the command
+at the first  level of `poison`. 
+Which one is the first level of `poison`? Issue the command
 ```{r}
 levels(survival$poison)
 ```
 Thus $\alpha(p_i)=0$ when $p_i=1$.
-In `R` we do this by
-```{r}
-options(contrasts=c("contr.treatment", "contr.poly"))
-```
-
-Once the above options command has been issued, it will set the first level of
-all categorical factors to zero in the `lm` function.  The `contr.treatment`
-has nothing to do with the treatment types in this example.
-We would have used the same command even if the treatment in the data set
-was called `drugs` instead.
+By default, `R` will set the first level of
+all categorical factors to zero in the `lm` function. 
 
 
 ## Models

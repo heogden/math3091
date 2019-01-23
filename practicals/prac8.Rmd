@@ -50,16 +50,11 @@ Read the data from the file `accident.csv` into a data frame called
 accident <- read.csv("accident.csv")
 ```
 
-By setting the following
-treatment contrasts we set $\alpha_1=0$.   Thus
-$\alpha_2=0$ if the roads are equally risky. By the same command
-we also set $\beta_1=0$. Then $\beta_2$ represents difference between
+By deafult, `R` will set $\alpha_1=0$ and $\beta_1=0$.   Thus
+$\alpha_2=0$ if the roads are equally risky,
+$\beta_2$ represents difference between
 time 2 and 1,  and $\beta_3$ represents difference between
 time 3 and 1.
-
-```{r}
-options(contrasts=c("contr.treatment","contr.poly"))
-```
 
 Issue the command
 ```{r}
