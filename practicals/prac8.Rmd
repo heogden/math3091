@@ -1,7 +1,159 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
+title: 'MATH3012, Worksheet 8: Modelling counts'
 author: "Helen Ogden"
 date: ""
 output: pdf_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+## Analysis of `accident` data
+
+
+The data in `accident.csv` concerns the number of road accidents (`number`) and the 
+volume of traffic (`volume`), on each of two roads in Cambridge (`road`),
+at various times of day (`time`, taking values `morning`, `midday` or `afternoon`).
+We would like to answer questions like:  
+
+1. Is Mill Road more dangerous than Trumpington Road?
+1. How does time of day affect the rate of road accidents? 
+
+
+Let $Y_{ij}$ denote the number of accidents and $\mu_{ij}$ denote the expected
+number of accidents fot the $i$th road at the $j$th time.
+We assume
+$$
+Y_{ij} \sim \text{Poisson}(\mu_{ij}), \ i=1, 2 \text{ for Road},
+j=1, 2, 3 \text{ for time}.
+$$
+
+
+We might reasonably expect the number of accidents to depend
+on traffic `volume`, $v_{ij}$.  It is better to work with log volume
+rather than volume itself since those are very high.
+
+ Use the Poisson GLM with canonical log link.
+$$
+\log (\mu_{ij}) = \mu + \alpha_i + \beta_j + \gamma \log v_{ij}.
+$$
+This is equivalent to assuming:
+$$
+\mu_{ij} = \text{constant} \times \text{$i$th road effect}
+  \times \text{$j$th time effect}  \times \text{volume}^{\gamma}
+$$
+Read the data from the file `accident.csv` into a data frame called 
+`accident`.
+```{r, include = FALSE}
+accident <- read.csv("accident.csv")
+```
+
+By setting the following
+treatment contrasts we set $\alpha_1=0$.   Thus
+$\alpha_2=0$ if the roads are equally risky. By the same command
+we also set $\beta_1=0$. Then $\beta_2$ represents difference between
+time 2 and 1,  and $\beta_3$ represents difference between
+time 3 and 1.
+
+```{r}
+options(contrasts=c("contr.treatment","contr.poly"))
+```
+
+Issue the command
+```{r}
+acc_glm <- glm(number ~ road + time + log(volume), family = poisson,
+               data = accident)
+summary(acc_glm)
+```
+The output seems to say Mill
+road is more dangerous than Trumpington road. The mornings and afternoons are
+about as dangerous as each other and each is quite a lot more dangerous than
+the middle of the day. The accident rate
+has a strong dependence on the traffic volume.
+
+```{r}
+anova(acc_glm, test="Chisq")
+```
+
+The model seems to fit well, deviance 1.88 is non-significant when
+referred to $\chi^2$ with 1 degree of freedom.
+
+
+
+
+## Analysis of Hodgkins data
+
+The data in `hodgkins.csv` concerns 538 patients with Hodgkin's disease, who have been
+cross-classified according to two factors, `type` the histological type of
+their disease (4 levels) and `rtreat`, their response to treatment
+(3 levels).
+
+Read the data from the file `hodgkins.csv` into a data frame called 
+`heart`.
+```{r, include = FALSE}
+hodgkins <- read.csv("hodgkins.csv")
+```
+
+We could display this data in a contigency table using
+```{r}
+xtabs(count ~ type + rtreat, data = hodgkins)
+```
+
+Classification data are extremely common,
+and can be modelled very effectively
+using generalised linear models.
+The observations of the response variable are taken
+to be the counts (in this case the 12 patient totals) and a generalised
+linear model is used to determine how the expected counts
+depend on any explanatory
+variables (in this case, the factors `type` and `rtreat`).
+The dataset as it is presented in the original `hodgkins`
+data frame is already in the correct format to fit
+such a generalised linear model.
+
+Counts are non-negative integers, so one approach is to treat
+them as observations of Poisson random variables.
+The canonical link function is then the $\log$ function, and Poisson generalised
+linear models with the log link are called *log-linear models*.
+A possible log-linear model for this data set is:
+$$
+Y_i\sim\text{Poisson}(\mu_i),\quad
+\log\mu_i=\alpha+\beta_T(t_i)+\beta_R(r_i)\qquad i=1,\ldots ,12, \eqno{(1)}
+$$
+where $Y_i$ is the $i$th count and $t_i$
+and $r_i$ are the corresponding levels of `type` and `rtreat`.
+
+We use the commands:
+```{r}
+hod_glm <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
+summary(hod_glm)
+anova(hod_glm, test = "Chisq")
+p_resid <- resid(hod_glm, type = "pearson") # The Pearson residuals are in u
+d_resid <- resid(hod_glm, type = "deviance") # The deviance residuals are in v
+sum(p_resid^2) # The result is the Pearson X^2 statistic
+sum(d_resid^2) # The result is the scaled deviance
+```
+
+By comparing the `type + rtreat`  model with the model `type + rtreat + type:rtreat`
+(`type * rtreat`)
+we are determining whether `type` and `rtreat` are independent
+or whether there is significant evidence of association.
+As every combination of `type` and `rtreat` appears exactly once, the model `type * rtreat`
+is the saturated model, so the test we require compares
+model (1) with the saturated model (a goodness of fit test).
+
+The independence model [`type + rtreat`; (1)]
+fails to fit. Its scaled deviance is
+68.3 on 6 degrees of freedom, which is far too large to have
+reasonably come from a $\chi^2_6$ distribution (p-value $<10^{-12}$).
+The residual plot  indicates why the model fails to fit. In particular,
+the residual for observation 12 is very high, and observation 10 is rather low.
+Therefore, the main reason that we are unable to draw the conclusion that
+response to treatment is independent of histological type is that the
+prognosis for individuals with Lymphocyte depletion is significantly worse
+than for other patients. Conversely, patients with Lymphocyte predominance
+and Nodular sclerosis fare rather better.
+Our conclusion is that response to treatment is associated with
+histological type.
