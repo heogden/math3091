@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 3: Linear models with both continuous and categorical covariates'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 3: Linear models with both continuous and categorical covariates'
+author: ""
 date: ""
 output: pdf_document
 header-includes:

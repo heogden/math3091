@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 2: Multiple linear regression'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 2: Multiple linear regression'
+author: ""
 date: ""
 output: pdf_document
 ---

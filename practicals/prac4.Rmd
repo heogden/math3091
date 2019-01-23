@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 4: Linear models with factors'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 4: Linear models with factors'
+author: ""
 date: ""
 output: pdf_document
 header-includes:

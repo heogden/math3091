@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 7:  A large factorial example'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 7:  A large factorial example'
+author: ""
 date: ""
 output: pdf_document
 header-includes:

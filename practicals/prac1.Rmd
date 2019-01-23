@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 1: R Revision'
+author: ""
 date: ""
 output: pdf_document
 ---

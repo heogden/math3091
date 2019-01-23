@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 6: More logistic regression'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 6: More logistic regression'
+author: ""
 date: ""
 output: pdf_document
 header-includes:

@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 8: Modelling counts'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 8: Modelling counts'
+author: ""
 date: ""
 output: pdf_document
 ---

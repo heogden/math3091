@@ -1,6 +1,6 @@
 ---
-title: 'MATH3012, Worksheet 9:  Log-linear models with interactions'
-author: "Helen Ogden"
+title: 'MATH3012 worksheet 9:  Log-linear models with interactions'
+author: ""
 date: ""
 output: pdf_document
 ---
