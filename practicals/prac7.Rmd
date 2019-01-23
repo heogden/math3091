@@ -1,7 +1,207 @@
 ---
-title: 'MATH3012, Worksheet 1: R Revision'
+title: 'MATH3012, Worksheet 7:  A large factorial example'
 author: "Helen Ogden"
 date: ""
 output: pdf_document
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+
+The data in `heart.csv` represents the results of a clinical trial
+to assess the effectiveness of a thrombolytic (clot-busting) treatment
+for patients who have suffered an acute myocardial infarction (heart attack).
+
+The explanatory variables are:
+
+- the `site` of infarction: anterior, inferior or other
+- the `time` between infarction and treatment: $\le 12$ or $>12$ hours
+- whether the patient was already taking Beta-blocker medication prior to the infarction, `blocker`: yes or no
+- the `treatment` the patient was given: active or placebo.
+
+For each combination of these categorical variables, 
+the dataset gives the total number of patients (`n_patients`),
+and the number who survived for
+for 35 days (`n_survived`).
+
+By fitting logistic regression models to these data, find
+the model which you feel best explains the dependence of survival
+on the explanatory variables. You should allow for potential interactions.
+Is a binomial model valid for these data?
+
+
+
+## More about factors
+
+Recall from Worksheet 4 that we refer to categorical explanatory variables
+as *factors*, and factorial models can include *main effects*
+and *interactions*.
+For example, a logistic regression model which allows survival ($Y$) to
+depend on $S$, $R$ and an interaction between these two factors is
+$$
+Y_i|n_i, p_i\sim\;{\rm Binomial}(n_i,p_i),\ \ \
+\log\left({{p_i}\over{1-p_i}}\right)=\alpha+\beta_S(s_i)
++\beta_{R}(r_i)+\gamma_{S,R}(s_i,r_i), \ \  i=1,\ldots ,24.
+$$
+where $s_i$ is the level of $S$,
+and $r_i$ is the level of $R$ for the $i$th observation; $p_i$ is the probability of
+surviving at least 35 days and $n_i$ is the number of patients in the $i$th group.
+Here $\beta_{S}$, the main effect of $S$ takes different values
+depending on the level of $S$, so in principle $\beta_{S}$ takes three values
+[$\beta_{S}(\text{anterior})$, $\beta_{S}(\text{inferior})$ and $\beta_{S}(\text{other})$.
+Similarly,  $\beta_{R}$ depends on the level of
+$R$ (two values) and $\gamma_{S,R}$ depends jointly on the levels of
+$S$ and $R$ (six values).
+
+In practice, by setting
+```{r}
+options(contrasts=c("contr.treatment", "contr.poly"))
+```
+we constrain any main effect to be equal to 0 at the
+first level of a factor.
+
+If the factor levels
+are not labelled numerically, `R` interprets the 'first' level
+to be the first in alphabetical order.
+If a factor has been coded using numeric labels, then
+it needs to declared as a factor in `R` using `factor`.
+
+The concept of interaction can be extended when we have three or more
+factors. For example, a *three factor interaction* allows the
+response to depend jointly on three factors.
+Hence $SBR$, the three factor interaction
+between $S$ $B$ and $R$, corresponds to coefficients of the
+form $\gamma_{S,B,R}(s_i,b_i,r_i)$.
+Setting
+```{r}
+options(contrasts=c("contr.treatment","contr.poly"))
+```
+constrains any interaction to be equal to 0 for all
+combinations where any of the factors are at their first level.
+Hence, where the main effect $S$ involves $l_S-1$ free
+coefficients, the interaction $SR$ involves $(l_S-1)(l_R-1)$ free
+coefficients, $SBR$ involves $(l_S-1)(l_B-1)(l_R-1)$ free
+coefficients, and so on, where $l$ is the number of levels of
+each factor ($l_S=3$, $l_B=2$ and $l_R=2$ for our data).
+
+Interactions involving more and more factors become progressively more difficult
+to interpret.
+A two-factor interaction like $SR$ allows the way in which the response
+$Y$ depends on $S$ to be different for different levels
+of $R$ (or, equivalently, the way in which $Y$ depends on $R$ to be different for different levels of $S$), *i.e.* the way in which one factor affects the response
+depends on the level of the other factor.
+Presence of the three factor interaction  $SBR$  means that the way in which
+the dependence of $Y$ on $S$ varies with $R$, depends on the level of $B$!
+One rule which must be followed is
+the *principle of marginality* which states that 'whenever an interaction
+is present in a model, all *marginal* main effects and interactions
+(those which correspond to 'subsets') must also be present.
+For example, if we include the $SR$ interaction, then the main
+effects of $S$ and $R$ must also be in the model, as above.
+Similarly if we include the three factor interaction $SBR$, the main effects
+$S$, $B$, $R$ and the interactions $SB$, $SR$, $BR$ must all be present.
+If the principle of marginality is violated, then factorial models
+become almost impossible to interpret.
+
+In `R`, we use the shorthand `S:R`, `S:B:R` etc. to
+denote interaction terms in a model formula.
+Another useful shorthand permitted by `R`
+is `S*B*R` which represents the interaction `S:B:R`
+together with all its marginal terms.
+We shall also adopt this notation.
+The number of coefficients corresponding to an expression like $S*B*R$ is
+the product of the number of levels of the factors concerned
+($l_Sl_Bl_R$ for $S*B*R$).
+
+If the data set consists of a perfectly structured array,
+with every combination of the explanatory
+factors appearing exactly once, then the model containing the highest
+possible interaction, together with all marginal terms, is the saturated
+model (scaled deviance 0 on 0 degrees of freedom).
+Therefore, for the data here, the saturated model can be interpreted
+as $S*T*B*R$.
+It is often useful to take this model as the starting point of a
+'backwards elimination' approach to identifying a suitable model.
+
+Factors are included in the linear predictor by
+creating a dummy variable for every level of the factor other than the first.
+The dummy variable
+at level $f$ of a factor $F$ takes the value 1 for every observation
+where $F=f$ and 0 for all other observations.
+The model coefficient $\beta(f)$ corresponds to the level $f$ dummy variable
+for $F$.
+Similarly, interactions correspond to products of dummy variables.
+For example, the interaction parameter $\gamma(f,g)$ for
+factor $F$ at level $f$ and factor $G$ at level $g$ corresponds to
+an explanatory variable created by multiplying together the
+corresponding dummy variables.
+
+
+## R instructions
+
+Read the data from the file `heart.csv` into a data frame called 
+`heart`.
+```{r, include = FALSE}
+heart <- read.csv("heart.csv")
+```
+
+By a process of backward elimination, show that all of the interaction terms
+can be removed without a significant increase in deviance. 
+The most marginal decision concerns $ST$; the log likelihood ratio statistic
+for the test comparing models $S+T+B+R$ and $B+R+S*T$ is
+5.27 on 2 degrees of freedom, leading to a $p$-value of 0.0716.
+
+```{r}
+heart_glm <- glm(n_survived / n_patients  ~ treatment + blocker + site * time,
+                 family = binomial, weights = n_patients, data = heart)
+anova(heart_glm, test="Chisq")
+```
+
+Having removed the $ST$ interaction, it is then reasonable
+to remove the main effect $T$ (log likelihood ratio $=1.95$
+on 1 df, p-value $=0.1627$).
+We cannot remove any further main effects without significantly increasing the
+scaled deviance. The $p$-values for the tests are all significantly small.
+
+
+Therefore our preferred model is
+$$
+Y_i|n_i, p_i\sim\;{\rm Binomial}(n_i,p_i),\ \ \
+\log\left({{p_i}\over{1-p_i}}\right)=\alpha+\beta_S(s_i)+\beta_B(b_i)
++\beta_{R}(r_i), \ \  i=1,\ldots ,24.
+$$
+where $s_i$ is the level of `site`, $b_i$ is the level of `blocker`,
+and $r_i$ is the level of `treatment` for the $i$th observation.
+
+```{r}
+heart_glm_final <- glm(n_survived / n_patients  ~ treatment + blocker + site,
+                       family = binomial, weights = n_patients, data = heart)
+summary(heart_glm_final)
+```
+
+The model is a good fit. Its scaled deviance is 15.86
+on 19 degrees of freedom. We would only have real cause for
+concern if the deviance exceeded 30.14, the 95\% point of $\chi^2_{19}$.
+
+Qualitatively this model suggests that probability of 35 day survival
+is enhanced by the thrombotic treatment ($\text{logit}(p)$ and therefore $p$ is
+significantly lower for the placebo).
+Probability of survival is significantly higher for those whose
+site of infarction is 'inferior'. This is the most pronounced effect.
+There is no real significant difference between the other sites.
+Patients who were on prior beta blocker medication also have a lower
+probability of survival.
+
+We investigate the residuals as follows.
+```{r}
+p_resid <- resid(heart_glm_final, type="pearson") # The Pearson residuals are saved in p_resid
+d_resid <- resid(heart_glm_final, type="deviance") # The deviance resids are saved in v
+sum(p_resid^2) # The result is the Pearson X^2 statistic}
+sum(d_resid^2) # The result is the scaled deviance
+```
