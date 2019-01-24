@@ -123,6 +123,10 @@ very useful.
 
 If we wanted to know more
 about the `head` function we just used, we could check the help
+```{r, include = FALSE}
+
+# check the help for head:
+```
 ```{r}
 ?head
 ```
@@ -130,7 +134,7 @@ How many rows of `nitric` were printed by default by
 `head(nitric)`? How could you change that?
 ```{r, include = FALSE}
 # head prints 6 rows by default
-# Could change that by setting n, e.g. to get 8 rows
+# Could change that by setting n, e.g. to get 8 rows:
 head(nitric, n = 8)
 ```
 
@@ -152,6 +156,7 @@ Our data `nitric` is stored as a data frame in `R`.
 We can acess each of the four variables by name using
 `$`, for example:
 ```{r, include = FALSE}
+
 # extract a variable from a data frame:
 ```
 ```{r}
@@ -160,30 +165,35 @@ nitric$yield
 We can also access the data by row or column.
 What does each of the following commands do?
 ```{r, include = FALSE}
+
 # extract the first column:
 ```
 ```{r}
 nitric[, 1]
 ```
 ```{r, include = FALSE}
+
 # extract the second row:
 ```
 ```{r}
 nitric[2, ]
 ```
 ```{r, include = FALSE}
+
 # extract rows 1 to 5:
 ```
 ```{r}
 nitric[1:5, ]
 ```
 ```{r, include = FALSE}
+
 # extract columns 2 and 4:
 ```
 ```{r}
 nitric[, c(2, 4)]
 ```
 ```{r, include = FALSE}
+
 # extract all rows except row 1:
 ```
 ```{r}
@@ -202,6 +212,7 @@ Suppose we want to plot `yield` against `temp`.
 There are various ways to do this.
 The most basic is
 ```{r, include = FALSE}
+
 # scatterplot:
 ```
 ```{r}
@@ -211,16 +222,20 @@ Give this plot sensible axis labels. How would you change
 the colour of the plotting points? How would you change
 the shape of the plotting points?
 ```{r, include = FALSE}
+
 # Give the plot axis labels:
 plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield")
+
 # Change the points to red:
 plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield", col = 2)
+
 # Plot points as triangles:
 plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield", pch = 2)
 ```
 
 Equivalently, we can use `R`'s formula interface:
 ```{r, include = FALSE}
+
 # scatterplot using formula interface:
 ```
 ```{r}
@@ -234,6 +249,7 @@ formula interface with categorical variables in worksheet 3.
 A matrix of scatterplots for all possible pairs of variables
 in the data can be produced with 
 ```{r, include = FALSE}
+
 # pairs plot gives a matrix of scatterplots:
 ```
 ```{r}
@@ -244,6 +260,7 @@ What do you think `plot(nitric)` will do? Run the command and
 see what happens. Are you surprised?
 
 ```{r, include = FALSE}
+
 # plot(nitric) automatically gives a pairs plot:
 plot(nitric)
 ```
