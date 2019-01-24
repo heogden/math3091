@@ -1,7 +1,249 @@
 ---
-title: 'MATH3012 worksheet 1: R Revision'
+title: 'MATH3012 worksheet 1: R basics'
 author: ""
 date: ""
 output: pdf_document
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
 ---
 
+```{r setup, include=FALSE, purl = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+## `R` and `RStudio`
+
+As in MATH2010, we will use `R` to analyse data
+in MATH3012. `RStudio` is one *interface* to `R`:
+it provides a nice editor for `R` scripts, and also has panels for
+the console (where your `R` code is run, and where you 
+view the output), the environment (to see which variables
+you have already defined), and for viewing files,
+plots and help. You can download both `R` and `Rstudio` 
+for free onto your own computer. 
+We recommend using `Rstudio` as a nice interface to `R`,
+but all of the code we will write could be run
+through any interface to `R`.
+
+## Preparing for the MATH3012 practicals
+
+Download the file `MATH3012_practicals.zip` from Blackboard, and unzip the
+contents somewhere sensible on your computer. We will use the folder `MATH3012_practicals`
+for the practicals throughout the course.
+
+You will need to tell `R` to use your `MATH3012_practicals` folder as the 
+working directory. There are various ways to do this. In `Rstudio`, perhaps
+the easiest is to type `Ctrl+Shift+H`, and navigate to `MATH3012_practicals`
+from there. Alternatively, you could use 
+```{r, eval = FALSE, purl = FALSE}
+setwd("<path>/MATH3012_practicals")
+```
+where you should replace `<path>` with the path to the `MATH3012_practicals` folder 
+on your computer.
+
+Create a new `R` script and save it as `prac1.R`
+in the `MATH3012_practicals` folder. You should record the work you do in each practical
+session in a new `R` script. Write code in the script file,
+rather than directly into the console, whenever you can. In `RStudio`,
+you can press the `Run` button to run the line with the cursor in it.
+You can run multiple lines at once by selecting them all before pressing
+`Run`.
+
+## Reading data into `R`
+
+There are various ways that a dataset might be stored on your
+computer. 
+
+In MATH3012, most of our datasets will be stored as 
+*comma separated value* (or `csv`) files. An example is
+the file `nitric.csv`. Try opening `nitric.csv` outside of
+`RStudio`. On most computers it will open as a spreadsheet,
+for example in Excel. This also gives you a
+way to import spreadsheet data into `R`, as you can save
+simple spreadsheets in `csv` format.
+
+To read a `csv` file into `R`, we can use `read.csv`.
+For example, add the following to your `R` script,
+and run the line:
+```{r, purl = FALSE}
+nitric <- read.csv("nitric.csv")
+```
+We have read in the file `nitric.csv`, and
+stored the result in a variable called `nitric`.
+
+Always try to give your variables meaningful names
+(avoid using names like `a`, `b`, `x`, unless those
+names actually mean something in the context of your example).
+This makes things much easier for someone else to read your
+`R` code, and makes it much easier for you too, especially
+if you come back to your own code again after a few weeks!
+
+We can run
+```{r, purl = FALSE}
+nitric
+```
+to view the data set we have just imported, or
+```{r, purl = FALSE}
+head(nitric)
+```
+just to view the first few rows. The `head` command
+is useful for larger datasets, to check what
+we have imported looks reasonable, without trying to print
+out all of the data.
+
+Another way to make your code readable is to use comments
+in your `R` script, by putting a `#` character at
+the start of a line. `R` won't try to run anything
+you write on these lines, and they allow you to explain
+(to someone else reading your code, or to your future self)
+what you are doing. Add some comments to your `R` script so far.
+
+Your `R` script might now look something like:
+```{r}
+# read in a dataset from a csv file:
+nitric <- read.csv("nitric.csv")
+
+# view the dataset:
+nitric
+
+# view just the first few rows of the dataset:
+head(nitric)
+```
+
+## Getting help
+
+`R` has a large range of built-in functions, and each of these has a help
+file. Some functions have a large number of arguments you could potentially
+specify, but most have default values. The `Usage` section tells you 
+the arguments to the function, and what the default values are.
+The `Examples` section right at the end of a help file is often
+very useful.
+
+If we wanted to know more
+about the `head` function we just used, we could check the help
+```{r}
+?head
+```
+How many rows of `nitric` were printed by default by
+`head(nitric)`? How could you change that?
+```{r, include = FALSE}
+# head prints 6 rows by default
+# Could change that by setting n, e.g. to get 8 rows
+head(nitric, n = 8)
+```
+
+It is important for you to be able to work out
+for yourself how to use a function: there are huge
+numbers of functions available in `R`, and even very experienced `R` users
+won't know how to use all of them.
+In the practicals,
+you won't always be given all the code:
+you should be prepared to check the help files to 
+work out what you need to do. If you don't know which function
+to use, try searching for what you are trying to achieve online:
+there is a large community of `R` users worldwide, and it
+is likely that someone else has already solved a similar problem.
+
+## Working with data frames
+
+Our data `nitric` is stored as a data frame in `R`.
+We can acess each of the four variables by name using
+`$`, for example:
+```{r, include = FALSE}
+# extract a variable from a data frame:
+```
+```{r}
+nitric$yield
+```
+We can also access the data by row or column.
+What does each of the following commands do?
+```{r, include = FALSE}
+# extract the first column:
+```
+```{r}
+nitric[, 1]
+```
+```{r, include = FALSE}
+# extract the second row:
+```
+```{r}
+nitric[2, ]
+```
+```{r, include = FALSE}
+# extract rows 1 to 5:
+```
+```{r}
+nitric[1:5, ]
+```
+```{r, include = FALSE}
+# extract columns 2 and 4:
+```
+```{r}
+nitric[, c(2, 4)]
+```
+```{r, include = FALSE}
+# extract all rows except row 1:
+```
+```{r}
+nitric[-1, ]
+```
+
+We sometimes want to consider a subset of the data
+which meets a particular condition.
+Use the `subset` function to find a new data frame
+containing all the records with `temp` > 20. How many
+rows are there in there in this new data frame?
+
+## Plotting data
+
+Suppose we want to plot `yield` against `temp`.
+There are various ways to do this.
+The most basic is
+```{r, include = FALSE}
+# scatterplot:
+```
+```{r}
+plot(nitric$temp, nitric$yield)
+```
+Give this plot sensible axis labels. How would you change
+the colour of the plotting points? How would you change
+the shape of the plotting points?
+```{r, include = FALSE}
+# Give the plot axis labels:
+plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield")
+# Change the points to red:
+plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield", col = 2)
+# Plot points as triangles:
+plot(nitric$temp, nitric$yield, xlab = "Temperature", ylab = "Yield", pch = 2)
+```
+
+Equivalently, we can use `R`'s formula interface:
+```{r, include = FALSE}
+# scatterplot using formula interface:
+```
+```{r}
+plot(yield ~ temp, data = nitric)
+```
+This way of plotting is quite clever, and automatically
+gives a plot which is appropriate to the type of variables
+being plotted. We will see an example of plotting using the
+formula interface with categorical variables in worksheet 3.
+
+A matrix of scatterplots for all possible pairs of variables
+in the data can be produced with 
+```{r, include = FALSE}
+# pairs plot gives a matrix of scatterplots:
+```
+```{r}
+pairs(nitric)
+```
+
+What do you think `plot(nitric)` will do? Run the command and
+see what happens. Are you surprised?
+
+```{r, include = FALSE}
+# plot(nitric) automatically gives a pairs plot:
+plot(nitric)
+```
