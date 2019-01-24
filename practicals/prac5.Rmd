@@ -200,21 +200,16 @@ $$
 is called the *complementary log-log link function*.
 Note that both of these links map $(0,1)$ on to the real line.
 
-Create the following function:
-
+We can plot out these three link functions to compare them:
 ```{r}
-comparelinks <- function()
-{
-   x <- seq(from = -5., to = 5., length = 200.)
-   y <- pnorm(x)
-   z <- 1./(1. + exp( - x))
-   compl <- 1- exp(-exp(x))
-   plot(x, y, type = "l", main = "Comparison of Probit, Logit and Clog", col=2)
-   lines(x, z, lty = 2., col=4)
-   lines(x, compl, lty=3, col=6)
-   legend(-4., 0.8, legend = c("Probit", "Logit", "cloglog"),
-               lty = c(1., 2., 3), col=c(2, 4, 6))
-}
+z <- 1./(1. + exp( - x))
+compl <- 1- exp(-exp(x))
+curve(pnorm(x), from = -5, to = 5,
+      main = "Comparison of Probit, Logit and Clog", col=2)
+curve(1/(1 + exp(- x)), lty = 2, col = 4, add = TRUE)
+curve(1- exp(-exp(x)), lty = 3, col = 6, add = TRUE)
+legend("bottomleft", legend = c("Probit", "Logit", "cloglog"),
+      lty = c(1, 2, 3), col = c(2, 4, 6))
 ```
 
 Use the function `comparelinks()` to see the differences between these
