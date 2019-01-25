@@ -17,7 +17,11 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ## `R` and `RStudio`
 
 As in MATH2010, we will use `R` to analyse data
-in MATH3012. `RStudio` is one *interface* to `R`:
+in MATH3012. In this lab, we will review some basic
+`R` commands and best practices, and download all
+the datasets needed for later worksheets.
+
+`RStudio` is one *interface* to `R`:
 it provides a nice editor for `R` scripts, and also has panels for
 the console (where your `R` code is run, and where you 
 view the output), the environment (to see which variables
@@ -28,11 +32,11 @@ We recommend using `Rstudio` as a nice interface to `R`,
 but all of the code we will write could be run
 through any interface to `R`.
 
-## Preparing for the MATH3012 practicals
+## Preparing for the MATH3012 computer labs
 
 Download the file `MATH3012_practicals.zip` from Blackboard, and unzip the
 contents somewhere sensible on your computer. We will use the folder `MATH3012_practicals`
-for the practicals throughout the course.
+for the computer labs throughout the course.
 
 You will need to tell `R` to use your `MATH3012_practicals` folder as the 
 working directory. There are various ways to do this. In `Rstudio`, perhaps
@@ -143,7 +147,7 @@ It is important for you to be able to work out
 for yourself how to use a function: there are huge
 numbers of functions available in `R`, and even very experienced `R` users
 won't know how to use all of them.
-In the practicals,
+In the worksheets,
 you won't always be given all the code:
 you should be prepared to check the help files to 
 work out what you need to do. If you don't know which function
