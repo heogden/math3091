@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 7:  A large factorial example'
+title: 'MATH3012 worksheet 7'
 author: ""
 date: ""
 output: pdf_document

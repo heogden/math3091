@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 4: Linear models with factors'
+title: 'MATH3012 worksheet 4'
 author: ""
 date: ""
 output: pdf_document

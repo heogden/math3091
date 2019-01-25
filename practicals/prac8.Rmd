@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 8: Modelling counts'
+title: 'MATH3012 worksheet 8'
 author: ""
 date: ""
 output: pdf_document

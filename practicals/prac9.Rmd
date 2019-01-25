@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 9:  Log-linear models with interactions'
+title: 'MATH3012 worksheet 9'
 author: ""
 date: ""
 output: pdf_document

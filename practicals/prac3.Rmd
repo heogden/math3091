@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 3: Linear models with both continuous and categorical covariates'
+title: 'MATH3012 worksheet 3'
 author: ""
 date: ""
 output: pdf_document

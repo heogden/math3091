@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 5: Logistic regression'
+title: 'MATH3012 worksheet 5'
 author: ""
 date: ""
 output: pdf_document

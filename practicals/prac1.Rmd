@@ -1,5 +1,5 @@
 ---
-title: 'MATH3012 worksheet 1: R basics'
+title: 'MATH3012 worksheet 1'
 author: ""
 date: ""
 output: pdf_document
