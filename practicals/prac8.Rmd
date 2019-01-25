@@ -3,6 +3,7 @@ title: 'MATH3012 worksheet 8: Modelling counts'
 author: ""
 date: ""
 output: pdf_document
+fontsize: 12pt
 ---
 
 ```{r setup, include=FALSE}

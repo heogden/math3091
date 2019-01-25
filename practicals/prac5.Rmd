@@ -3,6 +3,7 @@ title: 'MATH3012 worksheet 5: Logistic regression'
 author: ""
 date: ""
 output: pdf_document
+fontsize: 12pt
 header-includes:
 - \newcommand{\bitem}{\begin{itemize}}
 - \newcommand{\eitem}{\end{itemize}}

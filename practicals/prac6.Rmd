@@ -3,6 +3,7 @@ title: 'MATH3012 worksheet 6: More logistic regression'
 author: ""
 date: ""
 output: pdf_document
+fontsize: 12pt
 header-includes:
 - \newcommand{\benum}{\begin{enumerate}}
 - \newcommand{\eenum}{\end{enumerate}}
