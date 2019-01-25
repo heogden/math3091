@@ -192,8 +192,15 @@ probability of survival.
 
 We investigate the residuals as follows.
 ```{r}
-p_resid <- resid(heart_glm_final, type="pearson") # The Pearson residuals are saved in p_resid
-d_resid <- resid(heart_glm_final, type="deviance") # The deviance resids are saved in v
-sum(p_resid^2) # The result is the Pearson X^2 statistic}
-sum(d_resid^2) # The result is the scaled deviance
+p_resid <- resid(heart_glm_final, type="pearson") 
+# The Pearson residuals are saved in p_resid
+
+d_resid <- resid(heart_glm_final, type="deviance") 
+# The deviance resids are saved in v
+
+sum(p_resid^2) 
+# The result is the Pearson X^2 statistic}
+
+sum(d_resid^2) 
+# The result is the scaled deviance
 ```
