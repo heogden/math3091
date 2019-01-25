@@ -3,6 +3,7 @@ title: "MATH3012 problem sheet 1"
 author: ""
 date: ""
 output: pdf_document
+fontsize: 12pt
 header-includes:
 - \newcommand{\benum}{\begin{enumerate}}
 - \newcommand{\eenum}{\end{enumerate}}
@@ -17,14 +18,19 @@ knitr::opts_chunk$set(echo = TRUE)
 \benum
 
 \item Assume that $y_1, \ldots, y_n$ are observations from i.i.d. $\text{Poisson}(\lambda)$ random variables $Y_1, \ldots, Y_n$. 
-Find the maximum likelihood estimator of $\lambda$.
+Find the maximum likelihood estimate of $\lambda$.
 
-\item Suppose $y_1,y_2,\cdots,y_n$ are observations from i.i.d. $N(\mu,\sigma^2)$ 
-random variables $Y_1, \ldots, Y_n$.
+\item Suppose $y_1,y_2,\cdots,y_n$ are observations from
+random variables $Y_1, \ldots, Y_n$, which are i.i.d. with p.d.f.
+(or p.f.) $f_Y(y; \theta)$ for a scalar parameter $\theta$.
+In each case below, derive the maximum likelihood estimate of $\theta$,
+and find the score and Fisher information.
 \benum
-\item Find the maximum likelihood estimator of ${\bm \theta}=(\mu,\sigma^2)$;
-\item Find the score vector   of ${\bm \theta}=(\mu,\sigma^2)$;
-\item Find  the Fisher information matrix  of ${\bm \theta}=(\mu,\sigma^2)$.
+\item $f_Y(y; \theta) = \theta \exp(-\theta y)$, $y > 0$, $\theta > 0$ (exponential distribution);
+\item $f_Y(y; \theta) = \theta x^{\theta - 1}$, $y \in (0, 1)$, $\theta > 0$;
+\item $f_Y(y; \theta) = \theta(1 - \theta)^{y - 1}$, $y \in \{1, 2, 3, \ldots\}$,
+$\theta \in (0, 1)$
+(geometric distribution).
 \eenum
 
 \item For the simple linear regression model, $Y_i \sim N(\beta_0+\beta_1x_i, \sigma^2)$, where $Y_1, \ldots, Y_n$ are independent:
@@ -37,25 +43,7 @@ random variables $Y_1, \ldots, Y_n$.
 
 \eenum
 
-\item Suppose that $y_1, \ldots, y_n$ are observations from continuous 
-random variables $Y_1, \ldots, Y_n$, whose joint p.d.f. $f_{\bm Y}$ is specified with unknown parameters ${\bm \theta}=(\theta_1,\theta_2)^T$, where ${\bm y}=(y_1, \ldots, y_n)$ and ${\bm Y}=(Y_1, \ldots, Y_n)$ are independent of $\bm \theta$.
-Let $\ell(\bm \theta) = \log f_{\bm Y}(\bm Y,\bm \theta)$ be the log-likelihood
-and $\bm U(\bm \theta)\equiv[U_1(\bm \theta),U_2(\bm \theta)]^T$ be the score
-vector, with
-\[
-U_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\bm \theta),\quad i=1,2.
-\]
-Assume that the integration with respect to $\bm y$ and the differentiation with respect to $\bm \theta$ are exchangable. Show that
-\benum
-\item $E[\bm U(\bm \theta)]\equiv[E(U_1(\bm \theta)),E(U_2(\bm \theta))]^T=[0,0]^T$;
-\item $\text{Var}[U_i(\bm \theta)]={\cal I}_{ii}$ for $i=1,2$, and $\text{Cov}(U_1(\bm \theta),U_2(\bm \theta))={\cal I}_{12}$, i.e., 
-$\text{Var}[\bm U(\bm \theta)]={\cal I}$, 
- where $\cal I$ is the Fisher information matrix with components 
-\[
-{\cal I}_{ij}\equiv E\left[-{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \ell(\bm \theta)\right],
-\quad i=1 ,2;\;j=1,2.
-\]
-\eenum
+\item In each of the cases from question 2, use the fact that
+the expected score is zero to find an unbiased estimator of $\theta^{-1}$.
 
 \eenum
