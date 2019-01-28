@@ -1,0 +1,322 @@
+---
+title: "MATH3012: Chapter 1, Lecture 1"
+date: ""
+author: Helen Ogden
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+
+## Basic course information
+
+- Two lectures, one tutorial and one computer lab a week.
+\pause
+- Five problem sheets, covering the more theoretical material. 
+ Some time to work on these exercises during the tutorials, then we will go over some of parts of the problems on the board.
+\pause
+- Problem sheets do not count towards the final mark, but if you hand in your work on the problem sheets to me in the Monday lectures (weeks 3, 5, 7, 9 and 11), 
+I will return your work in the Wednesday tutorial, with feedback.
+\pause
+- Nine practical worksheets, covering the practical aspects of analysing data using generalised linear models in R, to work on during the computer labs.
+- The coursework contributes 20% of the final mark, and will involve analysing a dataset in R using generalised linear models, and writing a short (at most 3 page) report based on your findings.
+
+## Coursework schedule
+
+Coursework assignment available: by Friday, 15 March
+
+Initial draft submission deadline: Friday, 29 March (via Blackboard). The initial submission will not count towards your final mark, but if you submit a draft by this date, I will read your work and provide feedback on how it could be improved.
+
+Written feedback on your draft available: by Friday, 5 April
+
+Week 8 and 9 computer labs (21 and 28 March) will be drop-in sessions, for you to ask any questions you may have about your coursework.
+
+Final submission deadline: Wednesday, 1 May (via Blackboard)
+
+Marks and feedback available: by Friday, 10 May
+
+## Course overview
+
+- In Chapter 1,  we motivate the need for generalised linear models,
+study properties of likelihood-based inference, and review normal
+linear models from MATH2010 (approx. weeks 1-4).
+\pause
+- In Chapter 2, we introduce the generalised linear model (approx. weeks 5-9).
+\pause
+- In Chapter 3, we analyse use generalised linear models dependence structures in
+cross-classified tables of counts called contingency tables (approx. weeks 10-11).
+
+## In-class quizzes
+
+There are some in-class quizzes:
+
+- Type [web.meetoo.com](https://web.meetoo.com) into a web browser (e.g. on your phone)
+- Enter the Meeting ID 108-197-366 and press "Join"
+- Try the test question which appears
+\pause
+- Please feel free to use the Q&A tab if you want to ask a question during 
+lectures (or raise your hand!)
+
+## Statistical models
+
+Statistical models help us to 
+
+- **understand** the random process by which observed data
+have been generated.
+- make **predictions** and **decisions** based on 
+our inferences concerning the process.
+
+\pause
+
+Our conclusions are only based on a (potentially small) sample
+of possible observations of the process and are therefore subject to error.
+We must report **uncertainties**
+associated with the conclusions we draw.
+
+We describe random processes using probability **models**. 
+Given a model, statistical inference may involve **estimating** any unspecified
+features of the model, **comparing** competing models, and assessing the
+**appropriateness** of a model; all in the light of observed data.
+
+## Requirements of a statistical model
+
+- Plausibility: the model should be reasonable, given background
+(scientific) knowledge of the phenomenon being studied.
+\pause
+- Parsimony: we should avoid the model being more complicated than
+it needs to be.
+\pause
+- Goodness of fit: the model should fit the data well.
+
+
+## Regression Models
+
+In practical applications, we often distinguish between a *response*
+variable and a group of *explanatory* variables. 
+
+###
+
+The aim is to determine
+the pattern of dependence of the response variable on the explanatory
+variables.  A regression model has the general form
+
+> response = function(structure and randomness)
+
+- *structure* describes how the response depends on the explanatory variables
+- *randomness* describes the probability distribution of the response. 
+
+## Linear models
+
+In MATH2010, you studied normal linear models, where the response
+has *normal* distribution, and the mean depends on 
+the explanatory variables.
+\pause
+
+Is the assumption of a normal response always a reasonable
+model?
+
+
+## Distributions quiz 1 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Which distribution could be used to model the number
+of students enrolled in a course who attend a 
+given lecture?
+ 
+- Bernoulli
+- Binomial
+- Exponential 
+- Gamma
+- Geometric
+- Normal
+- Poisson
+- None of the above
+
+\pause
+We might want to model how that number of students
+varies according to some explanatory variables, such
+as time of day, day of the week, week of the semester,
+and so on.
+
+## Distributions quiz 2 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Which distribution could be used to model the number
+of times a lecturer says the word "data"
+in a lecture?
+ 
+- Bernoulli
+- Binomial
+- Exponential 
+- Gamma
+- Geometric
+- Normal
+- Poisson
+- None of the above
+
+\pause
+We might want to model how this count 
+varies according to some explanatory variables, such
+as topic of the lecture.
+
+\pause
+
+Let's look at some of the example data sets that we will analyse.
+
+## `nitric`: Nitric acid
+
+This data set relates to 21 successive days of operation of a plant
+oxidising ammonia to nitric acid. 
+
+The response `yield` is ten times the percentage of ingoing
+ammonia that is lost as unabsorbed nitric acid (an indirect measure of the
+yield). 
+
+The aim here is to study how the yield depends on:
+
+- flow of air to the plant (`flow`),
+- temperature of the cooling water
+entering the absorption tower (`temp`)
+- concentration of nitric acid in the
+absorbing liquid (`conc`). 
+
+## Plotting the `nitric` data
+```{r nitric, echo = FALSE, fig.width=6, fig.height=4}
+nitric <- read.csv("nitric.csv")
+pairs(nitric)
+```
+
+
+## `birth`: Weight of newborn babies
+
+This data set contains weights of 24 newborn babies. 
+
+There are two explanatory 
+variables, sex (`Sex`) and gestational age in weeks (`Age`) together with the response
+variable, birth weight in grams (`Weight`).  
+
+The aim here is to study how birth weight
+depends on sex and  gestational age. 
+
+## Plotting the `birth` data
+```{r birth, echo = FALSE, fig.width=5, fig.height=4}
+birth <- read.csv("birth.csv")
+plot(birth$Age, birth$Weight, xlab="Age (weeks)", ylab="Birthweight (g)",
+     col = birth$Sex, pch = birth$Sex)
+legend("bottomright", legend = c("Male", "Female"), pch = 1:2, col = 1:2)
+```
+
+
+## `survival`: Time to death
+
+This data set contains survival 
+times in 10 hour units (`time`) of 48 rats each allocated to one of 12 combinations
+of  3 poisons (`poison`) and 4 treatments (`treatment`). 
+
+The aim here is to study how survival time depends
+on the poison and the treatment, and to determine whether there is an interaction
+between these two categorical variables.
+
+## Plotting the `survival` data
+
+```{r, echo = FALSE, fig.width=6, fig.height=4}
+survival <- read.csv("survival.csv")
+survival$poison <- as.factor(survival$poison)
+survival$treatment <- as.factor(survival$treatment)
+par(mfrow = c(1, 2))
+plot(time ~ poison + treatment, data = survival)
+```
+
+## `beetle`: Mortality from carbon disulphide
+
+This data set represents the number of beetles exposed (`exposed`) and number 
+killed (`killed`) in eight groups exposed to different doses (`dose`)
+of a particular insecticide. Interest is focussed on how mortality is 
+related to dose.
+
+```{r, echo = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle
+```
+
+
+## The proportion of beetles killed by dose
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+prop_killed <- beetle$killed / beetle$exposed
+plot(beetle$dose, prop_killed,
+     xlab = "Dose", ylab = "Proportion of beetles killed",
+     ylim = c(0, 1))
+```
+
+## `shuttle`: [Challenger disaster](https://youtu.be/j4JOjcDFtBE?t=88)
+
+This data set concerns the 23 space shuttle flights
+before the Challenger disaster.  
+
+The disaster is thought to have 
+been caused by the failure of a number of O-rings, 
+of which there were six in total. 
+
+The data 
+consist of four variables:
+
+- the number of damaged O-rings for each pre-Challenger flight (`n_damaged`)
+- the launch temperature in degrees Fahrenheit (`temp`)
+- the pressure at which the pre-launch test of O-ring leakage was
+carried out (`pressure`)
+- the name of the orbiter (`orbiter`)
+
+The Challenger launch
+temperature on 20th January 1986 was 31F.
+The aim is to predict the probability of
+O-ring damage at the Challenger launch. 
+
+## The `shuttle` dataset
+
+```{r, echo = FALSE}
+shuttle <- read.csv("shuttle.csv")
+shuttle
+```
+
+## The proportion of O-rings damaged by launch temperature
+
+```{r, echo = FALSE, fig.width=6, fig.height=4}
+plot(shuttle$temp, shuttle$n_damaged / 6,
+     xlab = "Temperature (F)", ylab = "Proportion of O-rings damaged",
+     ylim = c(0, 1))
+```
+
+## The proportion of O-rings damaged by launch temperature
+
+```{r, echo = FALSE, fig.width=6, fig.height=4}
+plot(shuttle$temp, shuttle$n_damaged / 6,
+     xlab = "Temperature (F)", ylab = "Proportion of O-rings damaged",
+     xlim = c(30, max(shuttle$temp)), ylim = c(0, 1))
+abline(v = 31, lty = 2)
+```
+
+## Conclusion
+
+- We have seen some examples of situations in which it is not
+sensible to model the response with a normal distribution,
+so the assumptions of the linear model are not met.
+We will see some more examples next time.
+\pause
+- A generalised linear model allows the response to be a member
+of a large family of distributions (called the exponential family),
+and specifies how the expected value of the distribution
+depends on explanatory variables.
+\pause
+- Once we have written down the model (in Chapter 2), we want
+to **estimate** the parameters of the model, express **uncertainty**
+in estimates, make **predictions** and **compare** candidate models.
+\pause
+- We can do all of these things using the **likelihood**. We will
+review maximum likelihood estimation next time.
+
+
+
+
+
