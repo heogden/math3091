@@ -7,3 +7,5 @@ _*
 *~
 practicals/scripts/*
 *.zip
+*.log
+*.tex
