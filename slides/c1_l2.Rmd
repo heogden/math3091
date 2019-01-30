@@ -318,7 +318,7 @@ curve(lfun(x, y), from = 0, to = 1, ylim = c(-12, -6),
 ## Plotting the log-likelihood
 
 ```{r, echo = FALSE, fig.width = 5, fig.height = 3.5}
-curve(lfun(x, y), from = 0, to = 1, ylim = c(-10, -6),
+curve(lfun(x, y), from = 0, to = 1, ylim = c(-12, -6),
       xlab = "p", ylab = "log-likelihood")
 ```
 
