@@ -27,7 +27,7 @@ In each case below, derive the maximum likelihood estimate of $\theta$,
 and find the score and Fisher information.
 \benum
 \item $f_Y(y; \theta) = \theta \exp(-\theta y)$, $y > 0$, $\theta > 0$ (exponential distribution);
-\item $f_Y(y; \theta) = \theta x^{\theta - 1}$, $y \in (0, 1)$, $\theta > 0$;
+\item $f_Y(y; \theta) = \theta y^{\theta - 1}$, $y \in (0, 1)$, $\theta > 0$;
 \item $f_Y(y; \theta) = \theta(1 - \theta)^{y - 1}$, $y \in \{1, 2, 3, \ldots\}$,
 $\theta \in (0, 1)$
 (geometric distribution).
