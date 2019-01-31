@@ -35,9 +35,13 @@ $\theta \in (0, 1)$
 
 \item For the simple linear regression model, $Y_i \sim N(\beta_0+\beta_1x_i, \sigma^2)$, where $Y_1, \ldots, Y_n$ are independent:
 \benum
-\item find the maximum likelihood estimators of $\beta_0$ and $\beta_1$;
+\item find the maximum likelihood estimators of $\beta_0$ and $\beta_1$. 
+You may assume that a stationary point of the log-likelihood
+is a maximum.
 
-\item find the maximum likelihood estimator of $\sigma^2$;
+\item find the maximum likelihood estimator of $\sigma^2$.
+You may assume that a stationary point of the log-likelihood
+is a maximum.
 
 \item write down the maximum likelihood estimator of $\sigma$.
 
