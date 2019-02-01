@@ -1,0 +1,144 @@
+---
+title: "MATH3012: Chapter 1, Lecture 4"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Recap
+
+Last time, we
+
+- defined the score
+ as the gradient of the log-likelihood.
+- showed that
+ that the expected value of the score vector at
+ the true value of $\theta$ is zero. 
+
+## Observed Information
+
+Suppose that $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, whose joint p.d.f.
+$L(\theta)$ is completely specified except
+for the values of $p$ unknown parameters $\bm \theta=(\theta_1, \ldots, \theta_p)^T$.
+
+Previously, we defined the Hessian matrix $H(\bm{\theta})$ to be the matrix with
+components
+$$
+[H(\bm{\theta})]_{ij}\equiv{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \ell(\theta)
+\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
+$$
+We call the matrix $-H(\bm{\theta})$ the *observed information matrix*.
+Where $p=1$ and $\bm \theta=(\theta)$, the *observed information* is a
+scalar defined as
+$$
+-H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\ell(\theta).
+$$
+
+## Fisher information
+
+As with the score, if we replace $y_1, \ldots, y_n$ in $H(\bm{\theta})$, by the
+corresponding random variables
+$Y_1, \ldots, Y_n$, we obtain a matrix of random variables.
+Then, we define the *expected information matrix* or
+*Fisher information matrix*
+$$
+[\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
+\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
+$$
+
+## A link between the score and expected information
+The variance-covariance matrix
+of the score vector is equal to the
+expected information matrix *i.e.*
+\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]
+or
+\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
+\quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]
+provided that
+
+1. The variance exists.
+1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
+
+## Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
+
+For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
+\begin{align*}
+\text{Var}[U(\bm{\theta})]_{ij}&= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
+&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
+{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
+{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
+&= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+ {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
+\end{align*}
+
+## Proof 
+Now
+\begin{align*}
+[\mathcal{I}(\bm \theta)]_{ij}&=E\left[-{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
+&=\int -{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=\int -{{\partial}\over{\partial\theta_i}}\left[
+{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=\int \left[
+-{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
++ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
++ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
+&= \text{Var}[U(\bm{\theta})]_{ij}
+\end{align*}
+
+## Example (Bernoulli)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Here $\bm \theta=(p)$ and
+\begin{align*}
+u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
+-H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
+{\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
+\end{align*}
+
+
+## Example (Normal)
+
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
+Here $\bm \theta=(\mu,\sigma^2)$ and
+\begin{align*}
+u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
+u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
+\end{align*}
+Therefore
+$$
+-\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
+\frac{n}{\sigma^2} & \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
+\frac{n(\bar y-\mu)}{(\sigma^2)^2}&
+ \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}
+$$
+$$
+{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
+\frac{n}{\sigma^2} & 0 \cr
+0& \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}.
+$$
+
+
+## Conclusion
+
+- You should now be able to attempt all of the exercises on problem sheet 1.

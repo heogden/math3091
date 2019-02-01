@@ -1,0 +1,293 @@
+---
+title: "MATH3012: Chapter 1, Lecture 3"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Recap
+
+Last time, we
+
+- reintroduced the likelihood: “the probability that we
+would have seen the data we actually did, for each value of the
+parameter”.
+- reviewed the “usual” recipe for finding maximum
+likelihood estimates: find a stationary point of the
+log-likelihood (and check it is a maximum).
+
+Let's look at another example of this.
+
+
+## Example (Normal)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
+Here $\bm \theta=(\mu,\sigma^2)$ and the likelihood is
+\begin{align*}
+L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
+\exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
+&=(2\pi\sigma^2)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
+&\propto (\sigma^2)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
+\end{align*}
+\pause
+
+The log-likelihood is
+\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+-{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
+
+## Differentiating the log-likelihood
+   Differentiating with respect to $\mu$
+\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
+  {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]
+  so $(\hat \mu, \hat \sigma^2)$ solve
+\begin{equation}
+  \frac{n(\bar y-\hat{\mu})}{\hat \sigma^2} = 0.
+  \label{eq:normalScoreMu}
+\end{equation}
+\pause
+
+  Differentiating with respect to $\sigma^2$
+\[\frac{\partial}{\partial \sigma^2} \ell (\mu,\sigma^2)=
+- \frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum(y_i-\mu)^2,\]
+so
+\begin{equation}
+  -{n\over {2\hat \sigma^2}}+{1\over{2(\hat \sigma^2)^2}}\sum(y_i-\hat{\mu})^2 = 0
+  \label{eq:normalScoreSs}
+\end{equation}
+
+## Finding a stationary point
+Solving \eqref{eq:normalScoreMu} and \eqref{eq:normalScoreSs}, we obtain
+$\hat{\mu}=  \bar y$ and
+\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
+{1\over n}\sum(y_i-\bar y)^2.\]
+\pause
+
+To show that this stationary point is a maximum, we need to show that the
+Hessian matrix $\bm{H}(\bm \theta)$, with elements
+$[\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)$)
+is negative definite at $\bm \theta=\hat{\bm \theta}$, that is $\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}<0$ for
+every
+$\bm{a}\ne {\bf 0}$.
+\pause
+
+Here
+$$
+\bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
+- \frac{n}{\hat \sigma^2 } & 0 \cr
+0   &-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
+$$
+which is negative definite.
+
+
+## Score 
+
+Let
+$$
+u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta), \quad i=1,\ldots ,p
+$$
+and $\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T$. Then we call $\bm{u}(\bm \theta)$ the
+*vector of scores* or *score vector*.
+
+\pause
+Where $p=1$ and $\bm \theta=(\theta)$, the *score* is the scalar defined as
+$$
+u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
+$$
+
+## Score quiz 1 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose we have observations $y_1, \ldots, y_n$ of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random variables, and we want to estimate $p$. 
+
+As a first guess at $p$, I guess that $p = 0.5$, and calculate the score 
+there, and find $u(0.5) = -2$
+
+Is the MLE:
+
+- greater than $0.5$?
+- less than $0.5$?
+- equal to $0.5$?
+- Not possible to tell.
+
+
+## Score quiz 2 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose we have observations $y_1, \ldots, y_n$ of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random variables, and we want to estimate $p$. 
+
+After finding $u(0.5) = -2$, I now 
+guess that $p = 0.2$, calculate the score 
+there, and find $u(0.2) = 1$
+
+Is the MLE:
+
+- greater than or equal to $0.5$?
+- greater than $0.2$ but less than $0.5$?
+- equal to $0.2$?
+- less than $0.2$?
+- Not possible to tell.
+
+
+## Notes on the score
+
+- The maximum likelihood estimate $\hat{\bm \theta}$ satisfies
+\[u(\hat{\bm \theta})={\bm 0},\]
+that is,
+\[u_i(\hat{\bm \theta})=0, \quad i=1,\ldots ,p.\]
+- $u(\bm{\theta})$ is a function of $\bm \theta$ for fixed (observed) $\bm y$.
+However, if we replace $y_1, \ldots, y_n$ in $u(\bm{\theta})$, by the corresponding random variables
+$Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\equiv
+[U_1(\bm \theta),\ldots ,U_p(\bm \theta)]^T$.
+
+## An important result about the score
+The expected score
+at the true (but unknown) value of $\bm \theta$ is zero:
+\[E[U(\bm{\theta})]={\bf 0}\]
+*i.e.*
+\[E[U_i(\bm \theta)]= 0,
+\quad i=1,\ldots ,p,\]
+provided that
+
+1. The expectation exists.
+1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
+
+## Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)
+
+For each $i=1, \ldots, n$
+\begin{align*}
+E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= {{\partial}\over{\partial\theta_i}} 1 =0.
+\end{align*}
+
+## Example (Bernoulli)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Here $\bm \theta=(p)$ and
+\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]
+Since $E[U(p)] = 0$, we must have $E[\bar Y]=p$ (which we already
+know is correct).
+
+
+## The Bernoulli loglikelihood and score
+e.g. take 15 samples from a $\text{Bernoulli}(0.45)$
+distribution.
+```{r, echo = FALSE}
+set.seed(1)
+x <- rbinom(15, 1, 0.45)
+x
+```
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+loglikelihood <- function(p, samp) {
+  n <- length(samp)
+  xbar <- mean(samp)
+  n * xbar * log(p)+ n * (1 - xbar) * log(1 - p)
+}
+score <- function(p, samp) {
+  n <- length(samp)
+  xbar <- mean(samp)
+  n * xbar/ p - n * (1-xbar)/(1-p)
+}
+samp <- x
+a <- loglikelihood(0.45, samp) - 0.45 * score(0.45, samp)
+b <- score(0.45, samp)
+curve(loglikelihood(x, samp), 0.2, 0.8, xlab = "p", ylab = "loglikelihood",
+      ylim = range(c(loglikelihood(0.2, samp), loglikelihood(0.8, samp), 
+                     loglikelihood(0.45, samp) + 2,
+                     a + b * 0.2, a + b * 0.8)))
+text(0.45, loglikelihood(0.45, samp) + 1.5, paste("u(0.45) = ", round(b, 2)))
+abline(a = a, b = b, lty = 2)
+```
+
+
+## The Bernoulli loglikelihood and score
+e.g. take 15 samples from a $\text{Bernoulli}(0.45)$
+distribution.
+```{r, echo = FALSE}
+x <- rbinom(15, 1, 0.45)
+x
+```
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+samp <- x
+a <- loglikelihood(0.45, samp) - 0.45 * score(0.45, samp)
+b <- score(0.45, samp)
+curve(loglikelihood(x, samp), 0.2, 0.8, xlab = "p", ylab = "loglikelihood",
+      ylim = range(c(loglikelihood(0.2, samp), loglikelihood(0.8, samp), 
+                     loglikelihood(0.45, samp) + 2,
+                     a + b * 0.2, a + b * 0.8)))
+text(0.45, loglikelihood(0.45, samp) + 1.5, paste("u(0.45) = ", round(b, 2)))
+abline(a = a, b = b, lty = 2)
+```
+
+## The Bernoulli loglikelihood and score
+e.g. take 15 samples from a $\text{Bernoulli}(0.45)$
+distribution.
+```{r, echo = FALSE}
+x <- rbinom(15, 1, 0.45)
+x
+```
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+samp <- x
+a <- loglikelihood(0.45, samp) - 0.45 * score(0.45, samp)
+b <- score(0.45, samp)
+curve(loglikelihood(x, samp), 0.2, 0.8, xlab = "p", ylab = "loglikelihood",
+      ylim = range(c(loglikelihood(0.2, samp), loglikelihood(0.8, samp), 
+                     loglikelihood(0.45, samp) + 2,
+                     a + b * 0.2, a + b * 0.8)))
+text(0.45, loglikelihood(0.45, samp) + 1.5, paste("u(0.45) = ", round(b, 2)))
+abline(a = a, b = b, lty = 2)
+```
+
+## The Bernoulli loglikelihood and score
+e.g. take 15 samples from a $\text{Bernoulli}(0.45)$
+distribution.
+```{r, echo = FALSE}
+x <- rbinom(15, 1, 0.45)
+x
+```
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+samp <- x
+a <- loglikelihood(0.45, samp) - 0.45 * score(0.45, samp)
+b <- score(0.45, samp)
+curve(loglikelihood(x, samp), 0.2, 0.8, xlab = "p", ylab = "loglikelihood",
+      ylim = range(c(loglikelihood(0.2, samp), loglikelihood(0.8, samp), 
+                     loglikelihood(0.45, samp) + 2,
+                     a + b * 0.2, a + b * 0.8)))
+text(0.45, loglikelihood(0.45, samp) + 1.5, paste("u(0.45) = ", round(b, 2)))
+abline(a = a, b = b, lty = 2)
+```
+
+
+## Example (Normal)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
+$N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
+\begin{align*}
+u_1(\mu,\sigma^2)&= {{n(\bar y-\mu)}/{\sigma^2}}\cr
+u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
+\end{align*}
+Since $E[\bm U(\mu,\sigma^2)] = {\bm 0}$, we must have
+$E[\bar Y]=\mu$ and 
+$E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.$
+
+## Conclusion
+
+- We have defined the score
+ as the gradient of the log-likelihood.
+- We showed that
+ that the expected value of the score vector at
+ the true value of $\theta$ is zero. 
+ - This result is important to find
+what happens to the distribution of the MLE as the number of observations grows large.
+- You should now be able to attempt Questions 1, 3 and 4 on problem
+sheet 1, and a bit more of Question 2.
