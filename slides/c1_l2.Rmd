@@ -326,22 +326,6 @@ How would you estimate $p$ in this example? \pause
 How confident are you of your estimate? (e.g. could $p = 0.5$ plausibly
 have generated the data?)
 
-## Example (Normal)
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and the likelihood is
-\begin{align*}
-L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
-\exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
-&=(2\pi\sigma^2)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
-&\propto (\sigma^2)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
-\end{align*}
-\pause
-
-The log-likelihood is
-\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
 
 ## Maximum likelihood estimation
 
@@ -418,56 +402,6 @@ curve(lfun(x, y), from = 0, to = 1, ylim = c(-12, -6),
 ybar <- mean(y)
 points(ybar, lfun(ybar, y))
 ```
-
-## Example (Normal)
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and
- and the log-likelihood is
-\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
-
-## Differentiating the log-likelihood
-   Differentiating with respect to $\mu$
-\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
-  {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]
-  so $(\hat \mu, \hat \sigma^2)$ solve
-\begin{equation}
-  \frac{n(\bar y-\hat{\mu})}{\hat \sigma^2} = 0.
-  \label{eq:normalScoreMu}
-\end{equation}
-\pause
-
-  Differentiating with respect to $\sigma^2$
-\[\frac{\partial}{\partial \sigma^2} \ell (\mu,\sigma^2)=
-- \frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum(y_i-\mu)^2,\]
-so
-\begin{equation}
-  -{n\over {2\hat \sigma^2}}+{1\over{2(\hat \sigma^2)^2}}\sum(y_i-\hat{\mu})^2 = 0
-  \label{eq:normalScoreSs}
-\end{equation}
-
-## Finding a stationary point
-Solving \eqref{eq:normalScoreMu} and \eqref{eq:normalScoreSs}, we obtain
-$\hat{\mu}=  \bar y$ and
-\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
-{1\over n}\sum(y_i-\bar y)^2.\]
-\pause
-
-To show that this stationary point is a maximum, we need to show that the
-Hessian matrix $\bm{H}(\bm \theta)$, with elements
-$[\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)$)
-is negative definite at $\bm \theta=\hat{\bm \theta}$, that is $\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}<0$ for
-every
-$\bm{a}\ne {\bf 0}$.
-\pause
-
-Here
-$$
-\bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
-- \frac{n}{\hat \sigma^2 } & 0 \cr
-0   &-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
-$$
-which is negative definite.
 
 
 ## Conclusion
