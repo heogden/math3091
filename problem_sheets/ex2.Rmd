@@ -1,0 +1,66 @@
+---
+title: "MATH3012 problem sheet 2"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+\benum
+
+\item 
+Suppose $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, 
+i.i.d. $\text{Geometric}(\theta)$ random
+variables, 
+each with p.d.f.
+$f_Y(y; \theta) = \theta(1 - \theta)^{y - 1}$, $y \in \{1, 2, 3, \ldots\}$,
+where $0<\theta<1$ is an unknown parameter. 
+\benum
+\item Calculate the log-likelihood function, the score function and the Fisher information.
+\item Calculate the maximum likelihood estimator $\hat{\theta}$ of $\theta$ and construct its approximate (large sample) confidence interval at $99\%$ confidence level.
+\eenum
+
+\item Continue Question 1  above. Suppose that we would like to test
+$H_0: \theta=0.5$ against the general alternative 
+$H_1: \text{`$\theta$ is unrestricted'}$.
+\benum
+\item Find the log likelihood ratio statistic $L_{01}$ for testing $H_0$  against $H_1$.  
+\item What is the asymptotic distribution of $L_{01}$ under $H_0$?
+\item Suppose we want a test of approximate size $\alpha = 0.01$. For which values
+of $L_{01}$ would you reject $H_0$? You may need to use the `qchisq` function in
+`R` to find the critical value.
+\eenum
+
+\item Consider the linear model with a single explanatory variable $x_i$
+\[Y_i = \beta_1 + \beta_2 x_i + \epsilon_i,\]
+and suppose we would like to test 
+$H_0: \beta_2 = 0$ against the alternative 
+$H_1: \text{`$\beta_2$ is unrestricted'}$. 
+Suppose that $n = 50$, and that
+the deviances under $H_0$ and $H_1$ are 
+$D_0 = 13$ and $D_1 = 12$ respectively.
+\benum
+\item Calculate the $F$ statistic for this data.
+What is the distribution of $F$ under $H_0$?
+Find the critical value for the $F$ test of size $0.05$
+(you may need to use `R` to do this). Would you reject
+$H_0$ using your $F$ test?
+\item Calculate the log likelihood ratio statistic $L_{01}$ for
+this data.
+What is the distribution of $L_{01}$ under $H_0$?
+Find the critical value for the log likelihood ratio test of
+approximate size $0.05$ (you may need to use `R` to do this).
+Would you reject $H_0$ using your log likelihood ratio test?
+\item Compare your answers from (a) and (b).
+\eenum
+
+\eenum
