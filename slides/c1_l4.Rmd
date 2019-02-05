@@ -127,6 +127,43 @@ $E[\bar Y]=\mu$ and
 $E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.$
 
 
+## Information: Bernoulli loglikelihoods
+
+```{r, echo = FALSE, fig.width=6, fig.height=4}
+loglikelihood2 <- function(p, xbar, n) {
+  n * xbar * log(p)+ n * (1 - xbar) * log(1 - p)
+}
+par(mfrow = c(1, 2))
+curve(loglikelihood2(x, 0.4, 10), 0.1, 0.7, xlab = "p", ylab = "loglikelihood", 
+      ylim = loglikelihood2(0.4, 0.4, 10) + c(-2.8, 0.2),
+      main = "Case A")
+curve(loglikelihood2(x, 0.4, 100), 0.1, 0.7, xlab = "p", ylab = "loglikelihood", 
+      ylim = loglikelihood2(0.4, 0.4, 100) + c(-2.8, 0.2),
+      main = "Case B")
+```
+
+## Bernoulli loglikelihoods quiz ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+In both cases, $\hat p = 0.4$. In which case are you more
+confident that the true value of $p$ is close to $0.4$?
+
+- A: I am more confident that $p$ is close to $0.4$ in 
+case A than in case B. 
+- B: I am more confident that $p$ is close to $0.4$ in 
+case B than in case A. 
+- I am equally confident in either case.
+
+\pause
+The Hessian (second derivative of loglikelihood) at $0.4$ is 
+$-41.7$ in case A, and $-417$ in case B.
+```{r, include = FALSE}
+numDeriv::hessian(loglikelihood2, 0.4, xbar = 0.4, n = 10)
+numDeriv::hessian(loglikelihood2, 0.4, xbar = 0.4, n = 100)
+```
+
+The data provide more *information* about the parameter in case
+B than in case A.
+
+
 ## Observed Information
 
 Suppose that $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, whose joint p.d.f.
@@ -144,8 +181,10 @@ We call the matrix $-H(\bm{\theta})$ the *observed information matrix*.
 Where $p=1$ and $\bm \theta=(\theta)$, the *observed information* is a
 scalar defined as
 $$
--H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\ell(\theta).
+-H(\theta)\equiv-{{\partial^2}\over{\partial\theta^2}}\ell(\theta).
 $$
+\pause
+Correct typo in printed notes.
 
 ## Fisher information
 
@@ -158,6 +197,40 @@ $$
 [\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
 \qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
 $$
+
+## Example (Bernoulli)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Here $\bm \theta=(p)$ and
+\begin{align*}
+u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
+-H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
+{\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
+\end{align*}
+
+
+## Example (Normal)
+
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
+Here $\bm \theta=(\mu,\sigma^2)$ and
+\begin{align*}
+u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
+u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
+\end{align*}
+Therefore
+$$
+-\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
+\frac{n}{\sigma^2} & \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
+\frac{n(\bar y-\mu)}{(\sigma^2)^2}&
+ \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}
+$$
+$$
+{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
+\frac{n}{\sigma^2} & 0 \cr
+0& \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}.
+$$
+
 
 ## A link between the score and expected information
 The variance-covariance matrix
@@ -208,40 +281,15 @@ Now
 &= \text{Var}[U(\bm{\theta})]_{ij}
 \end{align*}
 
-## Example (Bernoulli)
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Here $\bm \theta=(p)$ and
-\begin{align*}
-u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
--H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
-{\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
-\end{align*}
-
-
-## Example (Normal)
-
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and
-\begin{align*}
-u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
-u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
-\end{align*}
-Therefore
-$$
--\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
-\frac{n}{\sigma^2} & \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
-\frac{n(\bar y-\mu)}{(\sigma^2)^2}&
- \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
-\end{pmatrix}
-$$
-$$
-{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
-\frac{n}{\sigma^2} & 0 \cr
-0& \frac{n}{2(\sigma^2)^2}
-\end{pmatrix}.
-$$
-
 
 ## Conclusion
 
+- Next time, we'll see that the MLE $\hat \theta$ has
+approximately $N(\theta, [I(\theta)]^{-1})$ distribution,
+for large enough data sets.
+- To show this, we need to use the "expected score is zero" and 
+the "variance of the score equals the expected information": 
+we will sketch the proof.
 - You should now be able to attempt all of the exercises on problem sheet 1.
+If you hand in work on problem sheet 1 in the next lecture, I will mark it
+and give you feedback on your work.
