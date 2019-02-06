@@ -1,0 +1,151 @@
+---
+title: "Solutions to MATH3012 problem sheet 2"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+\benum
+
+\item 
+\benum
+\item The likelihood is
+\[L(\theta) = \prod_{i=1}^n f_Y(y_i; \theta) 
+= \prod_{i=1}^n \theta(1 - \theta)^{y_i - 1}
+= \theta^n (1 - \theta)^{\sum_{i=1}^n y_i - n}.
+\]
+The log-likelihood is
+\[\ell(\theta) = \log L(\theta) = n \log \theta + \left(\sum_{i=1}^n y_i - n\right) \log (1-\theta).\]
+The score is
+\[u(\theta) = \frac{n}{\theta} - \frac{\sum_{i=1}^n y_i - n}{1 - \theta}
+\]
+
+The Hessian is
+\[H(\theta) =  - \frac{n}{\theta^2} - \frac{\sum_{i=1}^n y_i - n}{(1 - \theta)^2}.\]
+
+The Fisher information is
+\begin{align*}
+{\cal I}(\theta) &= E[-H(\theta)]  \\
+&= E\left[\frac{n}{\theta^2} + \frac{\sum_{i=1}^n Y_i - n}{(1 - \theta)^2}\right] \\
+&= \frac{n}{\theta^2} + \frac{n E(Y_i)}{(1 - \theta)^2} - \frac{n}{(1 - \theta)^2} \\
+&=  \frac{n}{\theta^2} + \frac{n}{\theta(1 - \theta)^2}  - \frac{n}{(1 - \theta)^2} \\
+&= \frac{n[(1 - \theta)^2 + \theta - \theta^2]}{\theta^2(1 - \theta^2)} \\
+&= \frac{n (1 - \theta)}{\theta^2 (1 - \theta)^2} \\
+&= \frac{n}{\theta^2 (1 - \theta)}. 
+\end{align*}
+\item 
+A stationary point of the log-likelihood $\hat \theta$ solves
+\[u(\hat \theta) = \frac{n}{\hat \theta} - \frac{\sum_{i=1}^n y_i - n}{1 - \hat \theta} = 0,\]
+which gives
+\[\hat \theta = \frac{n}{\sum_{i=1}^n y_i} = \frac{1}{\bar y}.\]
+The Hessian $H(\theta) < 0$
+for all $\theta$, as each $y_i \geq 1$ so $\sum_{i=1}^n y_i - n \geq 0$. So 
+$\hat \theta$ is the MLE.
+
+The asymptotic distribution of the $\hat \theta$ is
+\[\hat \theta \sim N(\theta, [{\cal I}(\theta)]^{-1}) =
+N\left(\theta, \frac{\theta^2 (1 - \theta)}{n}\right).\]
+A $100(1 - \alpha)\%$ confidence interval for $\theta$ is
+\[[\hat{\theta}-z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\theta})^{-1}]^{1\over 2},
+\hat{\theta}_i+z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\theta})^{-1}]^{1\over 2}].
+\]
+For $\alpha = 0.01$, we need to know $z_{1 - \frac{a}{2}} = z_{0.995}$, which
+we can find in `R` as
+```{r}
+qnorm(0.995)
+```
+or $2.58$ to two decimal places.
+We have
+\[{\cal I}(\hat{\theta})^{-1} = \frac{\hat \theta^2 (1 - \hat \theta)}{n} = 
+\frac{\bar y - 1}{n (\bar y)^3} ,\]
+so a $99 \%$ confidence interval for $\theta$ is
+\[\left[\frac{1}{\bar y}- 2.58\sqrt{\frac{\bar y - 1}{n (\bar y)^3}},
+\frac{1}{\bar y} + 2.58\sqrt{\frac{\bar y - 1}{n (\bar y)^3}}\right].
+\]
+\eenum
+
+\item 
+\benum
+\item The log likelihood ratio statistic is
+\[L_{01} = 2 \log \left( \frac{L(\hat \theta)}{L(0.5)} \right) 
+= 2 [\ell(\hat \theta) - \ell(0.5)].\]
+From Question 1, the log-likelihood is
+\[\ell(\theta) = n \left[\log \theta + (\bar y - 1) \log (1-\theta)\right],\]
+and $\hat \theta = \bar y^{-1}$, so
+so
+\begin{align*}
+L_{01} &= 2 n \left[ - \log \bar y + (\bar y - 1) \log (1- \bar y^{-1})
+- \log 0.5 - (\bar y - 1) \log 0.5\right] \\
+&= 2 n \left[ - \log \bar y + (\bar y - 1) \log (1- \bar y^{-1})
+- \bar y \log 0.5\right].
+\end{align*}
+\item
+Under $H_0$, $L_{01} \sim \chi^2_{1}$. 
+\item
+We would reject $H_0$ is $L_{01} > k$, where $k$ is the $99\%$ point
+of the $\chi^2_1$ distribution. We can find this value in `R`, with
+```{r}
+qchisq(0.99, df = 1)
+```
+So we reject $H_0$ if $L_{01} > 6.63$.
+\eenum
+
+\item
+\benum
+\item We have $p = 2$ and $q = 1$, so
+\[F = \frac{(D_0 - D_1)/(p-q)}{D_1/(n-p)} = \frac{(13 - 12) / (2 - 1)}{12/(50 - 2)}
+= \frac{1}{12/48} = 4.\]
+Under $H_0$, $F \sim F_{p - q, n - p} = F_{1, 48}$.
+For a size $\alpha = 0.05$ test,
+ we reject $H_0$ if $F > k$, where $k$ is the 
+ $95\%$ point of the $F_{1, 48}$ distribution, or
+```{r}
+qf(0.95, df1 = 1, df2 = 48)
+```
+ or $4.04$, to two decimal places. So we do not reject
+ $H_0$.
+ \item From the notes, for $j = 1, 2$, we have
+ \[\max_{\bm{\beta},\sigma^2 \in \Theta^{(j)}} L(\bm{\beta},\sigma^2) = (2\pi D_j/n)^{-{n\over 2}}
+\exp\left(-{n\over2}\right).\]
+So
+ \begin{align*}
+ L_{01} &= 2 \log \frac{\max_{\bm{\beta},\sigma^2 \in \Theta^{(1)}} L(\bm{\beta},\sigma^2)}{
+ \max_{\bm{\beta},\sigma^2 \in \Theta^{(0)}} L(\bm{\beta},\sigma^2)} \\
+ &= 2 \log \frac{(2\pi D_1/n)^{-{n\over 2}}
+\exp\left(-{n\over2}\right)}{(2\pi D_0/n)^{-{n\over 2}}
+\exp\left(-{n\over2}\right)} \\
+&= 2 \log \left(\frac{D_0}{D_1}\right)^{\frac{n}{2}} \\
+&= n \log \frac{D_0}{D_1} \\
+&= 50 \log \frac{13}{12} \\
+&= 4.00 \text{ (2 d.p).}
+ \end{align*}
+ Under $H_0$, $L_{01} \sim \chi^2_{1}$.
+ For a test of approximate size $\alpha$, we reject $H_0$ if $L_{01}> k$, where $k$ is the 
+ $95\%$ point of the $\chi^2_1$ distribution, or
+```{r}
+qchisq(0.95, df = 1)
+```
+ or $3.84$, to two decimal places. So we reject
+ $H_0$.
+\item For the $F$ test, we did not reject $H_0$, while for the log likelihood
+ratio test, we did reject $H_0$. In both cases,
+the value of the test statistic was quite close to the critical value.
+The two tests differ because the log likelihood ratio
+test statistic $L_{01}$ has approximately (not exactly) $\chi^2_1$ 
+distribution under $H_0$, whereas $F$ has exactly $F_{1, 48}$
+distribution. Because the approximate distribution for $L_{01}$
+is based on an asymptotic result (valid as $n \rightarrow \infty$),
+the two tests will be very similar for large $n$.
+\eenum
+
+\eenum
