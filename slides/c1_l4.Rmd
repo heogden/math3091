@@ -245,46 +245,10 @@ provided that
 1. The variance exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-## Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
-
-For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
-\begin{align*}
-\text{Var}[U(\bm{\theta})]_{ij}&= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
-&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
-{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
-{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
-&= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
- {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
-\end{align*}
-
-## Proof 
-Now
-\begin{align*}
-[\mathcal{I}(\bm \theta)]_{ij}&=E\left[-{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
-&=\int -{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=\int -{{\partial}\over{\partial\theta_i}}\left[
-{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
- f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=\int \left[
--{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
-+ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
- f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
-+ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
-&= \text{Var}[U(\bm{\theta})]_{ij}
-\end{align*}
-
-
 ## Conclusion
 
-- Next time, we'll see that the MLE $\hat \theta$ has
+- We'll prove this result next time.
+- We'll also see that the MLE $\hat \theta$ has
 approximately $N(\theta, [I(\theta)]^{-1})$ distribution,
 for large enough data sets.
 - To show this, we need to use the "expected score is zero" and 

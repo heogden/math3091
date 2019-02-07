@@ -22,11 +22,60 @@ Last time, we
 of the loglikelihood.
 - define the Fisher information as the expected value of the 
 observed information.
-- showed that the variance of the score is equal to the Fisher
+- claimed that the variance of the score is equal to the Fisher
 information.
 
-Why is this result important? Because it allows us to prove
-a very important result about the MLE.
+Let's revisit this result now.
+
+## A link between the score and expected information
+The variance-covariance matrix
+of the score vector is equal to the
+expected information matrix *i.e.*
+\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]
+or
+\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
+\quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]
+provided that
+
+1. The variance exists.
+1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
+
+## Proof (continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
+
+For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
+\begin{align*}
+\text{Var}[U(\bm{\theta})]_{ij}&= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
+&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
+{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
+{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
+&= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+ {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
+\end{align*}
+
+## Proof 
+Now
+\begin{align*}
+[\mathcal{I}(\bm \theta)]_{ij}&=E\left[-{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
+&=\int -{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=\int -{{\partial}\over{\partial\theta_i}}\left[
+{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&=\int \left[
+-{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
++ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
++ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
+&= \text{Var}[U(\bm{\theta})]_{ij}
+\end{align*}
+
 
 ## Maximum likelihood estimation
 
@@ -61,7 +110,6 @@ Where $p=1$ and $\bm \theta=(\theta)$, the distribution of the MLE $\hat{\theta}
 tends to $N[\theta,1/{\cal I}(\theta)]$.
 
 ## Approximate distribution of the MLE
-
 
 For 'large enough $n$', we can treat the asymptotic distribution of the MLE as
 an approximation. The fact that $E(\hat{\bm \theta})\approx\bm \theta$ means that 
