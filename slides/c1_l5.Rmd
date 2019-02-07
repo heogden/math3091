@@ -1,0 +1,175 @@
+---
+title: "MATH3012: Chapter 1, Lecture 5"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Recap
+
+Last time, we
+
+- defined the observed information as minus the second derivative
+of the loglikelihood.
+- define the Fisher information as the expected value of the 
+observed information.
+- showed that the variance of the score is equal to the Fisher
+information.
+
+Why is this result important? Because it allows us to prove
+a very important result about the MLE.
+
+## Maximum likelihood estimation
+
+Maximum likelihood estimation is an attractive method of estimation:
+
+- It is intuitively sensible (choose $\bm \theta$ which makes the observed data
+most probable)
+- It is general: you just need a probability model and some data!
+- Computing the the MLE is often fairly simple.
+  Even when the simultaneous equations we obtain by
+  differentiating the loglikelihood function are impossible to solve directly,
+  solution by numerical methods is usually feasible.
+\pause
+
+One more reason to love the MLE... \pause it is
+the "best possible" estimator for large sample sizes.
+
+## Asymptotic distribution of the MLE
+
+Suppose that $y_1, \ldots, y_n$ are observations of  independent random variables $Y_1, \ldots, Y_n$,
+whose joint p.d.f.  $f_{\bm Y}(\bm y;\bm \theta)=\prod_{i=1}^n f_{Y_i}(y_i;\bm \theta)$ is
+completely specified except for the values of an unknown parameter vector
+$\bm \theta$, and that
+$\hat{\bm \theta}$ is the maximum likelihood estimator of $\bm \theta$.
+
+
+As $n\to\infty$, the distribution of $\hat{\bm \theta}$ tends to a multivariate
+normal distribution with mean vector $\bm \theta$ and variance covariance matrix
+$\mathcal{I}(\bm \theta)^{-1}$.
+
+Where $p=1$ and $\bm \theta=(\theta)$, the distribution of the MLE $\hat{\theta}$
+tends to $N[\theta,1/{\cal I}(\theta)]$.
+
+## Approximate distribution of the MLE
+
+
+For 'large enough $n$', we can treat the asymptotic distribution of the MLE as
+an approximation. The fact that $E(\hat{\bm \theta})\approx\bm \theta$ means that 
+the MLE is *approximately unbiased*
+for large samples. 
+
+\pause
+The variance of $\hat{\bm \theta}$ is approximately $\mathcal{I}(\bm \theta)^{-1}$. 
+It is possible to show that this is the smallest possible variance of any unbiased estimator of 
+$\bm \theta$ (this result is called the Cramér--Rao lower bound, which we do not prove here).
+Therefore the MLE is the 'best possible' estimator in large samples.
+
+
+## Sketch proof (one parameter case)
+
+Suppose that $y_1, \ldots, y_n$ are observations of i.i.d. random variables 
+$Y_1, \ldots, Y_n$,
+whose joint p.d.f. $f_{\bm Y}(\bm y;\theta)=\prod_{i=1}^n f_{Y}(y_i;\theta)$ is
+completely specified except for the value of an unknown parameter 
+$\theta$, and that
+$\hat{\theta}$ is the maximum likelihood estimator of $\theta$.
+\pause
+
+We can write the score as
+\[u(\theta)={{\partial}\over{\partial\theta}}
+\ell(\theta)=\sum_{i=1}^n {{\partial}\over{\partial\theta}} \log f_{Y}(y_i;\theta)\]
+so $U(\theta)$ can be expressed as the sum
+of $n$ i.i.d. random variables.
+
+\pause
+Asymptotically, as $n\to\infty$, by the central limit theorem,
+$U(\theta)$ is normally distributed. \pause
+
+But $E[U(\theta)]=0$ and
+$\text{Var}[U(\theta)]={\cal I}(\theta)$, so asymptotically 
+\[U(\theta) \sim N[0,{\cal I}(\theta)].\]
+
+## Sketch proof (continued)
+A Taylor series expansion of $U(\hat{\theta})$ around the true $\theta$
+gives
+\[U(\hat{\theta})=U(\theta)+(\hat{\theta}-\theta)U'(\theta) +\ldots\]
+\pause
+Now, $U(\hat{\theta})=0$, and if we approximate $H(\theta)$ by
+$E[H(\theta)]=-{\cal I}(\theta)$, and also ignore higher order terms
+\[\hat{\theta}=\theta+{1\over{{\cal I}(\theta)}}U(\theta).\]
+\pause
+As $U(\theta)$ is asymptotically
+$N[0,{\cal I}(\theta)]$, $\hat{\theta}$ is asymptotically
+$N[\theta,{\cal I}(\theta)^{-1}]$.
+
+## Example (Bernoulli)
+If $Y_1, \ldots, Y_n$ are i.i.d. Bernoulli$(p)$ random
+variables then asymptotically $\hat p=\bar Y$ has a $N(p,{p(1-p)}/ n)$
+distribution.
+
+## Distribution of $\hat p$ ($n = 10$)
+```{r, echo = FALSE, fig.height = 4, fig.width = 5}
+n <- 10
+p <- 0.45
+y_samples <- replicate(10000, rbinom(n, 1, p))
+y_bar_samples <- apply(y_samples, 2, mean)
+plot(ecdf(y_bar_samples), verticals = TRUE, do.points = FALSE, main = "",
+     xlab = "p", ylab = "CDF of MLE")
+```
+
+## Distribution of $\hat p$ ($n = 10$, $p = 0.45$)
+```{r, echo = FALSE, fig.height = 4, fig.width = 5}
+n <- 10
+p <- 0.45
+y_samples <- replicate(10000, rbinom(n, 1, p))
+y_bar_samples <- apply(y_samples, 2, mean)
+plot(ecdf(y_bar_samples), verticals = TRUE, do.points = FALSE, main = "",
+     xlab = "p", ylab = "CDF of MLE")
+curve(pnorm(x, mean = p, sd = sqrt(p * (1 - p) / n)), add = TRUE,
+      lty = 2, col = 2)
+```
+
+## Distribution of $\hat p$ ($n = 100$, $p = 0.45$)
+```{r, echo = FALSE, fig.height = 4, fig.width = 5}
+n <- 100
+p <- 0.45
+y_samples <- replicate(10000, rbinom(n, 1, p))
+y_bar_samples <- apply(y_samples, 2, mean)
+plot(ecdf(y_bar_samples), verticals = TRUE, do.points = FALSE, main = "",
+     xlab = "p", ylab = "CDF of MLE")
+curve(pnorm(x, mean = p, sd = sqrt(p * (1 - p) / n)), add = TRUE, 
+      lty = 2, col = 2)
+```
+
+## Distribution of $\hat p$ ($n = 1000$, $p = 0.45$)
+```{r, echo = FALSE, fig.height = 4, fig.width = 5}
+n <- 1000
+p <- 0.45
+y_samples <- replicate(10000, rbinom(n, 1, p))
+y_bar_samples <- apply(y_samples, 2, mean)
+plot(ecdf(y_bar_samples), verticals = TRUE, do.points = FALSE, main = "",
+     xlab = "p", ylab = "CDF of MLE")
+curve(pnorm(x, mean = p, sd = sqrt(p * (1 - p) / n)), add = TRUE,
+      lty = 2, col = 2)
+```
+
+## Conclusion
+
+- We have found one of the most important results about the 
+MLE: it has asymptotic 
+$N(\theta, [{\cal I}(\theta)]^{-1})$ distribution.
+- So for large sample sizes, the MLE is essentially 
+the best possible estimator we could construct.
+- Next time we'll see how we can use the asymptotic distribution 
+to find confidence intervals for the parameters, and to 
+test hypotheses.
