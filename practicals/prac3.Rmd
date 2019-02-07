@@ -9,14 +9,15 @@ header-includes:
 - \newcommand{\eenum}{\end{enumerate}}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
 
 The dataset in `birth.csv` contains data on the weight of 24 newborn babies. 
-Read the data into `R` using 
-```{r}
+Read the data into a variable `birth`.
+```{r, include = FALSE}
+# read the data into R:
 birth <- read.csv("birth.csv")
 ```
 
@@ -24,15 +25,23 @@ There are two explanatory variables; sex (`Sex`)
 and gestational age in weeks (`Age`) together
 with the response variable, birthweight in grams (`Weight`).
 
-`Sex` is a categorical variables, taking two values, 1 for male and 2 for female.
+`Sex` is a categorical variable, taking two values, 1 for male and 2 for female.
 Because it is a categorical variable, it should be
 be declared as a factor in `R`, using
 
+```{r, include = FALSE}
+
+# tell R to treat Sex as a categorical variable:
+```
 ```{r}
 birth$Sex <- as.factor(birth$Sex)
 ```
 
 The data can be plotted, with males and females distinguished, using
+```{r, include = FALSE}
+
+# plot the data with males and females distinguished:
+```
 ```{r}
 plot(birth$Age, birth$Weight, xlab = "Age (weeks)", ylab = "Birthweight (grams)",
      col = birth$Sex)
@@ -41,11 +50,47 @@ legend("bottomright", legend = c("Male", "Female"), pch = 1, col = 1:2)
 Do you see what the legend command has done? Read the help file on
 legend by issuing the command `?legend`. Can you move the legend
 to the top left of the plot?
+```{r, include = FALSE}
 
-We can now fit models which include both qualitative and
-quantitative explanatory variables.
+# legend adds a key to the plot. 
+# To move the legend to the top left, use:
+plot(birth$Age, birth$Weight, xlab = "Age (weeks)", ylab = "Birthweight (grams)",
+     col = birth$Sex)
+legend("topleft", legend = c("Male", "Female"), pch = 1, col = 1:2)
+# We have to redo the plotting command, otherwise we get two legends
+
+```
+
+We could plot the data in several other ways. For each command
+below, guess at what type of plots the command will produce.
+Then run them with `R`: is the result what you expected?
+```{r, include = FALSE}
+# Plots weight against each explanatory variable separately:
+```
+```{r}
+plot(Weight ~ Age + Sex, data = birth)
+```
+```{r, include = FALSE}
+
+# Make scatterplots of each pair of variables in birth:
+```
+```{r}
+pairs(birth)
+```
+```{r, include = FALSE}
+# This doesn't handle categorical variables very well
+```
+Which of the plots you have produced for this data do you think
+is the most informative?
+
+We can now fit models which include both continuous and
+categorical explanatory variables.
 Such models are sometimes called *Analysis of Covariance* models.
 For example
+```{r, include = FALSE}
+
+# Fit a linear model, with explanatory variables Sex and Age:
+```
 ```{r}
 birth_lm1 <- lm(Weight ~ Sex + Age, data = birth)
 ```
@@ -57,13 +102,20 @@ $$
 where $Y_i$ is the `Weight`, $s_{i}$ is the `Sex`, $x_{i}$ is the `Age` of
 the $i$th baby.
 Remember to use the `summary` command to see the results of the fitting.
+Do you think you should remove any variables from the model?
+
+```{r, include = FALSE}
+summary(birth_lm1)
+# It looks like we should keep all these terms in the model.
+# We should always keep the intercept in the model, even if it is not significant.
+```
 
 Note that $\alpha(s_i)$ is a function of $s_i$, sex of the $i$th baby. This
-$\alpha(s_i)$ can only take two possible values, say $\alpha_m$ and $\alpha_f$
+$\alpha(s_i)$ can only take two possible values, say $\alpha(m)$ and $\alpha(f)$
 because $s_i$ can only take two possible values: male or female.  By default,
 `R` forces the first of the two possible values of  $\alpha(s_i)$ to be zero.
-Which one is going to be zero? The one for the male, $\alpha_m$ since that is the
-first level of the factor `Sex`, check `levels(birth$Sex)`.  Then  $\alpha_f$
+Which one is going to be zero? The one for the male, $\alpha(m)$ since that is the
+first level of the factor `Sex`, check `levels(birth$Sex)`.  Then  $\alpha(f)$
 for female will be interpreted as the average
 difference between the female and male babies. Hence the model  will be:
 $$
@@ -71,17 +123,11 @@ Y_i=\mu+ \beta x_i+\epsilon_i
 $$
 when the $i$th baby is male and
 $$
-Y_i=\mu+ \alpha_f+ \beta x_i+\epsilon_i
+Y_i=\mu+ \alpha(f)+ \beta x_i+\epsilon_i
 $$
-when the $i$th baby is female. In the model for female babies $\mu+\alpha_f$ is the intercept
+when the $i$th baby is female. In the model for female babies $\mu+\alpha(f)$ is the intercept
 while in the model for male babies $\mu$ will be the intercept. The two models will define
 a pair of  parallel straight lines for $E(Y)$.
-
-Try removing terms from this model.
-If we remove `Sex`, the model is just a linear regression of `Weight` on `Age`,
-and allows no dependence of `Weight` on `Sex`.
-If we remove `Age`, then the expected `Weight` is the same for any value of `Age`,
-and just differs between the levels of `Sex`.
 
 Model (1) states that `Sex` and `Age` affect `Weight` but that they do so independently.
 The difference between the expected `Weight` for two different values of `Age` is the
@@ -90,7 +136,10 @@ same for either `Sex`. Similarly, the difference between the expected
 same for every value of `Age`.
 However, we can also incorporate an interaction between a factor and
 a continuous explanatory variable.
+```{r, include = FALSE}
 
+# Fit a linear model, with an interaction between Sex and Age:
+```
 ```{r}
 birth_lm2 <- lm(Weight ~ Sex + Age + Sex:Age, data = birth)
 ```
@@ -106,34 +155,80 @@ and that the linear relationship has a different
 intercept *and a different slope* for the different levels of `Sex`.
 The parameter $\gamma(s)$ describes the differences in the slopes.
 
-Again, we can compare nested models using $F$-tests, and again it only
-makes sense for an interaction to be present if all the corresponding
-main effects are also present.
 
 \benum
 \item Which model do you feel best describes the relationship between
 birthweight, sex and gestational age?
+```{r, include = FALSE}
+summary(birth_lm2)
+# It looks like we do not need the interaction term in the model,
+# so we should prefer birth_lm1
+
+# We reach the same conclusion with an F test of these nested models:
+anova(birth_lm2, birth_lm1)
+```
 \item Let us do prediction for a female baby with 39 weeks of gestational age
  and  a male baby with 42 weeks of gestation.
+```{r, include = FALSE}
+
+# make predictions for new data:
+```
 ```{r}
 newdata <- data.frame(Age = c(39, 42), Sex = c("2", "1"))
-predict(birth_lm1, newdata, se.fit = TRUE, interval = "confidence")
+predict(birth_lm1, newdata)
+predict(birth_lm1, newdata, interval = "confidence")
 predict(birth_lm1, newdata, interval = "prediction")
 ```
-\item How can we check the above results?
-```{r}
-summary(birth_lm1)
-# For female with 39 weeks
-120.89 * 39 - 163.04 - 1610.28
-# For male with 42 weeks
-120.89 * 42 - 1610.28
+What is the difference between `interval = "confidence"` and
+`interval = "prediction"` here?
+```{r, include = FALSE}
+# interval = "confidence" predicts the mean birthweight at new Age/Sex
+# interval = "prediction" predicts the actual birthweight at new Age/Sex
 ```
-\item We can plot the regression lines using the `abline` command.
+\item We check the above results by hand, by using the parameter
+estimates from `birth_lm1`:
+```{r, include = FALSE}
+
+# We can read off the parameter estimates from coef(birth_lm1):
+```
+```{r}
+coef(birth_lm1)
+```
+```{r}
+# For female aged 39 weeks
+120.8943 * 39 - 163.0393 - 1610.2825
+# For male aged 42 weeks
+120.8943 * 42 - 1610.2825
+```
+How would you predict the birthweight for a female child aged 
+41 weeks? 
+```{r, include = FALSE}
+
+# predict for a female child aged 41 weeks
+newdata2 <- data.frame(Age = 41, Sex = "2")
+predict(birth_lm1, newdata2)
+# or by hand:
+120.8943 * 41 - 163.0393 - 1610.2825
+```
+\item We would like to add the fitted regression lines to our plot 
+of the data. First, we re-do our original plot, using colours to 
+distinguish between the sexes:
+```{r, include = FALSE}
+
+# Add regression lines to the scatterplot:
+```
 ```{r}
 plot(birth$Age, birth$Weight, xlab = "Age (weeks)", ylab = "Birthweight (grams)",
      col = birth$Sex)
 legend("bottomright", legend = c("Male", "Female"), pch = 1, col = 1:2)
-abline(-1610, 120.9, lty = 2, col = 1)  # for the males
-abline(-1773, 120.9, lty = 2, col = 2) # for the females
+```
+We can add a fitted regression line for the males with:
+```{r}
+abline(-1610, 120.9, lty = 2, col = 1)
+```
+How would you add fitted regression line for the females?
+Can you make this line red, to match the female data points?
+```{r, include = FALSE}
+abline(-1773, 120.9, lty = 2, col = 2)
 ```
 \eenum
