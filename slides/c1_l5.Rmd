@@ -120,18 +120,13 @@ for large samples.
 The variance of $\hat{\bm \theta}$ is approximately $\mathcal{I}(\bm \theta)^{-1}$. 
 It is possible to show that this is the smallest possible variance of any unbiased estimator of 
 $\bm \theta$ (this result is called the Cramér--Rao lower bound, which we do not prove here).
+
 Therefore the MLE is the 'best possible' estimator in large samples.
 
 
 ## Sketch proof (one parameter case)
 
-Suppose that $y_1, \ldots, y_n$ are observations of i.i.d. random variables 
-$Y_1, \ldots, Y_n$,
-whose joint p.d.f. $f_{\bm Y}(\bm y;\theta)=\prod_{i=1}^n f_{Y}(y_i;\theta)$ is
-completely specified except for the value of an unknown parameter 
-$\theta$, and that
-$\hat{\theta}$ is the maximum likelihood estimator of $\theta$.
-\pause
+(Proof not examinable)
 
 We can write the score as
 \[u(\theta)={{\partial}\over{\partial\theta}}
@@ -141,7 +136,7 @@ of $n$ i.i.d. random variables.
 
 \pause
 Asymptotically, as $n\to\infty$, by the central limit theorem,
-$U(\theta)$ is normally distributed. \pause
+$U(\theta)$ is normally distributed. 
 
 But $E[U(\theta)]=0$ and
 $\text{Var}[U(\theta)]={\cal I}(\theta)$, so asymptotically 
@@ -152,7 +147,7 @@ A Taylor series expansion of $U(\hat{\theta})$ around the true $\theta$
 gives
 \[U(\hat{\theta})=U(\theta)+(\hat{\theta}-\theta)U'(\theta) +\ldots\]
 \pause
-Now, $U(\hat{\theta})=0$, and if we approximate $H(\theta)$ by
+Now, $U(\hat{\theta})=0$, and if we approximate $U'(\theta) = H(\theta)$ by
 $E[H(\theta)]=-{\cal I}(\theta)$, and also ignore higher order terms
 \[\hat{\theta}=\theta+{1\over{{\cal I}(\theta)}}U(\theta).\]
 \pause
@@ -201,7 +196,7 @@ curve(dnorm(x, theta, sqrt(theta^2/n)), add = TRUE, lty = 2, col = 2)
 
 Suppose $n = 10$ and $p = 0.5$ (result of 10 coin tosses).
 
-The normal approximation is that $\hat p$ has approximately 
+The normal approximation is that $\hat p = \bar Y$ has approximately 
 $N(0.5, 0.025)$ distribution.
 
 If $X \sim N(0.5, 0.025)$, then $P(0.5 < X < 0.55)$ is
@@ -305,3 +300,5 @@ the best possible estimator we could construct.
 - Next time we'll see how we can use the asymptotic distribution 
 to find confidence intervals for the parameters, and to 
 test hypotheses.
+- Later in the course, we will use this to find confidence intervals
+and test hypotheses for generalised linear models.
