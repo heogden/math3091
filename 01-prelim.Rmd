@@ -641,7 +641,7 @@ provide approximate large sample confidence intervals. Asymptotically,
 $\hat{\theta}_i$ has a
 $N(\theta_i,[\mathcal{I}(\bm \theta)^{-1}]_{ii})$ distribution and we can find $z_{1-\frac{\alpha}{2}}$ such that
 $$
-P\left(z_{1-\frac{\alpha}{2}}\le {{\hat{\theta}_i-\theta_i}\over{[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}}}\le
+P\left(- z_{1-\frac{\alpha}{2}}\le {{\hat{\theta}_i-\theta_i}\over{[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}}}\le
 z_{1-\frac{\alpha}{2}}\right) = 1- \alpha.
 $$
 Therefore
