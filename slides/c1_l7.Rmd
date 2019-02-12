@@ -1,0 +1,106 @@
+---
+title: "MATH3012: Chapter 1, Lecture 6"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Recap
+
+## Generalised likelihood ratio test: recap
+
+A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
+of the form
+$$
+C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}} L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}} >k\right\}
+$$
+where $k$ is determined by $\alpha$, the size of the test, so
+$$
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
+$$
+
+Therefore, in order to determine $k$, we need
+to know the distribution of the likelihood ratio, or an equivalent statistic,
+under $H_0$.
+In general, this will not be available to us.
+However, we can make use of an important asymptotic result.
+
+## The log likelihood ratio statistic
+
+First we notice that, as $\log$ is a strictly increasing function, the rejection
+region is equivalent to
+
+$$
+C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
+$$
+where
+$$
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
+$$
+Now, provided that $H_0$ is *nested within* $H_1$, in other words
+$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
+$\Theta^{(1)}$) then under
+$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
+$n\to\infty$
+$$
+L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
+$$
+has a chi-squared distribution with degrees of freedom equal to the difference in
+the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
+
+## Example (Bernoulli)
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Suppose that we require a size $\alpha$ test of the hypothesis
+$H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
+$\alpha$ and
+$p_0$ are specified.
+
+Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the
+log likelihood ratio statistic is
+$$
+L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
++2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).
+$$
+As $d_1=1$ and $d_0=0$, under $H_0$, the log likelihood ratio statistic
+has an asymptotic $\chi^2_1$ distribution.
+
+## Finding the critical value
+
+We reject $H_0$ if $L_{01}$ is 'too large' to have come from a
+$\chi^2_1$ distribution.
+
+If $\alpha = 0.05$, then we should reject $H_0$
+if the test statistic is greater than 
+the 95\% point of the
+$\chi^2_1$ distribution:
+```{r}
+qchisq(0.95, df = 1)
+```
+
+
+## Conclusion
+
+- We have seen how to use the asymptotic distribution of the MLE
+  to construct (approximate) confidence intervals.
+- We have written down the form of a generalised likelihood ratio test.
+  In some scenarios, you can find a critical region for a generalised likelihood
+  ratio test to give $P(\mathbf{Y} \in C | H_0) = \alpha$.
+- More commonly, it is not possible to find this exactly.
+  Instead, if we have nested hypotheses, we can compute the
+  log-likelihood ratio test statistic, which will have approximately
+  chi-squared distribution under $H_0$, for large samples.
+- You should now be able to attempt exercises 1 and 2 on problem sheet 2.
+
+

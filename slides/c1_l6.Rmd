@@ -276,81 +276,25 @@ or
 Therefore, we can use the binomial$(n,p_0)$ distribution to find a precise rejection
 region for a test of specified size $\alpha$.
 
+## Choosing the cutoff points for the critical region
 
+Suppose $n = 10$, $p_0 = 0.5$ and $\alpha = 0.05$. So we want
+to find $k'$ and $k''$ so that
+\[P(10 k'' \leq \sum_{i=1}^{10} Y_i \leq 10 k') = 0.95,\]
+if $Y_i \sim \text{Bernoulli}(0.5)$.
 
-## The log-likelihood ratio statistic
-
-A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
-of the form
-$$
-C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}} L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}} >k\right\}
-$$
-where $k$ is determined by $\alpha$, the size of the test, so
-$$
-\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
-$$
-
-Therefore, in order to determine $k$, we need
-to know the distribution of the likelihood ratio, or an equivalent statistic,
-under $H_0$.
-In general, this will not be available to us.
-However, we can make use of an important asymptotic result.
-
-## The log likelihood ratio statistic
-
-First we notice that, as $\log$ is a strictly increasing function, the rejection
-region is equivalent to
-
-$$
-C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
-$$
-where
-$$
-\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
-$$
-Now, provided that $H_0$ is *nested within* $H_1$, in other words
-$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
-$\Theta^{(1)}$) then under
-$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
-$n\to\infty$
-$$
-L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
-$$
-has a chi-squared distribution with degrees of freedom equal to the difference in
-the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
-
-## Example (Bernoulli)
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Suppose that we require a size $\alpha$ test of the hypothesis
-$H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
-$\alpha$ and
-$p_0$ are specified.
-
-Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the
-log likelihood ratio statistic is
-$$
-L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
-+2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).
-$$
-As $d_1=1$ and $d_0=0$, under $H_0$, the log likelihood ratio statistic
-has an asymptotic $\chi^2_1$ distribution.
-
-## Finding the critical value
-
-We reject $H_0$ if $L_{01}$ is 'too large' to have come from a
-$\chi^2_1$ distribution.
-
-If $\alpha = 0.05$, then we should reject $H_0$
-if the test statistic is greater than 
-the 95\% point of the
-$\chi^2_1$ distribution:
+So we set $10 k''$ to be the $0.025$ point of a $\text{binomial}(10, 0.5)$
+distribution, and $10 k'$ to be the $0.975$ point.
 ```{r}
-qchisq(0.95, df = 1)
+qbinom(0.025, size = 10, prob = 0.5)
+qbinom(0.975, size = 10, prob = 0.5)
 ```
 
+\pause
+In this case, we could work out exactly the probability of rejecting $H_0$,
+and choose the critical region to make this probability no more than $\alpha$.
+In other cases, it will not be possible
+to work out these probabilities exactly.
 
 ## Conclusion
 
@@ -360,9 +304,8 @@ qchisq(0.95, df = 1)
   In some scenarios, you can find a critical region for a generalised likelihood
   ratio test to give $P(\mathbf{Y} \in C | H_0) = \alpha$.
 - More commonly, it is not possible to find this exactly.
-  Instead, if we have nested hypotheses, we can compute the
-  log-likelihood ratio test statistic, which will have approximately
-  chi-squared distribution under $H_0$, for large samples.
-- You should now be able to attempt exercises 1 and 2 on problem sheet 2.
+  Next time, we will see a general way to find a critical region with
+  $P(\mathbf{Y} \in C | H_0) \approx \alpha$, in large samples.
+- You should now be able to attempt exercise 1 on problem sheet 2.
 
 
