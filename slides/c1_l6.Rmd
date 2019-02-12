@@ -23,6 +23,21 @@ $N(\theta, [{\cal I}(\theta)]^{-1})$ distribution.
 How can we use this result to find confidence intervals 
 for the parameters, and to test hypotheses?
 
+## Standard errors
+
+A *standard error* is an estimate of
+the standard deviation of an estimator.
+
+If $p = 1$, a standard error of the MLE $\hat \theta$ is 
+$$
+s.e.(\hat{\theta})={1\over{{\cal I}(\hat{\theta})^{{1\over 2}}}},
+$$
+and for a vector parameter $\bm \theta$
+$$
+s.e.(\hat{\theta}_i)=[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{{1\over 2}},
+\quad i=1,\ldots ,p.
+$$
+
 
 ## Constructing large sample confidence intervals
 
