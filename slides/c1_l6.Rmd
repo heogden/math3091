@@ -16,9 +16,7 @@ knitr::opts_knit$set(root.dir = '../datasets')
 
 ## Recap
 
-Last time, we
-
-- found one of the most important results about the 
+Last time, we found one of the most important results about the 
 MLE: it has asymptotic 
 $N(\theta, [{\cal I}(\theta)]^{-1})$ distribution.
 
@@ -72,6 +70,64 @@ for $p$ is
 [\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
 \bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}].
 \end{align*}
+
+
+
+## Quiz: how many heads? ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Toss a coin 10 times. How many "heads" did you get?
+
+\pause
+Can work out $[\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
+\bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}]$ for each possible number of heads:
+
+\small
+```{r, echo = FALSE}
+n <- 10
+sum_y <- 0:n
+y_bar <- sum_y / n
+I_hat <- y_bar * (1 - y_bar) / n
+lower <- y_bar - 1.96 * sqrt(I_hat)
+upper <- y_bar + 1.96 * sqrt(I_hat)
+CI <- cbind(lower, upper)
+rownames(CI) <- 0:n
+CI
+```
+\pause
+\vspace{-0.3cm}
+\normalsize
+For the number of heads you got, does the interval contain $0.5$?
+
+## Checking the coverage ($n = 10$)
+
+```{r}
+n <- 10
+sum_y <- rbinom(10000, size = n, prob = 0.5)
+y_bar <- sum_y / n
+I_hat <- y_bar * (1 - y_bar) / n
+lower <- y_bar - 1.96 * sqrt(I_hat)
+upper <- y_bar + 1.96 * sqrt(I_hat)
+coverage <- mean(lower < 0.5 & upper > 0.5)
+coverage
+```
+\pause The actual coverage is lower than the nominal $95\%$ level.
+
+## Checking the coverage ($n = 100$)
+
+```{r}
+n <- 100
+sum_y <- rbinom(10000, size = n, prob = 0.5)
+x_bar <- sum_y / n
+I_hat <- y_bar * (1 - y_bar) / n
+lower <- y_bar - 1.96* sqrt(I_hat)
+upper <- y_bar + 1.96* sqrt(I_hat)
+coverage <- mean(lower < 0.5 & upper > 0.5)
+coverage
+```
+\pause The actual coverage is close to the nominal $95\%$ level.
+The confidence interval is designed using an approximation which will
+work well for large $n$, so this is expected.
+
 
 
 ## Comparing statistical models
@@ -248,6 +304,7 @@ L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 $$
 has a chi-squared distribution with degrees of freedom equal to the difference in
 the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
+
 ## Example (Bernoulli)
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Suppose that we require a size $\alpha$ test of the hypothesis
@@ -266,7 +323,7 @@ has an asymptotic $\chi^2_1$ distribution.
 
 ## Finding the critical value
 
-We reject $H_0$ if $L_01$ is 'too large' to have come from a
+We reject $H_0$ if $L_{01}$ is 'too large' to have come from a
 $\chi^2_1$ distribution.
 
 If $\alpha = 0.05$, then we should reject $H_0$
