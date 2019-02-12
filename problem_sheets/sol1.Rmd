@@ -158,15 +158,13 @@ and
 Rearraging \eqref{eq:beta_0}
 \[\hat \beta_0 = \bar y - \hat \beta_1 \bar x.\]
 Rearranging \eqref{eq:beta_1} gives
-\[\overline{x y} - \hat \beta_0 \bar x - \hat \beta_1 \overline{x^2} = 0, \]
-where $\overline{x y} = \frac{1}{n} \sum_{i = 1}^n x_i y_i$
-and $\overline{x^2} = \frac{1}{n} \sum_{i=1}^n x_i^2$.
+\[\hat \beta_1 = \frac{\sum_{i=1}^n x_i y_i - n \hat \beta_0 \bar x}{\sum_{i=1}^n x_i^2}\]
 Substituting $\hat \beta_0$, we get
-\[\overline{x y} - (\bar y - \hat \beta_1 \bar x) \bar x - \hat \beta_1 \overline{x^2} = 0,\]
-which gives
-\[\hat \beta_1 = \frac{\bar x \bar y - \overline{xy}}{\bar x^2 - \overline{x^2}}.\]
+\[\hat \beta_1 = \frac{\sum_{i=1}^n x_i y_i - n (\bar y - \hat \beta_1 \bar x)\bar x}{\sum_{i=1}^n x_i^2},\]
+and rearranging for $\hat \beta_1$ gives
+\[\hat \beta_1 = \frac{\sum_{i=1}^n x_i y_i - n \bar x \bar y}{{\sum_{i=1}^n x_i^2} - n \bar x^2}\]
 Rearranging \eqref{eq:sigma^2} gives
-and \[\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n (y_i - \hat \beta_0 - \hat \beta_1 x_i)^2.\]
+ \[\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n (y_i - \hat \beta_0 - \hat \beta_1 x_i)^2.\]
 For this question, we assume that this stationary point is a maximum,
 so the MLE is $(\hat \beta_0, \hat \beta_1, \hat \sigma^2)$.
 
