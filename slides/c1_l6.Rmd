@@ -290,11 +290,18 @@ qbinom(0.025, size = 10, prob = 0.5)
 qbinom(0.975, size = 10, prob = 0.5)
 ```
 
-\pause
-In this case, we could work out exactly the probability of rejecting $H_0$,
-and choose the critical region to make this probability no more than $\alpha$.
+## Choosing the cutoff points for the critical region
+
+In this case $k' = 0.8$ and $k'' = 0.2$, so 
+we reject $H_0: p = 0.5$ if 
+$\bar Y > 0.8$ or $\bar Y < 0.2$.
+
+In this case, we could work out $P(\mathbf{Y} \in C | H_0)$ exactly,
+and choose the critical region $C$ to make this probability no more than $\alpha$.
+
 In other cases, it will not be possible
-to work out these probabilities exactly.
+to work out these probabilities exactly, and we will need an alternative
+approach.
 
 ## Conclusion
 
