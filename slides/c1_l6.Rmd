@@ -294,7 +294,7 @@ qbinom(0.975, size = 10, prob = 0.5)
 
 In this case $k' = 0.8$ and $k'' = 0.2$, so 
 we reject $H_0: p = 0.5$ if 
-$\bar Y > 0.8$ or $\bar Y < 0.2$.
+$\bar y > 0.8$ or $\bar y < 0.2$.
 
 In this case, we could work out $P(\mathbf{Y} \in C | H_0)$ exactly,
 and choose the critical region $C$ to make this probability no more than $\alpha$.
