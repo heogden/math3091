@@ -115,7 +115,7 @@ CI
 \normalsize
 For the number of heads you got, does the interval contain $0.5$?
 
-## Checking the coverage ($n = 10$)
+## Checking the coverage ($n = 10$, $\alpha = 0.05$)
 
 ```{r}
 n <- 10
@@ -129,12 +129,12 @@ coverage
 ```
 \pause The actual coverage is lower than the nominal $95\%$ level.
 
-## Checking the coverage ($n = 100$)
+## Checking the coverage ($n = 100$, $\alpha = 0.05$)
 
 ```{r}
 n <- 100
 sum_y <- rbinom(10000, size = n, prob = 0.5)
-x_bar <- sum_y / n
+y_bar <- sum_y / n
 I_hat <- y_bar * (1 - y_bar) / n
 lower <- y_bar - 1.96* sqrt(I_hat)
 upper <- y_bar + 1.96* sqrt(I_hat)
