@@ -67,14 +67,14 @@ The likelihood is
 = \prod_{i=1}^n \theta y_i^{\theta - 1}
 = \theta^n \prod_{i=1}^n y_i^{\theta - 1}.\]
 The log-likelihood is
-\[\ell(\theta) = \log L(\theta) = n \log \theta - (\theta - 1) \sum_{i=1}^n \log y_i.\]
+\[\ell(\theta) = \log L(\theta) = n \log \theta + (\theta - 1) \sum_{i=1}^n \log y_i.\]
 The score is
-\[u(\theta) = \frac{n}{\theta} - \sum_{i=1}^n \log y_i
+\[u(\theta) = \frac{n}{\theta} + \sum_{i=1}^n \log y_i
 \]
 So a stationary point of the log-likelihood $\hat \theta$ solves
-\[u(\hat \theta) = \frac{n}{\hat \theta} - \sum_{i=1}^n \log y_i = 0,\]
+\[u(\hat \theta) = \frac{n}{\hat \theta} + \sum_{i=1}^n \log y_i = 0,\]
 which gives
-\[\hat \theta = \frac{n}{\sum_{i=1}^n \log y_i}.\]
+\[\hat \theta = - \frac{n}{\sum_{i=1}^n \log y_i}.\]
 The Hessian is
 \[H(\theta) =  - \frac{n}{\theta^2} < 0 \]
 for all $\theta$, so $\hat \theta$ is the MLE.
@@ -183,11 +183,11 @@ Since $E(U(\theta)) = 0$,
 so \[E(\bar Y) = \frac{1}{\theta},\]
 and $\bar Y$ is an unbiased estimator of $\theta^{-1}$.
 \item The score is
-\[U(\theta) = \frac{n}{\theta} - \sum_{i=1}^n \log Y_i.\]
+\[U(\theta) = \frac{n}{\theta} + \sum_{i=1}^n \log Y_i.\]
 Since $E(U(\theta)) = 0$,
-\[E\left(\sum_{i=1}^n \log Y_i\right) = \frac{n}{\theta},\]
-so \[E\left(\frac{1}{n} \sum_{i=1}^n \log Y_i\right) = \frac{1}{\theta},\]
-and $\frac{1}{n} \sum_{i=1}^n \log Y_i$ is an unbiased estimator
+\[E\left(- \sum_{i=1}^n \log Y_i\right) = \frac{n}{\theta},\]
+so \[E\left(- \frac{1}{n} \sum_{i=1}^n \log Y_i\right) = \frac{1}{\theta},\]
+and $- \frac{1}{n} \sum_{i=1}^n \log Y_i$ is an unbiased estimator
 of $\theta^{-1}$.
 \item The score is
 \[u(\theta) = \frac{n}{\theta} - \frac{\sum_{i=1}^n Y_i - n}{1 - \theta}.\]
