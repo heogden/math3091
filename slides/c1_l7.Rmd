@@ -155,10 +155,16 @@ if $\bar y = 0.2$ or $\bar y = 0.8$.
 
 # Linear Models (a brief revision)
 
-## Setup
+## Regression models
 
-The aim of a linear model is to determine the pattern of 
-dependence of the response variable on the explanatory variables.
+In most of the models that we have looked at so far, we have
+assumed that the responses $Y_i$ are independent and identically
+distributed random variables, coming from some distribution known
+up to a parameter $\bm \theta$. 
+
+In regression models, the responses $Y_i$ will not be identically distributed:
+the distribution of the response will depend on *explanatory variables*
+$\bm x_i$.
 
 We denote the $n$ observations of the response variable by $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
 These are assumed to be observations of *random variables*
@@ -272,7 +278,7 @@ and $p-1$ 'real' variables.
   in large samples.
 - We have briefly reviewed the linear model.
 - You should now be able to attempt exercises 1 and 2 on problem sheet 2.
-- Next time, we'll look at likelihood inference and hypothesis testing in
-linear models.
+- Next time, we'll look at how the likelihood can be used to do inference
+on the parameters of the linear model.
 
 
