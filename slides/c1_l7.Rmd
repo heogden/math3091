@@ -153,7 +153,7 @@ but the exact test does not reject $H_0$
 if $\bar y = 0.2$ or $\bar y = 0.8$.
 
 
-# Linear Models (a breif revision)
+# Linear Models (a brief revision)
 
 ## Setup
 
