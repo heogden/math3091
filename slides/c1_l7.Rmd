@@ -1,5 +1,5 @@
 ---
-title: "MATH3012: Chapter 1, Lecture 6"
+title: "MATH3012: Chapter 1, Lecture 7"
 date: ""
 author: Helen Ogden
 header-includes:
@@ -48,17 +48,29 @@ where
 $$
 \max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
 $$
-Now, provided that $H_0$ is *nested within* $H_1$, in other words
-$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
-$\Theta^{(1)}$) then under
-$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
-$n\to\infty$
+We call 
 $$
 L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
 $$
+the *log likelihood ratio statistic*
+
+## Asymptotic distribution of the log likelihood ratio statistic
+
+If $H_0$ is *nested within* $H_1$, in other words
+$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
+$\Theta^{(1)}$) then under
+$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
+$n\to\infty$, $L_{01}$
 has a chi-squared distribution with degrees of freedom equal to the difference in
 the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
+
+A sketch proof is in the notes, but is not examinable.
+
+\pause
+So a *log likelihood ratio test* rejects $H_0$ if $L_{01}$
+exceeds the $100(1 - \alpha)\%$ point of the relevant chi-squared 
+distribution.
 
 ## Example (Bernoulli)
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
@@ -89,18 +101,54 @@ $\chi^2_1$ distribution:
 qchisq(0.95, df = 1)
 ```
 
+## Comparing with an exact test
+
+Last lecture,  we constructed an exact test 
+for $H_0: p = p_0$ vs. $H_1$: '$p$ is unrestricted'.
+
+In the case
+ $n = 10$, $p_0 = 0.5$ and $\alpha = 0.05$, we
+ found we should reject $H_0$ at the $5\%$ level
+ if $\bar y < 0.2$ or $\bar y > 0.8$.
+ 
+
+Using the log-likelihood ratio test, we will reject $H_0$
+if 
+$$
+L_{01}=20 \bar y\log\left(2 {\bar y}\right)
++20(1-\bar y)\log\left(2 (1-\bar y)\right) > 3.84
+$$
+
+## Comparing with an exact test
+
+\scriptsize
+```{r}
+L01 <- function(ybar) {
+  20 * ybar * log(2 * ybar) + 20 * (1 - ybar) * log(2 * (1 - ybar))
+}
+root_fun <- function(ybar) {
+  L01(ybar) - qchisq(0.95, df = 1)
+}
+crit1 <- uniroot(f = root_fun, interval = c(0.01, 0.5))$root
+crit2 <- uniroot(f = root_fun, interval = c(0.5, 0.99))$root
+c(crit1, crit2)
+```
+\normalsize
+So the log likelihood ratio test rejects 
+$H_0$ if $\bar y \geq 0.8$ or $\bar y \leq 0.2$.
+
+This is similar to the exact test,
+but the exact test does not reject $H_0$ 
+if $\bar y = 0.2$ or $\bar y = 0.8$.
+
 
 ## Conclusion
 
-- We have seen how to use the asymptotic distribution of the MLE
-  to construct (approximate) confidence intervals.
-- We have written down the form of a generalised likelihood ratio test.
-  In some scenarios, you can find a critical region for a generalised likelihood
-  ratio test to give $P(\mathbf{Y} \in C | H_0) = \alpha$.
-- More commonly, it is not possible to find this exactly.
-  Instead, if we have nested hypotheses, we can compute the
-  log-likelihood ratio test statistic, which will have approximately
-  chi-squared distribution under $H_0$, for large samples.
+- We have seen how to use a log likelihood ratio test to compare 
+  nested hypotheses. The log likelihood ratio test statistic 
+  will have approximately chi-squared distribution under $H_0$,
+  in large samples.
 - You should now be able to attempt exercises 1 and 2 on problem sheet 2.
+- Next time, we'll briefly revise the linear model from MATH2010.
 
 
