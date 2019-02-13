@@ -14,6 +14,23 @@ output:
 knitr::opts_knit$set(root.dir = '../datasets')
 ```
 
+## MSc programmes in Statistics at Southampton
+Two programmes are currently available, offering high-level training in statistical methodology and applications.
+
+- MSc Statistics
+- MSc Statistics with Applications in Medicine
+
+Both are 12 month programmes, with two semesters of taught modules and a summer project. 
+
+Modules cover statistical theory, computing and modelling, with specialist modules in areas of medical statistics. 
+
+For the MSc Statistics with Applications in Medicine, we have three NIHR scholarships to award (covers full fees and a stipend of \pounds15,000).
+**Deadline 1 March 2019.**
+
+Further details: \newline
+\scriptsize
+https://www.southampton.ac.uk/maths/postgraduate/taught_courses.page
+
 ## Recap
 
 We have seen how to use the likelihood for parameter estimation,
