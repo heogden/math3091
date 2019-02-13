@@ -16,6 +16,17 @@ knitr::opts_knit$set(root.dir = '../datasets')
 
 ## Recap
 
+We have seen how to use the likelihood for parameter estimation,
+and can quantify the uncertainty in our estimates by 
+using the asymptotic distribution
+of the MLE. Last time, we used this asymptotic distribution
+to construct large-sample confidence intervals for parameters.
+
+We can also use the likelihood for hypothesis testing,
+by using a generalised likelihood ratio test.
+
+Let's review this now.
+
 ## Generalised likelihood ratio test: recap
 
 A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
@@ -112,7 +123,7 @@ In the case
  if $\bar y < 0.2$ or $\bar y > 0.8$.
  
 
-Using the log-likelihood ratio test, we will reject $H_0$
+Using the log likelihood ratio test, we will reject $H_0$
 if 
 $$
 L_{01}=20 \bar y\log\left(2 {\bar y}\right)
