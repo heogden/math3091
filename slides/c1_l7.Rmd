@@ -287,6 +287,92 @@ $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
 
+## Linear model quiz 1 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+```{r, echo = FALSE, fig.width = 5, fig.height = 4}
+set.seed(1)
+n <- 200
+x <- rnorm(n)
+mu <- 0.5 - 2 * x 
+y <- rnorm(n, mu, sd = 1.5)
+plot(y ~ x)
+```
+
+Does it look like a linear model might be appropriate here?
+
+## Linear model quiz 1: residual plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+mod1 <- lm(y ~ x)
+plot(mod1, which = 1)
+```
+
+## Linear model quiz 1: normal Q-Q plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+plot(mod1, which = 2)
+```
+
+## Linear model quiz 2 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+```{r, echo = FALSE, fig.width = 5, fig.height = 4}
+mu <- 0.5  + x^2
+y <- rnorm(n, mu, sd = 1)
+plot(y ~ x)
+```
+
+Does it look like a linear model might be appropriate here?
+
+
+## Linear model quiz 2: simple linear residual plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+mod2_simple <- lm(y ~ x)
+plot(mod2_simple, which = 1)
+```
+
+## Linear model quiz 2: simple linear normal Q-Q plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+plot(mod2_simple, which = 2)
+```
+
+## Linear model quiz 2: quadratic regression residual plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+mod2_quad <- lm(y ~ x + I(x^2))
+plot(mod2_quad, which = 1)
+```
+
+## Linear model quiz 2: quadratic regression normal Q-Q plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+plot(mod2_quad, which = 2)
+```
+
+## Linear model quiz 3 ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+```{r, echo = FALSE, fig.width = 5, fig.height = 4}
+mu <- 0.5 + 2 * x 
+sigma <- 0.1 + 0.5 * (x - min(x))
+y <- rnorm(n, mu, sd = sigma)
+plot(y ~ x)
+```
+
+Does it look like a linear model might be appropriate here?
+
+## Linear model quiz 3: residual plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+mod3 <- lm(y ~ x)
+plot(mod3, which = 1)
+```
+
+## Linear model quiz 3: normal Q-Q plot
+
+```{r, fig.width = 5, fig.height = 3.5}
+plot(mod3, which = 2)
+```
+
+
 ## Conclusion
 
 - We have seen how to use a log likelihood ratio test to compare 
@@ -296,6 +382,7 @@ and $p-1$ 'real' variables.
 - We have briefly reviewed the linear model.
 - You should now be able to attempt exercises 1 and 2 on problem sheet 2.
 - Next time, we'll look at how the likelihood can be used to do inference
-on the parameters of the linear model.
+on the parameters of the linear model, and compare this with the methods
+of inference studied in MATH2010.
 
 
