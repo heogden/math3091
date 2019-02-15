@@ -10,16 +10,22 @@ header-includes:
 ---
 
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
 
 ## Explore the data
 
-Load the data in `survival.csv` into a variable `survival`.
+**There is a mistake in the original dataset, `survival.csv`.
+Download the file `survival_corrected.csv`
+from Blackboard, and put it in your `MATH3012_practicals`
+folder.**
+
+Load the data in `survival_corrected.csv` into a variable `survival`.
 ```{r, include = FALSE}
-survival <- read.csv("survival.csv")
+# read the data into R:
+survival <- read.csv("survival_corrected.csv")
 ```
 
 This dataset represent survival times in 10 hour units (`time`) of 48
@@ -28,26 +34,31 @@ and 4 treatments (`treatment`).
 The aim of the experiment is to determine the dependence of survival time
 on the explanatory variables poison and treatment.
 
-The values of these explanatory variables are categories.
-We refer to categorical explanatory variables as `factors`.
-The values assigned to the variables are just labels distinguishing
+The values of these explanatory variables are categories:
+the values assigned to the variables are just labels distinguishing
 between categories.
 Even if we used numerical labels, their values would have no
 intrinsic meaning. Therefore, we cannot include such variables directly
-in a linear model. We need to convert the two explanatory variables into
+in a linear model, and we need to convert the two explanatory variables into
 factors.
+```{r, include = FALSE}
+
+# tell R to treat poison and treatment as categorical variables:
+```
 ```{r}
 survival$poison <- as.factor(survival$poison)
 survival$treatment <- as.factor(survival$treatment)
 ```
 
-Plot the data. Issue 
+We can make separate plots of `time` against each of `poison`
+and `treatment` with:
+```{r, include = FALSE}
+
+# plot the survival time against poison, then survival time against treatment:
+```
 ```{r}
 plot(time ~ poison + treatment, data = survival)
 ```
-You can plot both on the same
-graph sheet if you first issue `par(mfrow = c(2,1))` and then the plot command.
-Can you order the poison types? How about the treatments?
 
 ## Modelling with factors
 
@@ -69,8 +80,16 @@ Therefore, in practice, we impose a constraint on
 $\alpha(p_i)$. The easiest to interpret is to constrain $\alpha(p)$ to be equal to 0
 at the first  level of `poison`. 
 Which one is the first level of `poison`? Issue the command
+```{r, include = FALSE}
+
+# find the levels (categories) of poison:
+```
 ```{r}
 levels(survival$poison)
+```
+```{r, include = FALSE}
+# So the first level of poison is "1".
+
 ```
 Thus $\alpha(p_i)=0$ when $p_i=1$.
 By default, `R` will set the first level of
@@ -80,6 +99,9 @@ all categorical factors to zero in the `lm` function.
 ## Models
 
 The model $(1)$ is then fitted by
+```{r, include = FALSE}
+# Fit a linear model of time against poison:
+```
 ```{r}
 survival_lm1 <- lm(time ~ poison, data = survival)
 ```
@@ -99,6 +121,10 @@ Y_i=\mu+\alpha(p_i)+\beta(t_i)+\epsilon_i,\quad i=1,\ldots ,n,
 $$
 where $t_i$ is the `treatment` for the $i$th observation.
 This can be fitted in `R` with
+```{r, include = FALSE}
+
+# Fit a linear model of time against poison and treatment (no interaction):
+```
 ```{r}
 survival_lm2 <- lm(time ~ poison + treatment, data = survival)
 ```
@@ -124,6 +150,10 @@ Usually, we constrain $\gamma(p_i,t_i)$ to be equal to 0 for all combinations
 where either `poison` or `treatment` are at their first level.
 
 The model with interaction can be fitted using
+```{r, include = FALSE}
+
+# Fit a linear model of time against poison and treatment (with interaction):
+```
 ```{r}
 survival_lm3 <- lm(time ~ poison + treatment + poison:treatment, data = survival)
 ```
@@ -145,13 +175,77 @@ to a significant improvement in fit.
 \benum
 \item By comparing models using $F$ tests (remember the `anova`
 command) determine which model you prefer. Is it a good model?
+```{r, include = FALSE}
+
+# We can compare these models with F tests.
+
+# Let's start with the largest model, survival_lm3:
+anova(survival_lm3)
+# We should consider removing the interaction
+# before considering whether we can remove any other term.
+# For H_0: "no interaction between poison and treatment",
+# The p-value for the F test is 0.1123, so we do not reject reject H_0.
+# We prefer model survival_lm2, which doesn't have an interaction term.
+
+# Then we should check whether we can remove either of the main effects:
+anova(survival_lm2)
+# Both poison and treatment are highly significant.
+# So survival_lm2 is our preferred model so far.
+
+plot(survival_lm2)
+# the normal Q-Q plot for survival_lm2 suggests non-normality
+# of the error term, so we are not entirely happy with the model.
+```
+
 \item
-Now transform the response to death rate (reciprocal of
+Now transform the response to death rate (1 over the
 survival time). Try modelling death rate using factorial models.
 Which model do you prefer now?
+```{r, include = FALSE}
+
+# Using death rate instead of survival time:
+survival$rate <- 1 / survival$time
+plot(rate ~ poison + treatment, data = survival)
+rate_lm1 <- lm(rate ~ poison, data = survival)
+rate_lm2 <- lm(rate ~ poison + treatment, data = survival)
+rate_lm3 <- lm(rate ~ poison + treatment + poison:treatment, data = survival)
+
+# Let's start with the largest model, rate_lm3:
+anova(rate_lm3)
+# We should consider removing the interaction
+# before considering whether we can remove any other term.
+# For H_0: "no interaction between poison and treatment",
+# The p-value for the F test is 0.3867, so we do not reject reject H_0.
+# We prefer model rate_lm2, which doesn't have an interaction term.
+
+# Then we should check whether we can remove either of the main effects:
+anova(rate_lm2)
+# Both main effects are highly significant.
+# So our preferred model of rate is model rate_lm2.
+
+plot(rate_lm2)
+# the residuals and normal Q-Q plot for rate_lm2 both look fine.
+
+summary(rate_lm2)
+# The Multiple R-squared for rate_lm2 is 0.84.
+# Compare with:
+summary(survival_lm2)
+# which has multiple R-squared 0.65. Much more of the variation in the
+# data is explained by rate_lm2 than by survival_lm2
+
+# Overall, our preferred model is rate_lm2.
+
+summary(rate_lm2)
+# We conclude the death rate is affected by both poison
+# and treatment, but there is no interaction between the two.
+# The death rate is highest for poison 3, and lowest for poison 1
+# The death rate is highest for treatment 1, then treatment 3, 
+# then treatment 4, with lowest death rate given by treatment 2.
+```
+
 \item
 In each case, write down your model and the corresponding
-parameter estimates. Overall, what is your preferred model.
+parameter estimates. Overall, what is your preferred model?
 What conclusions do you draw about the effects of
 the different poisons and treatments?
 \eenum
