@@ -9,3 +9,4 @@ practicals/scripts/*
 *.zip
 *.log
 *.tex
+*.aux
