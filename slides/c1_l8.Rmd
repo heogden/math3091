@@ -375,3 +375,14 @@ statistic exactly. In more complex models, this will not be possible,
 and we use the log likelihood ratio test instead.
 - You should now be able to attempt all exercises on problem sheet 2.
 
+## Mid-semester feedback
+
+Please could you fill in the mid-semester feedback survey? 
+
+You can access
+this on the "surveys" tab at
+[web.meetoo.com](https://web.meetoo.com),
+meeting ID 108-197-366.
+
+You can complete this now, or at any point up until Friday at 3pm.
+
