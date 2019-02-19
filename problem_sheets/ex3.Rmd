@@ -32,21 +32,6 @@ the variance function $V(\mu)$.
 \item What is the canonical link function for the exponential distribution (from Question 1)?
 What about for the geometric distribution (from Question 2)?
 
-\item Suppose that $Y_i$, $i=1, \ldots, n$ are independent $\text{Bernoulli}(p_i)$
-random variables, that $x_i$ is an explanatory variable, and that
-$$
-\log \frac{p_i}{1-p_i}  = \beta_1 + \beta_2 x_i.
-$$
-\benum
-\item Write down the log-likelihood function of $\beta_1$ and
-$\beta_2$ explicitly.  Hence,  derive a pair of simultaneous
-equations, the solution of which are the maximum likelihood estimates for
-$\bm \beta = (\beta_1, \beta_2)^T$.
-\item Express the above model in terms of 
-$\bm \eta = X \bm \beta$
-where $X$ is the appropriate  $n \times 2$ matrix.
-\eenum
-
 \item Suppose that $Y_i$, $i=1, \ldots, n$ are independent $\text{Poisson}(\mu_i)$
 random variables, that $x_i$ is an explanatory variable, and that
 $$
