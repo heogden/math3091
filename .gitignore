@@ -10,3 +10,7 @@ practicals/scripts/*
 *.log
 *.tex
 *.aux
+*.nav
+*.out
+*.snm
+*.toc
