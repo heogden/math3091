@@ -309,7 +309,7 @@ So (again) do not reject $H_0$.
 ## A $t$ test
 
 If our null hypothesis is that a single
-parameter equals zero (i.e. if $p - q = 1$), we could use a $t$ test 
+parameter $\beta_i$ equals zero (i.e. if $p - q = 1$), we could use a $t$ test 
 rather than an $F$ test.
 
 Recall that
@@ -318,15 +318,16 @@ so
 \[\hat \beta_i \sim N\left(\beta_i, \sigma^2\left[(\bm{X}^T\bm{X})^{-1}\right]_{ii}\right).\]
 
 So 
-\[s.e.(\hat \beta) = \hat \sigma^2\left[(\bm{X}^T\bm{X})^{-1}\right]_{ii},\]
+\[s.e.(\hat \beta_i) = \hat \sigma \sqrt{\left[(\bm{X}^T\bm{X})^{-1}\right]_{ii}},\]
 and
-\[t = \frac{\hat \beta}{s.e.(\hat \beta)} \sim t_{n-p}.\]
+\[t = \frac{\hat \beta_i}{s.e.(\hat \beta)} \sim t_{n-p}\]
+under $H_0$ (that $\beta_i = 0$).
 
 So we reject $H_0$ if $t$ is less than $100 \frac{\alpha}{2}\%$ point
 or greater than $100 (1 - \frac{\alpha}{2})\%$
 of $t_{n-p}$ distribution.
 
-## Conducintg $t$ tests in `R`
+## Conducting $t$ tests in `R`
 
 \footnotesize
 ```{r}
