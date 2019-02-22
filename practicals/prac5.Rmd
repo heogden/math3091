@@ -9,57 +9,86 @@ header-includes:
 - \newcommand{\eitem}{\end{itemize}}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, purl=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
 
-
-Fitting generalised linear models in `R` is very similar to fitting
-linear models. You replace the command `lm` with the command
-`glm`. The distribution and link function which you require for your model
-is specified by the argument `family` which is supplied to the model.
-For example `family = binomial(logit)` fits a generalised linear
-model with binomial distribution and logistic link.
-In fact `family = binomial` does the same, as the default
-is the canonical link.
-The form of the linear predictor is specified in the model formula
-for `glm` in the same way as for `lm`.
-
-The result of the `glm` command is a generalised linear model object
-which can be used within many of the same `R` commands as a linear model
-object.
-Useful ones are `resid`, `coef`, `deviance`, `fitted`,
-`plot`, `summary`, `update` and `anova`.
+## Exploring the data
 
 Load the data in `beetle.csv` into a variable `beetle`.
 ```{r, include = FALSE}
+# read in the data
 beetle <- read.csv("beetle.csv")
 ```
 
 This dataset represents the number of beetles exposed (`exposed`) and number 
 killed (`killed`) in eight groups exposed to different doses (`dose`)
-of a particular insecticide. Interest is focussed on how mortality is 
-related to dose.
+of a particular insecticide. We are interested in how the proportion
+of beetles killed is related to dose.
 
-It seems sensible to model the proportion of beetles killed in each
+We could add a column to the dataset for the proportion of 
+beetles killed in each of the eight groups:
+```{r, include = FALSE}
+
+# add a column for the proportion of beetles killed:
+```
+```{r}
+beetle$prop_killed <- beetle$killed / beetle$exposed
+```
+Plot `prop_killed` against `dose`.
+```{r, include = FALSE}
+
+# plot prop_killed against dose:
+plot(prop_killed ~ dose, data = beetle)
+```
+We might naively think about using a linear model to
+model the dependence of `prop_killed` on `dose`:
+```{r, include = FALSE}
+
+# fit a linear model of prop_killed on dose
+```
+```{r}
+beetle_lm <- lm(prop_killed ~ dose , data = beetle, weights = exposed)
+```
+```{r, include = FALSE}
+# include "weights = exposed" to weight by number of beetles in each group
+```
+We use `weights = exposed` to weight
+the response for each group by the number of beetles in that group.
+Do you think this linear model is appropriate here?
+
+You can add a fitted regression line to your plot of `prop_killed` against
+`dose` with
+```{r, include = FALSE}
+
+# add a fitted regression line to plot:
+```
+```{r}
+abline(beetle_lm)
+```
+Does the fitted regression line look reasonable here?
+What is the predicted proportion of beetles who would be killed,
+in a new group given `dose = 2`? Do you think this a good prediction?
+```{r}
+# The fitted regression line does not look reasonable, because
+# for large or small doses, it will give a predicted proportion
+# of beetles killed which is greater than 1, or less than 0.
+
+# Predict for dose = 2:
+newdata <- data.frame(dose = 2)
+predict(beetle_lm, newdata = newdata)
+# The predicted proportion of beetles killed is 1.7, which is greater 
+# than 1. This is not a sensible prediction.
+```
+
+## Fitting a logistic regression model
+
+A better model might be to model the number of beetles killed in each
 group as a binomial random variable with probability of death
 depending on dose. Let $p_i$ denote the probability of death in the $i$th group, 
 $i=1, \ldots, 8.$
 
-Pretend  that we  do not know the GLM theory and are just going to
-use the normal linear models. We issue the following  commands.
-
-```{r}
-beet_lm <- lm(killed / exposed ~ dose , data = beetle, weights = exposed)
-summary(beet_lm)
-predict(beet_lm)
-```
-
-The predicted  probability for dose 1.88 is **1.085304**. This is not the work
-of a good statistician! A probability cannot be bigger than 1.
-
-We should fit  the logistic regression model.
 A *logistic regression model* is
 $$
 Y_i | n_i, p_i \sim \text{Binomial}(n_i,p_i),\quad
@@ -72,77 +101,98 @@ where $Y_i$ is the number of beetles `killed`, $n_i$ is the number of beetles
 This is a generalised linear model with a binomial distribution for
 the response and logistic link function.
 
-The quantity $\frac{p_i}{1-p_i}$ is called the odds of the event whose probability
-is $p_i$, i.e. odds of death. The interpretation of the above model is that the
-logarithm of the odds of death is linear in $x$, the covariate `dose`.
+The quantity $\frac{p_i}{1-p_i}$ is called the **odds** of the event whose probability
+is $p_i$: in this case, the odds of death. 
+The interpretation of the above model is that the
+logarithm of the odds of death is linear in $x$, the explanatory variable `dose`.
 
-To illustrate the effect the logit link function has, it is useful to plot
-$y/n$ against $x$ and compare with a plot of the *empirical logit*,
-$\text{logit}(y/n)$ against $x$.
-In fact, because there are extreme values $y/n=1$ in the data, we
-use the *modified* empirical logit, logit$([y+{1\over 2}]/[n+1])$ in the
-second plot. Does it look as if a linear logistic model will fit well?
-The commands are:
+Fitting generalised linear models in `R` is very similar to fitting
+linear models. You replace the command `lm` with the command
+`glm`. The distribution and link function which you require for your model
+is specified by the argument `family` which is supplied to the model.
+For example `family = binomial(link = "logit")` fits a generalised linear
+model with binomial distribution and logistic link.
+In fact `family = binomial` does the same, as the default
+is the canonical link.
+The form of the linear predictor is specified in the model formula
+for `glm` in the same way as for `lm`.
+
+There are several ways to fit a logistic regression model in `R`.
+One method, following our approach with linear models, is 
+to let the response in the `formula` be the proportion of "successes" 
+(proportion of beetles killed, `prop_killed`), and weight by the number 
+of trials (number of beetles in the group, `exposed`):
+```{r, include = FALSE}
+
+# Fit a logistic regression model, using prop_killed as response:
+```
 ```{r}
-plot(beetle$dose, beetle$killed / beetle$exposed)
-p <- (beetle$dose + 0.5) / (beetle$exposed + 1)
-plot(beetle$dose, log(p/(1-p)))
+beetle_glm <- glm(prop_killed ~ dose, data = beetle, family = binomial,
+                  weights = exposed)
 ```
 
+Another method is to write the response as a matrix with two columns, 
+with first column the number of "successes" (the number of
+beetles killed, `killed`), and second
+column the number of "failures" (the number of beetles not
+killed, `exposed - killed`). We don't need to add weights with this
+approach:
+```{r, include = FALSE}
 
-To fit the linear logistic regression model in `R`, we use the command
+# Fit a logistic regression model, with a two-column matrix, with columns
+# (no. of successes, no. of failures) as the response:
+```
 ```{r}
-beet_glm <- glm(killed/exposed ~ dose, data=beetle, family=binomial, weights=exposed)
+beetle_glm_2 <- glm(cbind(killed, exposed - killed) ~ dose, data = beetle,
+                    family = binomial)
 ```
 
-The response variable for a binomial GLM can be given in one of several formats.
-It can just be a factor with two levels (one for success and the other for failure) when the
-weights need not be satisfied. Here we have `killed` out of total `exposed`, hence we have used this
-format, i.e. the ratio `killed / exposed` with the weights `exposed`.
-See `?glm`.
-
+The result of the `glm` command is a generalised linear model object
+which can be used within many of the same `R` commands as a linear model
+object.
+Some useful ones are `resid`, `coef`, `deviance`, `fitted`,
+`plot`, `summary`, `update` and `anova`.
 
 ## Interpreting the output
 
-
-Issue the command 
+As with linear models, we can get parameter estimates and standard errors,
+and conduct simple hypothesis tests, by using the `summary` command:
 ```{r}
-summary(beet_glm)
+
+# summarise the fitted logistic regression:
 ```
-It provides
-similar information to the equivalent command for a linear model.
+```{r}
+summary(beetle_glm)
+```
+```{r, include = FALSE}
+# dose is highly significant here.
+```
+The `Coefficients` section gives the maximum likelihood estimates of the parameters,
+together with their standard errors. The column `z value` is a statistic for
+testing the hypothesis that the corresponding parameter is equal to zero,
+which should be compared with a standard normal distribution. The
+`Pr(>|z|)` column gives a $p$-value for this hypothesis test.
 
-\bitem
-\item `Call` confirms the model which was fitted.
-\item `Deviance Residuals` gives a summary of the distribution of the
-*deviance* residuals. We will discuss these later.
-\item `Coefficients` provide the maximum likelihood estimates,
-together with their standard errors. The column `z value` should be
- compared to the cut-off point from the standard normal distribution,
-e.g. 1.96 at the $5\%$ level of significance.  Using the asymptotic
-normality of the MLE, we can obtain confidence intervals as well.
-\eitem
+Use the `summary` command to check that the model
+`beetle_glm_2` is equivalent to model `beetle_glm`.
 
-We interpret the coefficient for $x_i$ (`dose`) as follows.
-We fitted  the model:
+Our fitted model is that
 $$
 \log \left( \frac{ p(x_i)}{1-p(x_i)} \right)
 = \beta_1 + \beta_2 \, x_i = -60.72 + 34.27 x_i
 $$
-The maximum likelihood (ML) estimate of $\beta_1$ is $\hat{\beta_1} = -60.72$ with s.e.
-(asymptotic standard error) 5.18.  From this we can test $H_0: \beta_1 =0$
-by performing a normal test.  We will reject $H_0$ if
-$|\hat{\beta_1}/\text{s.e.}| > 1.96$. In this case we do reject $H_0$ at $5\%$
-level of significance.
+The MLE of $\beta_2$ is $\hat{\beta_1} = 34.27$ with s.e.
+(asymptotic standard error) $2.912$.  From this we can test $H_0: \beta_2 =0$
+by noting that under $H_0$, approximately $\hat{\beta_1}/\text{s.e.} \sim N(0, 1)$. 
+So we will reject $H_0$ if
+$|z| = |\hat{\beta_1}/\text{s.e.}| > 1.96$. In this case, $z = 11.77$, so
+we reject $H_0$ at $5\%$ significance level. 
+In fact, we would reject $H_0$ at any reasonable 
+significance level: from the `summary` we see the $p$-value
+for this test is $<2 \times 10^{-16}$.
 
-The ML estimate of $\beta_2$ is $\hat{\beta}_2 = 34.27$ with s.e.
-2.91.  Using the asymptotic theory the 95\% CI for $\beta_2$ is
-$(34.27 \pm 1.96 \times 2.91) = (28.57, 39.97)$ which shows that $\beta_2$ is significant.
-Thus the dose significantly affects the probability of death.
-
-We further interpret the estimate  as follows. We first examine the model for two
-values of dose $x$, 
-$x_1$ and $x_2$:
+We further interpret the estimate as follows. We first examine the model for two
+values of dose $x$: $x_1$ and $x_2$.
 \begin{align*}
 \log \left( \frac{ p(x_2)}{1-p(x_2)} \right) &= \beta_1 + \beta_2 \, x_2 \\
 &= \beta_1 + \beta_2 \, x_1 + \beta_2 (x_2 - x_1) \\
@@ -154,80 +204,52 @@ By exponentiating both sides,
    &=   \frac{ p(x_1)}{1-p(x_1) } \, e^{ \beta_2}. \\
 \text{Odds of death for $x_2$}  &= \text{Odds of death for $(x_2-1)$} \times  e^{\beta_2}.
 \end{align*}
-This is summarised by saying that the odds of death gets multiplied by $\exp(\beta_2)$ for each
+The odds of death gets multiplied by $\exp(\beta_2)$ for each
 unit increase in $x$.
 
-Returning to this example, for a unit increase in $x$ (dose),
+Returning to this example, for a unit increase in $x$ (`dose`),
 the estimated odds of death of a beetle are multiplied by `exp(34.27)`.  For example,
-consider two beetles  with $x= 1.7$ and 1.8 respectively.  The odds of death of the second beetle
-is `exp(34.27 * 0.1)` times the odds of death for the first beetle.
-This means that the second beetle with a higher dose is *significantly*
-more likely to be killed than the first beetle with a lower dose.
+consider two beetles  with $x= 1.7$ and $1.8$ respectively.  
+We estimate that the odds of death of the second beetle
+is `exp(34.27 * 0.1) = 30.8` times the odds of death for the first beetle.
 
-We can write the word significant here since $\beta_2$ is significant. A negatively significant
-$\beta_2$ would have reduced the odds and the probability of the event for a unit increase in the
-covariate.
+## Making predictions
+We can make predictions for new doses by using `predict`:
+```{r, include = FALSE}
 
-`Number of Fisher Scoring Iterations` tells us how quickly the
-Fisher scoring algorithm converged to the maximum likelihood estimate.
-
-Issue the command 
-```{r}
-anova(beet_glm, test="Chisq")
+# make predictions at dose = 1.7 and 1.8
 ```
-It provides
-similar information to the equivalent command for a linear model. It tests
-whether it is worth including `dose` in the model.
-
-Let us see  the fitted probabilities.  We issue
 ```{r}
-predict(beet_glm, type="response")
+newdata <- data.frame(dose = c(1.7, 1.8))
+predict(beetle_glm, newdata = newdata)
 ```
-All probabilities are between 0 and 1.
+```{r, include = FALSE}
+# by default, in predict, type = "link", which means we predict logit(p)
+```
+Are these predictions what you expected? Can you see
+what is being predicted here?
+You can check the help on this predict method with
+```{r, purl = FALSE}
+?predict.glm
+```
+The default for the `type` argument is `type = "link"`, which means 
+these values are predictions of $\text{logit}(p(x))$, for each of the 
+new doses. If we need the predicted probability of death $p(x)$,
+we use `type = "response"` instead:
+```{r, include = FALSE}
 
-## Other link functions
-`R` allows us to use link functions other than the canonical link.
-For example, for binomial data, we can use
-$$
-g(\mu)=\Phi^{-1}(\mu)
-$$
-where $\Phi$ is the standard normal distribution function, so
-$\Phi(z)=P(Z\le z)$ where $Z$ is a standard normal random variable.
-This is the *probit* link function.
-Alternatively
-$$
-g(\mu)=\log[-\log(1-\mu)]
-$$
-is called the *complementary log-log link function*.
-Note that both of these links map $(0,1)$ on to the real line.
-
-We can plot out these three link functions to compare them:
+# To predict probabilities p, use type = "response":
+```
 ```{r}
-z <- 1./(1. + exp( - x))
-compl <- 1- exp(-exp(x))
-curve(pnorm(x), from = -5, to = 5,
-      main = "Comparison of Probit, Logit and Clog", col=2)
-curve(1/(1 + exp(- x)), lty = 2, col = 4, add = TRUE)
-curve(1- exp(-exp(x)), lty = 3, col = 6, add = TRUE)
-legend("bottomleft", legend = c("Probit", "Logit", "cloglog"),
-      lty = c(1, 2, 3), col = c(2, 4, 6))
+predict(beetle_glm, newdata = newdata, type = "response")
 ```
+What is the predicted probability of death at `dose = 2`? How does this compare with
+the prediction you found earlier with the linear model?
+```{r, include = FALSE}
 
-Use the function `comparelinks()` to see the differences between these
-link functions.
-
-Try fitting the  models using these alternative link functions.
-For example,
-
-```{r}
-beet_prlink <- glm(killed/exposed ~ dose, data = beetle, family = binomial(probit), 
-                   weights = exposed)
-beet_cloglinklink <- glm(killed/exposed ~ dose, data = beetle, 
-                         family = binomial(cloglog), weights = exposed)
-summary(beet_prlink)
-summary(beet_cloglinklink)
-summary(beet_glm)
+# To predict at dose = 2:
+newdata <- data.frame(dose = 2)
+predict(beetle_glm, newdata = newdata, type = "response")
+# this is very close to (but less than) 1, which is much more sensible 
+# than the predicted probability from the linear model (1.7).
 ```
-
-
-
