@@ -70,7 +70,7 @@ abline(beetle_lm)
 Does the fitted regression line look reasonable here?
 What is the predicted proportion of beetles who would be killed,
 in a new group given `dose = 2`? Do you think this a good prediction?
-```{r}
+```{r, include = FALSE}
 # The fitted regression line does not look reasonable, because
 # for large or small doses, it will give a predicted proportion
 # of beetles killed which is greater than 1, or less than 0.
@@ -157,7 +157,7 @@ Some useful ones are `resid`, `coef`, `deviance`, `fitted`,
 
 As with linear models, we can get parameter estimates and standard errors,
 and conduct simple hypothesis tests, by using the `summary` command:
-```{r}
+```{r, include = FALSE}
 
 # summarise the fitted logistic regression:
 ```
@@ -181,11 +181,11 @@ $$
 \log \left( \frac{ p(x_i)}{1-p(x_i)} \right)
 = \beta_1 + \beta_2 \, x_i = -60.72 + 34.27 x_i
 $$
-The MLE of $\beta_2$ is $\hat{\beta_1} = 34.27$ with s.e.
+The MLE of $\beta_2$ is $\hat{\beta_2} = 34.27$ with s.e.
 (asymptotic standard error) $2.912$.  From this we can test $H_0: \beta_2 =0$
-by noting that under $H_0$, approximately $\hat{\beta_1}/\text{s.e.} \sim N(0, 1)$. 
+by noting that under $H_0$, approximately $\hat{\beta_2}/\text{s.e.} \sim N(0, 1)$. 
 So we will reject $H_0$ if
-$|z| = |\hat{\beta_1}/\text{s.e.}| > 1.96$. In this case, $z = 11.77$, so
+$|z| = |\hat{\beta_2}/\text{s.e.}| > 1.96$. In this case, $z = 11.77$, so
 we reject $H_0$ at $5\%$ significance level. 
 In fact, we would reject $H_0$ at any reasonable 
 significance level: from the `summary` we see the $p$-value
@@ -199,10 +199,13 @@ values of dose $x$: $x_1$ and $x_2$.
 &=  \log \left( \frac{ p(x_1)}{1-p(x_1)} \right) +   \beta_2 (x_2 - x_1).
 \end{align*}
 By exponentiating both sides,
+\[\frac{p(x_2)}{1-p(x_2)} =   \frac{ p(x_1)}{1-p(x_1) } e^{ \beta_2 (x_2 - x_1)}.\]
+
+If we have $x_2 - x_1 = 1$, so $x_1 = x_2 -1$, we find that
+\vspace{-0.5cm}
 \begin{align*}
-\frac{p(x_2)}{1-p(x_2)} &=   \frac{ p(x_1)}{1-p(x_1) } e^{ \beta_2 (x_2 - x_1)} \\
-   &=   \frac{ p(x_1)}{1-p(x_1) } \, e^{ \beta_2}. \\
-\text{Odds of death for $x_2$}  &= \text{Odds of death for $(x_2-1)$} \times  e^{\beta_2}.
+\frac{p(x_2)}{1-p(x_2)}  &=   \frac{ p(x_1)}{1-p(x_1) } \, e^{ \beta_2} \\
+\text{Odds of death for $x_2$} &= \text{Odds of death for $(x_2-1)$} \times  e^{\beta_2}.
 \end{align*}
 The odds of death gets multiplied by $\exp(\beta_2)$ for each
 unit increase in $x$.
@@ -253,3 +256,24 @@ predict(beetle_glm, newdata = newdata, type = "response")
 # this is very close to (but less than) 1, which is much more sensible 
 # than the predicted probability from the linear model (1.7).
 ```
+
+We can add a curve of the predicted probabilities
+from the logistic regression model
+to our plot of `prop_killed` against dose, alongside the fitted regression
+line from the linear model:
+```{r, include = FALSE}
+
+# Add fitted regression curves from linear model and logistic GLM 
+# to a scatterplot of prop_killed against dose:
+```
+```{r}
+newdata <- data.frame(dose = seq(1.6, 2, length = 30))
+plot(prop_killed ~ dose, data = beetle, ylim = c(-0.5, 1.5), xlim = c(1.6, 2))
+abline(beetle_lm)
+lines(newdata$dose, predict(beetle_glm, newdata = newdata, type = "response"), 
+      col = 2)
+abline(h=c(0,1),lty=2)
+legend("topleft", c("Linear model", "Logistic GLM"), lty = 1, col = c(1, 2))
+```
+Make sure that you understand what all of these commands are doing. 
+Which of the models do you prefer after looking at these fitted regression curves?
