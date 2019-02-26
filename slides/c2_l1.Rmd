@@ -189,52 +189,6 @@ Therefore
 and the variance function is
 \[V(\mu)=\mu.\]
 
-## Example (Bernoulli distribution)
-Suppose $Y\sim \text{Bernoulli}(p)$. Then
-\begin{align*}
-f_Y(y;p)&= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
-p\in(0,1)\cr
-&= \exp\left(y\log{p\over{1-p}}+\log(1-p)\right)
-\end{align*}
-This is in the form \eqref{eq:ef}, with $\theta=\log{p\over{1-p}}$,
-$b(\theta)=\log(1+\exp\theta)$,
-$a(\phi)=1$ and $c(y,\phi)=0$.
-Therefore
-\[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
-\[\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\]
-and the variance function is
-\[V(\mu)=\mu(1-\mu).\]
-
-## Example (Binomial distribution)
-
-Suppose $Y^*\sim \text{Binomial}(n,p)$.
-Here, $n$ is assumed known (as usual) and
-the random variable $Y= Y^*/n$ is taken as the *proportion*
-of successes, so
-\begin{align*}
-f_Y(y;p)&=\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\quad
-y\in\left\{0,{1\over n},{2\over n},\ldots ,1\right\};  \quad p\in(0,1)\cr
-&= \exp\left({{y\log{p\over{1-p}}+\log(1-p)}\over{1\over n}}
-+\log\!\left({n\atop{ny}}\right)\right).
-\end{align*}
-This is in the form \eqref{eq:ef}, with $\theta=\log{p\over{1-p}}$,
-$b(\theta)=\log(1+\exp\theta)$,
-$a(\phi)={1\over n}$ and $c(y,\phi)=\log\!\left({n\atop{ny}}\right)$.
-
-
-## Example (Binomial distribution)
-
-Therefore
-\[E(Y)=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}=p,\]
-\[\text{Var}(Y)=a(\phi)b''(\theta)={1\over n}{{\exp\theta}\over{(1+\exp\theta})^2}=
-{{p(1-p)}\over n}.\]
-
-The variance function is
-\[V(\mu)=\mu(1-\mu).\]
-Here, we can write $a(\phi)\equiv \sigma^2/w$ where the scale parameter
-$\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
-
-
 ## Conclusion
 
 - We have defined the Exponential family, showed that it contains many
