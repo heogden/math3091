@@ -142,7 +142,7 @@ We can model $Y_i \sim \text{Bernoulli}(p_i)$, where $p_i$ is the
 unknown probability that person $i$ will get the question correct.
 
 The response distribution belongs to the exponential family, with
-canonical parameter $\theta_i = p_i$, and with no scale parameter
+canonical parameter $\theta_i = \log[p_i/(1-p_i)]$, and with no scale parameter
 ($a(\phi) = 1$).
 
 ## MLE of $p_1$ ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
