@@ -9,7 +9,7 @@ header-includes:
 - \newcommand{\eenum}{\end{enumerate}}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
@@ -17,8 +17,8 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 
 Read the data from the file `shuttle.csv` into a data frame called 
 `shuttle`.
-
 ```{r, include = FALSE}
+# read in the data
 shuttle <- read.csv("shuttle.csv")
 ```
 
@@ -37,91 +37,179 @@ carried out (`pressure`) and the name of the orbiter (`orbiter`).
 The Challenger launch
 temperature on 20th January 1986 was 31F.
 By fitting generalised linear models to this data, we will predict the probability of
-O-ring damage at the Challenger launch. Is the prediction sensitive to the
-choice of link function?
+O-ring damage at the Challenger launch. 
 
 We need to add a column `n` to the data for the total number of O-rings on each shuttle,
-which should be $6$ in all cases
+which should be $6$ in all cases:
+```{r, include = FALSE}
+
+# add a column to the data for the total number of O-rings on each shuttle:
+```
 ```{r}
 shuttle$n <- rep(6, nrow(shuttle))
 ```
-                 
-We first find the best model. We issue the following commands.
 
+Make three plots, of the 
+proportion of O-rings which were damaged against
+`temp`, `pressure` and `orbiter`.
+```{r, include = FALSE}
+# Make plots of proportion of O-rings damaged against
+# temp, pressure and orbiter:
+plot(n_damaged / n ~ temp + pressure + orbiter, data = shuttle)
+```
+Here `orbiter` is a factor, and `temp`  and `pressure` are continuous
+covariates, and your plots should be appropriate to the type
+of explanatory variable.
+Which of these explanatory variables do you think will
+be important for predicting the proportion of damaged
+O-rings?
+
+We first find the best model. We can fit a logistic regression
+model for the proportion of damaged O-rings against
+`temp`, `pressure` and `orbiter` with
+```{r, include = FALSE}
+
+# Fit a logistic regression of proportion of damaged O-rings
+# against temp, pressure and orbiter:
+```
 ```{r}
 shuttle_glm1 <- glm(n_damaged / n ~ temp + pressure + orbiter,
                     data = shuttle, family = binomial, weights = n)
+```
+We can check the `summary` to find estimates of the parameters,
+and to conduct hypothesis tests about whether each individual parameter
+is needed in the model:
+```{r}
 summary(shuttle_glm1)
-anova(shuttle_glm1, test = "Chisq")
+```
+We can also use `anova` with the `test = "LRT"` argument 
+to conduct a log-likelihood ratio test of whether each 
+explanatory variable is needed in the model:
+```{r, include = FALSE}
+
+# conduct likelihood ratio tests for the presence of each explanatory variable:
 ```
 ```{r}
-shuttle_glm2 <- update(shuttle_glm1, . ~ . - orbiter - pressure)
-anova(shuttle_glm2, test = "Chisq")
+anova(shuttle_glm1, test = "LRT")
 ```
 
-## Notes
-\benum
-  \item `orbiter` is a factor, `temp`  and `pressure` are continuous
-covariates.
-\item The first anova command reveals that `name` and `pressure`
-      are not significant predictors.
-\item We drop those using the update command.
-\item The last anova command shows that temperature is significant.
-\eenum
+What do you conclude about which 
+explanatory variables you should keep in the model?
+```{r, include = FALSE}
+# So we should keep temp in the model, but we do not need other variables.
+```
 
-To see that the model with only temperature is not a bad fit we
-work with the residual deviance. Using the following commands we see
-where the observed value of the deviance is in the theoretical $\chi^2$
-distribution.
-
+We could fit a logistic regression on `temp` alone with
+```{r, include = FALSE}
+# Fit a logistic regression on temp alone:
+```
 ```{r}
-curve(dchisq(x, 21), from = 0, to = 50)
-abline(v = 18.09)
+shuttle_glm2 <- glm(n_damaged / n ~ temp, data = shuttle, family = binomial, 
+                    weights = n)
 ```
+```{r, include = FALSE}
+summary(shuttle_glm2)
+```
+We might also consider whether there might be a higher-order polynomial 
+dependence of the
+linear predictor on `temp`, rather than the linear dependence
+in `shuttle_glm2`. For example, we could fit a model
+with a linear predictor
+which is quadratic in `temp`:
+```{r, include = FALSE}
 
-
-Now we come to do the prediction at 31 F.
-
-We first get a new data set. We copy the shuttle data and add another
-row. Type
+# Fit a logistic regression with an linear predictor which is quadratic
+# in temp:
+```
 ```{r}
-shnew <- shuttle
+shuttle_glm3 <- glm(n_damaged / n ~ temp + I(temp^2),
+                    data = shuttle, family = binomial, weights = n)
 ```
-Add a 24th row to the bottom, with values `NA`, 31, `NA`, `NA`
-and `NA`. This row gives the value 31 to `temp` and 'Not Available'
-to all other variables. We will use this row to predict the probability
-of O-ring damage at
-31 F.
+Do you prefer `shuttle_glm2` or `shuttle_glm3`?
+```{r, include = FALSE}
+summary(shuttle_glm3)
+# The coefficient for I(temp^2) is not required in the model,
+# so prefer shuttle_glm2.
+```
 
+We would like to use our preferred model to predict the probability of
+O-ring damage at 31F.
 The command
+```{r, include = FALSE}
+
+# predict the probability of O-ring failure at 31F:
+```
 ```{r}
-pred_glm2 <- predict(shuttle_glm2, shnew, se.fit = TRUE, type = "response")
+newdata <- data.frame(temp = 31)
+pred_glm2 <- predict(shuttle_glm2, newdata = newdata, 
+                     type = "response", se.fit = TRUE)
 pred_glm2
 ```
-predicts the probabilities for all 24 rows of data in
-`shnew`. The values for the first 23 rows are the
-fitted values corresponding to the observed data.  The last row gives the
-predicted value when the temperature is 31 F.
+```{r, include = FALSE}
+# The predicted probability of O-ring failure at 31F is 0.82
+```
+We have the predictions and their standard errors, so we can obtain an asymptotic 95% confidence interval:
+```{r, include = FALSE}
 
-We have the predictions and their standard errors, so we can obtain an asymptotic confidence interval, as follows:
-
+# find a asymptotic 95% confindence interval for the probability of 
+# O-ring failure at 31F:
+```
 ```{r}
-CInterval <- c(pred_glm2$fit - qnorm(0.975) * pred_glm2$se.fit, 
-               pred_glm2$fit + qnorm(0.975) * pred_glm2$se.fit)
-CInterval
+CI <- c(pred_glm2$fit - qnorm(0.975) * pred_glm2$se.fit, 
+        pred_glm2$fit + qnorm(0.975) * pred_glm2$se.fit)
+CI
 ```
 
 What do you notice about the interval obtained?
+```{r, include = FALSE}
+# The upper limit of the confidence interval is greater than 1,
+# which is not sensible.
+```
 
-Try repeating the predict and the following commands without `type="response`. 
+Try rerunning this code to find a prediction and confidence interval 
+without `type = "response"`. 
 This does the prediction on the scale of the linear predictor. 
 Can you work out how to back-transform the prediction and confidence 
-interval to the scale of the data?
+interval to the scale of the data? Is the prediction the same as before?
+Is the confidence interval the same as before?
 
-Note that we have used the logit link so far.
-Repeat the model fitting process with the probit link (c.f., Worksheet 5). 
-How much does the predicted probability of O-ring damage for
-the challenger launch change?
+```{r, include = FALSE}
+
+# predict the linear predictor at 31F:
+pred_glm2_eta <- predict(shuttle_glm2, newdata = newdata, se.fit = TRUE)
+
+# find a confidnece interval for the linear predictor at 31F:
+CI_eta <- c(pred_glm2_eta$fit - qnorm(0.975) * pred_glm2_eta$se.fit, 
+            pred_glm2_eta$fit + qnorm(0.975) * pred_glm2_eta$se.fit)
+CI_eta
+
+# to find the predicted probability, apply the inverse of the logit link,
+# We have g(x) = log(x / 1 - x)
+# So g^{-1}(x) = exp(x) / (1 + exp(x)) 
+exp(pred_glm2_eta$fit) / (1 + exp(pred_glm2_eta$fit))
+# The predicted probability of O-ring failure is 0.82, as before.
+
+exp(CI_eta) / (1 + exp(CI_eta))
+# This is different from previous confidence interval.
+# The new confidence interval is more sensible than the previous
+# one, as the upper limit is less than one.
+```
+
+Can you modify the code from worksheet 5 to add a curve
+giving the predicted probability of O-ring damage
+at each `temp` to your plot
+of proportion of damaged O-rings against `temp`? 
+Extend the x-axis beyond the range of the original data, to between
+30F and 100F
+```{r, include = FALSE}
+
+# Plot proportion of O-rings damaged against temp, with a fitted
+# probability curve added:
+newdata <- data.frame(temp = seq(30, 100, length = 30))
+plot(n_damaged / n ~ temp, data = shuttle, ylim = c(0, 1), xlim = c(30, 100))
+lines(newdata$temp, predict(shuttle_glm2, newdata = newdata, type = "response"), 
+      col = 2)
+```
 
 All of these predictions
 should be treated wih extreme caution,
