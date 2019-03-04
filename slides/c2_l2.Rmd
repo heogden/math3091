@@ -267,22 +267,6 @@ and $\bm{\beta}$ such that $\eta_i\ne g(\mu_i)$ for any possible value of $\mu_i
 Therefore,  'sensible' choices of link function map
 the set of allowed values for $\mu_i$ onto $\mathbb{R}$.
 
-## The canonical parameters in terms of explanatory variables
-Recall that for a random variable $Y$ with a distribution from the
-exponential family, $E(Y)=b'(\theta)$. Hence, for a GLM
-$$
-\mu_i=E(Y_i)=b'(\theta_i),\quad i = 1, \ldots, n.
-$$
-Therefore
-$$
-\theta_i=b^{'-1}(\mu_i),\quad i = 1, \ldots, n
-$$
-and as $g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta}$, then
-\[\theta_i=b^{'-1}(g^{-1}[\bm{x}_i^T\bm{\beta}]),\quad i = 1, \ldots, n.\]
-
-We already have an expression for $L(\bm \theta)$, and we can convert this 
-to the likelihood $L(\bm{\beta})$ for $\bm{\beta}$ by substituting
-$\theta_i=b^{'-1}(g^{-1}[\bm{x}_i^T\bm{\beta}])$.
 
 ## Conclusion
 
@@ -292,7 +276,7 @@ predictor depending on a linear combination of explanatory variables,
 and the relationship between the mean $\mu_i$ and the linear predictor
 through the link function.
 - Next time, we will look a choice of link function which simplifies
-the likelihood substantially, and look at maximum likelihood estimation
-of the regression parameters.
+the likelihood substantially, and look at the likelihood for
+the regression parameters.
 - You should be able to complete questions 1 and 2 on problem sheet 3.
 
