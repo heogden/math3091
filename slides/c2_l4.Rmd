@@ -1,0 +1,321 @@
+---
+title: "MATH3012: Chapter 2, Lecture 4"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Recap
+
+- We have reviewed all the components of a generalised linear model,
+and seen how they fit together to give the overall model.
+- We have found an expression for the likelihood of the unknown regression
+parameters $\bm \beta$.
+- We get a much simpler expression for the likelihood if we use
+the canonical link function.
+- Today, we will look at finding the MLE for $\bm \beta$
+
+
+
+## Log-likelihood function
+As usual, we maximise the log-likelihood function
+which can be written
+\[\ell(\bm{\beta},\bm{\phi})=
+\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++\sum_{i=1}^nc(y_i,\phi_i)\]
+and depends on $\bm{\beta}$ through
+\begin{align*}
+\theta_i &= (b')^{-1}(\mu_i), \cr
+\mu_i&= g^{-1}(\eta_i), \cr
+\eta_i&=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij} \beta_j, \quad i = 1, \ldots, n.
+\end{align*}
+
+## Fitting a GLM in `R`
+
+\scriptsize
+```{r, fig.width = 6, fig.height = 4, echo = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle$prop_killed <- beetle$killed / beetle$exposed
+beetle_logit <- glm(prop_killed ~ dose, data = beetle, family = binomial,
+                    weights = exposed)
+```
+```{r}
+summary(beetle_logit)
+```
+
+
+## General approach to finding the MLE
+
+To find $\hat{\bm{\beta}}$, we consider the scores
+$$
+u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
+\ell(\bm{\beta},\bm{\phi})\qquad k=1,\ldots ,p
+$$
+and then find $\hat{\bm{\beta}}$ to solve $u_k(\hat{\bm{\beta}})=0$ for $k=1,\ldots ,p.$
+
+
+## Score vector
+
+The $k$th component of the score vector is
+\begin{align*}
+u_k(\bm{\beta})&= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
+&= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++{\partial\over{\partial\beta_k}}\sum_{i=1}^nc(y_i,\phi_i)\cr
+&= \sum_{i=1}^n{\partial\over{\partial\beta_k}}
+\left[{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}\right]\cr
+&=\sum_{i=1}^n{\partial\over{\partial\theta_i}}\left[{{y_i\theta_i-b(\theta_i)}
+\over{a(\phi_i)}}\right]{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\cr
+&= \sum_{i=1}^n{{y_i-b'(\theta_i)}
+\over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}, \quad{k=1,\ldots ,p}.
+\end{align*}
+
+## Score vector
+
+We have
+\[ u_k(\bm{\beta}) = \sum_{i=1}^n{{y_i-b'(\theta_i)}
+\over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}},\]
+where
+\vspace{-1cm}
+\begin{align*}
+{{\partial\theta_i}\over{\partial\mu_i}}&=\left[{{\partial\mu_i}\over{\partial\theta_i}}\right]^{-1}
+={1\over{b''(\theta_i)}}\cr
+{{\partial\mu_i}\over{\partial\eta_i}}&=\left[{{\partial\eta_i}\over{\partial\mu_i}}\right]^{-1}
+={1\over{g'(\mu_i)}}\cr
+{{\partial\eta_i}\over{\partial\beta_k}}&=
+{\partial\over{\partial\beta_k}}\sum_{j=1}^p x_{ij}\beta_j=x_{ik}.
+\end{align*}
+
+\vspace{-0.5cm}
+Therefore
+\[u_k(\bm{\beta})= \sum_{i=1}^n{{y_i-b'(\theta_i)}\over{a(\phi_i)}}
+{{x_{ik}}\over{b''(\theta_i)g'(\mu_i)}}
+=\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}},\]
+which depends on $\bm{\beta}$ through $\mu_i\equiv E(Y_i)$ and $\text{Var}(Y_i),$
+$i = 1, \ldots, n$.
+
+## Solving the score equations
+
+In theory, we solve the $p$ simultaneous equations
+$u_k(\hat{\bm{\beta}})=0,\;{k=1,\ldots ,p}$ to evaluate $\hat{\bm{\beta}}$. 
+
+In practice, these equations are
+usually non-linear and have no analytic solution.
+
+Therefore, we rely on numerical methods to solve them.
+
+
+## Numerical methods quiz ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose we have simple logistic regression model, with
+$\eta_i = \beta$, so that we have only one parameter $\beta$ to estimate.
+
+My first guess is that $\beta = 0$.
+I calculate the score there, and find $u(0) = 2$.
+
+What can I conclude about the MLE $\hat \beta$?
+
+- $\hat \beta$ is less than 0
+- $\hat \beta$ is equal to 0
+- $\hat \beta$ is greater than 0
+- It is not possible to tell
+
+## Numerical methods quiz ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Given that $u(0) = 2$, can I tell how close $\hat \beta$ is to 0?
+
+- $\hat \beta$ is between 0 and 1
+- $\hat \beta$ is greater than 1
+- It is not possible to tell
+
+## Numerical methods quiz ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose I now am told that the Hessian $H(0) = -100$.
+Given that $u(0) = 2$ and $H(0) = -100$, 
+can I tell how close $\hat \beta$ is to 0?
+
+- $\hat \beta$ is between 0 and 1
+- $\hat \beta$ is greater than 1
+- It is not possible to tell
+
+
+## Hessian matrix
+The Hessian matrix has elements
+$$
+[\bm{H}(\bm{\beta})]_{jk}={{\partial^2}\over{\partial\beta_j\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})
+={\partial\over{\partial\beta_j}}u_k(\bm{\beta}),
+$$
+so
+\begin{align*}
+[\bm{H}(\bm{\beta})]_{jk}
+&={\partial\over{\partial\beta_j}}\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&=\sum_{i=1}^n{{-{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}} +\sum_{i=1}^n(y_i-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g'(\mu_i)}}\right].
+\end{align*}
+
+## Fisher information matrix
+
+The Fisher information matrix has elements
+\vspace{-0.5cm}
+\begin{align*}
+[{\cal I}(\bm{\beta})]_{jk}
+&=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}} -\sum_{i=1}^n(E[Y_i]-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g'(\mu_i)}}\right]\cr
+&=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g'(\mu_i)}}\cr
+&=\sum_{i=1}^n{{x_{ij}x_{ik}}\over{\text{Var}(Y_i)g'(\mu_i)^2}} \cr
+&= \sum_{i=1}^n x_{ij} x_{ik} w_i,
+\end{align*}
+where
+$$
+w_i={1\over{\text{Var}(Y_i)g'(\mu_i)^2}},\quad i = 1, \ldots, n.
+$$
+
+## A simple expression for the Fisher information matrix
+
+We can write
+\[{\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}\]
+where
+$$
+\bm{X}=\begin{pmatrix} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{pmatrix}
+=\begin{pmatrix}
+x_{11}&\cdots&x_{1p}\cr\vdots&\ddots&\vdots\cr x_{n1}&\cdots&x_{np}
+\end{pmatrix},
+$$
+$$
+\bm{W}={\rm diag}(\bm{w})=
+\begin{pmatrix}
+w_1&0&\cdots&0\cr
+0&w_2&&\vdots\cr
+\vdots&&\ddots&0\cr
+0&\cdots&0&w_n
+\end{pmatrix}
+$$
+
+The Fisher information matrix $\mathcal{I}(\bm{\beta})$ depends on $\bm{\beta}$
+through $\bm{\mu}$ and $\text{Var}(Y_i),\;i = 1, \ldots, n$.
+
+## A simple expression for the score
+
+The score may now be written as
+\[u_k(\bm{\beta})=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig'(\mu_i)
+=\sum_{i=1}^n x_{ik}w_iz_i,\quad{k=1,\ldots ,p},\]
+where
+$$
+z_i=(y_i-\mu_i)g'(\mu_i),\quad i = 1, \ldots, n.
+$$
+Therefore
+\[\bm{u}(\bm{\beta})=\bm{X}^T\bm{W}\bm{z}.\]
+
+## Solving the score equations numerically
+
+One possible method to solve the $p$ simultaneous equations
+${\bm{u}}(\hat{\bm{\beta}})={\bf 0}$ that give $\hat{\bm{\beta}}$ is the
+(multivariate) Newton-Raphson method.
+
+If $\bm{\beta}^{(m)}$ is the current estimate of $\hat{\bm{\beta}}$
+then the next estimate is
+\[\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}-\bm{H}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).\]
+
+In practice, an alternative to Newton-Raphson replaces $\bm{H}(\bm{\theta})$ 
+with $E[\bm{H}(\bm{\theta})]\equiv-\mathcal{I}(\bm{\beta})$.
+Therefore, if $\bm{\beta}^{(m)}$ is the current estimate of $\hat{\bm{\beta}}$
+then the next estimate is
+\[\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}+{\cal I}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).\]
+The resulting iterative algorithm is called *Fisher scoring*. 
+
+## Finding the next estimate of $\bm \beta$
+
+We have
+\vspace{-0.5cm}
+\begin{align*}
+\bm{\beta}^{(m+1)}&=\bm{\beta}^{(m)}+[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}[\bm{X}^T\bm{W}^{(m)}\bm{X}\bm{\beta}^{(m)}+\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}]\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{X}\bm{\beta}^{(m)}+\bm{z}^{(m)}]\cr
+&=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}],
+\end{align*}
+where $\bm{\eta}^{(m)},\,\bm{W}^{(m)}$ and $\bm{z}^{(m)}$ are all functions of $\bm{\beta}^{(m)}$.
+
+Note that this is a weighted least squares equation, that is $\bm{\beta}^{(m+1)}$
+minimises the weighted sum of squares
+$$
+(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})^T\bm{W}(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})=
+\sum_{i=1}^n w_i\left(\eta_i+z_i-\bm{x}_i^T\bm{\beta}\right)^2
+$$
+as a function of $\bm{\beta}$ where $w_1,\ldots ,w_n$ are the weights
+and $\bm{\eta}+\bm{z}$ is called the *adjusted dependent variable*.
+
+## Fisher scoring algorithm
+
+1. Choose an initial estimate $\bm{\beta}^{(m)}$ for $\hat{\bm{\beta}}$ at $m=0$.
+1. Evaluate $\bm{\eta}^{(m)},\,\bm{W}^{(m)}$ and $\bm{z}^{(m)}$ at $\bm{\beta}^{(m)}$.
+1. Calculate 
+  \[\bm{\beta}^{(m+1)} =[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}].\]
+1. If $||\bm{\beta}^{(m+1)}-\bm{\beta}^{(m)} ||> \epsilon$, for some prespecified (small) 
+tolerance $\epsilon$ then
+set $m\to m+1$ and go to 2.
+1. Use $\bm{\beta}^{(m+1)}$ as the solution for $\hat{\bm{\beta}}$.
+
+As this algorithm involves iteratively minimising a weighted sum
+of squares, it is sometimes known as *iteratively (re)weighted least squares*.
+
+## Simplification for the canonical link 
+
+Recall that the canonical link function is 
+ $g(\mu)=b^{'-1}(\mu)$ and with this link $\eta_i=g(\mu_i)=\theta_i$.
+Then
+$$
+{1\over{g'(\mu_i)}}={{\partial\mu_i}\over{\partial\eta_i}}
+={{\partial\mu_i}\over{\partial\theta_i}}=b''(\theta_i),\quad i = 1, \ldots, n.
+$$
+Therefore $\text{Var}(Y_i)g'(\mu_i)=a(\phi_i)$ which does not depend on $\bm{\beta}$,
+and hence
+$$
+{\partial\over{\partial\beta_j}}\left[{{x_{ik}}\over{\text{Var}(Y_i)g'(\mu_i)}}\right]=0
+$$
+for all $j=1,\ldots ,p$.
+
+It follows that $\bm{H}(\bm{\theta})=-\mathcal{I}(\bm{\beta})$ and, for the canonical link, Newton-Raphson and
+Fisher scoring are equivalent.
+
+## Fisher scoring for the linear model
+
+The linear model is a generalised linear model with
+identity link, $\eta_i=g(\mu_i)=\mu_i$ and $\text{Var}(Y_i)=\sigma^2$ for all $i = 1, \ldots, n$.
+
+Therefore $w_i=[\text{Var}(Y_i)g'(\mu_i)^2]^{-1}=\sigma^{-2}$ and
+$z_i=(y_i-\mu_i)g'(\mu_i)=y_i-\eta_i$ for $i = 1, \ldots, n$.
+
+Hence $\bm{z}+\bm{\eta}=\bm{y}$ and $\bm{W}=\sigma^{-2}\bm{I}$, neither of which
+depend on $\bm{\beta}$. 
+
+So the Fisher scoring algorithm converges in a
+single iteration to the usual least squares estimate.
+
+
+
+## Conclusion
+
+- We have seen how to use Fisher scoring: an iterative numerical algorithm
+to find the MLE.
+- The likelihood is not useful only for estimating parameters. 
+We can also use the likelihood to find (large-sample)
+confidence intervals, or to test hypotheses. We will look at this next time.
+- You should now be able to attempt all of problem sheet 3.
