@@ -1,0 +1,92 @@
+---
+title: "MATH3012 problem sheet 4"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+
+\benum
+\item The time to failure ($Y$) of a certain type of electrical component is
+thought to follow an exponential distribution, with probability density
+of the form
+\[f_Y(y;\lambda) = \exp\left(-\lambda y\right), \quad
+y>0;\quad\lambda>0.\]
+
+It is believed that the failure rate of a component $\lambda$ is related
+to its electrical resistance ($x$) by the relationship
+\[\lambda = \beta_1+\beta_2 x.\]
+Suppose that $y_1,...,y_n$  are observations of the
+times to failure, $Y_1,...,Y_n$ for $n$ such components with corresponding
+resistances $x_1,...,x_n$.
+
+\benum
+\item Write down the likelihood in terms of $\beta_1$ and
+$\beta_2$ and hence derive a pair of
+simultaneous equations, the solutions of which are the maximum likelihood
+estimates.
+
+\item Calculate the observed and expected information matrices.
+Are the Newton-Raphson and the Fisher scoring methods identical
+for this problem? Justify your answer.
+
+\eenum
+
+\item
+Suppose $Y_i \sim \text{geometric}(p_i)$, the 
+geometric distribution as studied in Question 2 of problem
+sheet 3. We want to model how $p_i$ depends on explanatory
+variables $\bm x_i$.
+\benum
+\item Assuming a GLM with canonical link, write down a formula for $p_i$ in terms of $\bm x_i$.
+\item Derive an expression for the scaled deviance for this model,
+writing $\hat \mu_i$ for the estimate of $\mu_i = E(Y_i)$ under the model.
+Write an expression for $\hat \mu_i$ in terms of $\hat{\bm \beta}$, the MLE
+of $\beta$ under the model.
+\eenum
+
+\item
+We return to the `beetle` data studied in computer worksheet 5,
+with observations on $n = 8$ groups of beetles.
+There we considered the model:
+```{r, include = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle$prop_killed <- beetle$killed / beetle$exposed
+```
+```{r}
+beetle_glm <- glm(prop_killed ~ dose, data = beetle, family = binomial,
+                  weights = exposed)
+```
+We could have also considered a model with quadratic dependence on `dose`:
+```{r}
+beetle_glm_quad <- glm(prop_killed ~ dose + I(dose^2), data = beetle, 
+                       family = binomial, weights = exposed)
+```
+\benum
+\item Write down mathematical expressions for the two models. Show that 
+`beetle_glm` is nested with `beetle_glm_quad`, and write down the null hypothesis
+$H_0$ and the alternative hypothesis $H_1$ you would use for comparing the models.
+\item Consider the following output of a `summary` call:
+```{r}
+summary(beetle_glm)
+```
+What is the scaled deviance for `beetle_glm`? 
+\item The scaled deviance for `beetle_glm_quad` is $3.1949$. 
+Calculate the log likelihood ratio test statistic $L_{01}$ 
+for testing $H_0$ against $H_1$.
+Under $H_0$, what is the distribution of this statistic? Hence 
+conduct a hypothesis test of $H_0$ against $H_1$, and make a conclusion
+about which model you prefer. 
+\eenum
+
+\eenum
