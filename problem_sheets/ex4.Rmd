@@ -20,7 +20,7 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 \item The time to failure ($Y$) of a certain type of electrical component is
 thought to follow an exponential distribution, with probability density
 of the form
-\[f_Y(y;\lambda) = \exp\left(-\lambda y\right), \quad
+\[f_Y(y;\lambda) = \lambda \exp\left(-\lambda y\right), \quad
 y>0;\quad\lambda>0.\]
 
 It is believed that the failure rate of a component $\lambda$ is related
@@ -48,11 +48,16 @@ geometric distribution as studied in Question 2 of problem
 sheet 3. We want to model how $p_i$ depends on explanatory
 variables $\bm x_i$.
 \benum
-\item Assuming a GLM with canonical link, write down a formula for $p_i$ in terms of $\bm x_i$.
+\item Assuming a GLM with canonical link function, 
+write down a formula for $p_i$ in terms of $\bm x_i$.
+Is this a sensible model?
+\item Suppose instead that \[\text{logit} (p_i) = \log \frac{p_i}{1 - p_i} = \bm x_i^T \bm \beta.\]
+Show that this is a GLM with a non-canonical link function, and 
+write down the link function corresponding to this model.
 \item Derive an expression for the scaled deviance for this model,
-writing $\hat \mu_i$ for the estimate of $\mu_i = E(Y_i)$ under the model.
+writing $\hat \mu_i$ for the estimate of $\mu_i = E(Y_i)$ under the model from part (b).
 Write an expression for $\hat \mu_i$ in terms of $\hat{\bm \beta}$, the MLE
-of $\beta$ under the model.
+of $\bm \beta$.
 \eenum
 
 \item
