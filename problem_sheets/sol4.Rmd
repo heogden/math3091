@@ -1,0 +1,140 @@
+---
+title: "Solutions to MATH3012 problem sheet 4"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+\benum
+\item 
+\benum
+\item 
+The likelihood is
+\[L(\bm \beta) = \prod_{i=1}^n \lambda_i(\bm \beta) e^{-\lambda_i(\bm \beta) y_i}\]
+The log-likelihood is
+\[\ell(\bm \beta) = \sum_{i=1}^n \log \lambda_i(\bm \beta) - \sum_{i=1}^n \lambda_i(\bm \beta).\]
+Differentiating with respect to $\beta_j$, $j = 1, 2$, gives
+\[\frac{\partial}{\partial \beta_j} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \sum_{i=1}^n \frac{\partial \lambda_i}{\partial \beta_j},\]
+where
+\[\frac{\partial \lambda_i}{\partial \beta_1} = 1; \qquad \frac{\partial \lambda_i}{\partial \beta_2} = x_i.\]
+So
+\[\frac{\partial}{\partial \beta_1} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} - n\]
+and
+\[\frac{\partial}{\partial \beta_2} \ell(\bm \beta) = \sum_{i=1}^n \frac{x_i}{\lambda_i(\bm \beta)}  - \sum_{i=1}^n x_i,\]
+So the MLE $\hat{\bm \beta} = (\hat \beta_1, \hat \beta_2)^T$ satisfies
+\[\sum_{i=1}^n \frac{1}{\lambda_i(\hat{\bm \beta})} = n; \qquad
+\frac{1}{n}\sum_{i=1}^n \frac{x_i}{\lambda_i(\hat{\bm \beta})}  = \bar x,\]
+or
+\[\sum_{i=1}^n \frac{1}{\hat \beta_1 + \hat \beta_2 x_i} = n; \qquad
+\frac{1}{n}\sum_{i=1}^n \frac{x_i}{\hat \beta_1 + \hat \beta_2 x_i}  = \bar x.\]
+\item 
+We have 
+\begin{align*}
+H_{jk}(\bm \beta) &= \frac{\partial^2}{\partial \beta_j \partial \beta_k} \ell(\bm \beta) \\
+&=  \sum_{i=1}^n \frac{\partial}{\partial \beta_k} \left(\frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \frac{\partial \lambda_i}{\partial \beta_j}\right) \\
+&= \sum_{i=1}^n \frac{-1}{\lambda_i(\bm \beta)^2}\frac{\partial \lambda_i}{\partial \beta_j}\frac{\partial \lambda_i}{\partial \beta_k} + \frac{1}{\lambda_i(\bm \beta)}\frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} - \frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} \\
+&= - \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)^2}\frac{\partial \lambda_i}{\partial \beta_j}\frac{\partial \lambda_i}{\partial \beta_k} 
+\end{align*}
+as $\frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} = 0$.
+
+So the observed information is
+\[-H(\bm \beta) = \begin{pmatrix}
+\sum_{i=1}^n \frac{1}{(\beta_1 + \beta_2 x_i)^2} &  \sum_{i=1}^n \frac{x_i}{(\beta_1 + \beta_2 x_i)^2} \\
+\sum_{i=1}^n \frac{x_i}{(\beta_1 + \beta_2 x_i)^2} & \sum_{i=1}^n \frac{x_i^2}{(\beta_1 + \beta_2 x_i)^2}
+\end{pmatrix},\]
+and the Fisher information matrix $\cal I(\bm \beta) = -H(\bm \beta)$, as the observed
+information matrix does not depend on $\bm y$. The Newton-Raphson and Fisher scoring methods
+will be identical for this problem, because the observed information matrix and the Fisher
+information matrix are identical.
+\eenum
+
+\item 
+\benum
+\item With the canonical link, we always have
+\[\theta_i = \eta_i = \bm{x}_i^T \bm{\beta},\]
+for the canonical parameter $\theta_i$. In this case,
+from Question 2 of problem sheet 3, we have
+$\theta_i = \log(1 - p_i)$, or $p_i = 1 - \exp\{\theta_i\}$, so
+\[p_i = 1 - \exp\{\bm{x}_i^T \bm{\beta}\}.\]
+This is not sensible: $\bm{x}_i^T \bm{\beta}$ could take any real value,
+so $1 - \exp\{\bm{x}_i^T \bm{\beta}\}$ could take any value in $(-\infty, 1)$,
+but we want $p_i \in (0, 1)$.
+\item
+We have $p_i = \mu_i^{-1}$, and
+$\mu_i = g^{-1}(\eta_i)$, so
+\[p_i = \frac{1}{g^{-1}(\eta_i)}.\]
+So we need to choose $g(.)$ such that
+\[\frac{1}{g^{-1}(\eta)} = \text{logit}^{-1}(\eta) = \frac{\exp(\eta)}{1 + \exp(\eta)}.\]
+This means that
+\[g^{-1}(\eta) = 1 + \exp(-\eta),\]
+so inverting this gives the required link function
+\[g(\mu) = -\log(\mu - 1).\]
+\item From problem sheet 3, Question 2, we have
+\[b(\theta) = -\log(e^{-\theta} - 1),
+\qquad \mu_i = b'(\theta_i) = \frac{1}{1 - e^\theta_i},
+\qquad \theta_i = \log \frac{\mu_i - 1}{\mu_i}.\]
+So
+\[b(\theta_i) =  -\log(e^{-\theta_i} - 1) = -\log \left( \frac{\mu_i}{\mu_i - 1} - 1 \right) 
+= -\log \left(\frac{1}{\mu_i - 1}\right) = \log(\mu_i - 1).\]
+The scaled deviance is
+\begin{align*}
+L_{0s} &= 2\sum_{i=1}^n {y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}\\
+&=2\sum_{i=1}^n{y_i\left[\log \frac{\hat \mu_i^{(s)} - 1}{\hat \mu_i^{(s)}}- \log \frac{\hat \mu_i^{(0)} - 1}{\hat \mu_i^{(0)}}\right]
+-\left[\log(\hat\mu_i^{(s)} - 1) - \log(\hat\mu_i^{(0)} - 1) \right]}.
+\end{align*}
+\eenum
+
+\item
+\benum
+\item Let $Y_i$ be the number of beetles killed
+and $x_i$ for the dose in group $i$.
+In both cases, we have $Y_i \sim \text{binomial}(8, p_i)$,
+where $\text{logit}(p_i) = \eta_i$. 
+In `beetle_glm`, we have
+\[\eta_i = \beta_1 + \beta_2 x_i.\]
+In `beetle_glm_quad` we have
+\[\eta_i = \beta_1 + \beta_2 x_i + \beta_3 x_i^2.\]
+We can compare these models by testing
+$H_0: \beta_3 = 0$ against $H_1: \text{``$\beta_3$ is unrestricted''}$.
+\item The scaled deviance for `beetle_glm` is 11.232.
+\item We have $L_{01} = L_{0s} - L_{1s},$
+where $L_{0s}$ is the scaled deviance under $H_0$ (`mod_glm`), 
+so $L_{0s} = 11.232$, and $L_{1s}$ is the scaled deviance under $H_1$
+(`mod_glm_quad`), so $L_{1s} = 3.1949$. So $L_{01} = 11.232 - 3.1949 = 8.04$ (2.d.p.).
+
+Under $H_0$, $L_{01} \sim \chi^2_1$, as $p - q = 3 - 2 = 1$.
+So we should reject $H_0$ if $L_{01}$ is greater than the $95\%$
+point of the $\chi^2_1$ distribution, or
+```{r}
+qchisq(0.95, df = 1)
+```
+Since $8.04 > 3.84$, we reject $H_0$, and prefer `beetle_glm_quad`
+to `beetle_glm`.
+
+We could do this test in `R` with
+```{r, include = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle$prop_killed <- beetle$killed / beetle$exposed
+beetle_glm <- glm(prop_killed ~ dose, data = beetle, family = binomial,
+                  weights = exposed)
+beetle_glm_quad <- glm(prop_killed ~ dose + I(dose^2), data = beetle, 
+                       family = binomial, weights = exposed)
+```
+
+```{r}
+anova(beetle_glm, beetle_glm_quad, test = "LRT")
+```
+
+\eenum
+\eenum

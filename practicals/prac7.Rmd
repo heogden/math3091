@@ -76,7 +76,7 @@ We could fit this model in `R` with
 ```{r, include = FALSE}
 
 # Fit a logistic regression of proportion of patients who survive
-# on site, treatment, and an interactino between site and treatment:
+# on site, treatment, and an interaction between site and treatment:
 ```
 ```{r}
 mod_SR <- glm(n_survived / n_patients  ~ site + treatment + site:treatment,
@@ -102,7 +102,7 @@ For example, if we include the `site:treatment` interaction, then the main
 effects of `site` and `treatment` must also be in the model, as 
 in `mod_SR`.
 A useful shorthand permitted by `R`
-is `site*treatment` which represents the interaction `site:blocker`
+is `site*treatment` which represents the interaction `site:treatment`
 together with all its marginal terms.
 
 ```{r, include = FALSE}
@@ -215,6 +215,57 @@ and $r_i$ is the level of `treatment` for the $i$th observation.
 mod_final <- glm(n_survived / n_patients  ~ treatment + blocker + site,
                  family = binomial, weights = n_patients, data = heart)
 summary(mod_final)
+```
+
+An alternative way to try to find the best model is to start with
+the model including all possible interactions between all the explanatory variables:
+```{r, include = FALSE}
+
+# fit the saturated model with all interaction terms:
+```
+```{r}
+mod_STBR <- glm(n_survived / n_patients  ~ site * time * blocker * treatment,
+                family = binomial, weights = n_patients, data = heart)
+```
+You can then perform likelihood ratio tests of whether you can drop each of the terms
+in the model, by using:
+```{r, include = FALSE}
+
+# Test whether each term is needed in the model:
+```
+```{r}
+anova(mod_STBR, test = "LRT")
+```
+Remember that the principle of marginality says that you should
+only drop a term if you have already dropped all higher-order interactions
+involving that term. What is your preferred model
+on the basis of this?
+Check that you understand the hypothesis tests
+corresponding to each row of the table given by the `anova` call.
+For example, what is the hypothesis test being conducted at
+the last row of the table (`site:time:blocker:treatment`)? 
+What about at the sixth row (`site:time`)? 
+```{r, include = FALSE}
+
+# The last row compares the models: 
+# H_0: all interactions betweeen three variables: STB, STR, SBR, TBR#
+# against
+# H_1: all possible interactions (STBR)
+# Or mathematically: H_0: gamma_{STBR}(s, t, b, r) = 0 
+# against
+# H_1: gamma_{STBR}(s, t, b, r) is unrestricted.
+
+# The sixth row compares the models:
+# H_0: all main effects only (S, T, B, R)
+# against
+# H_1: interaction between site and time (ST)
+# Or mathematically: H_0: gamma_{ST}(s, t) = 0 
+# against
+# H_1: gamma_{ST}(s, t) is unrestricted.
+
+# The preferred model is again one with main effects
+# for site, blocker and treatment, and no interactions
+# (as mod_final above)
 ```
 
 The scaled deviance 
