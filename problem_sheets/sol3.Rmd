@@ -57,11 +57,11 @@ the canonical link is
 
 For the geometric distribution, we have $b'(\theta) = (1 - e^\theta)^{-1} = \mu$.
 Solving for $\theta$, we find 
-\[1 - e^{-\theta} = \mu^{-1}\]
+\[1 - e^{\theta} = \mu^{-1}\]
 so
-\[\theta = -\log(1 - \mu^{-1}),\] so 
+\[\theta = \log(1 - \mu^{-1}),\] so 
 the canonical link is
-\[g(\mu) = b'^{-1}(\mu) = -\log(1 - \mu^{-1}).\]
+\[g(\mu) = b'^{-1}(\mu) = \log(1 - \mu^{-1}).\]
 
 \item
 \benum
