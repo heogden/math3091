@@ -182,12 +182,12 @@ Here the $p$-value is $0.7955$, so we do not reject $H_0$.
 Which of the following
 commands could be used to find the $p$-value?
 
-- `dchisq(0.95, df = 3)`
-- `1 - dchisq(0.95, df = 3)`
-- `pchisq(0.95, df = 3)`
-- `1 - pchisq(0.95, df = 3)`
-- `qchisq(0.95, df = 3)`
-- `1 - qchisq(0.95, df = 3)`
+- `dchisq(1.0238, df = 3)`
+- `1 - dchisq(1.0238, df = 3)`
+- `pchisq(1.0238, df = 3)`
+- `1 - pchisq(1.0238, df = 3)`
+- `qchisq(1.0238, df = 3)`
+- `1 - qchisq(1.0238, df = 3)`
 
 
 ## The saturated model
