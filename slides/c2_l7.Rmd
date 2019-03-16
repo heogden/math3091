@@ -1,0 +1,282 @@
+---
+title: "MATH3012: Chapter 2, Lecture 7"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Coursework
+
+The MATH3012 coursework is on blackboard now.
+
+Initial draft submission deadline: Friday, 29 March (via Blackboard). The initial submission will not count towards your final mark, but if you submit a draft by this date, I will read your work and provide feedback on how it could be improved.
+
+Written feedback on your draft available: by Friday, 5 April.
+
+Week 8 and 9 computer labs (21 and 28 March) will be drop-in sessions, for you to ask any questions you may have about your coursework.
+
+Final submission deadline: Wednesday, 1 May (via Blackboard).
+
+Marks and feedback available: Friday, 10 May.
+
+
+## Recap
+
+The general results about the asymptotic distribution
+of the log likelihood ratio statistic allow us to conduct generalised likelihood
+ratio tests for GLMs.
+
+The *scaled deviance* $L_{0s}$ is the log likelihood
+ratio statistic for comparing any model $H_0$ against the saturated
+model $H_S$:
+$$
+L_{0s}=2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)}),
+$$
+
+## Comparing models using the scaled deviance
+The log likelihood ratio statistic for testing $H_0$
+against a non-saturated alternative $H_1$ can be written as
+\begin{align*}
+L_{01}&=2\log L(\hat{\bm{\theta}}^{(1)})-2\log L(\hat{\bm{\theta}}^{(0)})\cr
+&=[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)})]
+-[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(1)})]\cr
+&=L_{0s}-L_{1s}. 
+\end{align*}
+
+The log likelihood ratio statistic for comparing two
+nested models is the difference of their deviances.
+
+As $p-q=(n-q)-(n-p)$, the degrees of freedom for the test
+is the difference in degrees of freedom of the two models.
+
+
+## A redacted `anova` ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+```{r, include = FALSE}
+shuttle <- read.csv("shuttle.csv")
+shuttle$n <- rep(6, nrow(shuttle))
+shuttle_glm0 <- glm(n_damaged / n ~ temp,
+                    data = shuttle, family = binomial, weights = n)
+shuttle_glm1 <- glm(n_damaged / n ~ temp + orbiter,
+                    data = shuttle, family = binomial, weights = n)
+```
+
+\scriptsize
+```{r, eval = FALSE}
+anova(shuttle_glm0, shuttle_glm1)
+```
+```{r, echo = FALSE}
+an_out <- capture.output(anova(shuttle_glm0, shuttle_glm1))
+an_out[7] <- "2        [B]    [  A  ]  3   1.0238"
+cat(an_out, fill = 1)
+```
+
+\normalsize
+What is A, the scaled deviance for model `shuttle_glm1`?
+
+- 17.063
+- 18.086
+- 19.110
+
+## A redacted `anova` ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+\scriptsize
+```{r, eval = FALSE}
+anova(shuttle_glm0, shuttle_glm1)
+```
+```{r, echo = FALSE}
+cat(an_out, fill = 1)
+```
+
+\normalsize
+What is B, the degrees of freedom for the scaled deviance for `shuttle_glm1`?
+
+- 17
+- 18
+- 19
+- 20 
+- 21
+
+## A note of caution
+
+Recall that we use $L_{0s}$ as a goodness of fit test, by
+comparing with a $\chi^2_{n-q}$ distribution.
+
+The asymptotic theory used to derive the distribution
+of the log likelihood ratio statistic under $H_0$ does not really apply to
+the goodness of fit test (comparison with the saturated model).
+
+However, for binomial or Poisson data, we can proceed as long as
+the relevant binomial or Poisson distributions are likely to be reasonably
+approximated by normal distributions (*i.e.* for binomials with large
+denominators or Poissons with large means).
+
+For Bernoulli data, we should not use the scaled deviance as
+a goodness of fit statistic in this way.
+
+
+## Pearson's $X^2$ statistic
+
+An alternative goodness of fit statistic for a model $H_0$ is
+Pearson's $X^2$ given by
+\[X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\text{Var}}(Y_i)}}.\]
+$X^2$ is small when the squared differences
+between observed and fitted values (scaled by variance)
+is small. 
+
+So large values of $X^2$ correspond to poor fitting models.
+
+In fact, $X^2$ and $L_{0s}$ are asymptotically equivalent and
+under $H_0$, $X^2$, like $L_{0s}$, has an asymptotic $\chi^2_{n-q}$.
+
+The asymptotics associated with $X^2$ are often more reliable
+for small samples, so if there is a discrepancy between
+$X^2$ and $L_{0s}$, it is usually safer to base a test of
+goodness of fit on $X^2$.
+
+
+## Scaled deviance in terms of mean parameters
+
+Previously, we wrote the scaled deviance in terms
+of the maximum likelihood estimates of the canonical parameters, as
+$$
+L_{0s}=2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)}),
+$$
+
+It is more
+usual to express $L_{0s}$ in terms of the maximum likelihood estimates $\hat{\mu}_i,\;
+i = 1, \ldots, n$ of the mean parameters. 
+
+For the saturated model, these are just
+the observed values $y_i,\;i = 1, \ldots, n$, and for the model of interest, $H_0$,
+we call them the *fitted values*. 
+
+For a particular generalised
+linear model, the scaled deviance function describes how discrepancies between
+the observed and fitted values are penalised.
+
+
+## Example (Poisson)
+
+Suppose $Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n$.
+
+Recall that $\theta=\log\lambda$,
+$b(\theta)=\exp\theta$, $\mu=b'(\theta)=\exp\theta$ and
+$\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu$.
+
+So
+\vspace{-0.5cm}
+\begin{align*}
+L_{0s}&=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
+-[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
+&=2\sum_{i=1}^n y_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
+-y_i+\hat{\mu}^{(0)}_i
+\end{align*}
+and
+$$
+X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
+$$
+
+## Example (Binomial)
+Suppose $n_iY_i\sim \text{Binomial}(n_i,p_i),\;i = 1, \ldots, n$.
+
+Recall that $\theta=\log{p\over{1-p}}$,
+$b(\theta)=\log(1+\exp\theta)$,
+$\mu=b'(\theta)={{\exp\theta}\over{1+\exp\theta}}$ and
+$\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)$.
+So
+\vspace{-0.5cm}
+\small
+\begin{align*}
+L_{0s}&=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
+-\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] \cr
+& \qquad + 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
+&=2\sum_{i=1}^n \left[ n_iy_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
++n_i(1-y_i) \log \left({{1-y_i}\over{1-\hat{\mu}^{(0)}_i}}\right) \right]
+\end{align*}
+\normalsize
+and
+$$
+X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
+(1-\hat{\mu}^{(0)}_i)}}.
+$$
+Bernoulli data are binomial with $n_i=1,\;i = 1, \ldots, n$.
+
+## Models with unknown $a(\phi)$
+
+So far we have assumed that $a(\phi)$ is known.
+
+This is the case for both the Poisson distribution ($a(\phi)=1$) and
+the binomial distribution ($a(\phi)=1/n$).
+
+Neither the scaled deviance nor Pearson $X^2$ statistic
+can be evaluated unless $a(\phi)$ is known.
+
+Therefore, when $a(\phi)$ is not known, we cannot use the scaled deviance
+as a measure of goodness of fit, or to compare models using log likelihood
+ratio tests.
+
+We can develop an alternative test for comparing nested models.
+
+## The deviance of the model
+
+Here we assume that $a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n$ where $\sigma^2$ is a common unknown
+scale parameter and $m_1,\ldots ,m_n$ are known weights.
+
+A linear model takes this form, as
+$\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, so $m_i=1,\;i = 1, \ldots, n$.
+
+Under this assumption
+\[L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-m_i[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]
+={1\over\sigma^2}D_{0s},\]
+where $D_{0s}$ is defined to be twice the sum above, which can
+be calculated using the observed data. We call $D_{0s}$ the
+*deviance* of the model.
+
+## Comparing nested models: an $F$ test
+
+In order to test nested models $H_0$ and $H_1$,
+we calculate the test statistic
+\vspace{-0.5cm}
+\begin{align*}
+&F={{L_{01}/(p-q)}\over{L_{1s}/(n-p)}}={{(L_{0s}-L_{1s})/(p-q)}\over{L_{1s}/(n-p)}}
+\hbox{\hskip 1.2in}\cr
+&\;={{\left({1\over\sigma^2}D_{0s}-{1\over\sigma^2}D_{1s}\right)/(p-q)}
+\over{{1\over\sigma^2}D_{1s}/(n-p)}}
+={{(D_{0s}-D_{1s})/(p-q)}\over{D_{1s}/(n-p)}}.
+\end{align*}
+This statistic does not depend on the unknown scale parameter $\sigma^2$,
+so can be calculated using the observed data.
+
+
+Asymptotically, under $H_0$, we have $L_{01} \sim \chi^2_{p-q}$ and 
+$L_{1s} \sim \chi^2_{n-p}$. 
+
+Furthermore, $L_{01}$ and $L_{1s}$ are independent
+(not proved here) so $F$ has an asymptotic $F_{p-q, n-p}$ distribution.
+Hence, we reject $H_0$ in favour of $H_1$
+if $F$ is too large (for example, greater than the 95\% point of
+the relevant $F$ distribution).
+
+
+## Conclusion
+
+- We have looked again at the scaled deviance, and found how
+it can be used to calculate the log-likelihood ratio test statistic
+for comparing nested GLMs.
+- We have also introduced the Pearson's $X^2$ statistic for
+checking goodness of fit. We'll see how to compute this in `R` next time.
+- We have found an $F$ test for comparing nested GLMs if $a(\phi_i) = \sigma^2/m_i$,
+where $\sigma^2$ is unknown.
+- We'll consider maximum likelihood estimation in this case of unknown
+$a(\phi_i)$ next time.
+- You should now be able to complete all questions on problem sheet 4.
