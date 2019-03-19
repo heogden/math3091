@@ -210,63 +210,6 @@ X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
 $$
 Bernoulli data are binomial with $n_i=1,\;i = 1, \ldots, n$.
 
-## Models with unknown $a(\phi)$
-
-So far we have assumed that $a(\phi)$ is known.
-
-This is the case for both the Poisson distribution ($a(\phi)=1$) and
-the binomial distribution ($a(\phi)=1/n$).
-
-Neither the scaled deviance nor Pearson $X^2$ statistic
-can be evaluated unless $a(\phi)$ is known.
-
-Therefore, when $a(\phi)$ is not known, we cannot use the scaled deviance
-as a measure of goodness of fit, or to compare models using log likelihood
-ratio tests.
-
-We can develop an alternative test for comparing nested models.
-
-## The deviance of the model
-
-Here we assume that $a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n$ where $\sigma^2$ is a common unknown
-scale parameter and $m_1,\ldots ,m_n$ are known weights.
-
-A linear model takes this form, as
-$\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n$, so $m_i=1,\;i = 1, \ldots, n$.
-
-Under this assumption
-\[L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
--m_i[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]
-={1\over\sigma^2}D_{0s},\]
-where $D_{0s}$ is defined to be twice the sum above, which can
-be calculated using the observed data. We call $D_{0s}$ the
-*deviance* of the model.
-
-## Comparing nested models: an $F$ test
-
-In order to test nested models $H_0$ and $H_1$,
-we calculate the test statistic
-\vspace{-0.5cm}
-\begin{align*}
-&F={{L_{01}/(p-q)}\over{L_{1s}/(n-p)}}={{(L_{0s}-L_{1s})/(p-q)}\over{L_{1s}/(n-p)}}
-\hbox{\hskip 1.2in}\cr
-&\;={{\left({1\over\sigma^2}D_{0s}-{1\over\sigma^2}D_{1s}\right)/(p-q)}
-\over{{1\over\sigma^2}D_{1s}/(n-p)}}
-={{(D_{0s}-D_{1s})/(p-q)}\over{D_{1s}/(n-p)}}.
-\end{align*}
-This statistic does not depend on the unknown scale parameter $\sigma^2$,
-so can be calculated using the observed data.
-
-
-Asymptotically, under $H_0$, we have $L_{01} \sim \chi^2_{p-q}$ and 
-$L_{1s} \sim \chi^2_{n-p}$. 
-
-Furthermore, $L_{01}$ and $L_{1s}$ are independent
-(not proved here) so $F$ has an asymptotic $F_{p-q, n-p}$ distribution.
-Hence, we reject $H_0$ in favour of $H_1$
-if $F$ is too large (for example, greater than the 95\% point of
-the relevant $F$ distribution).
-
 
 ## Conclusion
 
@@ -275,8 +218,6 @@ it can be used to calculate the log-likelihood ratio test statistic
 for comparing nested GLMs.
 - We have also introduced the Pearson's $X^2$ statistic for
 checking goodness of fit. We'll see how to compute this in `R` next time.
-- We have found an $F$ test for comparing nested GLMs if $a(\phi_i) = \sigma^2/m_i$,
-where $\sigma^2$ is unknown.
-- We'll consider maximum likelihood estimation in this case of unknown
-$a(\phi_i)$ next time.
+- Next time, we'll consider how to do inference in a GLM with unknown
+$a(\phi_i)$.
 - You should now be able to complete all questions on problem sheet 4.
