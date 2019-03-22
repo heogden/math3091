@@ -1,0 +1,104 @@
+---
+title: "Solutions to MATH3012 problem sheet 5"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+\benum
+\item 
+\benum
+\item
+We have
+\[ 1= \sum_{i=1}^n p_i  =  \sum_{i=1}^n e^{\beta_1 + \beta_2 x_i}
+    = e^{\beta_1}  \sum_{i=1}^n e^{\beta_2 x_i},\]
+so
+\[\beta_1 = -\log(\sum_{i=1}^n e^{\beta_2 x_i}).\]
+\item
+The log-likelihood is 
+\begin{align*}
+ \ell(\beta_2) &=  \sum_{i=1}^n y_i \log (p_i) + \log (N!) -
+   \sum_{i=1}^n \log (y_i!) \\
+ &=  \sum_{i=1}^n y_i (\beta_1 + \beta_2 x_i) + \log (N!) -
+   \sum_{i=1}^n \log (y_i!) \\
+ &= \beta_1 \sum_{i=1}^n y_i + \beta_2 \sum_{i=1}^n y_i x_i + \log (N!) -
+   \sum_{i=1}^n \log (y_i!) \\
+ &= - N \log(\sum_{i=1}^n e^{\beta_2 x_i}) + \beta_2 \sum_{i=1}^n y_i x_i + \log (N!) - \sum_{i=1}^n \log (y_i!).
+\end{align*}
+
+\item The score is 
+\[u(\beta_2) = \frac{\partial l}{\partial \beta_2} =
+ \sum_{i=1}^n y_i x_i - N \sum_{j=1}^n x_j e^{\beta_2 x_j}
+\left(  \sum_{i=1}^n e^{\beta_2 x_i} \right)^{-1}\]
+So $\hat \beta_2$ satisfies
+\[u(\hat \beta_2) =  \sum_{i=1}^n y_i x_i - N \sum_{j=1}^n x_j e^{\hat \beta_2 x_j}
+\left(  \sum_{i=1}^n e^{\hat \beta_2 x_i} \right)^{-1} = 0.\]
+
+\item  The fitted probabilities are
+\[\hat p_i = \exp(\hat \beta_1 + \hat \beta_2 x_i) 
+= \exp\left(-\log(\sum_{i=1}^n e^{\hat \beta_2 x_i}) + \hat \beta_2 x_i\right)
+= \frac{e^{\hat \beta_2 x_i}}{\sum_{i=1}^n e^{\hat \beta_2 x_i}}.\]
+\eenum
+
+\item
+\benum
+\item We have $\hat p = z$.
+\item Write $Y_1 = Z$ and $Y_2 = 10 - Z$.
+Then for $N = 10$, $n = 2$, this is a special case of (a), where we want
+\[p_1 = \beta_1 + \beta_2 x_1 = p\]
+and
+\[p_2 = \beta_1 + \beta_2 x_2 = 1 - p.\]
+To achieve this, we could set $x_1 = 0$ and $x_2 = 1$
+(other choices are also fine). Then we have
+\[p_1 - p_2 = \beta_2 = 2p -1,\]
+and $\beta_1$ is already fixed as in (a).
+
+We know
+\[\sum_{i=1}^2 y_i x_i - 10 \sum_{j=1}^2 x_j e^{\hat \beta_2 x_j}
+\left(  \sum_{i=1}^2 e^{\hat \beta_2 x_i} \right)^{-1} = 0,\]
+which simplifies to 
+\[y_2 - 10 \frac{e^{\hat \beta_2}}{1 + e^{\hat \beta_2}} = 0,\]
+so 
+\[\hat \beta_2 = \text{logit}\left(\frac{y_1}{10}\right).\]
+This gives
+\[\hat p_1 
+= \frac{1}{1 + e^{\hat \beta_2}}
+= 1 - \frac{e^{\hat \beta_2}}{1 + e^{\hat \beta_2}}
+= 1 - \frac{y_2}{10} = \frac{z}{10} = \hat p\]
+and
+\[\hat p_2 = \frac{e^{\hat \beta_2}}{1 +  e^{\hat \beta_2}}
+= \frac{y_2}{10} = 1 - \frac{z}{10} = 1- \hat p.\]
+\eenum
+
+\item
+In order to fit the multinomial or product multinomial log-linear models
+using a Poisson log-linear model, we need some restrictions:
+\benum
+\item The total is fixed in advance, so must include the intercept $\alpha$.
+\item The gender margin is fixed in advance, so must include the gender main effect
+$\beta_G$ and the intercept $\alpha$.
+\item The smoking margin is fixed in advance, so must include the smoking main effect
+$\beta_S$ and the intercept $\alpha$.
+\item The gender/smoking margin is fixed in advance, so must include the gender/smoking
+interaction $\beta_{GS}$, the gender main effect
+$\beta_G$, the smoking main effect
+$\beta_S$ and the intercept $\alpha$.
+\eenum
+
+If the final preferred model is
+\[\log(\mu_i) = \alpha + \beta_D(d_i) + \beta_G(g_i) + \beta_S(s_i)
++ \beta_{DG}(d_i, g_i) + \beta_{GS}(g_i, s_i),\]
+we would conclude that disease is conditionally independent 
+of smoking status, give gender.
+
+\eenum

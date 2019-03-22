@@ -1,0 +1,114 @@
+---
+title: "MATH3012 problem sheet 5"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+
+\benum
+\item 
+Suppose that $\bm Y=(Y_1, \ldots, Y_n)^T$ follows the multinomial
+distribution with parameters $N$ and $\bm p=(p_1, \ldots, p_n)^T$
+where its probability function is given by:
+\begin{align*}
+f_{\bm Y}(\bm y; \bm p)&=P(Y_1=y_1,\ldots ,Y_n=y_n)\cr
+&= \begin{cases}
+N! \,  \frac{p_1^{y_1} \cdots p_n^{y_n}}{y_1! \cdots y_n!} & \text{if $\sum_{i=1}^n y_i=N$}\cr
+0& \text{otherwise.}
+\end{cases}
+\end{align*}
+
+For given values of $x_1, \ldots, x_n$, consider the model
+$$
+\log p_i = \beta_1 + \beta_2 x_i, \ 1 \leq i \leq n
+$$
+where $\beta_1$ is chosen so that $\sum_{i=1}^n p_i=1$.
+
+\benum
+\item Find an expression for $\beta_1$ in terms of $\beta_2$ and $x_1, \ldots, x_n$.
+\item Given observed cell counts $\bm y = (y_1, \ldots, y_n)$, find the 
+log-likelihood function for $\beta_2$.
+\item Derive an equation for finding $\hat \beta_2$, the MLE 
+of $\beta_2$.
+\item Write down an expression for the fitted probabilities $\hat p_i$ under the model,
+in terms of $\hat \beta_2$.
+\eenum
+
+\item 
+Suppose that $Z \sim \text{Binomial}(10, p)$, and that we have a single observation
+$z$ from this distribution, for some unknown value of the parameter $p$.
+\benum
+\item Write down the MLE $\hat p$ of $p$.
+\item Show that this model may be written as a special case of the model in Question 1
+with $n = 2$, where you should specify $N$, define $Y_1$ and $Y_2$ in terms of $Z$,
+and choose appropriate values of $x_1$ and $x_2$ (there may be more than one valid choice).
+Find $\hat p_i$ ($i = 1, 2$) in this case, and express
+$\hat p_i$ in terms of $\hat p$.
+\eenum
+
+\item
+Suppose we are interested in which factors might affect 
+whether people go on to develop a disease. 
+A study on this recruits 220 healthy volunteers, and monitors
+how many people go on to develop the disease in a one-year period,
+cross-classified by smoking status and gender.
+Suppose that there are a total of 100 men (20 smokers and 80 non-smokers)
+and 120 women (30 smokers and 90 non-smokers). 
+
+We now consider four possible experiments which might be use to collect this data.
+\benum
+\item The total number of people recruited into the study is fixed at 220,
+with no constraints on gender or smoking status.
+\item The number of men recruited into the study is fixed at 100, and the number
+of women is fixed at 120, with no constraints on smoking status.
+\item The number of smokers recruited into the study is fixed at 50, and the number
+of non-smokers is fixed at 170, with no constraints on gender.
+\item The numbers of male smokers recruited into the study 
+is fixed at 20, male non-smokers fixed at 80,
+female smokers at 30 and female non-smokers at 90.
+\eenum
+
+In each case, we can model the cell counts 
+ $(y_1, \ldots, y_8)$
+(the cross-classification by
+disease, gender and smoking status) by using a 
+multinomial or product multinomial model distribution, with 
+cell probabilities $(p_1, \ldots, p_8)$. The various experimental
+setups (a) - (d) provide different restrictions on marginal totals.
+
+A saturated log-linear model for $\mu_i = 220 p_i$ may be written
+\[\log(\mu_i) = \alpha + \beta_D(d_i) + \beta_G(g_i) + \beta_S(s_i)
++ \beta_{DG}(d_i, g_i)+ \beta_{DS}(d_i, s_i) + \beta_{GS}(g_i, s_i)
++ \beta_{DGS}(d_i, g_i, s_i),\]
+where 
+\[d_i = \begin{cases} 1 & \text{if group $i$ have disease} \\ 0 & \text{otherwise,} \end{cases}
+\qquad g_i = \begin{cases} 1 & \text{if group $i$ male} \\ 0 & \text{if group $i$ female,} \end{cases}\]
+and
+\[s_i = \begin{cases} 1 & \text{if group $i$ smokers} \\ 0 & \text{if group $i$ non-smokers.} \end{cases}\]
+Each $\beta$ term is non-zero only if all its arguments are 1, e.g.
+$\beta_{DG}(1, 0) = \beta_{DG}(0, 1) = \beta_{DG}(0, 0) = 0$.
+
+We could fit this model as a Poisson log-linear model,
+and conduct hypothesis tests 
+to determine whether or not to drop each term.
+Which terms must be kept in the model
+in each case (a) - (d)?
+
+Suppose that our final preferred model is
+\[\log(\mu_i) = \alpha + \beta_D(d_i) + \beta_G(g_i) + \beta_S(s_i)
++ \beta_{DG}(d_i, g_i) + \beta_{GS}(g_i, s_i).\]
+What interpretation would you make about conditional independence
+of variables?
+
+\eenum
