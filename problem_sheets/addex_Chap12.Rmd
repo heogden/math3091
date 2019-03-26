@@ -23,11 +23,12 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
 random variables $Y_1, \ldots, Y_n$, where 
 $Y_i \sim \text{gamma}(2, \lambda)$, with  p.d.f.
-$f_{Y}(y; \lambda) = \lambda^2 y e^{-2 y}$, $y > 0$,
+$f_{Y}(y; \lambda) = \lambda^2 y e^{-\lambda y}$, $y > 0$,
 $\lambda > 0$.
  \benum
  \item Show that the $\text{gamma}(2, \lambda)$ distribution is a member
-  of the exponential family, and hence find $E(Y)$
+  of the exponential family, where you should set $a(\phi) = -1$.
+  Hence find $E(Y)$
   and $\text{Var}(Y)$ in terms of $\lambda$.
   \item
   Derive the maximum likelihood estimator $\hat \lambda$ of $\lambda$,
@@ -41,7 +42,7 @@ $\lambda > 0$.
     interval for $\lambda$.
   \item Suppose you would like to test $H_0: \lambda = 0.5$ against
   the alternative $H_1: \text{"$\lambda$ is unrestricted"}.$
-  Find a log-likelihood ratio test statistic $L_{01}$ which could be used to test this hypothesis.
+  Write down an equation for a log-likelihood ratio test statistic $L_{01}$ which could be used to test this hypothesis.
   We should reject $H_0$ if $L_{01} > k$, for some value of $k$.
   Write down some \texttt{R} code which would compute the value of $k$ which gives
   a test of approximate size $\alpha = 0.01$.
@@ -56,7 +57,7 @@ $Y_i \sim \text{gamma}(2, \lambda_i)$, and that we want to allow $\lambda_i$ to
 
 \benum
 \item Derive
-    the canonical link function for the gamma distribution.
+    the canonical link function for the $\text{gamma}(2, \lambda)$ distribution.
 \item Assuming the canonical link:
 \benum
 \item write down an expression for
@@ -65,23 +66,26 @@ $\mu_i = E(Y_i)$ in terms of the explanatory variables.
 the canonical parameters $\theta_i$ in terms of the explanatory variables.
 \item write down an expression for $\lambda_i$ in terms of the explanatory variables.
 \eenum
+\item Explain why the canonical link is not a sensible choice of link function
+in this case.
+\item Write down a reasonable model for $\lambda_i$ in terms of
+    $\bm{x}_i$, and find the corresponding link function.
 \item Suppose now that
 \begin{equation}
-\eta_i = \beta_1 + \beta_2 x_{i}
+\log \lambda_i = \beta_1 + \beta_2 x_{i}
 \label{eq:mod_linear}
 \end{equation}
 and that $\bm \beta = (\beta_1, \beta_2)$.
-Assuming the canonical link, write down the likelihood in terms of $\beta_1$ and $\beta_2$
+Write down the likelihood in terms of $\beta_1$ and $\beta_2$
   and hence derive a pair of simultaneous equations, the solutions of which are the maximum likelihood estimates of $\beta_1$ and $\beta_2$.
-\item Calculate the observed information matrix $-H(\bm \beta)$
+\item Assuming model \eqref{eq:mod_linear}, calculate the observed information matrix $-H(\bm \beta)$
   and the Fisher information matrix ${\cal I}(\bm \beta)$.
   Write down the steps of the Fisher scoring algorithm in terms of
   the score vector $\bm u(\beta)$ and the Fisher information matrix ${\cal I}(\bm \beta)$.
   Are the Newton-Raphson and the Fisher scoring methods identical
   for this problem? Justify your answer.
-\item \ Consider
-    the alternative model $Y_i \sim \text{Gamma}(2, \lambda_i)$,
-  where
+  \item \ Consider the alternative model $Y_i \sim \text{Gamma}(2, \lambda_i)$,
+where
 \begin{equation}
   \log \lambda_i = \beta_1 + \beta_2 x_i + \beta_3 x_{i}^2.
   \label{eq:mod_quad}
@@ -92,10 +96,7 @@ alternative hypothesis $H_1$ you would use for comparing the models.
 \item The scaled deviance for model \eqref{eq:mod_linear} is 11.0,
   and the scaled deviance for model \eqref{eq:mod_quad} is 5.0.
   Calculate the log likelihood ratio test statistic $L_{01}$ for testing
-  $H_0$ and $H_1$. What is the approximate distribution of $L_{01}$ under $H_0$?
-\item Someone suggests using the link function $g(\mu) = \sqrt{\mu}$
-instead of the canonical link. Do you think this would be a sensible choice?
-Justify your answer.
+$H_0$ against $H_1$. What is the approximate distribution of $L_{01}$ under $H_0$?
 \eenum
 
 \item
