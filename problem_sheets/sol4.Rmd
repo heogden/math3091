@@ -22,27 +22,27 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 The likelihood is
 \[L(\bm \beta) = \prod_{i=1}^n \lambda_i(\bm \beta) e^{-\lambda_i(\bm \beta) y_i}\]
 The log-likelihood is
-\[\ell(\bm \beta) = \sum_{i=1}^n \log \lambda_i(\bm \beta) - \sum_{i=1}^n \lambda_i(\bm \beta).\]
+\[\ell(\bm \beta) = \sum_{i=1}^n \log \lambda_i(\bm \beta) - \sum_{i=1}^n \lambda_i(\bm \beta) y_i.\]
 Differentiating with respect to $\beta_j$, $j = 1, 2$, gives
-\[\frac{\partial}{\partial \beta_j} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \sum_{i=1}^n \frac{\partial \lambda_i}{\partial \beta_j},\]
+\[\frac{\partial}{\partial \beta_j} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \sum_{i=1}^n \frac{\partial \lambda_i}{\partial \beta_j} y_i,\]
 where
 \[\frac{\partial \lambda_i}{\partial \beta_1} = 1; \qquad \frac{\partial \lambda_i}{\partial \beta_2} = x_i.\]
 So
-\[\frac{\partial}{\partial \beta_1} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} - n\]
+\[\frac{\partial}{\partial \beta_1} \ell(\bm \beta) = \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)} - \sum_{i=1}^n y_i\]
 and
-\[\frac{\partial}{\partial \beta_2} \ell(\bm \beta) = \sum_{i=1}^n \frac{x_i}{\lambda_i(\bm \beta)}  - \sum_{i=1}^n x_i,\]
+\[\frac{\partial}{\partial \beta_2} \ell(\bm \beta) = \sum_{i=1}^n \frac{x_i}{\lambda_i(\bm \beta)}  - \sum_{i=1}^n x_i y_i,\]
 So the MLE $\hat{\bm \beta} = (\hat \beta_1, \hat \beta_2)^T$ satisfies
-\[\sum_{i=1}^n \frac{1}{\lambda_i(\hat{\bm \beta})} = n; \qquad
-\frac{1}{n}\sum_{i=1}^n \frac{x_i}{\lambda_i(\hat{\bm \beta})}  = \bar x,\]
+\[\sum_{i=1}^n \frac{1}{\lambda_i(\hat{\bm \beta})} = \sum_{i=1}^n y_i; \qquad
+\sum_{i=1}^n \frac{x_i}{\lambda_i(\hat{\bm \beta})}  = \sum_{i=1}^n x_i y_i,\]
 or
-\[\sum_{i=1}^n \frac{1}{\hat \beta_1 + \hat \beta_2 x_i} = n; \qquad
-\frac{1}{n}\sum_{i=1}^n \frac{x_i}{\hat \beta_1 + \hat \beta_2 x_i}  = \bar x.\]
+\[\sum_{i=1}^n \frac{1}{\hat \beta_1 + \hat \beta_2 x_i} = \sum_{i=1}^n y_i; \qquad
+\sum_{i=1}^n \frac{x_i}{\hat \beta_1 + \hat \beta_2 x_i}  = \sum_{i=1}^n x_i y_i.\]
 \item 
 We have 
 \begin{align*}
 H_{jk}(\bm \beta) &= \frac{\partial^2}{\partial \beta_j \partial \beta_k} \ell(\bm \beta) \\
-&=  \sum_{i=1}^n \frac{\partial}{\partial \beta_k} \left(\frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \frac{\partial \lambda_i}{\partial \beta_j}\right) \\
-&= \sum_{i=1}^n \frac{-1}{\lambda_i(\bm \beta)^2}\frac{\partial \lambda_i}{\partial \beta_j}\frac{\partial \lambda_i}{\partial \beta_k} + \frac{1}{\lambda_i(\bm \beta)}\frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} - \frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} \\
+&=  \sum_{i=1}^n \frac{\partial}{\partial \beta_k} \left(\frac{1}{\lambda_i(\bm \beta)} \frac{\partial \lambda_i}{\partial \beta_j} - \frac{\partial \lambda_i}{\partial \beta_j} y_i\right) \\
+&= \sum_{i=1}^n \frac{-1}{\lambda_i(\bm \beta)^2}\frac{\partial \lambda_i}{\partial \beta_j}\frac{\partial \lambda_i}{\partial \beta_k} + \frac{1}{\lambda_i(\bm \beta)}\frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} - \frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} y_i \\
 &= - \sum_{i=1}^n \frac{1}{\lambda_i(\bm \beta)^2}\frac{\partial \lambda_i}{\partial \beta_j}\frac{\partial \lambda_i}{\partial \beta_k} 
 \end{align*}
 as $\frac{\partial^2 \lambda_i}{\partial \beta_j \partial \beta_k} = 0$.
