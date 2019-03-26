@@ -1,0 +1,170 @@
+---
+title: "MATH3012: some additional exercises on Chapters 1 and 2"
+author: ""
+date: ""
+output: pdf_document
+fontsize: 12pt
+header-includes:
+- \newcommand{\benum}{\begin{enumerate}}
+- \newcommand{\eenum}{\end{enumerate}}
+- \newcommand{\bitem}{\begin{itemize}}
+- \newcommand{\eitem}{\end{itemize}}
+- \usepackage{bm}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
+```
+
+
+\benum
+\item 
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{gamma}(2, \lambda)$, with  p.d.f.
+$f_{Y}(y; \lambda) = \lambda^2 y e^{-2 y}$, $y > 0$,
+$\lambda > 0$.
+ \benum
+ \item Show that the $\text{gamma}(2, \lambda)$ distribution is a member
+  of the exponential family, and hence find $E(Y)$
+  and $\text{Var}(Y)$ in terms of $\lambda$.
+  \item
+  Derive the maximum likelihood estimator $\hat \lambda$ of $\lambda$,
+  find the score and Fisher information, and
+  write down the asymptotic distribution of $\hat \lambda$. \label{pt:lik}
+  \item Let $z_q$ be the $q$-quantile
+    of a standard normal distribution, such that
+    $P(Z \leq z_q) = q$ if $Z \sim N(0, 1)$.
+    Use the asymptotic distribution of $\hat \lambda$ from \ref{pt:lik} to
+    derive an approximate $97 \%$ confidence
+    interval for $\lambda$.
+  \item Suppose you would like to test $H_0: \lambda = 0.5$ against
+  the alternative $H_1: \text{"$\lambda$ is unrestricted"}.$
+  Find a log-likelihood ratio test statistic $L_{01}$ which could be used to test this hypothesis.
+  We should reject $H_0$ if $L_{01} > k$, for some value of $k$.
+  Write down some \texttt{R} code which would compute the value of $k$ which gives
+  a test of approximate size $\alpha = 0.01$.
+ \eenum
+ 
+\item 
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{gamma}(2, \lambda_i)$, and that we want to allow $\lambda_i$ to
+    depend on explanatory variables ${\bm x}_i$, via a linear
+    predictor $\eta_i = {\bm x}_i^T {\bm \beta}$. 
+
+\benum
+\item Derive
+    the canonical link function for the gamma distribution.
+\item Assuming the canonical link:
+\benum
+\item write down an expression for
+$\mu_i = E(Y_i)$ in terms of the explanatory variables.
+\item write down an expression for 
+the canonical parameters $\theta_i$ in terms of the explanatory variables.
+\item write down an expression for $\lambda_i$ in terms of the explanatory variables.
+\eenum
+\item Suppose now that
+\begin{equation}
+\eta_i = \beta_1 + \beta_2 x_{i}
+\label{eq:mod_linear}
+\end{equation}
+and that $\bm \beta = (\beta_1, \beta_2)$.
+Assuming the canonical link, write down the likelihood in terms of $\beta_1$ and $\beta_2$
+  and hence derive a pair of simultaneous equations, the solutions of which are the maximum likelihood estimates of $\beta_1$ and $\beta_2$.
+\item Calculate the observed information matrix $-H(\bm \beta)$
+  and the Fisher information matrix ${\cal I}(\bm \beta)$.
+  Write down the steps of the Fisher scoring algorithm in terms of
+  the score vector $\bm u(\beta)$ and the Fisher information matrix ${\cal I}(\bm \beta)$.
+  Are the Newton-Raphson and the Fisher scoring methods identical
+  for this problem? Justify your answer.
+\item \ Consider
+    the alternative model $Y_i \sim \text{Gamma}(2, \lambda_i)$,
+  where
+\begin{equation}
+  \log \lambda_i = \beta_1 + \beta_2 x_i + \beta_3 x_{i}^2.
+  \label{eq:mod_quad}
+\end{equation}
+Show that model \eqref{eq:mod_linear} is nested in model \eqref{eq:mod_quad},
+and write down the the null hypothesis $H_0$ and the
+alternative hypothesis $H_1$ you would use for comparing the models.
+\item The scaled deviance for model \eqref{eq:mod_linear} is 11.0,
+  and the scaled deviance for model \eqref{eq:mod_quad} is 5.0.
+  Calculate the log likelihood ratio test statistic $L_{01}$ for testing
+  $H_0$ and $H_1$. What is the approximate distribution of $L_{01}$ under $H_0$?
+\item Someone suggests using the link function $g(\mu) = \sqrt{\mu}$
+instead of the canonical link. Do you think this would be a sensible choice?
+Justify your answer.
+\eenum
+
+\item
+```{r, include = FALSE}
+set.seed(1)
+n <- 100
+x <- abs(rnorm(n))
+eta <- 0.5 + 0.6 * log(x)
+p <- pnorm(eta)
+y <- rbinom(n, 1, p)
+mod1 <- glm(y ~ 1, family = binomial)
+mod2 <- glm(y ~ x, family = binomial)
+mod3 <- glm(y ~ x + I(x^2), family = binomial)
+mod4 <- glm(y ~ x, family = binomial("probit"))
+mod5 <- glm(y ~ x + I(x^2), family = binomial("probit"))
+mod6 <- glm(y ~ log(x), family = binomial)
+```
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{Bernoulli}(p_i)$. Suppose that we have explanatory variables
+$x_1, \ldots, x_n$, and that we want to model how $p_i$ depends on $x_i$.
+We have the following candidate models:
+\bitem
+\item Model 1: $\text{logit}(p_i) = \beta_1,$ where $\text{logit}(p) = \log(p / 1- p)$.
+The scaled deviance for this model is $136.7$.
+\item Model 2: $\text{logit}(p_i) = \beta_1 + \beta_2 x_i.$
+The scaled deviance for this model is $97.42$.
+\item Model 3: $\text{logit}(p_i) = \beta_1 + \beta_2 x_i + \beta_3 x_i^2.$
+The scaled deviance for this model is $96.98$.
+\item Model 4: $p_i = \Phi(\beta_1 + \beta_2 x_i),$
+where $\Phi(.)$ is the standard normal distribution function.
+The scaled deviance for this model is $97.99$.
+\item Model 5: $p_i = \Phi(\beta_1 + \beta_2 x_i + \beta_3 x_i^2).$
+The scaled deviance for this model is $97.19$.
+\item Model 6: $\text{logit}(p_i) = \beta_1 + \beta_2 \log x_i.$
+The scaled deviance for this model is $102.1$.
+\eitem
+
+\benum
+\item Find all the pairs of models $(j, k)$ such that Model $j$ is 
+nested within Model $k$. 
+\item Write down the the null hypothesis $H_0$ and the
+alternative hypothesis $H_1$ you would use for comparing 
+Model 1 and Model 3.
+\item Calculate the log likelihood ratio test statistic $L_{01}$ for testing
+  $H_0$ and $H_1$. What is the approximate distribution of $L_{01}$ under $H_0$?
+\item In `R`, we call Model 1 `mod1` and Model 3 `mod3`, and compare these
+models with:
+```{r, eval = FALSE}
+anova(mod1, mod3)
+```
+Fill in the gaps A, B, C, D, E and F in the output:
+```{r, echo = FALSE}
+an_out <- capture.output(anova(mod1, mod3))
+an_out[6] <- "1       [A]   [  B  ]"
+an_out[7] <- "2       [C]   [  D  ]  [E] [  F  ]"
+cat(an_out, fill = 1)
+```
+Which model do you prefer, out of `mod1` and `mod3`?
+Justify your answer.
+The $95\%$ points of a $\chi^2_d$ distribution are
+```{r}
+qchisq(0.95, df = 1:10)
+```
+for $d = 1, \ldots, 10$.
+\item Now compare Model 2 and Model 3. Which model do you prefer?
+Justify your answer.
+\item Show that Model 4 is a generalised linear model,
+and find the link function.
+\eenum
+
+\eenum
