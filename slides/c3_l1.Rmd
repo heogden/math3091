@@ -244,9 +244,6 @@ Here $L_{01}$ is $12.037$, given in the deviance column.
 
 ## Comparing two models ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
 
-We should reject $H_0$ if $L_{01} > k$. Which of the following
-commands could be used to find $k$, for a test at the $1\%$ level?
-
 Under $H_0$, $L_{01} \sim \chi^2_9$. 
 
 We should reject $H_0$ if $L_{01} > k$. Which of the following
@@ -312,8 +309,7 @@ Diffuse & Female & Yes & 1\\
 
 A log-linear model for the contingency table is just a Poisson GLM
 for this data, where in this case
-the response variable is `Cell`, and `Sex`
-and `Remis` are explanatory variables.
+the response variable is `Count`, and `Sex`, `Remis` and `Cell` are explanatory variables.
 
 The aim is to understand how the probability of remission varies
 by type of lymphoma and sex.
