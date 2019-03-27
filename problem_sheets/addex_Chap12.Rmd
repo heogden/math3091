@@ -114,10 +114,10 @@ mod4 <- glm(y ~ x, family = binomial("probit"))
 mod5 <- glm(y ~ x + I(x^2), family = binomial("probit"))
 mod6 <- glm(y ~ log(x), family = binomial)
 ```
-Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
-random variables $Y_1, \ldots, Y_n$, where 
+Suppose $y_1,y_2,\ldots,y_{100}$ are observations from independent
+random variables $Y_1, \ldots, Y_{100}$, where 
 $Y_i \sim \text{Bernoulli}(p_i)$. Suppose that we have explanatory variables
-$x_1, \ldots, x_n$, and that we want to model how $p_i$ depends on $x_i$.
+$x_1, \ldots, x_{100}$, and that we want to model how $p_i$ depends on $x_i$.
 We have the following candidate models:
 \bitem
 \item Model 1: $\text{logit}(p_i) = \beta_1,$ where $\text{logit}(p) = \log(p / 1- p)$.
