@@ -46,7 +46,7 @@ so a stationary point of the log-likelihood $\hat \lambda$ satisfies
 or $\hat \lambda = 2 (\bar y)^{-1}$.
 We have 
 \[H(\lambda) = \frac{d^2}{d\lambda^2} \ell (\lambda) = \frac{-2n}{\lambda^2} < 0\]
-for all $\lambda$, so $\hat \lambda$ is a maximum of the loglikelihood, and hence is
+for all $\lambda$, so $\hat \lambda$ is a maximum of the log-likelihood, and hence is
 the MLE.
 The Fisher information is
 \[I(\lambda) = E\left(-H(\lambda)\right) = E\left(\frac{2n}{\lambda^2}\right) = \frac{2n}{\lambda^2}.\]
@@ -152,5 +152,53 @@ against the alternative
 $H_1: \text{"$\beta_2$ and $\beta_3$ unrestricted"}$.
 \item We have $L_{01} = 11.0 - 5.0 = 6.0$.
 Under $H_0$, $L_{01}$ has approximate $\chi^2_2$ distribution.
+\eenum
+\item
+\benum
+\item 
+ Model 1 is nested in all the other models. To see why Model 1 is nested within Models 4 and 5, we can
+rewrite Model 1 as $p_i = \Phi(\beta_1^*)$, where
+\[\beta_1^* = \Phi^{-1}\left(\frac{\exp(\beta_1)}{1 + \exp(\beta_1)}\right).\]
+ Model 2 is nested in Model 3.
+ Model 4 is nested in Model 5.
+
+So the full set of pairs $(j, k)$ such that Model $j$ is nested in 
+Model $k$ is
+\[\{(1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 3), (4, 5)\}.\]
+\item
+For comparing Model 1 and Model 3, we assume the larger model
+(Model 3), and test the null
+hypothesis $H_0: \beta_2 = \beta_3 = 0$
+against the alternative
+$H_1: \text{"$\beta_2$ and $\beta_3$ unrestricted"}$.
+\item We have $L_{01} = 136.7 - 96.98 = 39.72$. 
+Under $H_0$, $L_{01}$ has approximate $\chi^2_2$ distribution.
+\item
+\bitem
+\item [A] is $100 - 1 = 99$.
+\item [B] is $136.7$.
+\item [C] is $100 - 3 = 97$.
+\item [D] is $96.98$.
+\item [E] is $99 - 97 = 2$.
+\item [F] is $136.7 - 96.98 = 39.7$
+\eitem
+Since $39.7 > 5.99$, the $95\%$ point of a $\chi^2_2$
+distribution, we reject $H_0$, and prefer Model 3 to 
+Model 1.
+\item To compare Model 2 and Model 3, we assume
+the larger model (Model 3), and test $H_0: \beta_3 = 0$
+against the alternative $H_1 : \text{``$\beta_3$ is unrestricted"}$.
+We compute $L_{01} = 97.42 - 96.68 = 0.74$. Since $L_{01} < 3.84$,
+the $95 \%$ point of a $\chi^2_1$ distribution, we do not reject
+$H_0$, and prefer Model 2 to Model 3.
+\item The Bernoulli distribution is a member of the exponential family
+(see the notes for the proof of this). Let
+${\bm x}_i = (1, x_i)^T$, and $\bm \beta = (\beta_1, \beta_2)^T$,
+so we have a linear predictor $\eta_i = {\bm x}_i^T {\bm \beta}$.
+We have $\mu_i = E(Y_i) = p_i$, so $\mu_i = \Phi(\eta_i)$, 
+or $\Phi^{-1}(\mu_i) = \eta_i$. So Model 4 is a GLM, with link
+function $g(\mu) = \Phi^{-1}(\mu)$.
+
+
 \eenum
 \eenum
