@@ -873,14 +873,14 @@ An alternative estimator of $\sigma^2$ is based on the Pearson $X^2$ statistic.
 As $\text{Var}(Y)=a(\phi)V(\mu)=\sigma^2 V(\mu)/m$ here, then from \@ref(eq:pearsonGoF)
 \begin{equation}
 X^2={1\over\sigma^2}
-\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i)}}.
+\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i^{(0)})}}.
   (\#eq:pearsonGoFunknown)
 \end{equation}
 Again, if $H_0$ is an adequate fit,  $X^2$ has an chi-squared distribution with
 $n-q$ degrees of freedom, so
 $$
 \hat \sigma^2={1\over{n-q}}
-\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i)}}
+\sum_{i=1}^n {{m_i(y_i-\hat{\mu}_i^{(0)})^2}\over{{V}(\hat{\mu}_i^{(0)})}}
 $$
 is an alternative unbiased estimator of $\sigma^2$.
 This estimator tends to be more reliable in small samples.
