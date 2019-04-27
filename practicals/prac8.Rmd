@@ -6,7 +6,7 @@ output: pdf_document
 fontsize: 12pt
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
@@ -17,14 +17,14 @@ knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 The data in `accident.csv` concerns the number of road accidents (`number`) and the 
 volume of traffic (`volume`), on each of two roads in Cambridge (`road`),
 at various times of day (`time`, taking values `morning`, `midday` or `afternoon`).
-We would like to answer questions like:  
+We would like to answer questions like:
 
 1. Is Mill Road more dangerous than Trumpington Road?
 1. How does time of day affect the rate of road accidents? 
 
 
 Let $Y_{ij}$ denote the number of accidents and $\mu_{ij}$ denote the expected
-number of accidents fot the $i$th road at the $j$th time.
+number of accidents for the $i$th road at the $j$th time.
 We assume
 $$
 Y_{ij} \sim \text{Poisson}(\mu_{ij}), \ i=1, 2 \text{ for Road},
@@ -48,36 +48,78 @@ $$
 Read the data from the file `accident.csv` into a data frame called 
 `accident`.
 ```{r, include = FALSE}
+# Analysis of accident data
+
+# read in the data
 accident <- read.csv("accident.csv")
 ```
 
-By deafult, `R` will set $\alpha_1=0$ and $\beta_1=0$.   Thus
+By default, `R` will set $\alpha_1=0$ and $\beta_1=0$.   Thus
 $\alpha_2=0$ if the roads are equally risky,
 $\beta_2$ represents difference between
 time 2 and 1,  and $\beta_3$ represents difference between
 time 3 and 1.
 
-Issue the command
+We can fit this model in `R` with:
+```{r, include = FALSE}
+
+# fit a Poisson log-linear model to the data:
+```
+
 ```{r}
 acc_glm <- glm(number ~ road + time + log(volume), family = poisson,
                data = accident)
 summary(acc_glm)
 ```
-The output seems to say Mill
-road is more dangerous than Trumpington road. The mornings and afternoons are
-about as dangerous as each other and each is quite a lot more dangerous than
-the middle of the day. The accident rate
-has a strong dependence on the traffic volume.
+What do you conclude about how the accident rate depends on 
+the road, the time of day and the volume of traffic?
 
-```{r}
-anova(acc_glm, test="Chisq")
+```{r, include = FALSE}
+# The output seems to say Mill road is more dangerous than
+# Trumpington road. The mornings and afternoons are about as
+# dangerous as each other and each is quite a lot more dangerous than
+# the middle of the day. The accident rate has a strong dependence on
+# the traffic volume.
+```
+Does the scaled deviance indicate an problem with 
+the fit of the model?
+
+```{r, include = FALSE}
+
+# From the summary output, the scaled deviance is 1.88.
+# acc_glm has 5 free parameters, and there are n = 6
+# data points, so if the model is correct, we expect
+# the scaled deviance to have chi^2_1 distribution.
+# The 95% point of a chi^2_1 is
+qchisq(0.95, df = 1)
+# or 3.84. Since the scaled deviance is less than this,
+# there is no evidence of poor model fit from this measure.
+
 ```
 
-The model seems to fit well, deviance 1.88 is non-significant when
-referred to $\chi^2$ with 1 degree of freedom.
+Conduct hypothesis tests to check whether you could drop any
+terms from the model.
 
+```{r, include = FALSE}
+# Consider model without volume:
+acc_glm_rt <- glm(number ~ road + time, family  = poisson,
+                  data = accident)
+anova(acc_glm_rt, acc_glm, test="LRT")
+# prefer the model with volume
 
+# Consider model without time:
+acc_glm_rv <- glm(number ~ road + log(volume), family = poisson,
+                  data = accident)
+anova(acc_glm_rv, acc_glm, test="LRT")
+# It is borderline whether or not to include time
 
+# Consider model without road:
+acc_glm_tv <- glm(number ~ time + log(volume), family = poisson,
+                  data = accident)
+anova(acc_glm_tv, acc_glm, test="LRT")
+# prefer the model with road.
+
+```
 
 ## Analysis of Hodgkins data
 
@@ -87,12 +129,19 @@ their disease (4 levels) and `rtreat`, their response to treatment
 (3 levels).
 
 Read the data from the file `hodgkins.csv` into a data frame called 
-`heart`.
+`hodgkins`.
 ```{r, include = FALSE}
+# Analysis of Hodgkins data
+
+# read in the data:
 hodgkins <- read.csv("hodgkins.csv")
 ```
 
-We could display this data in a contigency table using
+We could display this data in a contingency table using
+```{r, include = FALSE}
+
+# Display the data in contingency table form:
+```
 ```{r}
 xtabs(count ~ type + rtreat, data = hodgkins)
 ```
@@ -114,42 +163,46 @@ them as observations of Poisson random variables.
 The canonical link function is then the $\log$ function, and Poisson generalised
 linear models with the log link are called *log-linear models*.
 A possible log-linear model for this data set is:
-$$
-Y_i\sim\text{Poisson}(\mu_i),\quad
-\log\mu_i=\alpha+\beta_T(t_i)+\beta_R(r_i)\qquad i=1,\ldots ,12, \eqno{(1)}
-$$
+\[Y_i\sim\text{Poisson}(\mu_i),\quad
+  \log\mu_i=\alpha+\beta_T(t_i)+\beta_R(r_i)\qquad i=1,\ldots ,12,\]
 where $Y_i$ is the $i$th count and $t_i$
 and $r_i$ are the corresponding levels of `type` and `rtreat`.
+We can fit this model in `R` with:
+```{r, include = FALSE}
 
-We use the commands:
+# Fit a log-linear model with main effects only:
+```
 ```{r}
-hod_glm <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
-summary(hod_glm)
-anova(hod_glm, test = "Chisq")
-p_resid <- resid(hod_glm, type = "pearson") # The Pearson residuals are in u
-d_resid <- resid(hod_glm, type = "deviance") # The deviance residuals are in v
-sum(p_resid^2) # The result is the Pearson X^2 statistic
-sum(d_resid^2) # The result is the scaled deviance
+hod_main <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
 ```
 
-By comparing the `type + rtreat`  model with the model `type + rtreat + type:rtreat`
-(`type * rtreat`)
-we are determining whether `type` and `rtreat` are independent
-or whether there is significant evidence of association.
-As every combination of `type` and `rtreat` appears exactly once, the model `type * rtreat`
-is the saturated model, so the test we require compares
-model (1) with the saturated model (a goodness of fit test).
+This model only contains the "main effects"
+`type` and `rtreat`. 
+Alternatively, we could fit a model with an interaction
+between these two main effects:
+```{r, include = FALSE}
 
-The independence model [`type + rtreat`; (1)]
-fails to fit. Its scaled deviance is
-68.3 on 6 degrees of freedom, which is far too large to have
-reasonably come from a $\chi^2_6$ distribution (p-value $<10^{-12}$).
-The residual plot  indicates why the model fails to fit. In particular,
-the residual for observation 12 is very high, and observation 10 is rather low.
-Therefore, the main reason that we are unable to draw the conclusion that
-response to treatment is independent of histological type is that the
-prognosis for individuals with Lymphocyte depletion is significantly worse
-than for other patients. Conversely, patients with Lymphocyte predominance
-and Nodular sclerosis fare rather better.
-Our conclusion is that response to treatment is associated with
-histological type.
+# Fit a log-linear model with interaction between main effects:
+```
+```{r}
+
+hod_int <- glm(count ~ type * rtreat, family = poisson, data = hodgkins)
+```
+Which model do you prefer?
+```{r, include = FALSE}
+
+# Compare the two models:
+anova(hod_main, hod_int, test = "LRT")
+
+# There is strong evidence to prefer hod_int, and we                    # conclude that response to treatment is dependent on
+# the type of the disease.
+```
+By comparing these two models, 
+we are determining whether `type` and `rtreat` are independent,
+or whether there is significant evidence of association.
+If we need the interaction term,
+then this provides evidence that the 
+cross-classifying factors are not independent of one another.
+
+Is there any evidence of dependence between
+response to treatment and type of disease?
