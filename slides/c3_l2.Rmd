@@ -272,86 +272,6 @@ N!\prod_{i=1}^n \frac{p_i^{y_i}}{y_i!} & \text{if $\sum_{i=1}^n y_i=N$} \\
 The binomial is the special
 case of the multinomial with two cells ($n=2$).
 
-## A multinomial log-linear model
-
-When the data
-have been obtained by multinomial sampling, we suppose
-$\bm Y \sim \text{Multinomial}(N, \bm p)$, where
-$\log\mu_i=\log(Np_i)$, ${i=1,\ldots ,n}$ 
-is modelled as as a linear function of
-explanatory variables.
-Such a model must preserve $\sum_{i=1}^n \mu_i=N$, the grand total
-which is fixed in advance.
-
-\pause
-
-The log-likelihood for a multinomial log-linear model is
-$$
-\ell(\bm{\mu})=
-\sum_{i=1}^n y_i\log\mu_i -N\log N -\sum_{i=1}^n \log y_i!+\log N!.
-$$
-
-The maximum likelihood estimates $\hat{\bm{\mu}}$ maximise
-$\sum_{i=1}^n y_i\log\mu_i$ subject to the constraints
-$\sum_{i=1}^n \mu_i=N=\sum_{i=1}^n y_i$ (multinomial sampling) and
-$\log\bm{\mu}=\bm{X}\bm{\beta}$ (imposed by the model).
-
-## Inference in a Poisson log-linear model
-For a Poisson log-linear model,
-$$
-L(\bm{\mu})=\prod_{i=1}^n {{e^{-\mu_i} \mu_i^{y_i}}\over{y_i!}}.
-$$
-
-Therefore
-\vspace{-1cm}
-\begin{align*}
-\ell(\bm{\mu})&=-\sum_{i=1}^n \mu_i
-+\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i!
-\\
-&=-\sum_{i=1}^n \exp(\log\mu_i)
-+\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i!.
-\end{align*}
-
-## Poisson log-linear model with an intercept
-Any Poisson log-linear model with an intercept can be expressed as
-\[\log\mu_i=\alpha + \text{other terms depending on $i$},\qquad {i=1,\ldots ,n}
-\]
-so that
-\vspace{-1cm}
-\begin{align*}
-&\qquad{\partial\over{\partial\alpha}} \ell(\bm{\mu})=-\sum_{i=1}^n \exp(\log\mu_i)
-+\sum_{i=1}^ny_i. \\
-&\Rightarrow\qquad \sum_{i=1}^n \hat{\mu}_i=\sum_{i=1}^n y_i.
-\end{align*}
-At $\alpha=\hat{\alpha}$ the log-likelihood takes the
-form
-$$
-\ell(\bm{\mu})=-\sum_{i=1}^n y_i
-+\sum_{i=1}^ny_i\log{\mu}_i-\sum_{i=1}^n \log y_i!.
-$$
-
-Hence, when we maximise the log-likelihood for a Poisson log-linear model with
-intercept with respect to the other parameters, we are
-maximising
-$\sum_{i=1}^ny_i\log{\mu}_i$ subject to the constraints
-$\sum_{i=1}^n \mu_i=\sum_{i=1}^n y_i$
-and $\log\bm{\mu}=\bm{X}\bm{\beta}$.
-
-## Equivalence of multinomial and Poisson log-linear inference
-
-The maximum likelihood estimates for multinomial log-linear
-parameters are identical to those for Poisson log-linear parameters.
-Furthermore, the maximised log-likelihoods for both Poisson and multinomial
-models take the form $\sum_{i=1}^ny_i\log\hat{\mu}_i$ as functions of
-the log-linear parameter estimates.
-
-So any inferences based on maximised log-likelihoods (such as likelihood
-ratio tests) will be the same.
-
-Therefore, we can analyse contingency table data using Poisson log-linear
-models, even when the data has been obtained by multinomial sampling.
-All that is required is that we ensure that the Poisson model
-contains an intercept term.
 
 
 ## Conclusion
@@ -362,10 +282,12 @@ of counts according to categorical variables.
 log link). We can use log-linear models to model contingency table data,
 and find expected cell counts.
 - If the total count is fixed, a multinomial model is
-more natural than a Poisson one, but we have shown that we make the same
-conclusions about the relationships between variables with either model
+more natural than a Poisson one.
+- Next time, we will show that we make the same
+conclusions about the relationships between variables by using
+a Poisson log-linear model instead of a multinomial one
 (provided that we include an intercept in the Poisson model).
-- Next time, we'll see an extension to the multinomial model in which one
+- We'll also see an extension to the multinomial model in which one
 of the one-way margins is fixed.
 - Reminder: the coursework deadline is 5pm on Wednesday. 
 I have an additional office hour 2:30-3:30pm today, in the Maths
