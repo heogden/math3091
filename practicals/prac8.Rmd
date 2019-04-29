@@ -179,7 +179,7 @@ hod_main <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
 This model only contains the "main effects"
 `type` and `rtreat`. 
 Alternatively, we could fit a model with an interaction
-between these two main effects:
+between these two main effects, which is the saturated model:
 ```{r, include = FALSE}
 
 # Fit a log-linear model with interaction between main effects:
@@ -188,13 +188,30 @@ between these two main effects:
 
 hod_int <- glm(count ~ type * rtreat, family = poisson, data = hodgkins)
 ```
+You can find the estimated cell counts
+under the models with:
+```{r, include= FALSE}
+
+# Find estimated cell counts under the two models:
+```{r}
+fitted(hod_main)
+fitted(hod_int)
+```
+What do you notice about the estimated cell counts under the saturated
+model `mod_int`, compared with the observed counts?
+```{r, include = FALSE}
+# For the saturated model, the estimated cell counts are equal
+# to the observed cell counts
+```
+
 Which model do you prefer?
 ```{r, include = FALSE}
 
 # Compare the two models:
 anova(hod_main, hod_int, test = "LRT")
 
-# There is strong evidence to prefer hod_int, and we                    # conclude that response to treatment is dependent on
+# There is strong evidence to prefer hod_int, and we
+# conclude that response to treatment is dependent on
 # the type of the disease.
 ```
 By comparing these two models, 
