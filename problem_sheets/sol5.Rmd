@@ -46,8 +46,8 @@ So $\hat \beta_2$ satisfies
 
 \item  The fitted probabilities are
 \[\hat p_i = \exp(\hat \beta_1 + \hat \beta_2 x_i) 
-= \exp\left(-\log(\sum_{i=1}^n e^{\hat \beta_2 x_i}) + \hat \beta_2 x_i\right)
-= \frac{e^{\hat \beta_2 x_i}}{\sum_{i=1}^n e^{\hat \beta_2 x_i}}.\]
+= \exp\left(-\log(\sum_{j=1}^n e^{\hat \beta_2 x_j}) + \hat \beta_2 x_i\right)
+= \frac{e^{\hat \beta_2 x_i}}{\sum_{j=1}^n e^{\hat \beta_2 x_j}}.\]
 \eenum
 
 \item
@@ -55,15 +55,16 @@ So $\hat \beta_2$ satisfies
 \item We have $\hat p = z$.
 \item Write $Y_1 = Z$ and $Y_2 = 10 - Z$.
 Then for $N = 10$, $n = 2$, this is a special case of (a), where we want
-\[p_1 = \beta_1 + \beta_2 x_1 = p\]
+\[\log p_1 = \beta_1 + \beta_2 x_1 = \log p\]
 and
-\[p_2 = \beta_1 + \beta_2 x_2 = 1 - p.\]
+\[\log p_2 = \beta_1 + \beta_2 x_2 = \log(1 - p).\]
 To achieve this, we could set $x_1 = 0$ and $x_2 = 1$
 (other choices are also fine). Then we have
-\[p_1 - p_2 = \beta_2 = 2p -1,\]
+\[p_1 - p_2 = \beta_2 = \log(1 - p) - \log(p) = - \log \left(\frac{p}{1-p} \right)
+  = - \text{logit} (p),\]
 and $\beta_1$ is already fixed as in (a).
 
-We know
+From 1(c), we know
 \[\sum_{i=1}^2 y_i x_i - 10 \sum_{j=1}^2 x_j e^{\hat \beta_2 x_j}
 \left(  \sum_{i=1}^2 e^{\hat \beta_2 x_i} \right)^{-1} = 0,\]
 which simplifies to 
