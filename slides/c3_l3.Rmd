@@ -73,7 +73,7 @@ The maximum likelihood estimates for multinomial log-linear
 parameters are identical to those for Poisson log-linear parameters.
 Furthermore, the maximised log-likelihoods for both Poisson and multinomial
 models take the form $\sum_{i=1}^ny_i\log\hat{\mu}_i$, where
-$\hat{\mu}_i = \bm{x}_i^T \bm{\beta}$.
+$\hat{\mu}_i = \bm{x}_i^T \hat \bm{\beta}$.
 
 \pause
 A sketch proof of this result is in the notes. The proof of this
