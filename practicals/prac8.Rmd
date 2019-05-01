@@ -198,7 +198,7 @@ fitted(hod_main)
 fitted(hod_int)
 ```
 What do you notice about the estimated cell counts under the saturated
-model `mod_int`, compared with the observed counts?
+model `hod_int`, compared with the observed counts?
 ```{r, include = FALSE}
 # For the saturated model, the estimated cell counts are equal
 # to the observed cell counts
