@@ -5,43 +5,60 @@ date: ""
 output: pdf_document
 fontsize: 12pt
 ---
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 knitr::opts_knit$set(root.dir = file.path('..', 'datasets'))
 ```
-
-\subsection*{Finding a suitable model}
-
-The  data in `lymphoma.csv` represents 30 lymphoma 
-patients classified by sex (`Sex`), cell type of lymphoma (`Cell`) and response to 
-treatment (`Remis`). The aim here is to study the 
-complex dependence structures between the three classifying factors. 
+## Finding a suitable model for the `lymphoma` data
 
 Read the data from the file `lymphoma.csv` into a data frame called 
 `lymphoma`.
 ```{r, include = FALSE}
+# read in the data:
 lymphoma <- read.csv("lymphoma.csv")
 ```
 
+The  data represents 30 lymphoma 
+patients classified by sex (`Sex`), cell type of lymphoma (`Cell`) and response to 
+treatment (`Remis`). The aim here is to study the 
+complex dependence structures between the three classifying factors. 
+
 Use `xtabs` to find a three-way ($2\times 2\times 2$) contingency table for this data
 ```{r, include = FALSE}
+# make a three-way contingency table for the data
 xtabs(Count ~ Cell + Sex + Remis, data = lymphoma)
 ```
 
 Here the saturated model is the three factor
-interaction model `Cell * Remis * Sex`. We issue:
+interaction model `Cell * Remis * Sex`. We can fit
+a saturated log-linear model with:
 
+```{r, include = FALSE}
+# fit a saturated model:
+```
 ```{r}
 ly_sat <- glm(Count ~ Cell * Remis * Sex, data = lymphoma, family = poisson)
 ```
 
-The saturated model fits exactly. 
-```{r}
+Use the `fitted` method to find the fitted
+values for this saturated model, and the `summary`
+method to find the scaled deviance.
+```{r, include = FALSE}
+# find the fitted values:
+fitted(ly_sat)
+# the fitted values are the same as the observed counts,
+# because the saturated model fits perfectly
+data.frame(fitted = fitted(ly_sat), observed = lymphoma$Count)
+
+# We can see the scaled deviance in the output from summary:
 summary(ly_sat)
+# the scaled deviance (residual deviance) is 0 
 ```
-confirms that we have zero deviance.
 
 Now we drop the three factor interaction term.
+```{r, include = FALSE}
+# Drop the three factor interaction term:
+```
 ```{r}
 ly_glm1 <- update(ly_sat, . ~ . - Cell:Remis:Sex)
 ```
@@ -50,32 +67,57 @@ Note the colon instead of the `*` in   `Cell:Remis:Sex`.
 What would happen if you used `*`?
 Which `formula` would you use to fit the same model directly 
 (without using `update`)?
-
-Issue 
-```{r}
-summary(ly_glm1)
-anova(ly_glm1, test = "Chisq")
+```{r, include = FALSE}
+# To fit the same model directly, could use
+ly_glm1_direct <- glm(Count ~ Cell + Remis + Sex
+                      + Cell:Remis + Cell:Sex + Remis:Sex,
+                      data = lymphoma, family = poisson)
 ```
-From the output,  we can see that
-we can remove the `Remis:Sex` term and no more.
-We cannot remove any of the
-remaining two  interaction terms, `Cell:Remis`
-and `Cell:Sex` because of low $p$-values;  we  cannot remove
-any lower order terms if they appear in higher order terms. Remember the
-*principle of marginality*!
 
-Issue the following two commands.
+Consider dropping each of the two-way interaction terms.
+For instance, to fit the model without the
+`Remis:Sex` interaction:
+```{r, include = FALSE}
+# We fit the model without the Remis:Sex interaction:
+```
 ```{r}
 ly_glm2 <- update(ly_glm1, . ~ . - Remis:Sex)
-summary(ly_glm2)
 ```
-
-We issue the following commands to see the quality of fit. Compare
-the observed and fitted counts.
+We can compare the models `ly_glm1` and `ly_glm2`
+by using a log-likelihood ratio test:
+```{r, include = FALSE}
+# Conduct log-likelihood ratio tests to drop terms:
+```
 ```{r}
-pcount <- predict(ly_glm2, type = "response")
+anova(ly_glm2, ly_glm1, test = "LRT")
+```
+Which model do you prefer? 
 
-data.frame(observed=lymphoma$Count, fitted=pcount)
+Can you drop any other interaction
+terms? Can you drop any main effects? Remember that you should only
+consider dropping a main effect from the model
+if you have already removed all interaction terms
+involving that main effect.
+
+```{r, include = FALSE}
+# Do not reject null hypothesis of simpler model,
+# prefer `ly_glm2`. 
+
+# Now consider dropping Cell:Remis
+ly_glm3 <- update(ly_glm2, . ~ . - Cell:Remis)
+anova(ly_glm3, ly_glm2, test = "LRT")
+# The p-value is small, so we reject the simpler model,
+# and still prefer ly_glm2
+
+# Now consider dropping Cell:Sex
+ly_glm4 <- update(ly_glm2, . ~ . - Cell:Sex)
+anova(ly_glm4, ly_glm2, test = "LRT")
+# The p-value is small, so we reject the simpler model,
+# and still prefer ly_glm2
+
+# We must then keep all the main effects in the model,
+# because we include each of Cell, Remis and Sex
+# in at least one interaction term.
 ```
 
 ## Investigating  the dependence structure
@@ -103,12 +145,13 @@ We now illustrate the above theory. We first find the
 by 30 (which is the total number of patients classified).
 
 ```{r}
-fit.prob <- pcount/(sum(pcount))
-fit.prob
+# Find the expected cell counts under the model
+fitted_count <- fitted(ly_glm2)
+# Find the expected cell probabilities under the model
+fitted_prob <- fitted_count/(sum(fitted_count))
+fitted_prob
 ```
-
-
-Subsequently, we form the odds ratios by dividing the probabilities,
+We then form the odds ratios by dividing the probabilities,
 e.g. $\frac{0.1282}{0.0385} = 3.33$.
 
 Check that you can replicate Table 3.9 from the notes.
@@ -116,3 +159,14 @@ The odds depend only on a patient's Cell type, and not on their
 Sex. This means that remission  and sex are conditionally
 independent given cell type. Are they marginally independent?
 
+```{r, include = FALSE}
+# We can add up the probabilities for each cell type
+# to give the marginal probabilities as in Table 3.8.
+# The odds of remission are 
+0.2208 / 0.1792
+# for female patients, and
+0.1792 / 0.4208
+# for male patients, which are not the same.
+# Female patients are much more likely to go into remission.
+# Remis and Sex and not marginally independent.
+```
