@@ -1,0 +1,381 @@
+---
+title: "MATH3012: Chapter 3, Lecture 4"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+## Recap
+
+Last time we considered the implications of a log-linear model
+with no interaction term for the job dataset.
+
+```{r, include = FALSE}
+job <- read.csv("job.csv")
+job$Income <- factor(job$Income, levels = c("<6000", "6000-15000", "15000-25000", ">25000"))
+job$Satisfaction <- factor(job$Satisfaction, 
+levels = c("Very Dissatisfied", "A Little Dissatisfied", "Moderately Satisfied", "Very Satisfied"))
+```
+```{r}
+loglin_job_1 <- glm(Count ~ Income + Satisfaction, 
+                    family = poisson, data = job)
+```
+
+We found that under this model, the fitted conditional probabilities 
+for having each level of job satisfaction were the same for
+each income group. 
+\pause
+
+For this model for a two-way table, with no interaction (no `Income:Satisfaction` term),
+we find the the cross-classifying factors (`Income` and `Satisfaction`)
+are independent. Now, we'll show that this is true in general,
+and then go on to look at multi-way tables.
+
+## Interpretation for two-way tables
+
+We consider
+a two-way $r\times c$ table where the two classifying
+variables $R$ and $C$ have $r$ and $c$ levels respectively.
+
+The saturated model $R*C$ implies that the two variables are
+associated. If we remove the RC interaction, we have the model $R+C$,
+$$
+\log\mu_i=\alpha+\beta_R(r_i)+\beta_C(c_i),\qquad{i=1,\ldots ,n}
+$$
+where $n=rc$ is the total number of cells in the table.
+
+## Cell probabilities in main-effects model
+
+Because of the equivalence of Poisson and multinomial sampling,
+we can think of each cell mean $\mu_i$ as equal to $Np_i$ where $N$
+is the total number of observations in the table, and $p_i$ 
+a cell probability.
+
+As each combination of levels of $R$ and $C$ is represented
+in exactly one cell, it is also convenient to replace the cell label
+$i$ by the pair of labels $j$ and $k$ representing the corresponding levels
+of $R$ and $C$ respectively. Hence
+\[\log p_{jk}=\alpha+\beta_R(j)+\beta_C(k)-\log N,\]
+for $j=1,\ldots ,r$ and 
+$k=1,\ldots ,c.$
+
+## Joint row and column probabilities
+We have
+\[\log p_{jk}=\alpha+\beta_R(j)+\beta_C(k)-\log N,\]
+so
+\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N],\]
+for $j=1,\ldots ,r$ and
+$k=1,\ldots ,c.$
+
+So
+\vspace{-0.5cm}
+\begin{align*}
+1&=\sum_{j=1}^r\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&={1\over N}\exp[\alpha]\sum_{j=1}^r\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)].
+\end{align*}
+
+## Marginal row and column probabilities
+
+Since 
+\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N],\]
+we have
+\vspace{-0.5cm}
+\begin{align*}
+P(R=j)&=\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&={1\over N}\exp[\alpha]\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)],
+\quad j=1,\ldots,r,
+\end{align*}
+and
+\vspace{-0.5cm}
+\begin{align*}
+P(C=k)&=\sum_{j=1}^r\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&={1\over N}\exp[\alpha]\exp[\beta_C(k)]\sum_{j=1}^r\exp[\beta_R(j)],
+\quad k=1,\ldots,c.
+\end{align*}
+
+## Independence of cross-classifying variables
+
+Therefore
+\vspace{-0.5cm}
+\begin{align*}
+P(R=j)P(C=k) &=
+{1\over N}\exp[\alpha]\exp[\beta_C(k)]\exp[\beta_R(j)]\times 1 \\
+&=P(R=j,C=k)
+\end{align*}
+for $j=1,\ldots ,r,$ 
+$k=1,\ldots ,c.$
+
+\pause
+
+Absence of the interaction $R*C$ in a log-linear
+model implies that $R$ and
+$C$ are independent variables.
+
+Absence of main effects is generally less interesting,
+and main effects are typically not removed from a log-linear
+model.
+
+## Interpretation for multi-way tables
+
+In multi-way tables, absence of a two-factor interaction
+does not necessarily mean that the two variables are independent.
+
+For example, consider the `lymphoma` dataset, with 3 binary classifying
+variables Sex ($S$), Cell type ($C$) and Remission ($R$).
+
+After comparing the fit of several possible models, we find that a reasonable
+log-linear model for these data is $R * C + C * S$.
+
+Hence the interaction between remission and sex is absent.
+
+```{r, include = FALSE}
+lymphoma <- read.csv("lymphoma.csv")
+```
+```{r}
+mod <- glm(Count ~ Remis * Cell + Cell * Sex,
+           data = lymphoma, family = poisson)
+```
+
+## Expected cell counts ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+\scriptsize
+```{r}
+coef(mod)
+```
+
+\normalsize
+
+Which of the following would give the expected
+count of Female patients with Nodular cell type who
+were in remission
+under model `mod`?
+
+
+- exp(1.261) = 3.53
+- exp(1.261 -2.015 -0.648) = 0.25
+- exp(1.261 -2.015 -0.648 + 3.219) = 6.15
+- exp(1.261 - 2.015 - 0.648 + 1.179 + 3.219 - 1.649) = 3.85
+
+## Expected cell counts
+
+```{r}
+xtabs(fitted(mod) ~ Cell + Sex + Remis, data = lymphoma)
+```
+
+## Fitted cell probabilities
+
+```{r}
+N <- sum(lymphoma$Count)
+p <- fitted(mod)/N
+xtabs(p ~ Cell + Sex + Remis, data = lymphoma)
+```
+
+## Marginal cell probabilities
+
+The estimated probabilities for the two-way Sex/Remission
+margin are:
+
+```{r, include = FALSE}
+lymphoma_p_margins <- margin.table(lymphoma_p_table, margin = c(2, 3))
+lymphoma_p_margins <- addmargins(lymphoma_p_margins)
+knitr::kable(lymphoma_p_margins, digits = 4,
+             format = "latex", booktabs = TRUE)
+```
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+  & \multicolumn{2}{c}{Remission}  & \\
+  \cmidrule{2-3}
+Sex  & No & Yes & {\bf Sum}\\
+\midrule
+Female & 0.1792 & 0.2208 & {\bf 0.4}\\
+Male & 0.4208 & 0.1792 & {\bf 0.6}\\
+\bf{Sum} & {\bf 0.6} & {\bf 0.4} & {\bf 1.0} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\pause
+The estimated conditional probability of remission is
+$0.2208/ 0.4 = 0.55$ for female patients, and $0.1792 / 0.6 = 0.30$
+for male patients.
+
+So remission ($R$) and sex ($S$) are not independent.
+
+## Conditional independence
+
+What the model $R*C+C*S$ implies is that $R$ is independent of $S$
+*conditional on* $C$, that is
+$$
+P(R,S|C)=P(R|C)P(S|C).
+$$
+Another way of expressing this is
+$$
+P(R|S,C)=P(R|C),
+$$
+that is, the probability of each level of $R$
+given a particular combination of $S$ and $C$, does not
+depend on which level $S$ takes.
+Equivalently, we can write $P(S|R,C)=P(S|C)$.
+
+## Odds and conditional independence
+
+This can be observed by calculating the estimated conditional odds 
+of remission for the `lymphoma` dataset.
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+ & & \multicolumn{2}{c}{Remission} & \\
+ \cmidrule{3-4}
+Cell Type & Sex  & No & Yes & Odds\\
+\midrule
+\multirow{2}{*}{Diffuse} & Female & 0.1176 & 0.0157 & 0.13\\
+ & Male & 0.3824 & 0.0510 & 0.13\\
+ \midrule
+\multirow{2}{*}{Nodular} & Female & 0.0615 & 0.2051 & 3.33\\
+ & Male & 0.0385 & 0.1282 & 3.33\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The odds (and therefore the probability)
+of remission given Cell type and Sex 
+depend only on a patient's Cell type, and not on their
+Sex.
+
+So $P(R|S, C) = P(R|C)$, and $R$ is independent of $S$,
+given $C$.
+
+## Interpretation for `lymphoma` example
+
+Although $R$ and $S$ are conditionally independent given $C$,
+ they are not marginally independent. 
+Male patients have a much lower probability of remission.
+
+Observing the estimated values it is clear that patients with nodular cell type
+have a greater probability of remission, and furthermore, that female
+patients are more likely to have this cell type than males.
+Hence women are more likely to be in remission than men.
+
+## General result on conditional independence
+  
+In general, suppose we have an $r$-way contingency table with classifying
+variables $X_1,\ldots ,X_r$.
+
+A log linear model which does not contain the
+$X_1 * X_2$ interaction 
+implies that $X_1$ and $X_2$ are *conditionally independent*
+given $X_3,\ldots ,X_r$, that is
+$$
+P(X_1,X_2|X_3,\ldots ,X_r)=P(X_1|X_3,\ldots ,X_r)P(X_2|X_3,\ldots ,X_r).
+$$
+
+We do not prove this here.
+
+
+## Implications for three-way tables
+
+Suppose the factors for a three-way tables are $X_1$, $X_2$ and $X_3$.
+We can list all possible models and the implications for the conditional independence structure:
+
+1. Model 1 containing the terms $X_1, X_2, X_3$. All factors are mutually
+independent.
+1. Model 2  containing the terms $X_1*X_2, X_3$. The factor
+ $X_3$ is jointly independent of $X_1$ and $X_2$.
+1. Model 3  containing the terms $X_1*X_2, X_2*X_3$.
+The factors $X_1$ and $X_3$ are conditionally independent given $X_2$.
+1. Model 4  containing the terms $X_1*X_2, X_2*X_3, X_1*X_3$.  There is
+no conditional independence structure. This is the model without
+the highest order interaction term.
+1. Model 5 containing  $X_1*X_2*X_3$. This is the saturated model.
+No more simplification of dependence structure is possible.
+
+## Simpson's paradox
+
+
+In 1972-74, a survey of women was carried out in an area of Newcastle.
+A follow-up survey was carried out 20 years later.
+
+A summary of the responses is:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Smoker&Dead&Alive&Odds (Dead)\\
+\midrule
+Yes & 139 & 443 & 0.31 \\
+No & 230 & 502 & 0.46 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Looking at this table, it appears that the non-smokers had
+a greater probability of dying: can that be right?
+
+## Simpson's paradox explained
+
+There is an important extra variable to be considered, related
+to both smoking habit and mortality -- age (at the time of the initial survey).
+
+When we consider this variable, we get:
+
+\scriptsize
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+Age&Smoker&Dead&Alive&Odds(Dead)& Odds ratio \\
+\midrule
+\multirow{2}{*}{18--34} & Yes & 5 & 174 & 0.029 & \multirow{2}{*}{1.02} \\
+&No&6&213&0.028 & \cr
+\multirow{2}{*}{35--44} &Yes&14&95&0.147& \multirow{2}{*}{2.40} \\
+&No&7&114&0.061 &\cr
+\multirow{2}{*}{45--54} &Yes&27&103&0.262 & \multirow{2}{*}{1.44}\cr
+&No&12&66&0.182 & \cr
+\multirow{2}{*}{55--64} &Yes&51&64&0.797 & \multirow{2}{*}{1.61}\cr
+&No&40&81&0.494 & \cr
+\multirow{2}{*}{65--74} &Yes&29&7&4.143 & \multirow{2}{*}{1.15}\cr
+&No&101&28&3.607 & \cr
+\multirow{2}{*}{75--} &Yes&13&0&--- & \multirow{2}{*}{---}\cr
+&No&64&0&--- &\cr
+\bottomrule
+\end{tabular}
+
+## Simpson's paradox explained
+
+Conditional on every age at outset, it is now the smokers
+who have a higher probability of dying.
+
+The marginal association is reversed in the table conditional on age,
+because mortality and smoking are associated with age.
+There are proportionally many fewer smokers in the older age-groups
+(where the probability of death is greater).
+
+When making inferences about associations between variables, it is
+important that all other variables which are relevant are considered.
+Marginal inferences may lead to misleading conclusions.
+
+
+## Conclusion
+
+- We have seen how to interpret log-linear models, in terms
+of (conditional) independence between variables.
+- This completes the lecture material!
+- You should now be able to complete
+all of problem sheet 5.
+- Next weeks' sessions (the two lectures and tutorial) will all
+be revision sessions. I will have an additional office hour in
+place of next week's computer lab (but tomorrow's computer lab
+is running as usual).
+- In the revision sessions, we will go over some key concepts, and
+ discuss the solutions to the additional exercises on Chapters 1 and 2.
+
