@@ -1,0 +1,557 @@
+---
+title: "MATH3012: Revision Lectures"
+date: ""
+author: Helen Ogden
+header-includes:
+- \usepackage{bm}
+- \usepackage{booktabs, multirow}
+output:
+  beamer_presentation
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '../datasets')
+```
+
+## Introduction
+
+- The two lectures and the tutorial this week will all
+be used as revision lectures.
+- In each of these revision lectures, I will list some
+key concepts from the course, then go through
+a related example. 
+- Many of you have asked me about the level of knowledge
+of `R` required for the exam. As we go over the key concepts,
+we'll also see some examples of the type of `R` commands
+you might need to know, and some examples of the type of 
+`R` output which
+you might need to be able to interpret in an exam.
+
+## Likelihood inference
+
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where the probability
+function or density function of each $Y_i$ is given, depending on some
+unknown parameter. 
+
+You should be able to:
+
+- Write down the log-likelihood, and find the MLE
+- Find the score
+- Find the observed information
+- Find the Fisher information
+- Write down the asymptotic distribution of the MLE
+
+## Example: Additional exercises, Question 1(b) 
+
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{gamma}(2, \lambda)$, with  p.d.f.
+$f_{Y}(y; \lambda) = \lambda^2 y e^{-\lambda y}$, $y > 0$,
+$\lambda > 0$.
+
+Derive the maximum likelihood estimator $\hat \lambda$ of $\lambda$,
+  find the score and Fisher information, and
+  write down the asymptotic distribution of $\hat \lambda$.
+
+## Confidence intervals
+
+You should be able to:
+
+- Use the asymptotic distribution of the MLE to derive a 
+  confidence interval for a parameter.
+  
+## Example: Additional exercises, Question 1(c)
+  
+   Let $z_q$ be the $q$-quantile
+    of a standard normal distribution, such that
+    $P(Z \leq z_q) = q$ if $Z \sim N(0, 1)$.
+    Use the asymptotic distribution of $\hat \lambda$ from 1(b) to
+    derive an approximate $97 \%$ confidence
+    interval for $\lambda$.
+  
+## Hypothesis testing
+
+You should be able to:
+
+- Determine whether one hypothesis is nested within another.
+- Compute a log-likelihood ratio test statistic $L_{01}$ given a null 
+hypothesis $H_0$ which is nested within the alternative hypothesis $H_1$.
+- State the approximate distribution of $L_{01}$ under $H_0$.
+- Decide whether or not to reject $H_0$, on the basis of $L_{01}$.
+
+
+## Quiz: nested hypotheses ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose $Y_i \sim \text{gamma}(2, \lambda)$.
+
+In which of the following cases is $H_0$ nested within $H_1$?
+
+
+- $H_0: \text{``$\lambda$ is unrestricted''}$,  $H_1: \lambda = 0.5$.
+- $H_0: \lambda = 0.5$, $H_1: \text{``$\lambda$ is unrestricted''}$.
+- $H_0: \lambda = 1$, $H_1: \lambda < 2$.
+- $H_0: \lambda < 2$, $H_1: \lambda = 1$.
+- $H_0: \lambda < 2$, $H_1: \lambda < 3$.
+- $H_0: \lambda < 2$, $H_1: 1 < \lambda < 3$.
+                         
+
+## Example: Additional exercises, Question 1(d)
+
+Suppose you would like to test $H_0: \lambda = 0.5$ against
+  the alternative $H_1: \text{"$\lambda$ is unrestricted"}.$
+  Write down an equation for a log-likelihood ratio test statistic $L_{01}$ which could be used to test this hypothesis.
+
+
+## Quiz: Finding $k$ ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+We should reject $H_0$ if $L_{01} > k$, for some value of $k$.
+
+Write down some `R` code which would compute the value of $k$
+which gives a test of approximate size $\alpha = 0.01$.
+
+## The exponential family
+
+You should be able to:
+
+- Recall the definition of what it means for a probability distribution
+  to belong to the exponential family.
+- Show a given distribution belongs to the exponential family.
+- Recall the general form of the mean and variance for a distribution
+  which belongs to the exponential family.
+- Find the mean and variance of a given distribution which belongs 
+  to the exponential family, using this general result.
+- Given a distribution belonging to the exponential family, find the
+  the canonical parameter and the mean parameter.
+  
+## Definition of the exponential family
+
+A probability distribution is said to be a member of the exponential family if 
+\pause
+its probability density
+function (or probability function, if discrete) can be written in the form
+\[f_Y(y;\theta,\phi)=\exp\left({{y\theta-b(\theta)}\over{a(\phi)}} +c(y,\phi)\right).\]
+
+The parameter $\theta$ is called the *canonical* parameter.
+
+
+
+## Mean and variance of the exponential family
+
+If $Y$ belongs to the exponential family, then
+  what is $E(Y)$?
+  \pause
+  \[E(Y) = b'(\theta).\]
+  
+  What is $\text{Var}(Y)$?
+  \pause
+  \[\text{Var}(Y) =  a(\phi)b''(\theta).\]
+  
+  
+## Example: Additional exercises, Question 1(a)
+
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{gamma}(2, \lambda)$, with  p.d.f.
+$f_{Y}(y; \lambda) = \lambda^2 y e^{-\lambda y}$, $y > 0$,
+$\lambda > 0$.
+ 
+ 
+Show that the $\text{gamma}(2, \lambda)$ distribution is a member
+  of the exponential family, where you should set $a(\phi) = -1$.
+
+Hence find $E(Y)$
+  and $\text{Var}(Y)$ in terms of $\lambda$.
+
+[What is the canonical parameter? What is the mean parameter?]
+
+## Generalised linear models
+
+You should be able to:
+
+- Recall the definition of a generalised linear model.
+- Find a canonical link function.
+- Given a link function $g(.)$, express parameters 
+  (canonical parameters, mean parameters or original parameters) 
+  in terms of the explanatory variables $x_i$.
+
+## Generalised linear models
+
+A model for $\bm{Y} = (Y_1, \ldots, Y_n)^T$, given explanatory
+variables $\bm{x}_i$ ($i = 1,\ldots, n$) is a GLM if:
+
+- the $Y_i$ are independent.
+- the distribution of each $Y_i$ belongs to a common exponential family, but the canonical parameter $\theta_i$ varies with $i$.
+- The distribution of $Y_i$ depends on $\bm x_i$ through a linear predictor $\eta_i  = \bm{x}_i^T \bm{\beta}$, where
+\[\eta_i = g(\mu_i) = g(b'(\theta_i))\]
+for some link function $g(.)$.
+
+## Link functions and the relationship between parameters
+
+We have
+\[\eta_i = g(\mu_i) = g(b'(\theta_i)).\]
+
+This means that
+\[\theta_i = (b')^{-1}(\mu_i) = (b')^{-1}\left(g^{-1}(\eta_i)\right).\]
+
+The canonical link is
+\[g(\mu)= (b')^{-1}(\mu),\]
+chosen so that the canonical parameter equals
+the link predictor ($\theta_i = \eta_i$).
+
+Since $\mu = b'(\theta)$, you can find the canonical link
+by find $\mu$ as a function of $\theta$, then solving
+for $\theta$.
+
+
+## Example: Additional exercises, Question 2(a)
+
+
+Suppose $y_1,y_2,\ldots,y_n$ are observations from independent
+random variables $Y_1, \ldots, Y_n$, where 
+$Y_i \sim \text{gamma}(2, \lambda_i)$, and that we want to allow $\lambda_i$ to
+    depend on explanatory variables ${\bm x}_i$, via a linear
+    predictor $\eta_i = {\bm x}_i^T {\bm \beta}$. 
+
+Derive
+    the canonical link function for the $\text{gamma}(2, \lambda)$ distribution.
+
+## Example: Additional exercises, Question 2(b)
+
+Assuming the canonical link:
+
+- write down an expression for
+$\mu_i = E(Y_i)$ in terms of the explanatory variables.
+- write down an expression for 
+the canonical parameters $\theta_i$ in terms of the explanatory variables.
+- write down an expression for $\lambda_i$ in terms of the explanatory variables.
+
+
+## Example: Additional exercises, Question 2(c) and 2(d)
+
+- Explain why the canonical link is not a sensible choice 
+  of link function in this case.
+- Write down a reasonable model for $\lambda_i$ in terms of
+  $\bm{x}_i$, and find the corresponding link function.
+
+## Maximum likelihood estimation for GLMs
+
+You should be able to:
+
+- write down the log-likelihood for a given GLM, and find
+  a set of simultaneous equations, the solutions of which 
+  are the MLE for the regression coefficients $\bm \beta$.
+- State the Newton-Raphson and Fisher scoring algorithms, and
+  determine when the two methods are identical.
+
+## Example: Additional exercises, Question 2(e)
+
+Suppose now that
+\begin{equation}
+\log \lambda_i = \beta_1 + \beta_2 x_{i}
+\label{eq:mod_linear}
+\end{equation}
+and that $\bm \beta = (\beta_1, \beta_2)$.
+
+Write down the likelihood in terms of $\beta_1$ and $\beta_2$
+  and hence derive a pair of simultaneous equations, the solutions of which are the maximum likelihood estimates of $\beta_1$ and $\beta_2$.
+
+
+## Example: Additional exercises, Question 2(f)
+
+Assuming model \eqref{eq:mod_linear}, calculate the observed information matrix $-H(\bm \beta)$
+  and the Fisher information matrix ${\cal I}(\bm \beta)$.
+  
+  Write down the steps of the Fisher scoring algorithm in terms of
+  the score vector $\bm u(\beta)$ and the Fisher information matrix ${\cal I}(\bm \beta)$.
+  
+  Are the Newton-Raphson and the Fisher scoring methods identical
+  for this problem? Justify your answer.
+
+
+## Inference for GLMS
+
+You should be able to:
+
+- Formulate a comparison between two nested GLMs as a hypothesis test,
+  construct the relevant log likelihood ratio test statistic $L_{01}$,
+  and state the distribution of $L_{01}$ under H0.
+- Use the scaled deviance to check model fit, 
+  and use the scaled deviance of two models to compute the log 
+  likelihood ratio test statistic.
+- Understand the output of a call to the `anova` function in `R`, 
+  and use this output to compare nested GLMs.
+
+## Example: Additional exercises, Question 2(g)
+
+Consider the alternative model $Y_i \sim \text{Gamma}(2, \lambda_i)$,
+where
+\begin{equation}
+  \log \lambda_i = \beta_1 + \beta_2 x_i + \beta_3 x_{i}^2.
+  \label{eq:mod_quad}
+\end{equation}
+Show that model \eqref{eq:mod_linear} is nested in model \eqref{eq:mod_quad},
+and write down the the null hypothesis $H_0$ and the
+alternative hypothesis $H_1$ you would use for comparing the models.
+
+## Quiz: scaled deviance ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+Suppose that there are $n = 50$ points in the sample.
+
+Recall that model \eqref{eq:mod_linear} is that
+\[\log \lambda_i = \beta_1 + \beta_2 x_{i}.\]
+The scaled deviance for model \eqref{eq:mod_linear} is $L_{0s} = 11.0$.
+
+If model \eqref{eq:mod_linear} is correct, the distribution
+of $L_{0s}$ should be approximately $\chi^2_a$, for
+some number of degrees of freedom $a$. What is $a$?
+
+\pause
+
+We would be concerned about the fit of model \eqref{eq:mod_linear}
+if $L_{01} > k$, for some $k$. What code would you type in `R`
+to find $k$?
+
+## Example: Additional exercises, Question 2(h)
+
+The scaled deviance for model \eqref{eq:mod_linear} is 11.0,
+  and the scaled deviance for model \eqref{eq:mod_quad} is 5.0.
+  Calculate the log likelihood ratio test statistic $L_{01}$ for testing
+$H_0$ against $H_1$. 
+
+What is the approximate distribution of $L_{01}$ under $H_0$?
+
+## Example: Additional exercises, Question 3(b) and 3(c)
+
+
+Suppose $y_1,y_2,\ldots,y_{100}$ are observations from independent
+random variables $Y_1, \ldots, Y_{100}$, where 
+$Y_i \sim \text{Bernoulli}(p_i)$. Suppose that we have explanatory variables
+$x_1, \ldots, x_{100}$, and that we want to model how $p_i$ depends on $x_i$.
+We have the following candidate models:
+
+- Model 1: $\text{logit}(p_i) = \beta_1,$ where 
+  $\text{logit}(p) = \log(p / 1- p)$.
+  The scaled deviance for this model is $136.7$.
+- Model 2: $\text{logit}(p_i) = \beta_1 + \beta_2 x_i.$
+  The scaled deviance for this model is $97.42$.
+- Model 3: $\text{logit}(p_i) = \beta_1 + \beta_2 x_i + \beta_3 x_i^2.$
+  The scaled deviance for this model is $96.98$.
+- (etc.)
+
+Write down the the null hypothesis $H_0$ and the
+alternative hypothesis $H_1$ you would use for comparing 
+Model 1 and Model 3.
+
+Calculate the log likelihood ratio test statistic $L_{01}$ for testing
+  $H_0$ and $H_1$. What is the approximate distribution of $L_{01}$ under $H_0$?
+
+## Example: Additional exercises, Question 3(d)
+
+```{r, include = FALSE}
+set.seed(1)
+n <- 100
+x <- abs(rnorm(n))
+eta <- 0.5 + 0.6 * log(x)
+p <- pnorm(eta)
+y <- rbinom(n, 1, p)
+mod1 <- glm(y ~ 1, family = binomial)
+mod2 <- glm(y ~ x, family = binomial)
+mod3 <- glm(y ~ x + I(x^2), family = binomial)
+mod4 <- glm(y ~ x, family = binomial("probit"))
+mod5 <- glm(y ~ x + I(x^2), family = binomial("probit"))
+mod6 <- glm(y ~ log(x), family = binomial)
+```
+
+ In `R`, we call Model 1 `mod1` and Model 3 `mod3`, and compare these
+models with:
+```{r, eval = FALSE}
+anova(mod1, mod3)
+```
+Fill in the gaps A, B, C, D, E and F in the output:
+```{r, echo = FALSE}
+an_out <- capture.output(anova(mod1, mod3))
+an_out[6] <- "1       [A]   [  B  ]"
+an_out[7] <- "2       [C]   [  D  ]  [E] [  F  ]"
+cat(an_out, fill = 1)
+```
+## Example: Additional exercises, Question 3(d) ctd.
+
+
+Which model do you prefer, out of `mod1` and `mod3`?
+Justify your answer.
+The $95\%$ points of a $\chi^2_d$ distribution are
+\scriptsize
+```{r}
+qchisq(0.95, df = 1:10)
+```
+\normalsize
+for $d = 1, \ldots, 10$.
+
+
+## Contingency tables and log-linear models
+
+You should be able to:
+
+- take data given to you in long (data frame) format, and
+  write it as a contingency table.
+- find the margins of a contingency table.
+
+## Example: converting to a contingency table
+
+```{r, include = FALSE}
+hodgkins <- read.csv("hodgkins.csv")
+```
+\scriptsize
+```{r}
+hodgkins
+```
+\normalsize
+Write the data in `hodgkins` as a two-way contingency
+table, classified by type of disease (`type`)
+and response to treatment (`rtreat`).
+
+\pause
+
+Find the one-way margins of this contingency table.
+
+## Log-linear models
+
+You should be able to:
+
+- Determine whether a Poisson, multinomial or product multinomial
+  log-linear model is appropriate, given information about
+  how the data were collected.
+- Determine which terms must be kept in the model in order
+  for inference for a multinomial or product multinomial
+  log-linear model to be identical to inference with a 
+  Poisson log-linear model.
+- Find expected counts in each cell of a contingency table,
+   given estimates of the parameters of any given log-linear model.
+- Interpret a given log-linear model in terms
+  of the relationships (independence or conditional independence)
+  between the cross-classifying variables.
+
+
+## Example: types of log-linear model
+
+Consider three scenarios for how the `hodgkins` data might
+have been collected:
+
+1.  it was decided to to collect data on all
+patients treated in one clinic in a given year.
+What type of log-linear model is appropriate?
+1. it was decided in advance to recruit $528$ patients 
+into the study.
+1. it was decided in advance to recruit a fixed number of patients
+with each disease into the study.
+
+In each case:
+
+- what type of log-linear model is appropriate (Poisson, multinomial
+  or product multinomial)?
+- which terms need to be included in the model in order
+  that correct inference may be obtained with a Poisson log-linear model?
+
+## Quiz: expected cell counts  ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+
+Two possible log-linear models for the `hodgkins` data have been fitted
+in `R`:
+\scriptsize
+```{r}
+mod1 <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
+coef(mod1)
+```
+\normalsize
+
+Under `mod1`, what is the expected count $\hat \mu_i$
+of patients with the `Ns` type of the disease, who have
+`partial` response to treatment?
+
+## Quiz: expected cell counts  ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+\scriptsize
+```{r}
+mod2 <- glm(count ~ type * rtreat, family = poisson, data = hodgkins)
+coef(mod2)
+```
+\normalsize
+
+Under `mod2`, what is the expected count $\hat \mu_i$
+of patients with the `Ns` type of the disease, who have
+`partial` response to treatment?
+
+## Quiz: interpretation ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+\scriptsize
+```{r}
+mod1 <- glm(count ~ type + rtreat, family = poisson, data = hodgkins)
+```
+
+\normalsize
+If `mod1` is found to be the preferred model, what do you
+conclude about the relationship between type of disease
+and response to treatment?
+
+- The response to treatment is independent of the type
+  of disease.
+- The response to treatment is conditionally independent
+  of the type of disease, given the gender of the patient.
+- The response to treatment depends on the type of disease.
+
+## Quiz: interpretation ([web.meetoo.com](https://web.meetoo.com), 108-197-366)
+
+\scriptsize
+```{r}
+mod2 <- glm(count ~ type * rtreat, family = poisson, data = hodgkins)
+```
+
+\normalsize
+If `mod2` is found to be the preferred model, what do you
+conclude about the relationship between type of disease
+and response to treatment?
+
+- The response to treatment is independent of the type
+  of disease.
+- The response to treatment is conditionally independent
+  of the type of disease, given the gender of the patient.
+- The response to treatment depends on the type of disease.
+
+
+## Example: Exam 2017/18, Question 3(b)
+
+Suppose log-linear models are used for fitting the probabilities 
+in a $2\times 2\times 2$ contingency table
+that involves three categorical variables for the graduates majored
+in the disciplines of chemical science and economic science, where 
+ the three variables 
+are denote by D = Discipline (Chemical or Economic), G = Gender (Male or Female), and S = Exam Score (Low or High).
+
+## Example: Exam 2017/18, Question 3(b) ctd.
+
+The residual deviances (i.e., the scaled deviances) for various 
+log-linear models are given below:
+\vspace{-0.5cm}
+\scriptsize
+\begin{center}
+\begin{tabular}{llll}   \hline
+Model & Residual Deviance & Model & Residual Deviance \\ \hline
+$D*G + D*S + G*S$ &   17.1 & $D*G +S$ & 457.5 \\ %dfs 5 & 11
+$D*G + D*S$       & 307.1 & $D*S +G$ & 534.2 \\ %dfs 10 & 11
+$D*G + G*S$       &  340.7 & $D+ G*S$ & 261.1 \\ %dfs 10 & 15
+$D*S + G*S$       & 110.7 & $D  + G + S$ & 684.6 \\ %dfs 6  & 16
+\hline
+\end{tabular}
+\end{center}
+
+\normalsize
+\vspace{-0.5cm}
+
+- [10 marks] Calculate the degrees of freedom for each of these models.
+- [5 marks] By giving reasons find the model which you believe best
+describes the data.
+Interpret the conditional independence structure of the  chosen model.
+
+[Note that the $95$th quantiles of the chi-squared distributions with $1$, $2$ and $3$ degrees of freedom are, respectively, $3.84$, $5.99$ and $7.81$.]
