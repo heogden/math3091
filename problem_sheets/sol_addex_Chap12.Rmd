@@ -57,15 +57,15 @@ The asymptotic distribution of $\hat \lambda$ is
 Asymptotically, we have
 \[\frac{\sqrt{2n}(\hat \lambda - \lambda)}{\lambda} \sim N(0, 1),\]
 so 
-\[P(z_{0.035} \leq \frac{\sqrt{2n}(\hat \lambda - \lambda)}{\lambda} \leq z_{0.965}) \approx 0.97,\] 
+\[P(z_{0.015} \leq \frac{\sqrt{2n}(\hat \lambda - \lambda)}{\lambda} \leq z_{0.985}) \approx 0.97,\] 
 or
-\[P(\hat \lambda - \frac{\lambda}{\sqrt{2 n}}z_{0.965}\leq \lambda \leq \hat \lambda - \frac{\lambda}{\sqrt{2 n}}z_{0.035}) \approx 0.97.\]
+\[P(\hat \lambda - \frac{\lambda}{\sqrt{2 n}}z_{0.985}\leq \lambda \leq \hat \lambda - \frac{\lambda}{\sqrt{2 n}}z_{0.015}) \approx 0.97.\]
 Replacing $\lambda$ with $\hat \lambda$ in the two endpoints
-\[  \left[\hat \lambda - \frac{\hat \lambda}{\sqrt{2 n}}z_{0.965}, \hat \lambda - \frac{\hat \lambda}{\sqrt{2 n}}z_{0.035}\right]\]
+\[  \left[\hat \lambda - \frac{\hat \lambda}{\sqrt{2 n}}z_{0.985}, \hat \lambda - \frac{\hat \lambda}{\sqrt{2 n}}z_{0.015}\right]\]
 is a $97\%$ confidence interval for $\lambda$, where
-$z_{0.035} = - z_{0.965}$, and $z_{0.965}$ is
+$z_{0.015} = - z_{0.985}$, and $z_{0.985}$ is
 ```{r}
-qnorm(0.965)
+qnorm(0.985)
 ```
 
 \item We have 
