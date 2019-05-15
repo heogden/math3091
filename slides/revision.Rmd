@@ -276,7 +276,7 @@ You should be able to:
 
 - Formulate a comparison between two nested GLMs as a hypothesis test,
   construct the relevant log likelihood ratio test statistic $L_{01}$,
-  and state the distribution of $L_{01}$ under H0.
+  and state the distribution of $L_{01}$ under $H_0$.
 - Use the scaled deviance to check model fit, 
   and use the scaled deviance of two models to compute the log 
   likelihood ratio test statistic.
@@ -441,7 +441,6 @@ have been collected:
 
 1.  it was decided to to collect data on all
 patients treated in one clinic in a given year.
-What type of log-linear model is appropriate?
 1. it was decided in advance to recruit $528$ patients 
 into the study.
 1. it was decided in advance to recruit a fixed number of patients
