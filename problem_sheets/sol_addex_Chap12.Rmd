@@ -144,6 +144,19 @@ The Fisher information matrix is
 \sum_{i=1}^n 2 x_i & \sum_{i=1}^n 2 x_i^2 
 \end{pmatrix}
 \end{align*}
+   The Fisher scoring algorithm starts with an initial estimate
+    $\bm{\beta}^{(0)}$ of $\bm{\beta}$. If $\bm{\beta}^{(m)}$
+    is the current estimate of $\hat{\bm{\beta}}$
+then the next estimate is
+\[\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}+{\cal I}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).\]
+The process stops once
+$||\bm{\beta}^{(m+1)}-\bm{\beta}^{(m)} || \leq \epsilon$, for some
+pre-defined tolerance $\epsilon$, and we use
+$\bm{\beta}^{(m+1)}$ as the solution for $\hat{\bm{\beta}}$.
+
+The Fisher and observed information matrices are
+different in this case, so the Fisher scoring Newton-Raphson methods are not identical.
+
 \item Model (2) is the special case of model (1)
 with $\beta_2 = \beta_3 = 0$, so model (2) is nested
 in model (1). So to compare the two models, use the null
