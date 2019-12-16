@@ -563,18 +563,16 @@ $$
 that is, the probability of each level of $R$
 given a particular combination of $S$ and $C$, does not
 depend on which level $S$ takes.
-Equivalently, we can write $P(S|R,C)=P(S|C)$.
-This can be observed by calculating the estimated odds in favour
-of $R=$ yes over $R=$ no for the `lymphoma` dataset,
-as shown in Table \ref{tab:lymphoma_odds}. 
-The odds depend only on a patient's Cell type, and not on their
-Sex.
+Table \ref{tab:lymphoma_cond_prob} shows the estimated
+conditional probabilities for the `lymphoma` data.
+The probability of remission depends only on a patient's cell type, and not on their
+sex.
 
 
 ```{r, include = FALSE}
 p_no <- lymphoma_p_table[, , 1]
 p_yes <- lymphoma_p_table[, , 2]
-odds_yes <- p_yes / p_no
+p_cond_yes <- p_yes/(p_yes + p_no)
 ```
 
 \begin{table}[h]
@@ -583,16 +581,16 @@ odds_yes <- p_yes / p_no
 \toprule
  & & \multicolumn{2}{c}{Remission} & \\
  \cmidrule{3-4}
-Cell Type & Sex  & No & Yes & Odds\\
+Cell Type & Sex  & No & Yes & $\hat P(R|S, C)$\\
 \midrule
-\multirow{2}{*}{Diffuse} & Female & 0.1176 & 0.0157 & 0.13\\
- & Male & 0.3824 & 0.0510 & 0.13\\
+\multirow{2}{*}{Diffuse} & Female & 0.1176 & 0.0157 & 0.12\\
+ & Male & 0.3824 & 0.0510 & 0.12\\
  \midrule
-\multirow{2}{*}{Nodular} & Female & 0.0615 & 0.2051 & 3.33\\
- & Male & 0.0385 & 0.1282 & 3.33\\
+\multirow{2}{*}{Nodular} & Female & 0.0615 & 0.2051 & 0.77\\
+ & Male & 0.0385 & 0.1282 & 0.77\\
 \bottomrule
 \end{tabular}
-\caption{\label{tab:lymphoma_odds} Fitted probabilities of each cell and odds of remission in the \texttt{lymphoma} dataset.}
+\caption{\label{tab:lymphoma_cp} Fitted probabilities of each cell and conditional probability of remission in the \texttt{lymphoma} dataset.}
 \end{table}
 
 
@@ -615,10 +613,16 @@ $$
 P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
 $$
 
+```{r, inclulde = FALSE}
+p_no_m <- lymphoma_p_margins[, 1]
+p_yes_m <- lymphoma_p_margins[, 2]
+p_yes_m/(p_yes_m + p_no_m)
+```
+
 Although for the `lymphoma` dataset  $R$ and $S$ are conditionally independent given $C$,
  they are not marginally independent. Using the marginal cell probabilities from Table 
- \ref{tab:lymphoma_p_margins}, we find that the odds of remission are $0.43$ for
- men and $1.23$ for women.
+ \ref{tab:lymphoma_p_margins}, we find that the probability of remission is $0.30$ for
+ men and $0.55$ for women.
 Male patients have a much lower probability of remission.
 The reason for this is that, although $R$ and $S$ are not directly associated,
 they are both associated with $C$.
@@ -653,26 +657,26 @@ A follow-up survey was carried out 20 years later.
 Among the variables observed in the initial survey was whether or
 not the individual was a smoker and among those in the follow-up survey
 was whether the individual was still alive, or had died in the intervening
-period. A summary of the responses is shown in Table \ref{tab:odds_smoking}.
+period. A summary of the responses is shown in Table \ref{tab:cp_smoking}.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lrrr}
 \toprule
-Smoker&Dead&Alive&Odds (Dead)\\
+Smoker&Dead&Alive& $\hat P(\text{Dead}|\text{Smoker})$\\
 \midrule
-Yes & 139 & 443 & 0.31 \\
-No & 230 & 502 & 0.46 \\
+Yes & 139 & 443 & 0.24 \\
+No & 230 & 502 & 0.31 \\
 \bottomrule
 \end{tabular}
-\caption{\label{tab:odds_smoking} Number of respondents dead or alive at follow up, by smoking status}
+\caption{\label{tab:cp_smoking} Number of respondents dead or alive at follow up, by smoking status}
 \end{table}
 
 Looking at this table, it appears that the non-smokers had
 a greater probability of dying.
 However, there is an important extra variable to be considered, related
 to both smoking habit and mortality -- age (at the time of the initial survey).
-When we consider this variable, we get Table \ref{tab:odds_smoking_age}.
+When we consider this variable, we get Table \ref{tab:cp_smoking_age}.
 Conditional on every age at outset, it is now the smokers
 who have a higher probability of dying.
 The marginal association is reversed in the table conditional on age,
@@ -682,25 +686,25 @@ There are proportionally many fewer smokers in the older age-groups
 
 \begin{table}
 \centering
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrr}
 \toprule
-Age&Smoker&Dead&Alive&Odds(Dead)& Odds ratio \\
+Age&Smoker&Dead&Alive& $\hat P(\text{Dead}|\text{Age}, \text{Smoker})$ \\
 \midrule
-\multirow{2}{*}{18--34} & Yes & 5 & 174 & 0.029 & \multirow{2}{*}{1.02} \\
-&No&6&213&0.028 & \cr
-\multirow{2}{*}{35--44} &Yes&14&95&0.147& \multirow{2}{*}{2.40} \\
-&No&7&114&0.061 &\cr
-\multirow{2}{*}{45--54} &Yes&27&103&0.262 & \multirow{2}{*}{1.44}\cr
-&No&12&66&0.182 & \cr
-\multirow{2}{*}{55--64} &Yes&51&64&0.797 & \multirow{2}{*}{1.61}\cr
-&No&40&81&0.494 & \cr
-\multirow{2}{*}{65--74} &Yes&29&7&4.143 & \multirow{2}{*}{1.15}\cr
-&No&101&28&3.607 & \cr
-\multirow{2}{*}{75--} &Yes&13&0&--- & \multirow{2}{*}{---}\cr
-&No&64&0&--- &\cr
+\multirow{2}{*}{18--34} & Yes & 5 & 174 & 0.03 \\
+                        & No & 6 & 213 & 0.03 \\
+\multirow{2}{*}{35--44} & Yes & 14 & 95 & 0.13 \\
+                        & No & 7 & 114 & 0.06 \\
+\multirow{2}{*}{45--54} & Yes & 27 & 103 & 0.21 \\
+                        & No & 12 & 66 & 0.15\\
+\multirow{2}{*}{55--64} & Yes & 51 & 64 & 0.44 \\
+                        & No & 40 & 81 & 0.33\\
+\multirow{2}{*}{65--74} & Yes & 29 & 7 & 0.81  \\
+                        & No & 101 & 28 & 0.78 \\
+\multirow{2}{*}{75--}   & Yes & 13 & 0 & 1 \\
+                        & No & 64 & 0 & 1 \\
 \bottomrule
 \end{tabular}
-\caption{\label{tab:odds_smoking_age} Number of respondents dead or alive at follow up, by smoking status
+\caption{\label{tab:cp_smoking_age} Number of respondents dead or alive at follow up, by smoking status
 and age.}
 \end{table}
 
