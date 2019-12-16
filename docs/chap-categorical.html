@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title></title>
+  <title>Chapter 3 Categorical data | MATH3091: Statistical Modelling II</title>
   <meta name="description" content="The course notes for MATH3091: Statistical Modelling II" />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 3 Categorical data | MATH3091: Statistical Modelling II" />
   <meta property="og:type" content="book" />
   
   
@@ -16,23 +16,22 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 3 Categorical data | MATH3091: Statistical Modelling II" />
   
   <meta name="twitter:description" content="The course notes for MATH3091: Statistical Modelling II" />
   
 
-<meta name="author" content="Helen Ogden" />
+<meta name="author" content="Dr Helen Ogden" />
 
 
-<meta name="date" content="2019-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="example-binary-regression.html"/>
-<link rel="next" href="introduction-1.html"/>
+<link rel="prev" href="glm.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -100,63 +99,66 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">MATH3012: Statistical Models II</a></li>
+<li><a href="./">MATH3012: Statistical Modelling II</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
-<li class="chapter" data-level="1.1" data-path="elements-of-statistical-modelling.html"><a href="elements-of-statistical-modelling.html"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
-<li class="chapter" data-level="1.2" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
-<li class="chapter" data-level="1.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
-<li class="chapter" data-level="1.3.2" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
-<li class="chapter" data-level="1.3.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#survival-time-to-death"><i class="fa fa-check"></i><b>1.3.3</b> <code>survival</code>: Time to death</a></li>
-<li class="chapter" data-level="1.3.4" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#beetle-mortality-from-carbon-disulphide"><i class="fa fa-check"></i><b>1.3.4</b> <code>beetle</code>: Mortality from carbon disulphide</a></li>
-<li class="chapter" data-level="1.3.5" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#shuttle-challenger-disaster"><i class="fa fa-check"></i><b>1.3.5</b> <code>shuttle</code>: Challenger disaster</a></li>
-<li class="chapter" data-level="1.3.6" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#heart-treatment-for-heart-attack"><i class="fa fa-check"></i><b>1.3.6</b> <code>heart</code>: Treatment for heart attack</a></li>
-<li class="chapter" data-level="1.3.7" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#accident-road-traffic-accidents"><i class="fa fa-check"></i><b>1.3.7</b> <code>accident</code>: Road traffic accidents</a></li>
-<li class="chapter" data-level="1.3.8" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#lymphoma-lymphoma-patients"><i class="fa fa-check"></i><b>1.3.8</b> <code>lymphoma</code>: Lymphoma patients</a></li>
+<li class="chapter" data-level="1.1" data-path="prelim.html"><a href="prelim.html#elements-of-statistical-modelling"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
+<li class="chapter" data-level="1.2" data-path="prelim.html"><a href="prelim.html#regression-models"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
+<li class="chapter" data-level="1.3" data-path="prelim.html"><a href="prelim.html#example-data-to-be-analysed"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="prelim.html"><a href="prelim.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
+<li class="chapter" data-level="1.3.2" data-path="prelim.html"><a href="prelim.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
+<li class="chapter" data-level="1.3.3" data-path="prelim.html"><a href="prelim.html#survival-time-to-death"><i class="fa fa-check"></i><b>1.3.3</b> <code>survival</code>: Time to death</a></li>
+<li class="chapter" data-level="1.3.4" data-path="prelim.html"><a href="prelim.html#beetle-mortality-from-carbon-disulphide"><i class="fa fa-check"></i><b>1.3.4</b> <code>beetle</code>: Mortality from carbon disulphide</a></li>
+<li class="chapter" data-level="1.3.5" data-path="prelim.html"><a href="prelim.html#shuttle-challenger-disaster"><i class="fa fa-check"></i><b>1.3.5</b> <code>shuttle</code>: Challenger disaster</a></li>
+<li class="chapter" data-level="1.3.6" data-path="prelim.html"><a href="prelim.html#heart-treatment-for-heart-attack"><i class="fa fa-check"></i><b>1.3.6</b> <code>heart</code>: Treatment for heart attack</a></li>
+<li class="chapter" data-level="1.3.7" data-path="prelim.html"><a href="prelim.html#accident-road-traffic-accidents"><i class="fa fa-check"></i><b>1.3.7</b> <code>accident</code>: Road traffic accidents</a></li>
+<li class="chapter" data-level="1.3.8" data-path="prelim.html"><a href="prelim.html#lymphoma-lymphoma-patients"><i class="fa fa-check"></i><b>1.3.8</b> <code>lymphoma</code>: Lymphoma patients</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html"><i class="fa fa-check"></i><b>1.4</b> Likelihood-based statistical theory</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#the-likelihood-function"><i class="fa fa-check"></i><b>1.4.1</b> The likelihood function</a></li>
-<li class="chapter" data-level="1.4.2" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>1.4.2</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="1.4.3" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#score"><i class="fa fa-check"></i><b>1.4.3</b> Score</a></li>
-<li class="chapter" data-level="1.4.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#info"><i class="fa fa-check"></i><b>1.4.4</b> Information</a></li>
-<li class="chapter" data-level="1.4.5" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:asnmle"><i class="fa fa-check"></i><b>1.4.5</b> Asymptotic distribution of the MLE</a></li>
-<li class="chapter" data-level="1.4.6" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#comparing-statistical-models"><i class="fa fa-check"></i><b>1.4.6</b> Comparing statistical models</a></li>
-<li class="chapter" data-level="1.4.7" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:lrt"><i class="fa fa-check"></i><b>1.4.7</b> The log-likelihood ratio statistic</a></li>
+<li class="chapter" data-level="1.4" data-path="prelim.html"><a href="prelim.html#likelihood-based-statistical-theory"><i class="fa fa-check"></i><b>1.4</b> Likelihood-based statistical theory</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="prelim.html"><a href="prelim.html#the-likelihood-function"><i class="fa fa-check"></i><b>1.4.1</b> The likelihood function</a></li>
+<li class="chapter" data-level="1.4.2" data-path="prelim.html"><a href="prelim.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>1.4.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.4.3" data-path="prelim.html"><a href="prelim.html#score"><i class="fa fa-check"></i><b>1.4.3</b> Score</a></li>
+<li class="chapter" data-level="1.4.4" data-path="prelim.html"><a href="prelim.html#info"><i class="fa fa-check"></i><b>1.4.4</b> Information</a></li>
+<li class="chapter" data-level="1.4.5" data-path="prelim.html"><a href="prelim.html#sn:asnmle"><i class="fa fa-check"></i><b>1.4.5</b> Asymptotic distribution of the MLE</a></li>
+<li class="chapter" data-level="1.4.6" data-path="prelim.html"><a href="prelim.html#comparing-statistical-models"><i class="fa fa-check"></i><b>1.4.6</b> Comparing statistical models</a></li>
+<li class="chapter" data-level="1.4.7" data-path="prelim.html"><a href="prelim.html#sn:lrt"><i class="fa fa-check"></i><b>1.4.7</b> The log-likelihood ratio statistic</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="sn-lm.html"><a href="sn-lm.html"><i class="fa fa-check"></i><b>1.5</b> Linear Models</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="sn-lm.html"><a href="sn-lm.html#introduction"><i class="fa fa-check"></i><b>1.5.1</b> Introduction</a></li>
-<li class="chapter" data-level="1.5.2" data-path="sn-lm.html"><a href="sn-lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>1.5.2</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="1.5.3" data-path="sn-lm.html"><a href="sn-lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>1.5.3</b> Properties of the MLE</a></li>
-<li class="chapter" data-level="1.5.4" data-path="sn-lm.html"><a href="sn-lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>1.5.4</b> Comparing linear models</a></li>
+<li class="chapter" data-level="1.5" data-path="prelim.html"><a href="prelim.html#sn:lm"><i class="fa fa-check"></i><b>1.5</b> Linear Models</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="prelim.html"><a href="prelim.html#introduction"><i class="fa fa-check"></i><b>1.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.5.2" data-path="prelim.html"><a href="prelim.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>1.5.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.5.3" data-path="prelim.html"><a href="prelim.html#properties-of-the-mle"><i class="fa fa-check"></i><b>1.5.3</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="1.5.4" data-path="prelim.html"><a href="prelim.html#comparing-linear-models"><i class="fa fa-check"></i><b>1.5.4</b> Comparing linear models</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>2</b> Generalised Linear Models</a><ul>
-<li class="chapter" data-level="2.1" data-path="sn-ef.html"><a href="sn-ef.html"><i class="fa fa-check"></i><b>2.1</b> The Exponential family</a></li>
-<li class="chapter" data-level="2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html"><i class="fa fa-check"></i><b>2.2</b> Components of a generalised linear model</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-random-component"><i class="fa fa-check"></i><b>2.2.1</b> The random component</a></li>
-<li class="chapter" data-level="2.2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>2.2.2</b> The systematic (or structural) component</a></li>
-<li class="chapter" data-level="2.2.3" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-link-function"><i class="fa fa-check"></i><b>2.2.3</b> The link function</a></li>
-<li class="chapter" data-level="2.2.4" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-linear-model"><i class="fa fa-check"></i><b>2.2.4</b> The linear model</a></li>
+<li class="chapter" data-level="2.1" data-path="glm.html"><a href="glm.html#sn:ef"><i class="fa fa-check"></i><b>2.1</b> The Exponential family</a></li>
+<li class="chapter" data-level="2.2" data-path="glm.html"><a href="glm.html#components-of-a-generalised-linear-model"><i class="fa fa-check"></i><b>2.2</b> Components of a generalised linear model</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="glm.html"><a href="glm.html#the-random-component"><i class="fa fa-check"></i><b>2.2.1</b> The random component</a></li>
+<li class="chapter" data-level="2.2.2" data-path="glm.html"><a href="glm.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>2.2.2</b> The systematic (or structural) component</a></li>
+<li class="chapter" data-level="2.2.3" data-path="glm.html"><a href="glm.html#the-link-function"><i class="fa fa-check"></i><b>2.2.3</b> The link function</a></li>
+<li class="chapter" data-level="2.2.4" data-path="glm.html"><a href="glm.html#the-linear-model"><i class="fa fa-check"></i><b>2.2.4</b> The linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="maximum-likelihood-estimation-2.html"><a href="maximum-likelihood-estimation-2.html"><i class="fa fa-check"></i><b>2.3</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="2.4" data-path="sn-glminfer.html"><a href="sn-glminfer.html"><i class="fa fa-check"></i><b>2.4</b> Inference</a></li>
-<li class="chapter" data-level="2.5" data-path="sn-compglm.html"><a href="sn-compglm.html"><i class="fa fa-check"></i><b>2.5</b> Comparing generalised linear models</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="sn-compglm.html"><a href="sn-compglm.html#sn:glmlrt"><i class="fa fa-check"></i><b>2.5.1</b> The generalised likelihood ratio test</a></li>
+<li class="chapter" data-level="2.3" data-path="glm.html"><a href="glm.html#maximum-likelihood-estimation-2"><i class="fa fa-check"></i><b>2.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="2.4" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>2.4</b> Inference</a></li>
+<li class="chapter" data-level="2.5" data-path="glm.html"><a href="glm.html#sn:compglm"><i class="fa fa-check"></i><b>2.5</b> Comparing generalised linear models</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="glm.html"><a href="glm.html#sn:glmlrt"><i class="fa fa-check"></i><b>2.5.1</b> The generalised likelihood ratio test</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="scaled-deviance-and-the-saturated-model.html"><a href="scaled-deviance-and-the-saturated-model.html"><i class="fa fa-check"></i><b>2.6</b> Scaled deviance and the saturated model</a></li>
-<li class="chapter" data-level="2.7" data-path="sn-unknowndisp.html"><a href="sn-unknowndisp.html"><i class="fa fa-check"></i><b>2.7</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
-<li class="chapter" data-level="2.8" data-path="residuals.html"><a href="residuals.html"><i class="fa fa-check"></i><b>2.8</b> Residuals</a></li>
-<li class="chapter" data-level="2.9" data-path="example-binary-regression.html"><a href="example-binary-regression.html"><i class="fa fa-check"></i><b>2.9</b> Example: Binary Regression</a></li>
+<li class="chapter" data-level="2.6" data-path="glm.html"><a href="glm.html#scaled-deviance-and-the-saturated-model"><i class="fa fa-check"></i><b>2.6</b> Scaled deviance and the saturated model</a></li>
+<li class="chapter" data-level="2.7" data-path="glm.html"><a href="glm.html#sn:unknowndisp"><i class="fa fa-check"></i><b>2.7</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
+<li class="chapter" data-level="2.8" data-path="glm.html"><a href="glm.html#residuals"><i class="fa fa-check"></i><b>2.8</b> Residuals</a></li>
+<li class="chapter" data-level="2.9" data-path="glm.html"><a href="glm.html#example-binary-regression"><i class="fa fa-check"></i><b>2.9</b> Example: Binary Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>3</b> Categorical data</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="sn-multinomial.html"><a href="sn-multinomial.html"><i class="fa fa-check"></i><b>3.2</b> Multinomial sampling</a></li>
-<li class="chapter" data-level="3.3" data-path="product-multinomial-sampling.html"><a href="product-multinomial-sampling.html"><i class="fa fa-check"></i><b>3.3</b> Product multinomial sampling</a></li>
-<li class="chapter" data-level="3.4" data-path="sn-loginter.html"><a href="sn-loginter.html"><i class="fa fa-check"></i><b>3.4</b> Interpreting log-linear models</a></li>
+<li class="chapter" data-level="3.1" data-path="chap-categorical.html"><a href="chap-categorical.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:multinomial"><i class="fa fa-check"></i><b>3.2</b> Multinomial sampling</a></li>
+<li class="chapter" data-level="3.3" data-path="chap-categorical.html"><a href="chap-categorical.html#product-multinomial-sampling"><i class="fa fa-check"></i><b>3.3</b> Product multinomial sampling</a></li>
+<li class="chapter" data-level="3.4" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:loginter"><i class="fa fa-check"></i><b>3.4</b> Interpreting log-linear models</a></li>
 </ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
 </ul>
 
       </nav>
@@ -166,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MATH3091: Statistical Modelling II</a>
           </h1>
         </div>
 
@@ -175,18 +177,176 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 \(
-  \newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
 \)
 <div id="chap:categorical" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Categorical data</h1> 
+<h1><span class="header-section-number">Chapter 3</span> Categorical data</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>A particularly important application of generalised linear models is the analysis of categorical data. Here, the data are observations of one or more categorical variables on each of a number of units (often individuals). Therefore, each of the units are <em>cross-classified</em> by the categorical variables.</p>
+<p>For example, the <code>job</code> dataset gives the job satisfaction and income band of 901 individuals from the 1984 General Social Survey, which is summarised in Table .</p>
+
+<p>A cross-classification table like this is called a <em>contingency table</em>. This is a <em>two-way table</em>, as there are two classifying variables. It might also be describe as a <span class="math inline">\(4\times 4\)</span> contingency table (as each of the classifying variables takes one of four possible levels).</p>
+<p>Each position in a contingency table is called a <em>cell</em> and the number of individuals in a particular cell is the <em>cell count</em>.</p>
+<p>Partial classifications derived from the table are called <em>margins</em>. For a two-way table these are often displayed in the margins of the table, as in Table . These are one-way margins as they represent the classification of items by a single variable; income group and job satisfaction respectively.</p>
+
+<p>The <code>lymphoma</code> dataset gives information about 30 patients, classified by cell type of lymphoma, sex, and response to treatment, as shown in Table . This is an example of a three-way contingency table. It is a <span class="math inline">\(2\times 2\times 2\)</span> or <span class="math inline">\(2^3\)</span> table.</p>
+
+<p>For <em>multiway</em> tables, higher order margins may be calculated. For example, for <code>lymphoma</code>, the two-way Cell type/Sex margin is shown in Table .</p>
+
+<p>We can model contingency table data using generalised linear models. To do this, we assume that the cell counts are observations of independent Poisson random variables. This is intuitively sensible as the cell counts are non-negative integers (the sample space for the Poisson distribution). Therefore, if the table has <span class="math inline">\(n\)</span> cells, which we label <span class="math inline">\(1,\ldots ,n\)</span>, then the observed cell counts <span class="math inline">\(y_1,\ldots ,y_n\)</span> are assumed to be observations of independent Poisson random variables <span class="math inline">\(Y_1,\ldots ,Y_n\)</span>. We denote the means of these Poisson random variables by <span class="math inline">\(\mu_1,\ldots ,\mu_n\)</span>. The canonical link function for the Poisson distribution is the log function, and we assume this link function throughout. A generalised linear model for Poisson data using the log link function is called a <em>log-linear model</em>.</p>
+<p>The explanatory variables in a log-linear model for contingency table data are the cross-classifying variables. As these variables are categorical, they are <em>factors</em>. As usual with factors, we can include interactions in the model as well as just main effects. Such a model will describe how the expected count in each cell depends on the classifying variables, and any interactions between them. Interpretation of these models will be discussed further in Section <a href="chap-categorical.html#sn:loginter">3.4</a>.</p>
+<p>Table  shows the original data structure of the <code>job</code> dataset. It provides exactly the same data as the contingency table in Table , but in a different format, sometimes called <em>long</em> format. A log-linear model is just a Poisson GLM, where the response variable is <code>Count</code>, and <code>Income</code> and <code>Satisfaction</code> are explanatory variables.</p>
+
+<p>Table  shows the <code>lymphoma</code> dataset in long format. Again, a log-linear model for the contingency table (Table ) is just a Poisson GLM for this data, where in this case the response variable is <code>Cell</code>, and <code>Sex</code> and <code>Remis</code> are explanatory variables.</p>
+
+</div>
+<div id="sn:multinomial" class="section level2">
+<h2><span class="header-section-number">3.2</span> Multinomial sampling</h2>
+<p>Although the assumption of Poisson distributed observations is convenient for the purposes of modelling, it might not be a realistic assumption, because of the way in which the data have been collected. Frequently, when contingency table data are obtained, the total number of observations (the <em>grand total</em>, the sum of all the cell counts) is fixed in advance. In this case, no individual cell count can exceed the prespecified fixed total, so the assumption of Poisson sampling is invalid as the sample space is bounded. Furthermore, with a fixed total, the observations can no longer be observations of independent random variables.</p>
+<p>For example, consider the <code>lymphoma</code> contingency table from Table . It may be that these data were collected over a fixed period of time, and that in that time there happened to be 30 patients. In this case, the Poisson assumption is perfectly valid. However, it may have been decided at the outset to collect data on 30 patients, in which case the grand total is fixed at 30, and the Poisson assumption is not valid.</p>
+When the grand total is fixed, a more appropriate distribution for the cell counts is the <em>multinomial</em> distribution. The multinomial distribution is the distribution of cell counts arising when a prespecified total of <span class="math inline">\(N\)</span> items are each independently assigned to one of <span class="math inline">\(n\)</span> cells, where the probability of being classified into cell <span class="math inline">\(i\)</span> is <span class="math inline">\(p_i\)</span>, <span class="math inline">\({i=1,\ldots ,n}\)</span>, so <span class="math inline">\(\sum_{i=1}^n p_i=1.\)</span> The probability function for the multinomial distribution is
+<span class="math display" id="eq:multinom">\[\begin{align}
+f_{\bm{Y}}(\bm{y};{\bf p})
+&amp;= P(Y_1=y_1,\ldots ,Y_n=y_n) \cr
+&amp;= \begin{cases} 
+N!\prod_{i=1}^n \frac{p_i^{y_i}}{y_i!} &amp; \text{if $\sum_{i=1}^n y_i=N$} \\
+0 &amp; \text{otherwise.}
+\end{cases}
+\tag{3.1}
+\end{align}\]</span>
+<p>The binomial is the special case of the multinomial with two cells (<span class="math inline">\(n=2\)</span>).</p>
+<p>We can still use a log-linear model for contingency table data when the data have been obtained by multinomial sampling. We model <span class="math inline">\(\log\mu_i=\log(Np_i)\)</span>, <span class="math inline">\({i=1,\ldots ,n}\)</span> as a linear function of explanatory variables. However, such a model must preserve <span class="math inline">\(\sum_{i=1}^n \mu_i=N\)</span>, the grand total which is fixed in advance.</p>
+<p>From <a href="chap-categorical.html#eq:multinom">(3.1)</a>, the log-likelihood for a multinomial log-linear model is <span class="math display">\[
+\ell(\bm{\mu})=
+\sum_{i=1}^n y_i\log\mu_i -N\log N -\sum_{i=1}^n \log y_i!+\log N!.
+\]</span> Therefore, the maximum likelihood estimates <span class="math inline">\(\hat{\bm{\mu}}\)</span> maximise <span class="math inline">\(\sum_{i=1}^n y_i\log\mu_i\)</span> subject to the constraints <span class="math inline">\(\sum_{i=1}^n \mu_i=N=\sum_{i=1}^n y_i\)</span> (multinomial sampling) and <span class="math inline">\(\log\bm{\mu}=\bm{X}\bm{\beta}\)</span> (imposed by the model).</p>
+For a Poisson log-linear model, <span class="math display">\[
+L(\bm{\mu})=\prod_{i=1}^n {{e^{-\mu_i} \mu_i^{y_i}}\over{y_i!}}.
+\]</span> Therefore,
+<span class="math display" id="eq:loglinlik">\[\begin{align}
+\ell(\bm{\mu})&amp;=-\sum_{i=1}^n \mu_i
++\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i! 
+\tag{3.2}
+\\
+&amp;=-\sum_{i=1}^n \exp(\log\mu_i)
++\sum_{i=1}^ny_i\log\mu_i-\sum_{i=1}^n \log y_i!.
+\end{align}\]</span>
+Now any Poisson log-linear model with an intercept can be expressed as <span class="math display">\[
+\log\mu_i=\alpha + \text{other terms depending on $i$},\qquad {i=1,\ldots ,n}
+\]</span> so that
+<span class="math display" id="eq:loglinscore">\[\begin{align}
+&amp;\qquad{\partial\over{\partial\alpha}} \ell(\bm{\mu})=-\sum_{i=1}^n \exp(\log\mu_i)
++\sum_{i=1}^ny_i. \\
+&amp;\Rightarrow\qquad \sum_{i=1}^n \hat{\mu}_i=\sum_{i=1}^n y_i.
+\tag{3.3}
+\end{align}\]</span>
+<p>From <a href="chap-categorical.html#eq:loglinlik">(3.2)</a>, we notice that, at <span class="math inline">\(\alpha=\hat{\alpha}\)</span> the log-likelihood takes the form <span class="math display">\[
+\ell(\bm{\mu})=-\sum_{i=1}^n y_i
++\sum_{i=1}^ny_i\log{\mu}_i-\sum_{i=1}^n \log y_i!.
+\]</span> Hence, when we maximise the log-likelihood, for a Poisson log-linear model with intercept, with respect to the other log-linear parameters, we are maximising <span class="math inline">\(\sum_{i=1}^ny_i\log{\mu}_i\)</span> subject to the constraints <span class="math inline">\(\sum_{i=1}^n \mu_i=\sum_{i=1}^n y_i\)</span> from <a href="chap-categorical.html#eq:loglinscore">(3.3)</a> and <span class="math inline">\(\log\bm{\mu}=\bm{X}\bm{\beta}\)</span> (imposed by the model).</p>
+<p>Therefore, the maximum likelihood estimates for multinomial log-linear parameters are identical to those for Poisson log-linear parameters. Furthermore, the maximised log-likelihoods for both Poisson and multinomial models take the form <span class="math inline">\(\sum_{i=1}^ny_i\log\hat{\mu}_i\)</span> as functions of the log-linear parameter estimates. Therefore any inferences based on maximised log-likelihoods (such as likelihood ratio tests) will be the same.</p>
+<p>Therefore, we can analyse contingency table data using Poisson log-linear models, even when the data has been obtained by multinomial sampling. All that is required is that we ensure that the Poisson model contains an intercept term.</p>
+</div>
+<div id="product-multinomial-sampling" class="section level2">
+<h2><span class="header-section-number">3.3</span> Product multinomial sampling</h2>
+<p>Sometimes margins other than just the grand total may be prespecified. For example, consider the <code>lymphoma</code> contingency table in Table . It may have been decided at the outset to collect data on 18 male patients and 12 female patients. Alternatively, perhaps the distribution of both the Sex and Cell type of the patients was fixed in advance as in Table . In cases where a margin is fixed by design, the data consist of a number of fixed total subgroups, defined by the fixed margin. Neither Poisson nor multinomial sampling assumptions are valid. The appropriate distribution combines a separate, independent multinomial for each subgroup. For example, if just the Sex margin is fixed as above, then the appropriate distribution for modelling the data is two independent multinomials, one for males with <span class="math inline">\(N=18\)</span> and one for females with <span class="math inline">\(N=12\)</span>. Each of these multinomials has four cells, representing the cross-classification of the relevant patients by Cell Type and Remission. Alternatively, if it is the Cell type/Sex margin which has been fixed, then the appropriate distribution is four independent two-cell multinomials (binomials) representing the remission classification for each of the four fixed-total patient subgroups.</p>
+<p>When the data are modelled using independent multinomials, then the joint distribution of the cell counts <span class="math inline">\(Y_1, \ldots, Y_n\)</span> is the product of terms of the same form as <a href="chap-categorical.html#eq:multinom">(3.1)</a>, one for each fixed-total subgroup. We call this a distribution a <em>product multinomial</em>. Each subgroup has its own fixed total. The full joint density is a product of <span class="math inline">\(n\)</span> terms, as before, with each cell count appearing exactly once.</p>
+<p>For example, if the Sex margin is fixed for <code>lymphoma</code>, then the product multinomial distribution has the form <span class="math display">\[f_{\bm{Y}}(\bm{y};{\bf p})=
+\begin{cases}
+N_m!\prod_{i=1}^4 {{p_{mi}^{y_{mi}}}\over{y_{mi}!}}
+N_f!\prod_{i=1}^4 {{p_{fi}^{y_{fi}}}\over{y_{fi}!}} &amp;
+\text{if $\sum_{i=1}^4 y_{mi}=N_m$ and
+$\sum_{i=1}^4 y_{fi}=N_f$} \\
+0 &amp; \text{otherwise,}
+\end{cases}
+\]</span> where <span class="math inline">\(N_m\)</span> and <span class="math inline">\(N_f\)</span> are the two fixed marginal totals (18 and 12 respectively), <span class="math inline">\(y_{m1},\ldots ,y_{m4}\)</span> are the cell counts for the Cell type/Remission cross-classification for males and <span class="math inline">\(y_{f1},\ldots ,y_{f4}\)</span> are the corresponding cell counts for females. Here <span class="math inline">\(\sum_{i=1}^4 p_{mi}=\sum_{i=1}^4 p_{fi}=1\)</span>, <span class="math inline">\(E(Y_{mi})=N_mp_{mi}\)</span>, <span class="math inline">\(i=1,\ldots ,4\)</span>, and <span class="math inline">\(E(Y_{fi})=N_fp_{fi}\)</span>, <span class="math inline">\(i=1,\ldots ,4\)</span>.</p>
+<p>Using similar results to those used in Section <a href="chap-categorical.html#sn:multinomial">3.2</a> (but not proved here), we can analyse contingency table data using Poisson log-linear models, even when the data has been obtained by product multinomial sampling. However, we must ensure that the Poisson model contains a term corresponding to the fixed margin (and all marginal terms). Then, the estimated means for the specified margin are equal to the corresponding fixed totals.</p>
+<p>For example, for the <code>lymphoma</code> dataset, for inferences obtained using a Poisson model to be valid when the Sex margin is fixed in advance, the Poisson model must contain the Sex main effect (and the intercept). For inferences obtained using a Poisson model to be valid when the Cell type/Sex margin is fixed in advance, the Poisson model must contain the Cell type/Sex interaction, and all marginal terms (the Cell type main effect, the Sex main effect and the intercept).</p>
+<p>Therefore, when analysing product multinomial data using a Poisson log-linear model, certain terms <strong>must</strong> be present in any model we fit. If they are removed, the inferences would no longer be valid.</p>
+</div>
+<div id="sn:loginter" class="section level2">
+<h2><span class="header-section-number">3.4</span> Interpreting log-linear models</h2>
+<p>Log-linear models for contingency tables enable us to determine important properties concerning the joint distribution of the classifying variables. In particular, the form of our preferred log linear model for a table will have implications for how the variables are associated.</p>
+<p>Each combination of the classifying variables occurs exactly once in a contingency table. Therefore, the model with the highest order interaction (between all the variables) and all marginal terms (all other interactions) is the saturated model. The implication of this model is that every combination of levels of the variables has its own mean (probability) and that there are no relationships between these means (no structure). The variables are highly dependent.</p>
+To consider the implications of simpler models, we first consider a two-way <span class="math inline">\(r\times c\)</span> table where the two classifying variables <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> have <span class="math inline">\(r\)</span> and <span class="math inline">\(c\)</span> levels respectively. The saturated model <span class="math inline">\(R*C\)</span> implies that the two variables are associated. If we remove the RC interaction, we have the model <span class="math inline">\(R+C\)</span>, <span class="math display">\[
+\log\mu_i=\alpha+\beta_R(r_i)+\beta_C(c_i),\qquad{i=1,\ldots ,n}
+\]</span> where <span class="math inline">\(n=rc\)</span> is the total number of cells in the table. Because of the equivalence of Poisson and multinomial sampling, we can think of each cell mean <span class="math inline">\(\mu_i\)</span> as equal to <span class="math inline">\(Np_i\)</span> where <span class="math inline">\(N\)</span> is the total number of observations in the table, and <span class="math inline">\(p_i\)</span> is a cell probability. As each combination of levels of <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> is represented in exactly one cell, it is also convenient to replace the cell label <span class="math inline">\(i\)</span> by the pair of labels <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> representing the corresponding levels of <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> respectively. Hence <span class="math display">\[
+\log p_{jk}=\alpha+\beta_R(j)+\beta_C(k)-\log N, \quad j=1,\ldots ,r,\quad
+k=1,\ldots ,c.
+\]</span> Therefore <span class="math display">\[P(R=j,C=k)=\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N], \quad j=1,\ldots ,r,\quad
+k=1,\ldots ,c,\]</span> so
+<span class="math display">\[\begin{align*}
+1&amp;=\sum_{j=1}^r\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&amp;={1\over N}\exp[\alpha]\sum_{j=1}^r\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)].
+\end{align*}\]</span>
+Furthermore
+<span class="math display">\[\begin{align*}
+P(R=j)&amp;=\sum_{k=1}^c\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&amp;={1\over N}\exp[\alpha]\exp[\beta_R(j)]\sum_{k=1}^c\exp[\beta_C(k)],
+\quad j=1,\ldots,r,
+\end{align*}\]</span>
+and
+<span class="math display">\[\begin{align*}
+P(C=k)&amp;=\sum_{j=1}^r\exp[\alpha+\beta_R(j)+\beta_C(k)-\log N]\cr
+&amp;={1\over N}\exp[\alpha]\exp[\beta_C(k)]\sum_{j=1}^r\exp[\beta_R(j)],
+\quad k=1,\ldots,c.
+\end{align*}\]</span>
+Therefore
+<span class="math display">\[\begin{align*}
+P(R=j)P(C=k)&amp;=
+{1\over N}\exp[\alpha]\exp[\beta_C(k)]\exp[\beta_R(j)]\times 1\cr
+&amp;=P(R=j,C=k), \quad j=1,\ldots ,r,\quad
+k=1,\ldots ,c.
+\end{align*}\]</span>
+<p>Absence of the interaction <span class="math inline">\(R*C\)</span> in a log-linear model implies that <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> are independent variables. Absence of main effects is generally less interesting, and main effects are typically not removed from a log-linear model.</p>
+<p>In multiway tables, absence of a two-factor interaction does not necessarily mean that the two variables are independent. For example, consider the <code>lymphoma</code> dataset, with 3 binary classifying variables Sex (<span class="math inline">\(S\)</span>), Cell type (<span class="math inline">\(C\)</span>) and Remission (<span class="math inline">\(R\)</span>). After comparing the fit of several possible models, we find that a reasonable log-linear model for these data is <span class="math inline">\(R * C + C * S\)</span>. Hence the interaction between remission and sex is absent. The fitted cell probabilities from this log-linear model are shown in Table .</p>
+
+<p>The estimated probabilities for the two-way Sex/Remission margin (together with the corresponding one-way margins) are shown in Table .</p>
+
+<p>It can immediately be seen that this model does not imply independence of <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span>, as <span class="math inline">\(\hat{P}(R,S)\ne\hat{P}(R)\hat{P}(S)\)</span>. What the model <span class="math inline">\(R*C+C*S\)</span> implies is that <span class="math inline">\(R\)</span> is independent of <span class="math inline">\(S\)</span> <em>conditional on</em> <span class="math inline">\(C\)</span>, that is <span class="math display">\[
+P(R,S|C)=P(R|C)P(S|C).
+\]</span> Another way of expressing this is <span class="math display">\[
+P(R|S,C)=P(R|C),
+\]</span> that is, the probability of each level of <span class="math inline">\(R\)</span> given a particular combination of <span class="math inline">\(S\)</span> and <span class="math inline">\(C\)</span>, does not depend on which level <span class="math inline">\(S\)</span> takes. Table  shows the estimated conditional probabilities for the <code>lymphoma</code> data. The probability of remission depends only on a patient’s cell type, and not on their sex.</p>
+
+<p>In general, if we have an <span class="math inline">\(r\)</span>-way contingency table with classifying variables <span class="math inline">\(X_1,\ldots ,X_r\)</span>, then a log linear model which does not contain the <span class="math inline">\(X_1 * X_2\)</span> interaction (and therefore by the principle of marginality contains no interaction involving both <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>) implies that <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are <em>conditionally independent</em> given <span class="math inline">\(X_3,\ldots ,X_r\)</span>, that is <span class="math display">\[
+P(X_1,X_2|X_3,\ldots ,X_r)=P(X_1|X_3,\ldots ,X_r)P(X_2|X_3,\ldots ,X_r).
+\]</span> The proof of this is similar to the proof in the two-way case. Again, an alternative way of expressing conditional independence is <span class="math display">\[
+P(X_1|X_2,X_3,\ldots ,X_r)=P(X_1|X_3,\ldots ,X_r)
+\]</span> or <span class="math display">\[
+P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
+\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_no_m &lt;-<span class="st"> </span>lymphoma_p_margins[, <span class="dv">1</span>]
+p_yes_m &lt;-<span class="st"> </span>lymphoma_p_margins[, <span class="dv">2</span>]
+p_yes_m<span class="op">/</span>(p_yes_m <span class="op">+</span><span class="st"> </span>p_no_m)</code></pre></div>
+<pre><code>##    Female      Male       Sum 
+## 0.5520362 0.2986425 0.4000000</code></pre>
+<p>Although for the <code>lymphoma</code> dataset <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span> are conditionally independent given <span class="math inline">\(C\)</span>, they are not marginally independent. Using the marginal cell probabilities from Table , we find that the probability of remission is <span class="math inline">\(0.30\)</span> for men and <span class="math inline">\(0.55\)</span> for women. Male patients have a much lower probability of remission. The reason for this is that, although <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span> are not directly associated, they are both associated with <span class="math inline">\(C\)</span>. Observing the estimated values it is clear that patients with nodular cell type have a greater probability of remission, and furthermore, that female patients are more likely to have this cell type than males. Hence women are more likely to have remission than men.</p>
+<p>Suppose the factors for a three-way tables are <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span>. We can list all possible models and the implications for the conditional independence structure:</p>
+<ol style="list-style-type: decimal">
+<li>Model 1 containing the terms <span class="math inline">\(X_1, X_2, X_3\)</span>. All factors are mutually independent.</li>
+<li>Model 2 containing the terms <span class="math inline">\(X_1*X_2, X_3\)</span>. The factor <span class="math inline">\(X_3\)</span> is jointly independent of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</li>
+<li>Model 3 containing the terms <span class="math inline">\(X_1*X_2, X_2*X_3\)</span>. The factors <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_3\)</span> are conditionally independent given <span class="math inline">\(X_2\)</span>.</li>
+<li>Model 4 containing the terms <span class="math inline">\(X_1*X_2, X_2*X_3, X_1*X_3\)</span>. There is no conditional independence structure. This is the model without the highest order interaction term.</li>
+<li>Model 5 containing <span class="math inline">\(X_1*X_2*X_3\)</span>. This is the saturated model. No more simplification of dependence structure is possible.</li>
+</ol>
+<p>Conditional and marginal association of two variables can therefore often appear somewhat different. Sometimes, the association can be ‘reversed’ so that what looks like a positive association marginally, becomes a negative association conditionally. This is known as <em>Simpson’s paradox</em>.</p>
+<p>In 1972-74, a survey of women was carried out in an area of Newcastle. A follow-up survey was carried out 20 years later. Among the variables observed in the initial survey was whether or not the individual was a smoker and among those in the follow-up survey was whether the individual was still alive, or had died in the intervening period. A summary of the responses is shown in Table .</p>
+
+<p>Looking at this table, it appears that the non-smokers had a greater probability of dying. However, there is an important extra variable to be considered, related to both smoking habit and mortality – age (at the time of the initial survey). When we consider this variable, we get Table . Conditional on every age at outset, it is now the smokers who have a higher probability of dying. The marginal association is reversed in the table conditional on age, because mortality (obviously) and smoking are associated with age. There are proportionally many fewer smokers in the older age-groups (where the probability of death is greater).</p>
+
+<p>When making inferences about associations between variables, it is important that all other variables which are relevant are considered. Marginal inferences may lead to misleading conclusions.</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="example-binary-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="glm.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -216,8 +376,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
+"link": "https://github.com/heogden/math3091/edit/master/03-categorical.Rmd",
+"text": "Edit"
 },
 "history": {
 "link": null,

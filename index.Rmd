@@ -1,7 +1,7 @@
 --- 
-author: "Helen Ogden"
-date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
+title: "MATH3091: Statistical Modelling II"
+author: "Dr Helen Ogden"
+date: ""
 output: bookdown::gitbook
 documentclass: book
 papersize: A4
