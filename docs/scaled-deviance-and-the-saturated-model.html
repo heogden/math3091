@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <meta name="description" content="The course notes for MATH3012: Statistical Methods II" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  <meta name="twitter:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+<meta name="author" content="Helen Ogden" />
+
+
+<meta name="date" content="2019-12-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sn-compglm.html"/>
+<link rel="next" href="sn-unknowndisp.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MATH3012: Statistical Models II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
+<li class="chapter" data-level="1.1" data-path="elements-of-statistical-modelling.html"><a href="elements-of-statistical-modelling.html"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
+<li class="chapter" data-level="1.2" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
+<li class="chapter" data-level="1.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
+<li class="chapter" data-level="1.3.2" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
+<li class="chapter" data-level="1.3.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#survival-time-to-death"><i class="fa fa-check"></i><b>1.3.3</b> <code>survival</code>: Time to death</a></li>
+<li class="chapter" data-level="1.3.4" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#beetle-mortality-from-carbon-disulphide"><i class="fa fa-check"></i><b>1.3.4</b> <code>beetle</code>: Mortality from carbon disulphide</a></li>
+<li class="chapter" data-level="1.3.5" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#shuttle-challenger-disaster"><i class="fa fa-check"></i><b>1.3.5</b> <code>shuttle</code>: Challenger disaster</a></li>
+<li class="chapter" data-level="1.3.6" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#heart-treatment-for-heart-attack"><i class="fa fa-check"></i><b>1.3.6</b> <code>heart</code>: Treatment for heart attack</a></li>
+<li class="chapter" data-level="1.3.7" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#accident-road-traffic-accidents"><i class="fa fa-check"></i><b>1.3.7</b> <code>accident</code>: Road traffic accidents</a></li>
+<li class="chapter" data-level="1.3.8" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#lymphoma-lymphoma-patients"><i class="fa fa-check"></i><b>1.3.8</b> <code>lymphoma</code>: Lymphoma patients</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html"><i class="fa fa-check"></i><b>1.4</b> Likelihood-based statistical theory</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#the-likelihood-function"><i class="fa fa-check"></i><b>1.4.1</b> The likelihood function</a></li>
+<li class="chapter" data-level="1.4.2" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>1.4.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.4.3" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#score"><i class="fa fa-check"></i><b>1.4.3</b> Score</a></li>
+<li class="chapter" data-level="1.4.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#info"><i class="fa fa-check"></i><b>1.4.4</b> Information</a></li>
+<li class="chapter" data-level="1.4.5" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:asnmle"><i class="fa fa-check"></i><b>1.4.5</b> Asymptotic distribution of the MLE</a></li>
+<li class="chapter" data-level="1.4.6" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#comparing-statistical-models"><i class="fa fa-check"></i><b>1.4.6</b> Comparing statistical models</a></li>
+<li class="chapter" data-level="1.4.7" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:lrt"><i class="fa fa-check"></i><b>1.4.7</b> The log-likelihood ratio statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="sn-lm.html"><a href="sn-lm.html"><i class="fa fa-check"></i><b>1.5</b> Linear Models</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="sn-lm.html"><a href="sn-lm.html#introduction"><i class="fa fa-check"></i><b>1.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.5.2" data-path="sn-lm.html"><a href="sn-lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>1.5.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.5.3" data-path="sn-lm.html"><a href="sn-lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>1.5.3</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="1.5.4" data-path="sn-lm.html"><a href="sn-lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>1.5.4</b> Comparing linear models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>2</b> Generalised Linear Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="sn-ef.html"><a href="sn-ef.html"><i class="fa fa-check"></i><b>2.1</b> The Exponential family</a></li>
+<li class="chapter" data-level="2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html"><i class="fa fa-check"></i><b>2.2</b> Components of a generalised linear model</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-random-component"><i class="fa fa-check"></i><b>2.2.1</b> The random component</a></li>
+<li class="chapter" data-level="2.2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>2.2.2</b> The systematic (or structural) component</a></li>
+<li class="chapter" data-level="2.2.3" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-link-function"><i class="fa fa-check"></i><b>2.2.3</b> The link function</a></li>
+<li class="chapter" data-level="2.2.4" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-linear-model"><i class="fa fa-check"></i><b>2.2.4</b> The linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="maximum-likelihood-estimation-2.html"><a href="maximum-likelihood-estimation-2.html"><i class="fa fa-check"></i><b>2.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="2.4" data-path="sn-glminfer.html"><a href="sn-glminfer.html"><i class="fa fa-check"></i><b>2.4</b> Inference</a></li>
+<li class="chapter" data-level="2.5" data-path="sn-compglm.html"><a href="sn-compglm.html"><i class="fa fa-check"></i><b>2.5</b> Comparing generalised linear models</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="sn-compglm.html"><a href="sn-compglm.html#sn:glmlrt"><i class="fa fa-check"></i><b>2.5.1</b> The generalised likelihood ratio test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="scaled-deviance-and-the-saturated-model.html"><a href="scaled-deviance-and-the-saturated-model.html"><i class="fa fa-check"></i><b>2.6</b> Scaled deviance and the saturated model</a></li>
+<li class="chapter" data-level="2.7" data-path="sn-unknowndisp.html"><a href="sn-unknowndisp.html"><i class="fa fa-check"></i><b>2.7</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
+<li class="chapter" data-level="2.8" data-path="residuals.html"><a href="residuals.html"><i class="fa fa-check"></i><b>2.8</b> Residuals</a></li>
+<li class="chapter" data-level="2.9" data-path="example-binary-regression.html"><a href="example-binary-regression.html"><i class="fa fa-check"></i><b>2.9</b> Example: Binary Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>3</b> Categorical data</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="sn-multinomial.html"><a href="sn-multinomial.html"><i class="fa fa-check"></i><b>3.2</b> Multinomial sampling</a></li>
+<li class="chapter" data-level="3.3" data-path="product-multinomial-sampling.html"><a href="product-multinomial-sampling.html"><i class="fa fa-check"></i><b>3.3</b> Product multinomial sampling</a></li>
+<li class="chapter" data-level="3.4" data-path="sn-loginter.html"><a href="sn-loginter.html"><i class="fa fa-check"></i><b>3.4</b> Interpreting log-linear models</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+  \newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\)
+<div id="scaled-deviance-and-the-saturated-model" class="section level2">
+<h2><span class="header-section-number">2.6</span> Scaled deviance and the saturated model</h2>
+<p>Consider a model where <span class="math inline">\(\bm{\beta}\)</span> is <span class="math inline">\(n\)</span>-dimensional, and therefore <span class="math inline">\(\bm{\eta}=\bm{X}\bm{\beta}\)</span>. Assuming that <span class="math inline">\(\bm{X}\)</span> is invertible, then this model places no constraints on the linear predictor <span class="math inline">\(\bm{\eta}=(\eta_1,\ldots ,\eta_n)\)</span>. It can take any value in <span class="math inline">\(\mathbb{R}^n\)</span>. Correspondingly the means <span class="math inline">\(\bm{\mu}\)</span> and the canonical parameters <span class="math inline">\(\bm{\theta}\)</span> are unconstrained. The model is of dimension <span class="math inline">\(n\)</span> and can be parameterised equivalently using <span class="math inline">\(\bm{\beta}\)</span>, <span class="math inline">\(\bm{\eta}\)</span>, <span class="math inline">\(\bm{\mu}\)</span> or <span class="math inline">\(\bm{\theta}\)</span>. Such a model is called the <em>saturated</em> model.</p>
+As the canonical parameters <span class="math inline">\(\bm{\theta}\)</span> are unconstrained, we can calculate their maximum likelihood estimates <span class="math inline">\(\hat{\bm{\theta}}\)</span> directly from their likelihood <a href="components-of-a-generalised-linear-model.html#eq:glmrandom">(8)</a> (without first having to calculate <span class="math inline">\(\hat{\bm{\beta}}\)</span>)
+<span class="math display" id="eq:lsaturated">\[\begin{equation}
+\ell(\bm{\theta})=\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}
+\over{a(\phi_i)}}+\sum_{i=1}^nc(y_i,\phi_i).
+\tag{19}
+\end{equation}\]</span>
+<p>We obtain <span class="math inline">\(\hat{\bm{\theta}}\)</span> by first differentiating with respect to <span class="math inline">\(\theta_1,\ldots ,\theta_n\)</span> to give <span class="math display">\[
+{\partial\over{\partial\theta_k}}\ell(\bm{\theta})={{y_k-b&#39;(\theta_k)}
+\over{a(\phi_k)}}\qquad k=1,\ldots ,n.
+\]</span> Therefore <span class="math inline">\(b&#39;(\hat{\theta}_k)=y_k,\;k=1,\ldots ,n\)</span>, and it follows immediately that <span class="math inline">\(\hat{\mu}_k=y_k,\;k=1,\ldots ,n\)</span>. Hence the saturated model fits the data perfectly, as the <em>fitted values</em> <span class="math inline">\(\hat{\mu}_k\)</span> and observed values <span class="math inline">\(y_k\)</span> are the same for every observation <span class="math inline">\(k=1,\ldots ,n\)</span>.</p>
+<p>The saturated model is rarely of any scientific interest in its own right. It is highly parameterised, having as many parameters as there are observations. This goes against our desire for parsimony in a model. However, every other model is necessarily nested in the saturated model, and a test comparing a model <span class="math inline">\(H_0\)</span> against the saturated model <span class="math inline">\(H_S\)</span> can be interpreted as a goodness of fit test. If the saturated model, which fits the observed data perfectly, does not provide a significantly better fit than model <span class="math inline">\(H_0\)</span>, we can conclude that <span class="math inline">\(H_0\)</span> is an acceptable fit to the data.</p>
+<p>The log likelihood ratio statistic for a test of <span class="math inline">\(H_0\)</span> against <span class="math inline">\(H_S\)</span> is, from <a href="sn-compglm.html#eq:LRglm">(18)</a> <span class="math display">\[
+L_{0s}=2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)}),
+\]</span> where <span class="math inline">\(\hat{\bm{\theta}}^{(s)}\)</span> follows from <span class="math inline">\(b&#39;(\hat{\bm{\theta}})=\hat{\bm{\mu}}=\bm{y}\)</span> and <span class="math inline">\(\hat{\bm{\theta}}^{(0)}\)</span> is a function of the corresponding maximum likelihood estimate for <span class="math inline">\(\bm{\beta}=(\beta_1,\ldots ,\beta_q)^T\)</span>. Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(L_{0s}\)</span> has an asymptotic chi-squared distribution with <span class="math inline">\(n-q\)</span> degrees of freedom. Therefore, if <span class="math inline">\(L_{0s}\)</span> is ‘too large’ (for example, larger than the 95% point of the <span class="math inline">\(\chi^2_{n-q}\)</span> distribution) then we reject <span class="math inline">\(H_0\)</span> as a plausible model for the data, as it does not fit the data adequately.</p>
+<p>The <em>degrees of freedom</em> of model <span class="math inline">\(H_0\)</span> is defined to be the degrees of freedom for this test, <span class="math inline">\(n-q\)</span>, the number of observations minus the number of linear parameters of <span class="math inline">\(H_0\)</span>. We call <span class="math inline">\(L_{0s}\)</span> the <em>scaled deviance</em> (<code>R</code> calls it the <em>residual deviance</em>) of model <span class="math inline">\(H_0\)</span>.</p>
+From <a href="sn-compglm.html#eq:LRglm">(18)</a> and <a href="scaled-deviance-and-the-saturated-model.html#eq:lsaturated">(19)</a> we can write the deviance of model <span class="math inline">\(H_0\)</span> as
+<span class="math display" id="eq:dsaturated">\[\begin{equation}
+L_{0s}=2\sum_{i=1}^n{{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
+-[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
+\over{a(\phi_i)}},
+  \tag{20}
+\end{equation}\]</span>
+<p>which can be calculated using the observed data, provided that <span class="math inline">\(a(\phi_i),\; i = 1, \ldots, n\)</span> is known.</p>
+
+<p><strong>Notes</strong></p>
+<ol style="list-style-type: decimal">
+<li>The log likelihood ratio statistic <a href="sn-compglm.html#eq:LRglm">(18)</a> for testing <span class="math inline">\(H_0\)</span> against a non-saturated alternative <span class="math inline">\(H_1\)</span> can be written as
+<span class="math display" id="eq:LRsaturated">\[\begin{align}
+L_{01}&amp;=2\log L(\hat{\bm{\theta}}^{(1)})-2\log L(\hat{\bm{\theta}}^{(0)})\cr
+&amp;=[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(0)})]
+-[2\log L(\hat{\bm{\theta}}^{(s)})-2\log L(\hat{\bm{\theta}}^{(1)})]\cr
+&amp;=L_{0s}-L_{1s}. 
+  \tag{21}
+\end{align}\]</span>
+Therefore the log likelihood ratio statistic for comparing two nested models is the difference of their deviances. Furthermore, as <span class="math inline">\(p-q=(n-q)-(n-p)\)</span>, the degrees of freedom for the test is the difference in degrees of freedom of the two models.</li>
+<li>The asymptotic theory used to derive the distribution of the log likelihood ratio statistic under <span class="math inline">\(H_0\)</span> does not really apply to the goodness of fit test (comparison with the saturated model). However, for binomial or Poisson data, we can proceed as long as the relevant binomial or Poisson distributions are likely to be reasonably approximated by normal distributions (<em>i.e.</em> for binomials with large denominators or Poissons with large means). However, for Bernoulli data, we cannot use the scaled deviance as a goodness of fit statistic in this way.</li>
+<li>An alternative goodness of fit statistic for a model <span class="math inline">\(H_0\)</span> is Pearson’s <span class="math inline">\(X^2\)</span> given by
+<span class="math display" id="eq:pearsonGoF">\[\begin{equation}
+X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\text{Var}}(Y_i)}}.
+  \tag{22}
+\end{equation}\]</span>
+<span class="math inline">\(X^2\)</span> is small when the squared differences between observed and fitted values (scaled by variance) is small. Hence, large values of <span class="math inline">\(X^2\)</span> correspond to poor fitting models. In fact, <span class="math inline">\(X^2\)</span> and <span class="math inline">\(L_{0s}\)</span> are asymptotically equivalent and under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(X^2\)</span>, like <span class="math inline">\(L_{0s}\)</span>, has an asymptotic chi-squared distribution with <span class="math inline">\(n-q\)</span> degrees of freedom. However, the asymptotics associated with <span class="math inline">\(X^2\)</span> are often more reliable for small samples, so if there is a discrepancy between <span class="math inline">\(X^2\)</span> and <span class="math inline">\(L_{0s}\)</span>, it is usually safer to base a test of goodness of fit on <span class="math inline">\(X^2\)</span>.</li>
+<li>Although the deviance for a model is expressed in <a href="scaled-deviance-and-the-saturated-model.html#eq:dsaturated">(20)</a> in terms of the maximum likelihood estimates of the canonical parameters, it is more usual to express it in terms of the maximum likelihood estimates <span class="math inline">\(\hat{\mu}_i,\; i = 1, \ldots, n\)</span> of the mean parameters. For the saturated model, these are just the observed values <span class="math inline">\(y_i,\;i = 1, \ldots, n\)</span>, and for the model of interest, <span class="math inline">\(H_0\)</span>, we call them the <em>fitted values</em>. Hence, for a particular generalised linear model, the scaled deviance function describes how discrepancies between the observed and fitted values are penalised.</li>
+</ol>
+
+<strong>Example (Poisson)</strong>. Suppose <span class="math inline">\(Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="sn-ef.html#sn:ef">2.1</a> that <span class="math inline">\(\theta=\log\lambda\)</span>, <span class="math inline">\(b(\theta)=\exp\theta\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\exp\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu\)</span>. Therefore, by <a href="scaled-deviance-and-the-saturated-model.html#eq:dsaturated">(20)</a> and <a href="scaled-deviance-and-the-saturated-model.html#eq:pearsonGoF">(22)</a>
+<span class="math display">\[\begin{align*}
+L_{0s}&amp;=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
+-[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
+&amp;=2\sum_{i=1}^n y_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
+-y_i+\hat{\mu}^{(0)}_i
+\end{align*}\]</span>
+<p>and <span class="math display">\[
+X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
+\]</span></p>
+<strong>Example (Binomial)</strong>. Suppose <span class="math inline">\(n_iY_i\sim\)</span> Binomial<span class="math inline">\((n_i,p_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="sn-ef.html#sn:ef">2.1</a> that <span class="math inline">\(\theta=\log{p\over{1-p}}\)</span>, <span class="math inline">\(b(\theta)=\log(1+\exp\theta)\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)={{\exp\theta}\over{1+\exp\theta}}\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)\)</span>. Therefore, by <a href="scaled-deviance-and-the-saturated-model.html#eq:dsaturated">(20)</a> and <a href="scaled-deviance-and-the-saturated-model.html#eq:pearsonGoF">(22)</a>
+<span class="math display">\[\begin{align*}
+L_{0s}&amp;=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
+-\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] 
++ 2\sum_{i=1}^n n_i \left[\log(1-\hat{\mu}^{(s)}_i)-\log(1-\hat{\mu}^{(0)}_i) \right]\cr
+&amp;=2\sum_{i=1}^n \left[ n_iy_i\log \left({{y_i}\over{\hat{\mu}^{(0)}_i}}\right)
++n_i(1-y_i) \log \left({{1-y_i}\over{1-\hat{\mu}^{(0)}_i}}\right) \right]
+\end{align*}\]</span>
+<p>and <span class="math display">\[
+X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
+(1-\hat{\mu}^{(0)}_i)}}.
+\]</span> Bernoulli data are binomial with <span class="math inline">\(n_i=1,\;i = 1, \ldots, n\)</span>.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sn-compglm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sn-unknowndisp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MATH3012.pdf", "MATH3012.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

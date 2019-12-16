@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <meta name="description" content="The course notes for MATH3012: Statistical Methods II" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  <meta name="twitter:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+<meta name="author" content="Helen Ogden" />
+
+
+<meta name="date" content="2019-12-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="example-data-to-be-analysed.html"/>
+<link rel="next" href="sn-lm.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MATH3012: Statistical Models II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
+<li class="chapter" data-level="1.1" data-path="elements-of-statistical-modelling.html"><a href="elements-of-statistical-modelling.html"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
+<li class="chapter" data-level="1.2" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
+<li class="chapter" data-level="1.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
+<li class="chapter" data-level="1.3.2" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
+<li class="chapter" data-level="1.3.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#survival-time-to-death"><i class="fa fa-check"></i><b>1.3.3</b> <code>survival</code>: Time to death</a></li>
+<li class="chapter" data-level="1.3.4" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#beetle-mortality-from-carbon-disulphide"><i class="fa fa-check"></i><b>1.3.4</b> <code>beetle</code>: Mortality from carbon disulphide</a></li>
+<li class="chapter" data-level="1.3.5" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#shuttle-challenger-disaster"><i class="fa fa-check"></i><b>1.3.5</b> <code>shuttle</code>: Challenger disaster</a></li>
+<li class="chapter" data-level="1.3.6" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#heart-treatment-for-heart-attack"><i class="fa fa-check"></i><b>1.3.6</b> <code>heart</code>: Treatment for heart attack</a></li>
+<li class="chapter" data-level="1.3.7" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#accident-road-traffic-accidents"><i class="fa fa-check"></i><b>1.3.7</b> <code>accident</code>: Road traffic accidents</a></li>
+<li class="chapter" data-level="1.3.8" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#lymphoma-lymphoma-patients"><i class="fa fa-check"></i><b>1.3.8</b> <code>lymphoma</code>: Lymphoma patients</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html"><i class="fa fa-check"></i><b>1.4</b> Likelihood-based statistical theory</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#the-likelihood-function"><i class="fa fa-check"></i><b>1.4.1</b> The likelihood function</a></li>
+<li class="chapter" data-level="1.4.2" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>1.4.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.4.3" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#score"><i class="fa fa-check"></i><b>1.4.3</b> Score</a></li>
+<li class="chapter" data-level="1.4.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#info"><i class="fa fa-check"></i><b>1.4.4</b> Information</a></li>
+<li class="chapter" data-level="1.4.5" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:asnmle"><i class="fa fa-check"></i><b>1.4.5</b> Asymptotic distribution of the MLE</a></li>
+<li class="chapter" data-level="1.4.6" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#comparing-statistical-models"><i class="fa fa-check"></i><b>1.4.6</b> Comparing statistical models</a></li>
+<li class="chapter" data-level="1.4.7" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:lrt"><i class="fa fa-check"></i><b>1.4.7</b> The log-likelihood ratio statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="sn-lm.html"><a href="sn-lm.html"><i class="fa fa-check"></i><b>1.5</b> Linear Models</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="sn-lm.html"><a href="sn-lm.html#introduction"><i class="fa fa-check"></i><b>1.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.5.2" data-path="sn-lm.html"><a href="sn-lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>1.5.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.5.3" data-path="sn-lm.html"><a href="sn-lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>1.5.3</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="1.5.4" data-path="sn-lm.html"><a href="sn-lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>1.5.4</b> Comparing linear models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>2</b> Generalised Linear Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="sn-ef.html"><a href="sn-ef.html"><i class="fa fa-check"></i><b>2.1</b> The Exponential family</a></li>
+<li class="chapter" data-level="2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html"><i class="fa fa-check"></i><b>2.2</b> Components of a generalised linear model</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-random-component"><i class="fa fa-check"></i><b>2.2.1</b> The random component</a></li>
+<li class="chapter" data-level="2.2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>2.2.2</b> The systematic (or structural) component</a></li>
+<li class="chapter" data-level="2.2.3" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-link-function"><i class="fa fa-check"></i><b>2.2.3</b> The link function</a></li>
+<li class="chapter" data-level="2.2.4" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-linear-model"><i class="fa fa-check"></i><b>2.2.4</b> The linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="maximum-likelihood-estimation-2.html"><a href="maximum-likelihood-estimation-2.html"><i class="fa fa-check"></i><b>2.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="2.4" data-path="sn-glminfer.html"><a href="sn-glminfer.html"><i class="fa fa-check"></i><b>2.4</b> Inference</a></li>
+<li class="chapter" data-level="2.5" data-path="sn-compglm.html"><a href="sn-compglm.html"><i class="fa fa-check"></i><b>2.5</b> Comparing generalised linear models</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="sn-compglm.html"><a href="sn-compglm.html#sn:glmlrt"><i class="fa fa-check"></i><b>2.5.1</b> The generalised likelihood ratio test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="scaled-deviance-and-the-saturated-model.html"><a href="scaled-deviance-and-the-saturated-model.html"><i class="fa fa-check"></i><b>2.6</b> Scaled deviance and the saturated model</a></li>
+<li class="chapter" data-level="2.7" data-path="sn-unknowndisp.html"><a href="sn-unknowndisp.html"><i class="fa fa-check"></i><b>2.7</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
+<li class="chapter" data-level="2.8" data-path="residuals.html"><a href="residuals.html"><i class="fa fa-check"></i><b>2.8</b> Residuals</a></li>
+<li class="chapter" data-level="2.9" data-path="example-binary-regression.html"><a href="example-binary-regression.html"><i class="fa fa-check"></i><b>2.9</b> Example: Binary Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>3</b> Categorical data</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="sn-multinomial.html"><a href="sn-multinomial.html"><i class="fa fa-check"></i><b>3.2</b> Multinomial sampling</a></li>
+<li class="chapter" data-level="3.3" data-path="product-multinomial-sampling.html"><a href="product-multinomial-sampling.html"><i class="fa fa-check"></i><b>3.3</b> Product multinomial sampling</a></li>
+<li class="chapter" data-level="3.4" data-path="sn-loginter.html"><a href="sn-loginter.html"><i class="fa fa-check"></i><b>3.4</b> Interpreting log-linear models</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+  \newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\)
+<div id="likelihood-based-statistical-theory" class="section level2">
+<h2><span class="header-section-number">1.4</span> Likelihood-based statistical theory</h2>
+<div id="the-likelihood-function" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> The likelihood function</h3>
+<p>Probability distributions like the binomial, Poisson and normal, enable us to calculate probabilities, and other quantities of interest (e.g. expectations) for a probability model of a random process. Therefore, given the model, we can make statements about possible outcomes of the process.</p>
+<p>Statistical inference is concerned with the inverse problem. Given outcomes of a random process (observed data), what conclusions (inferences) can we draw about the process itself?</p>
+<p>We assume that the <span class="math inline">\(n\)</span> observations of the response <span class="math inline">\(\bm y=(y_1,\ldots ,y_n)^T\)</span> are observations of random variables <span class="math inline">\(\bm Y=(Y_1,\ldots ,Y_n)^T\)</span>, which have joint p.d.f. <span class="math inline">\(f_{\bm Y}\)</span> (joint p.f. for discrete variables). We use the observed data <span class="math inline">\(\bm y\)</span> to make inferences about <span class="math inline">\(f_{\bm Y}\)</span>.</p>
+<p>We usually make certain assumptions about <span class="math inline">\(f_{\bm Y}\)</span>. In particular, we often assume that <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <em>independent</em> random variables. Hence <span class="math display">\[
+f_{\bm Y}(\bm y)=f_{Y_1}(y_1)f_{Y_2}(y_2)\cdots f_{Y_n}(y_n)
+=\prod_{i=1}^n f_{Y_i}(y_i).
+\]</span></p>
+<p>In parametric statistical inference, we specify a joint distribution <span class="math inline">\(f_{\bm Y}\)</span>, for <span class="math inline">\(\bm Y\)</span>, which is known, except for the values of parameters <span class="math inline">\(\theta_1,\theta_2,\ldots ,\theta_p\)</span> (sometimes denoted by <span class="math inline">\(\bm \theta\)</span>). Then we use the observed data <span class="math inline">\(\bm y\)</span> to make inferences about <span class="math inline">\(\theta_1,\theta_2,\ldots ,\theta_p\)</span>. In this case, we usually write <span class="math inline">\(f_{\bm Y}\)</span> as <span class="math inline">\(f_{\bm Y}(\bm y;\bm \theta)\)</span>, to make explicit the dependence on the unknown <span class="math inline">\(\bm \theta\)</span>.</p>
+<p>Until now, we have thought of the joint density <span class="math inline">\(f_{\bm Y}(\bm y;\bm \theta)\)</span> as a function of <span class="math inline">\(\bm{y}\)</span> for fixed <span class="math inline">\(\bm \theta\)</span>, which describes the relative probabilities of different possible values of <span class="math inline">\(\bm y\)</span>, given a particular set of parameters <span class="math inline">\(\bm \theta\)</span>. However, in statistical inference, we have observed <span class="math inline">\(y_1, \ldots, y_n\)</span> (values of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>). Knowledge of the probability of alternative possible realisations of <span class="math inline">\(\bm Y\)</span> is largely irrelevant. What we want to know about is <span class="math inline">\(\bm \theta\)</span>.</p>
+<p>Our only link between the observed data <span class="math inline">\(y_1, \ldots, y_n\)</span> and <span class="math inline">\(\bm \theta\)</span> is through the function <span class="math inline">\(f_{\bm Y}(\bm y;\bm \theta)\)</span>. Therefore, it seems sensible that parametric statistical inference should be based on this function. We can think of <span class="math inline">\(f_{\bm Y}(\bm y;\bm \theta)\)</span> as a function of <span class="math inline">\(\bm \theta\)</span> for fixed <span class="math inline">\(\bm{y}\)</span>, which describes the relative <em>likelihoods</em> of different possible (sets of) <span class="math inline">\(\bm \theta,\)</span> given observed data <span class="math inline">\(y_1, \ldots, y_n\)</span>. We write <span class="math display">\[L(\bm \theta; \bm y) = f_{\bm Y}(\bm y;\bm \theta)\]</span> for this <em>likelihood</em>, which is a function of the unknown parameter <span class="math inline">\(\bm \theta\)</span>. For convenience, we often drop <span class="math inline">\(\bm y\)</span> from the notation, and write <span class="math inline">\(L(\bm \theta)\)</span>.</p>
+<p>The likelihood function is of central importance in parametric statistical inference. It provides a means for comparing different possible values of <span class="math inline">\(\bm \theta\)</span>, based on the probabilities (or probability densities) that they assign to the observed data <span class="math inline">\(y_1, \ldots, y_n\)</span>.</p>
+<p><strong>Notes</strong></p>
+<ol style="list-style-type: decimal">
+<li>Frequently it is more convenient to consider the <em>log-likelihood</em> function <span class="math inline">\(\ell(\bm \theta) = \log L(\bm \theta)\)</span>.</li>
+<li>Nothing in the definition of the likelihood requires <span class="math inline">\(y_1, \ldots, y_n\)</span> to be observations of independent random variables, although we shall frequently make this assumption.</li>
+<li>Any factors which depend on <span class="math inline">\(y_1, \ldots, y_n\)</span> alone (and not on <span class="math inline">\(\bm \theta\)</span>) can be ignored when writing down the likelihood. Such factors give no information about the relative likelihoods of different possible values of <span class="math inline">\(\bm \theta\)</span>.</li>
+</ol>
+<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, independent identically distributed (i.i.d.) Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\theta=(p)\)</span> and the likelihood is <span class="math display">\[
+L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}.
+\]</span> The log-likelihood is <span class="math display">\[
+\ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
+\]</span></p>
+<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and the likelihood is
+<span class="math display">\[\begin{align*}
+L(\mu,\sigma^2) &amp;=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
+\exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
+&amp;=(2\pi\sigma^2)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
+&amp;\propto (\sigma^2)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
+\end{align*}\]</span>
+<p>The log-likelihood is <span class="math display">\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+-{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]</span></p>
+</div>
+<div id="maximum-likelihood-estimation" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> Maximum likelihood estimation</h3>
+<p>One of the primary tasks of parametric statistical inference is <em>estimation</em> of the unknown parameters <span class="math inline">\(\theta_1, \ldots, \theta_p\)</span>. Consider the value of <span class="math inline">\(\bm \theta\)</span> which maximises the likelihood function. This is the ‘most likely’ value of <span class="math inline">\(\bm \theta\)</span>, the one which makes the observed data ‘most probable’. When we are searching for an estimate of <span class="math inline">\(\bm \theta\)</span>, this would seem to be a good candidate.</p>
+<p>We call the value of <span class="math inline">\(\bm \theta\)</span> which maximises the likelihood <span class="math inline">\(L(\theta)\)</span> the <em>maximum likelihood estimate</em> (MLE) of <span class="math inline">\(\bm \theta\)</span>, denoted by <span class="math inline">\(\hat{\bm \theta}\)</span>. <span class="math inline">\(\hat{\bm \theta}\)</span> depends on <span class="math inline">\(\bm y\)</span>, as different observed data samples lead to different likelihood functions. The corresponding function of <span class="math inline">\(\bm Y\)</span> is called the <em>maximum likelihood estimator</em> and is also denoted by <span class="math inline">\(\hat{\bm \theta}\)</span>.</p>
+<p>Note that as <span class="math inline">\(\bm \theta=(\theta_1, \ldots, \theta_p)\)</span>, the MLE for any component of <span class="math inline">\(\bm \theta\)</span> is given by the corresponding component of <span class="math inline">\(\hat{\bm \theta}=(\hat{\theta}_1,\ldots ,\hat{\theta}_p)^T\)</span>. Similarly, the MLE for any function of parameters <span class="math inline">\(g(\bm \theta)\)</span> is given by <span class="math inline">\(g(\hat{\bm \theta})\)</span>.</p>
+<p>As <span class="math inline">\(\log\)</span> is a strictly increasing function, the value of <span class="math inline">\(\bm \theta\)</span> which maximises <span class="math inline">\(L(\bm \theta)\)</span> also maximises <span class="math inline">\(\ell(\bm \theta) = \log L (\bm \theta)\)</span>. It is almost always easier to maximise <span class="math inline">\(\ell(\bm \theta)\)</span>. This is achieved in the usual way; finding a stationary point by differentiating <span class="math inline">\(\ell(\bm \theta)\)</span> with respect to <span class="math inline">\(\theta_1, \ldots, \theta_p\)</span>, and solving the resulting <span class="math inline">\(p\)</span> simultaneous equations. It should also be checked that the stationary point is a maximum.</p>
+<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and the log-likelihood is <span class="math display">\[\ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p).\]</span> Differentiating with respect to <span class="math inline">\(p\)</span>, <span class="math display">\[\frac{\partial}{\partial p} \ell(p) = \frac{n\bar y}{p}-\frac{n(1-\bar y)}{1-p}\]</span> so the MLE <span class="math inline">\(\hat p\)</span> solves <span class="math display">\[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]</span> Solving this for <span class="math inline">\(\hat{p}\)</span> gives <span class="math inline">\(\hat{p}=\bar y\)</span>. Note that <span class="math display">\[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}&lt;0\]</span> everywhere, so the stationary point is clearly a maximum.</p>
+<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and and the log-likelihood is <span class="math display">\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+-{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]</span> Differentiating with respect to <span class="math inline">\(\mu\)</span> <span class="math display">\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
+  {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]</span> so <span class="math inline">\((\hat \mu, \hat \sigma^2)\)</span> solve
+<span class="math display" id="eq:normalScoreMu">\[\begin{equation}
+  \frac{n(\bar y-\hat{\mu})}{\hat \sigma^2} = 0.
+  \tag{1}
+\end{equation}\]</span>
+Differentiating with respect to <span class="math inline">\(\sigma^2\)</span> <span class="math display">\[\frac{\partial}{\partial \sigma^2} \ell (\mu,\sigma^2)=
+- \frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum(y_i-\mu)^2,\]</span> so
+<span class="math display" id="eq:normalScoreSs">\[\begin{equation}
+  -{n\over {2\hat \sigma^2}}+{1\over{2(\hat \sigma^2)^2}}\sum(y_i-\hat{\mu})^2 = 0
+  \tag{2}
+\end{equation}\]</span>
+<p>Solving <a href="likelihood-based-statistical-theory.html#eq:normalScoreMu">(1)</a> and <a href="likelihood-based-statistical-theory.html#eq:normalScoreSs">(2)</a>, we obtain <span class="math inline">\(\hat{\mu}= \bar y\)</span> and <span class="math display">\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
+{1\over n}\sum(y_i-\bar y)^2.\]</span></p>
+<p>Strictly, to show that this stationary point is a maximum, we need to show that the Hessian matrix (the matrix of second derivatives with elements <span class="math inline">\([\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)\)</span>) is negative definite at <span class="math inline">\(\bm \theta=\hat{\bm \theta}\)</span>, that is <span class="math inline">\(\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}&lt;0\)</span> for every <span class="math inline">\(\bm{a}\ne {\bf 0}\)</span>. Here <span class="math display">\[
+\bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
+- \frac{n}{\hat \sigma^2 } &amp; 0 \cr
+0   &amp;-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
+\]</span> which is clearly negative definite.</p>
+</div>
+<div id="score" class="section level3">
+<h3><span class="header-section-number">1.4.3</span> Score</h3>
+<p>Let <span class="math display">\[
+u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta), \quad i=1,\ldots ,p
+\]</span> and <span class="math inline">\(\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T\)</span>. Then we call <span class="math inline">\(\bm{u}(\bm \theta)\)</span> the <em>vector of scores</em> or <em>score vector</em>. Where <span class="math inline">\(p=1\)</span> and <span class="math inline">\(\bm \theta=(\theta)\)</span>, the <em>score</em> is the scalar defined as <span class="math display">\[
+u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
+\]</span> The maximum likelihood estimate <span class="math inline">\(\hat{\bm \theta}\)</span> satisfies <span class="math display">\[u(\hat{\bm \theta})={\bm 0},\]</span> that is, <span class="math display">\[u_i(\hat{\bm \theta})=0, \quad i=1,\ldots ,p.\]</span> Note that <span class="math inline">\(u(\bm{\theta})\)</span> is a function of <span class="math inline">\(\bm \theta\)</span> for fixed (observed) <span class="math inline">\(\bm y\)</span>. However, if we replace <span class="math inline">\(y_1, \ldots, y_n\)</span> in <span class="math inline">\(u(\bm{\theta})\)</span>, by the corresponding random variables <span class="math inline">\(Y_1, \ldots, Y_n\)</span> then we obtain a vector of random variables <span class="math inline">\(U(\bm{\theta})\equiv [U_1(\bm \theta),\ldots ,U_p(\bm \theta)]^T\)</span>.</p>
+<p>An important result in likelihood theory is that the expected score at the true (but unknown) value of <span class="math inline">\(\bm \theta\)</span> is zero, <em>i.e.</em> <span class="math display">\[E[U(\bm{\theta})]={\bf 0}\]</span> or <span class="math display">\[E[U_i(\bm \theta)]= 0,
+\quad i=1,\ldots ,p,\]</span> provided that</p>
+<ol style="list-style-type: decimal">
+<li>The expectation exists.</li>
+<li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
+</ol>
+
+<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and <span class="math display">\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]</span> Since <span class="math inline">\(E[U(p)] = 0\)</span>, we must have <span class="math inline">\(E[\bar Y]=p\)</span> (which we already know is correct).</p>
+<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+<span class="math display">\[\begin{align*}
+u_1(\mu,\sigma^2)&amp;= {{n(\bar y-\mu)}/{\sigma^2}}\cr
+u_2(\mu,\sigma^2)&amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
+\end{align*}\]</span>
+<p>Since <span class="math inline">\(E[\bm U(\mu,\sigma^2)] = {\bm 0}\)</span>, we must have <span class="math inline">\(E[\bar Y]=\mu\)</span> and <span class="math inline">\(E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.\)</span></p>
+</div>
+<div id="info" class="section level3">
+<h3><span class="header-section-number">1.4.4</span> Information</h3>
+<p>Suppose that <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, whose joint p.d.f. <span class="math inline">\(L(\theta)\)</span> is completely specified except for the values of <span class="math inline">\(p\)</span> unknown parameters <span class="math inline">\(\bm \theta=(\theta_1, \ldots, \theta_p)^T\)</span>. Previously, we defined the Hessian matrix <span class="math inline">\(H(\bm{\theta})\)</span> to be the matrix with components <span class="math display">\[
+[H(\bm{\theta})]_{ij}\equiv{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \ell(\theta)
+\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
+\]</span> We call the matrix <span class="math inline">\(-H(\bm{\theta})\)</span> the <em>observed information matrix</em>. Where <span class="math inline">\(p=1\)</span> and <span class="math inline">\(\bm \theta=(\theta)\)</span>, the <em>observed information</em> is a scalar defined as <span class="math display">\[
+-H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\ell(\theta).
+\]</span></p>
+<!-- Here, we are interpreting $\bm \theta$ as the true (but unknown) value of -->
+<!-- the parameter. -->
+<p>As with the score, if we replace <span class="math inline">\(y_1, \ldots, y_n\)</span> in <span class="math inline">\(H(\bm{\theta})\)</span>, by the corresponding random variables <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, we obtain a matrix of random variables. Then, we define the <em>expected information matrix</em> or <em>Fisher information matrix</em> <span class="math display">\[
+[\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
+\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
+\]</span></p>
+<p>An important result in likelihood theory is that the variance-covariance matrix of the score vector is equal to the expected information matrix <em>i.e.</em> <span class="math display">\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]</span> or <span class="math display">\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
+\quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]</span> provided that</p>
+<ol style="list-style-type: decimal">
+<li>The variance exists.</li>
+<li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
+</ol>
+
+
+<strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and
+<span class="math display">\[\begin{align*}
+u(p)&amp;= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
+-H(p)&amp;= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
+{\cal I}(p)&amp;= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
+\end{align*}\]</span>
+
+<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+<span class="math display">\[\begin{align*}
+u_1(\mu,\sigma^2) &amp;=  \frac{n(\bar y-\mu)}{\sigma^2} \\
+u_2(\mu,\sigma^2) &amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
+\end{align*}\]</span>
+<p>Therefore <span class="math display">\[
+-\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
+\frac{n}{\sigma^2} &amp; \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
+\frac{n(\bar y-\mu)}{(\sigma^2)^2}&amp;
+ \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}
+\]</span> <span class="math display">\[
+{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
+\frac{n}{\sigma^2} &amp; 0 \cr
+0&amp; \frac{n}{2(\sigma^2)^2}
+\end{pmatrix}.
+\]</span></p>
+</div>
+<div id="sn:asnmle" class="section level3">
+<h3><span class="header-section-number">1.4.5</span> Asymptotic distribution of the MLE</h3>
+<p>Maximum likelihood estimation is an attractive method of estimation for a number of reasons. It is intuitively sensible and usually reasonably straightforward to carry out. Even when the simultaneous equations we obtain by differentiating the log-likelihood function are impossible to solve directly, solution by numerical methods is usually feasible.</p>
+<p>Perhaps the most compelling reason for considering maximum likelihood estimation is the asymptotic behaviour of maximum likelihood estimators.</p>
+<p>Suppose that <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of independent random variables <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, whose joint p.d.f. <span class="math inline">\(f_{\bm Y}(\bm y;\bm \theta)=\prod_{i=1}^n f_{Y_i}(y_i;\bm \theta)\)</span> is completely specified except for the values of an unknown parameter vector <span class="math inline">\(\bm \theta\)</span>, and that <span class="math inline">\(\hat{\bm \theta}\)</span> is the maximum likelihood estimator of <span class="math inline">\(\bm \theta\)</span>.</p>
+<p>Then, as <span class="math inline">\(n\to\infty\)</span>, the distribution of <span class="math inline">\(\hat{\bm \theta}\)</span> tends to a multivariate normal distribution with mean vector <span class="math inline">\(\bm \theta\)</span> and variance covariance matrix <span class="math inline">\(\mathcal{I}(\bm \theta)^{-1}\)</span>.</p>
+<p>Where <span class="math inline">\(p=1\)</span> and <span class="math inline">\(\bm \theta=(\theta)\)</span>, the distribution of the MLE <span class="math inline">\(\hat{\theta}\)</span> tends to <span class="math inline">\(N[\theta,1/{\cal I}(\theta)]\)</span>.</p>
+<p>For ‘large enough <span class="math inline">\(n\)</span>’, we can treat the asymptotic distribution of the MLE as an approximation. The fact that <span class="math inline">\(E(\hat{\bm \theta})\approx\bm \theta\)</span> means that the maximum likelihood estimator is <em>approximately unbiased</em> for large samples. The variance of <span class="math inline">\(\hat{\bm \theta}\)</span> is approximately <span class="math inline">\(\mathcal{I}(\bm \theta)^{-1}\)</span>. It is possible to show that this is the smallest possible variance of any unbiased estimator of <span class="math inline">\(\bm \theta\)</span> (this result is called the Cramér–Rao lower bound, which we do not prove here). Therefore the MLE is the ‘best possible’ estimator in large samples (and therefore we hope also reasonable in small samples, though we should investigate this case by case).</p>
+<p>The usefulness of an estimate is always enhanced if some kind of measure of its precision can also be provided. Usually, this will be a <em>standard error</em>, an estimate of the standard deviation of the associated estimator. For the maximum likelihood estimator <span class="math inline">\(\hat{\theta}\)</span>, a standard error is given by <span class="math display">\[
+s.e.(\hat{\theta})={1\over{{\cal I}(\hat{\theta})^{{1\over 2}}}},
+\]</span> and for a vector parameter <span class="math inline">\(\bm \theta\)</span> <span class="math display">\[
+s.e.(\hat{\theta}_i)=[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{{1\over 2}},
+\quad i=1,\ldots ,p.
+\]</span></p>
+<p>An alternative summary of the information provided by the observed data about the location of a parameter <span class="math inline">\(\theta\)</span> and the associated precision is a <em>confidence interval</em>.</p>
+<p>The asymptotic distribution of the maximum likelihood estimator can be used to provide approximate large sample confidence intervals. Asymptotically, <span class="math inline">\(\hat{\theta}_i\)</span> has a <span class="math inline">\(N(\theta_i,[\mathcal{I}(\bm \theta)^{-1}]_{ii})\)</span> distribution and we can find <span class="math inline">\(z_{1-\frac{\alpha}{2}}\)</span> such that <span class="math display">\[
+P\left(- z_{1-\frac{\alpha}{2}}\le {{\hat{\theta}_i-\theta_i}\over{[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}}}\le
+z_{1-\frac{\alpha}{2}}\right) = 1- \alpha.
+\]</span> Therefore <span class="math display">\[
+P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}\le\theta_i
+\le\hat{\theta}_i+z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^{1\over 2}
+\right) = 1- \alpha.
+\]</span> The endpoints of this interval cannot be evaluated because they also depend on the unknown parameter vector <span class="math inline">\(\bm \theta\)</span>. However, if we replace <span class="math inline">\(\mathcal{I}(\bm \theta)\)</span> by its MLE <span class="math inline">\({\cal I}(\hat{\bm \theta})\)</span> we obtain the approximate large sample <span class="math inline">\(100(1 - \alpha)\%\)</span> confidence interval <span class="math display">\[
+[\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{1\over 2},
+\hat{\theta}_i+z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{1\over 2}].
+\]</span> For <span class="math inline">\(\alpha=0.1,0.05,0.01\)</span>, <span class="math inline">\(z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58\)</span>.</p>
+<strong>Example (Bernoulli)</strong>. If <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables then asymptotically <span class="math inline">\(\hat{p}=\bar y\)</span> has a <span class="math inline">\(N(p,{p(1-p)}/ n)\)</span> distribution, and a large sample 95% confidence interval for <span class="math inline">\(p\)</span> is
+<span class="math display">\[\begin{align*}
+&amp; [\hat{p}- 1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2},
+\hat{p}+1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2}]
+\cr
+&amp;=
+[\hat{p}-1.96[\hat{p}(1-\hat{p})/n]^{1\over 2},
+\hat{p}+1.96[\hat{p}(1-\hat{p})/n]^{1\over 2}]\cr
+&amp;=
+[\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
+\bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}].
+\end{align*}\]</span>
+</div>
+<div id="comparing-statistical-models" class="section level3">
+<h3><span class="header-section-number">1.4.6</span> Comparing statistical models</h3>
+<p>If we have a set of competing probability models which might have generated the observed data, we may want to determine which of the models is most appropriate. In practice, we proceed by comparing models pairwise. Suppose that we have two competing alternatives, <span class="math inline">\(f^{(0)}_{\bm Y}\)</span> (model <span class="math inline">\(H_0\)</span>) and <span class="math inline">\(f^{(1)}_{\bm Y}\)</span> (model <span class="math inline">\(H_1\)</span>) for <span class="math inline">\(f_{\bm Y}\)</span>, the joint distribution of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>. The most common situation is where <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> both take the same parametric form, <span class="math inline">\(f_{\bm Y}(\bm{y};\bm \theta)\)</span> but with <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span> for <span class="math inline">\(H_0\)</span> and <span class="math inline">\(\bm \theta\in\Theta^{(1)}\)</span> for <span class="math inline">\(H_1\)</span>, where <span class="math inline">\(\Theta^{(0)}\)</span> and <span class="math inline">\(\Theta^{(1)}\)</span> are alternative sets of possible values for <span class="math inline">\(\bm \theta\)</span>.</p>
+<p>A hypothesis test provides a mechanism for comparing the two competing statistical models, <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span>. A hypothesis test does not treat the two hypotheses (models) symmetrically. One hypothesis, <span class="math inline">\(H_0\)</span>, is accorded special status, and referred to as the <em>null hypothesis</em>. The null hypothesis is the reference model, and will be assumed to be appropriate unless the observed data strongly indicate that <span class="math inline">\(H_0\)</span> is inappropriate, and that <span class="math inline">\(H_1\)</span> (the <em>alternative</em> hypothesis) should be preferred.</p>
+<p>Hence, the fact that a hypothesis test does not reject <span class="math inline">\(H_0\)</span> should not be taken as evidence that <span class="math inline">\(H_0\)</span> is true and <span class="math inline">\(H_1\)</span> is not, or that <span class="math inline">\(H_0\)</span> is better supported by the data than <span class="math inline">\(H_1\)</span>, merely that the data does not provide sufficient evidence to reject <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span>.</p>
+<p>A hypothesis test is defined by its <em>critical region</em> or <em>rejection region</em>, which we shall denote by <span class="math inline">\(C\)</span>. <span class="math inline">\(C\)</span> is a subset of <span class="math inline">\(\mathbb{R}^n\)</span> and is the set of possible <span class="math inline">\(\bm{y}\)</span> which would lead to rejection of <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span>, <em>i.e.</em></p>
+<ul>
+<li>If <span class="math inline">\(\bm{y} \in C\)</span>, <span class="math inline">\(H_0\)</span> is rejected in favour of <span class="math inline">\(H_1\)</span>;</li>
+<li>If <span class="math inline">\(\bm{y} \not\in C\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</li>
+</ul>
+<p>As <span class="math inline">\(\bm Y\)</span> is a random variable, there remains the possibility that a hypothesis test will produce an erroneous result. We define the <em>size</em> (or <em>significance level</em>) of the test <span class="math display">\[\alpha = \max_{\bm \theta\in\Theta^{(0)}}P(\bm Y\in C;\bm \theta)\]</span> This is the maximum probability of erroneously rejecting <span class="math inline">\(H_0\)</span>, over all possible distributions for <span class="math inline">\(\bm Y\)</span> implied by <span class="math inline">\(H_0\)</span>. We also define the power function <span class="math display">\[\omega(\bm \theta)= P(\bm Y\in C;\bm \theta)\]</span> It represents the probability of rejecting <span class="math inline">\(H_0\)</span> for a particular value of <span class="math inline">\(\bm \theta\)</span>. Clearly we would like to find a test with where <span class="math inline">\(\omega(\bm \theta)\)</span> is large for every <span class="math inline">\(\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}\)</span>, while at the same time avoiding erroneous rejection of <span class="math inline">\(H_0\)</span>. In other words, a good test will have small size, but large power.</p>
+<p>The general hypothesis testing procedure is to fix <span class="math inline">\(\alpha\)</span> to be some small value (often 0.05), so that the probability of erroneous rejection of <span class="math inline">\(H_0\)</span> is limited. In doing this, we are giving <span class="math inline">\(H_0\)</span> precedence over <span class="math inline">\(H_1\)</span>. Given our specified <span class="math inline">\(\alpha\)</span>, we try to choose a test, defined by its rejection region <span class="math inline">\(C\)</span>, to make <span class="math inline">\(\omega(\bm \theta)\)</span> as large as possible for <span class="math inline">\(\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}\)</span>.</p>
+<p>Suppose that <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> both take the same parametric form, <span class="math inline">\(f_{\bm Y}(\bm{y};\bm \theta)\)</span> with <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span> for <span class="math inline">\(H_0\)</span> and <span class="math inline">\(\bm \theta\in\Theta^{(1)}\)</span> for <span class="math inline">\(H_1\)</span>, where <span class="math inline">\(\Theta^{(0)}\)</span> and <span class="math inline">\(\Theta^{(1)}\)</span> are alternative sets of possible values for <span class="math inline">\(\bm \theta\)</span>. A <em>generalised likelihood ratio test</em> of <span class="math inline">\(H_0\)</span> against <span class="math inline">\(H_1\)</span> has a critical region of the form <span class="math display">\[C=\left\{ \bm{y}: 
+\frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)} 
+&gt;k\right\}\]</span> where <span class="math inline">\(k\)</span> is determined by <span class="math inline">\(\alpha\)</span>, the size of the test, so <span class="math display">\[\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.\]</span> Therefore, we will only reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(H_1\)</span> offers a distribution for <span class="math inline">\(Y_1, \ldots, Y_n\)</span> which makes the observed data much more probable than any distribution under <span class="math inline">\(H_0\)</span>. This is intuitively appealing and tends to produce good tests (large power) across a wide range of examples.</p>
+<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Suppose that we require a size <span class="math inline">\(\alpha\)</span> test of the hypothesis <span class="math inline">\(H_0\)</span>: <span class="math inline">\(p=p_0\)</span> against the general alternative <span class="math inline">\(H_1\)</span>: ‘<span class="math inline">\(p\)</span> is unrestricted’ where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(p_0\)</span> are specified.</p>
+Here <span class="math inline">\(\bm \theta=(p)\)</span>, <span class="math inline">\(\Theta^{(0)}=\{p_0\}\)</span> and <span class="math inline">\(\Theta^{(1)}=(0,1)\)</span> and the generalised likelihood ratio test rejects <span class="math inline">\(H_0\)</span> when <span class="math display">\[{{\max_{p\in(0,1)}L(p)}\over{\max_{p=p_0}L(p)}} &gt; k\]</span> or equivalently when <span class="math display">\[{{\bar y^{\sum_i y_i}(1-\bar y)^{n-\sum_i y_i}}\over {p_0^{\sum_i y_i}(1-p_0)^{n-\sum_i y_i}}} &gt; k\]</span> or
+<span class="math display" id="eq:her1">\[\begin{equation}
+\left({{\bar y}\over{p_0}}\right)^{n\bar y}
+\left({{1-\bar y}\over{1-p_0}}\right)^{n(1-\bar y)} &gt;k. 
+  \tag{3}
+\end{equation}\]</span>
+<p>Now the left hand side of <a href="likelihood-based-statistical-theory.html#eq:her1">(3)</a> is minimised as a function of <span class="math inline">\(\bar y\)</span> at <span class="math inline">\(\bar y=p_0\)</span> and increases as <span class="math inline">\(\bar y\)</span> moves away from <span class="math inline">\(p_0\)</span> in either direction. Therefore, the rejection region <a href="likelihood-based-statistical-theory.html#eq:her1">(3)</a> is equivalent to <span class="math display">\[
+C=\left\{ \bm{y}:\bar y &gt; k&#39; \text{ or } \bar y &lt; k&#39;&#39;\right\}
+\]</span> where <span class="math inline">\(k&#39;\)</span> and <span class="math inline">\(k&#39;&#39;\)</span> are chosen so that <span class="math display">\[
+P(\bm{y}\in C;p_0)=\alpha.
+\]</span> Therefore, we can use the binomial<span class="math inline">\((n,p_0)\)</span> distribution to find a precise rejection region for a test of specified size <span class="math inline">\(\alpha\)</span>.</p>
+<p>Alternatively, if <span class="math inline">\(n\)</span> is large, we can use the asymptotic distribution of <span class="math inline">\(\bar y\)</span>, <span class="math inline">\(N(p_0,p_0[1-p_0]/n)\)</span>.</p>
+</div>
+<div id="sn:lrt" class="section level3">
+<h3><span class="header-section-number">1.4.7</span> The log-likelihood ratio statistic</h3>
+<p>A <em>generalised likelihood ratio test</em> of <span class="math inline">\(H_0\)</span> against <span class="math inline">\(H_1\)</span> has a critical region of the form <span class="math display">\[
+C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}} L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}} &gt;k\right\}
+\]</span> where <span class="math inline">\(k\)</span> is determined by <span class="math inline">\(\alpha\)</span>, the size of the test, so <span class="math display">\[
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
+\]</span></p>
+<p>Therefore, in order to determine <span class="math inline">\(k\)</span>, we need to know the distribution of the likelihood ratio, or an equivalent statistic, under <span class="math inline">\(H_0\)</span>. In general, this will not be available to us. However, we can make use of an important asymptotic result.</p>
+<p>First we notice that, as <span class="math inline">\(\log\)</span> is a strictly increasing function, the rejection region is equivalent to</p>
+<p><span class="math display">\[
+C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) &gt;k&#39;\right\}
+\]</span> where <span class="math display">\[
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
+\]</span> Now, provided that <span class="math inline">\(H_0\)</span> is <em>nested within</em> <span class="math inline">\(H_1\)</span>, in other words <span class="math inline">\(\Theta^{(0)}\subset\Theta^{(1)}\)</span> (<span class="math inline">\(\Theta^{(0)}\)</span> is a subspace of <span class="math inline">\(\Theta^{(1)}\)</span>) then under <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span>, asymptotically as <span class="math inline">\(n\to\infty\)</span> <span class="math display">\[
+L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
+\]</span> has a chi-squared distribution with degrees of freedom equal to the difference in the dimensions of <span class="math inline">\(\Theta^{(1)}\)</span> and <span class="math inline">\(\Theta^{(0)}\)</span>.</p>
+
+<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Suppose that we require a size <span class="math inline">\(\alpha\)</span> test of the hypothesis <span class="math inline">\(H_0\)</span>: <span class="math inline">\(p=p_0\)</span> against the general alternative <span class="math inline">\(H_1\)</span>: ‘<span class="math inline">\(p\)</span> is unrestricted’ where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(p_0\)</span> are specified.</p>
+<p>Here <span class="math inline">\(\bm \theta=(p)\)</span>, <span class="math inline">\(\Theta^{(0)}=\{p_0\}\)</span> and <span class="math inline">\(\Theta^{(1)}=(0,1)\)</span> and the log likelihood ratio statistic is <span class="math display">\[
+L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
++2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).
+\]</span> As <span class="math inline">\(d_1=1\)</span> and <span class="math inline">\(d_0=0\)</span>, under <span class="math inline">\(H_0\)</span>, the log likelihood ratio statistic has an asymptotic <span class="math inline">\(\chi^2_1\)</span> distribution. For a log likelihood ratio test, we only reject <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span> when the test statistic is too large (observed data are much more probable under model <span class="math inline">\(H_1\)</span> than under model <span class="math inline">\(H_0\)</span>), so in this case we reject <span class="math inline">\(H_0\)</span> when the observed value of the test statistic above is ‘too large’ to have come from a <span class="math inline">\(\chi^2_1\)</span> distribution. What we mean by ‘too large’ depends on the significance level <span class="math inline">\(\alpha\)</span> of the test. For example, if <span class="math inline">\(\alpha=0.05\)</span>, a common choice, then we should reject <span class="math inline">\(H_0\)</span> if the test statistic is greater than the 3.84, the 95% point of the <span class="math inline">\(\chi^2_1\)</span> distribution.</p>
+<!-- \begin{figure}[hbt] -->
+<!-- \begin{center} -->
+<!-- \includegraphics[height=3in]{chsq1} -->
+<!-- \end{center} -->
+<!-- \caption{\protect\small\baselineskip .4 true cm   -->
+<!-- The $\chi^2_1$ distribution } -->
+<!-- \label{fig:chsq1} -->
+<!-- \end{figure} -->
+<!-- \end{exampl} -->
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="example-data-to-be-analysed.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sn-lm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MATH3012.pdf", "MATH3012.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

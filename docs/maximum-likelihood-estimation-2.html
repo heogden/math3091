@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <meta name="description" content="The course notes for MATH3012: Statistical Methods II" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  <meta name="twitter:description" content="The course notes for MATH3012: Statistical Methods II" />
+  
+
+<meta name="author" content="Helen Ogden" />
+
+
+<meta name="date" content="2019-12-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="components-of-a-generalised-linear-model.html"/>
+<link rel="next" href="sn-glminfer.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MATH3012: Statistical Models II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
+<li class="chapter" data-level="1.1" data-path="elements-of-statistical-modelling.html"><a href="elements-of-statistical-modelling.html"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
+<li class="chapter" data-level="1.2" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
+<li class="chapter" data-level="1.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
+<li class="chapter" data-level="1.3.2" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
+<li class="chapter" data-level="1.3.3" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#survival-time-to-death"><i class="fa fa-check"></i><b>1.3.3</b> <code>survival</code>: Time to death</a></li>
+<li class="chapter" data-level="1.3.4" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#beetle-mortality-from-carbon-disulphide"><i class="fa fa-check"></i><b>1.3.4</b> <code>beetle</code>: Mortality from carbon disulphide</a></li>
+<li class="chapter" data-level="1.3.5" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#shuttle-challenger-disaster"><i class="fa fa-check"></i><b>1.3.5</b> <code>shuttle</code>: Challenger disaster</a></li>
+<li class="chapter" data-level="1.3.6" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#heart-treatment-for-heart-attack"><i class="fa fa-check"></i><b>1.3.6</b> <code>heart</code>: Treatment for heart attack</a></li>
+<li class="chapter" data-level="1.3.7" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#accident-road-traffic-accidents"><i class="fa fa-check"></i><b>1.3.7</b> <code>accident</code>: Road traffic accidents</a></li>
+<li class="chapter" data-level="1.3.8" data-path="example-data-to-be-analysed.html"><a href="example-data-to-be-analysed.html#lymphoma-lymphoma-patients"><i class="fa fa-check"></i><b>1.3.8</b> <code>lymphoma</code>: Lymphoma patients</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html"><i class="fa fa-check"></i><b>1.4</b> Likelihood-based statistical theory</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#the-likelihood-function"><i class="fa fa-check"></i><b>1.4.1</b> The likelihood function</a></li>
+<li class="chapter" data-level="1.4.2" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>1.4.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.4.3" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#score"><i class="fa fa-check"></i><b>1.4.3</b> Score</a></li>
+<li class="chapter" data-level="1.4.4" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#info"><i class="fa fa-check"></i><b>1.4.4</b> Information</a></li>
+<li class="chapter" data-level="1.4.5" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:asnmle"><i class="fa fa-check"></i><b>1.4.5</b> Asymptotic distribution of the MLE</a></li>
+<li class="chapter" data-level="1.4.6" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#comparing-statistical-models"><i class="fa fa-check"></i><b>1.4.6</b> Comparing statistical models</a></li>
+<li class="chapter" data-level="1.4.7" data-path="likelihood-based-statistical-theory.html"><a href="likelihood-based-statistical-theory.html#sn:lrt"><i class="fa fa-check"></i><b>1.4.7</b> The log-likelihood ratio statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="sn-lm.html"><a href="sn-lm.html"><i class="fa fa-check"></i><b>1.5</b> Linear Models</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="sn-lm.html"><a href="sn-lm.html#introduction"><i class="fa fa-check"></i><b>1.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.5.2" data-path="sn-lm.html"><a href="sn-lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>1.5.2</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="1.5.3" data-path="sn-lm.html"><a href="sn-lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>1.5.3</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="1.5.4" data-path="sn-lm.html"><a href="sn-lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>1.5.4</b> Comparing linear models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>2</b> Generalised Linear Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="sn-ef.html"><a href="sn-ef.html"><i class="fa fa-check"></i><b>2.1</b> The Exponential family</a></li>
+<li class="chapter" data-level="2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html"><i class="fa fa-check"></i><b>2.2</b> Components of a generalised linear model</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-random-component"><i class="fa fa-check"></i><b>2.2.1</b> The random component</a></li>
+<li class="chapter" data-level="2.2.2" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>2.2.2</b> The systematic (or structural) component</a></li>
+<li class="chapter" data-level="2.2.3" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-link-function"><i class="fa fa-check"></i><b>2.2.3</b> The link function</a></li>
+<li class="chapter" data-level="2.2.4" data-path="components-of-a-generalised-linear-model.html"><a href="components-of-a-generalised-linear-model.html#the-linear-model"><i class="fa fa-check"></i><b>2.2.4</b> The linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="maximum-likelihood-estimation-2.html"><a href="maximum-likelihood-estimation-2.html"><i class="fa fa-check"></i><b>2.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="2.4" data-path="sn-glminfer.html"><a href="sn-glminfer.html"><i class="fa fa-check"></i><b>2.4</b> Inference</a></li>
+<li class="chapter" data-level="2.5" data-path="sn-compglm.html"><a href="sn-compglm.html"><i class="fa fa-check"></i><b>2.5</b> Comparing generalised linear models</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="sn-compglm.html"><a href="sn-compglm.html#sn:glmlrt"><i class="fa fa-check"></i><b>2.5.1</b> The generalised likelihood ratio test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="scaled-deviance-and-the-saturated-model.html"><a href="scaled-deviance-and-the-saturated-model.html"><i class="fa fa-check"></i><b>2.6</b> Scaled deviance and the saturated model</a></li>
+<li class="chapter" data-level="2.7" data-path="sn-unknowndisp.html"><a href="sn-unknowndisp.html"><i class="fa fa-check"></i><b>2.7</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
+<li class="chapter" data-level="2.8" data-path="residuals.html"><a href="residuals.html"><i class="fa fa-check"></i><b>2.8</b> Residuals</a></li>
+<li class="chapter" data-level="2.9" data-path="example-binary-regression.html"><a href="example-binary-regression.html"><i class="fa fa-check"></i><b>2.9</b> Example: Binary Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>3</b> Categorical data</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="sn-multinomial.html"><a href="sn-multinomial.html"><i class="fa fa-check"></i><b>3.2</b> Multinomial sampling</a></li>
+<li class="chapter" data-level="3.3" data-path="product-multinomial-sampling.html"><a href="product-multinomial-sampling.html"><i class="fa fa-check"></i><b>3.3</b> Product multinomial sampling</a></li>
+<li class="chapter" data-level="3.4" data-path="sn-loginter.html"><a href="sn-loginter.html"><i class="fa fa-check"></i><b>3.4</b> Interpreting log-linear models</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+  \newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\)
+<div id="maximum-likelihood-estimation-2" class="section level2">
+<h2><span class="header-section-number">2.3</span> Maximum likelihood estimation</h2>
+<p>The regression coefficients <span class="math inline">\({\beta_1,\ldots ,\beta_p}\)</span> describe the pattern by which the response depends on the explanatory variables. We use the observed data <span class="math inline">\({y_1,\ldots ,y_n}\)</span> to <em>estimate</em> this pattern of dependence.</p>
+As usual, we maximise the log-likelihood function which, from <a href="components-of-a-generalised-linear-model.html#eq:glmrandom">(8)</a>, can be written
+<span class="math display" id="eq:glmloglikelihood">\[\begin{equation}
+\ell(\bm{\beta},\bm{\phi})=
+\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++\sum_{i=1}^nc(y_i,\phi_i)
+  \tag{12}
+\end{equation}\]</span>
+and depends on <span class="math inline">\(\bm{\beta}\)</span> through
+<span class="math display">\[\begin{align*}
+\theta_i &amp;= (b&#39;)^{-1}(\mu_i), \cr
+\mu_i&amp;= g^{-1}(\eta_i), \cr
+\eta_i&amp;=\bm{x}_i^T\bm{\beta}=\sum_{i=1}^p x_{ij} \beta_j, \quad i = 1, \ldots, n.
+\end{align*}\]</span>
+<p>To find <span class="math inline">\(\hat{\bm{\beta}}\)</span>, we consider the scores <span class="math display">\[
+u_k(\bm{\beta})={\partial\over{\partial\beta_k}}
+\ell(\bm{\beta},\bm{\phi})\qquad k=1,\ldots ,p
+\]</span> and then find <span class="math inline">\(\hat{\bm{\beta}}\)</span> to solve <span class="math inline">\(u_k(\hat{\bm{\beta}})=0\)</span> for <span class="math inline">\(k=1,\ldots ,p.\)</span></p>
+From <a href="maximum-likelihood-estimation-2.html#eq:glmloglikelihood">(12)</a>
+<span class="math display">\[\begin{align*}
+u_k(\bm{\beta})&amp;= {\partial\over{\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})\cr
+&amp;= {\partial\over{\partial\beta_k}}\sum_{i=1}^n{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}
++{\partial\over{\partial\beta_k}}\sum_{i=1}^nc(y_i,\phi_i)\cr
+&amp;= \sum_{i=1}^n{\partial\over{\partial\beta_k}}
+\left[{{y_i\theta_i-b(\theta_i)}\over{a(\phi_i)}}\right]\cr
+&amp;=\sum_{i=1}^n{\partial\over{\partial\theta_i}}\left[{{y_i\theta_i-b(\theta_i)}
+\over{a(\phi_i)}}\right]{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}\cr
+&amp;= \sum_{i=1}^n{{y_i-b&#39;(\theta_i)}
+\over{a(\phi_i)}}{{\partial\theta_i}\over{\partial\mu_i}}
+{{\partial\mu_i}\over{\partial\eta_i}}{{\partial\eta_i}\over{\partial\beta_k}}, \quad{k=1,\ldots ,p},\cr
+\end{align*}\]</span>
+where
+<span class="math display">\[\begin{align*}
+{{\partial\theta_i}\over{\partial\mu_i}}&amp;=\left[{{\partial\mu_i}\over{\partial\theta_i}}\right]^{-1}
+={1\over{b&#39;&#39;(\theta_i)}}\cr
+{{\partial\mu_i}\over{\partial\eta_i}}&amp;=\left[{{\partial\eta_i}\over{\partial\mu_i}}\right]^{-1}
+={1\over{g&#39;(\mu_i)}}\cr
+{{\partial\eta_i}\over{\partial\beta_k}}&amp;=
+{\partial\over{\partial\beta_k}}\sum_{j=1}^p x_{ij}\beta_j=x_{ik}.
+\end{align*}\]</span>
+Therefore
+<span class="math display" id="eq:scoreglm">\[\begin{equation}
+u_k(\bm{\beta})= \sum_{i=1}^n{{y_i-b&#39;(\theta_i)}\over{a(\phi_i)}}
+{{x_{ik}}\over{b&#39;&#39;(\theta_i)g&#39;(\mu_i)}}
+=\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g&#39;(\mu_i)}},\quad{k=1,\ldots ,p},
+  \tag{13}
+\end{equation}\]</span>
+<p>which depends on <span class="math inline">\(\bm{\beta}\)</span> through <span class="math inline">\(\mu_i\equiv E(Y_i)\)</span> and <span class="math inline">\(\text{Var}(Y_i),\)</span> <span class="math inline">\(i = 1, \ldots, n\)</span>.</p>
+<p>In theory, we solve the <span class="math inline">\(p\)</span> simultaneous equations <span class="math inline">\(u_k(\hat{\bm{\beta}})=0,\;{k=1,\ldots ,p}\)</span> to evaluate <span class="math inline">\(\hat{\bm{\beta}}\)</span>. In practice, these equations are usually non-linear and have no analytic solution. Therefore, we rely on numerical methods to solve them.</p>
+First, we note that the Hessian and Fisher information matrices can be derived directly from <a href="maximum-likelihood-estimation-2.html#eq:scoreglm">(13)</a>. <span class="math display">\[
+[\bm{H}(\bm{\beta})]_{jk}={{\partial^2}\over{\partial\beta_j\partial\beta_k}}\ell(\bm{\beta},\bm{\phi})
+={\partial\over{\partial\beta_j}}u_k(\bm{\beta}).
+\]</span> Therefore
+<span class="math display">\[\begin{align*}
+[\bm{H}(\bm{\beta})]_{jk}
+&amp;={\partial\over{\partial\beta_j}}\sum_{i=1}^n{{y_i-\mu_i}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g&#39;(\mu_i)}}\cr
+&amp;=\sum_{i=1}^n{{-{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g&#39;(\mu_i)}} +\sum_{i=1}^n(y_i-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g&#39;(\mu_i)}}\right]
+\end{align*}\]</span>
+and
+<span class="math display">\[\begin{align*}
+[{\cal I}(\bm{\beta})]_{jk}
+&amp;=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g&#39;(\mu_i)}} -\sum_{i=1}^n(E[Y_i]-\mu_i){\partial\over{\partial\beta_j}}
+\left[{{x_{ik}}\over{\text{Var}(Y_i)
+g&#39;(\mu_i)}}\right]\cr
+&amp;=\sum_{i=1}^n{{{{\partial\mu_i}\over{\partial\beta_j}}}\over{\text{Var}(Y_i)}}
+{{x_{ik}}\over{g&#39;(\mu_i)}}\cr
+&amp;=\sum_{i=1}^n{{x_{ij}x_{ik}}\over{\text{Var}(Y_i)g&#39;(\mu_i)^2}}.
+\end{align*}\]</span>
+Hence we can write
+<span class="math display" id="eq:infoglm">\[\begin{equation}
+{\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}
+  \tag{14}
+\end{equation}\]</span>
+<p>where <span class="math display">\[
+\bm{X}=\begin{pmatrix} \bm{x}_1^T\cr\vdots\cr \bm{x}_n^T \end{pmatrix}
+=\begin{pmatrix}
+x_{11}&amp;\cdots&amp;x_{1p}\cr\vdots&amp;\ddots&amp;\vdots\cr x_{n1}&amp;\cdots&amp;x_{np}
+\end{pmatrix},
+\]</span> <span class="math display">\[
+\bm{W}={\rm diag}(\bm{w})=
+\begin{pmatrix}
+w_1&amp;0&amp;\cdots&amp;0\cr
+0&amp;w_2&amp;&amp;\vdots\cr
+\vdots&amp;&amp;\ddots&amp;0\cr
+0&amp;\cdots&amp;0&amp;w_n
+\end{pmatrix}
+\]</span> and <span class="math display">\[
+w_i={1\over{\text{Var}(Y_i)g&#39;(\mu_i)^2}},\quad i = 1, \ldots, n.
+\]</span> The Fisher information matrix <span class="math inline">\(\mathcal{I}(\bm{\beta})\)</span> depends on <span class="math inline">\(\bm{\beta}\)</span> through <span class="math inline">\(\bm{\mu}\)</span> and <span class="math inline">\(\text{Var}(Y_i),\;i = 1, \ldots, n\)</span>.</p>
+We notice that the score in <a href="maximum-likelihood-estimation-2.html#eq:scoreglm">(13)</a> may now be written as <span class="math display">\[u_k(\bm{\beta})=\sum_{i=1}^n(y_i-\mu_i)x_{ik}w_ig&#39;(\mu_i)
+=\sum_{i=1}^n x_{ik}w_iz_i,\quad{k=1,\ldots ,p},\]</span> where <span class="math display">\[
+z_i=(y_i-\mu_i)g&#39;(\mu_i),\quad i = 1, \ldots, n.
+\]</span> Therefore
+<span class="math display" id="eq:scoreglmsimple">\[\begin{equation}
+\bm{u}(\bm{\beta})=\bm{X}^T\bm{W}\bm{z}.
+  \tag{15}
+\end{equation}\]</span>
+<p>One possible method to solve the <span class="math inline">\(p\)</span> simultaneous equations <span class="math inline">\({\bm{u}}(\hat{\bm{\beta}})={\bf 0}\)</span> that give <span class="math inline">\(\hat{\bm{\beta}}\)</span> is the (multivariate) Newton-Raphson method.</p>
+If <span class="math inline">\(\bm{\beta}^{(m)}\)</span> is the current estimate of <span class="math inline">\(\hat{\bm{\beta}}\)</span> then the next estimate is
+<span class="math display" id="eq:NRiter">\[\begin{equation}
+\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}-\bm{H}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).
+\tag{16}
+\end{equation}\]</span>
+In practice, an alternative to Newton-Raphson replaces <span class="math inline">\(\bm{H}(\bm{\theta})\)</span> in <a href="maximum-likelihood-estimation-2.html#eq:NRiter">(16)</a> with <span class="math inline">\(E[\bm{H}(\bm{\theta})]\equiv-\mathcal{I}(\bm{\beta})\)</span>. Therefore, if <span class="math inline">\(\bm{\beta}^{(m)}\)</span> is the current estimate of <span class="math inline">\(\hat{\bm{\beta}}\)</span> then the next estimate is
+<span class="math display" id="eq:FSiter">\[\begin{equation}
+\bm{\beta}^{(m+1)}=\bm{\beta}^{(m)}+{\cal I}(\bm{\beta}^{(m)})^{-1}\bm{u}(\bm{\beta}^{(m)}).
+\tag{17}
+\end{equation}\]</span>
+The resulting iterative algorithm is called <em>Fisher scoring</em>. Notice that if we substitute <a href="maximum-likelihood-estimation-2.html#eq:infoglm">(14)</a> and <a href="maximum-likelihood-estimation-2.html#eq:scoreglmsimple">(15)</a> into <a href="maximum-likelihood-estimation-2.html#eq:FSiter">(17)</a> we get
+<span class="math display">\[\begin{align*}
+\bm{\beta}^{(m+1)}&amp;=\bm{\beta}^{(m)}+[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}\cr
+&amp;=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}[\bm{X}^T\bm{W}^{(m)}\bm{X}\bm{\beta}^{(m)}+\bm{X}^T\bm{W}^{(m)}\bm{z}^{(m)}]\cr
+&amp;=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{X}\bm{\beta}^{(m)}+\bm{z}^{(m)}]\cr
+&amp;=[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}],
+\end{align*}\]</span>
+<p>where <span class="math inline">\(\bm{\eta}^{(m)},\,\bm{W}^{(m)}\)</span> and <span class="math inline">\(\bm{z}^{(m)}\)</span> are all functions of <span class="math inline">\(\bm{\beta}^{(m)}\)</span>.</p>
+<p>Note that this is a weighted least squares equation, that is <span class="math inline">\(\bm{\beta}^{(m+1)}\)</span> minimises the weighted sum of squares <span class="math display">\[
+(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})^T\bm{W}(\bm{\eta}+\bm{z}-\bm{X}\bm{\beta})=
+\sum_{i=1}^n w_i\left(\eta_i+z_i-\bm{x}_i^T\bm{\beta}\right)^2
+\]</span> as a function of <span class="math inline">\(\bm{\beta}\)</span> where <span class="math inline">\(w_1,\ldots ,w_n\)</span> are the weights and <span class="math inline">\(\bm{\eta}+\bm{z}\)</span> is called the <em>adjusted dependent variable</em>. Therefore, the Fisher scoring algorithm proceeds as follows.</p>
+<ol style="list-style-type: decimal">
+<li>Choose an initial estimate <span class="math inline">\(\bm{\beta}^{(m)}\)</span> for <span class="math inline">\(\hat{\bm{\beta}}\)</span> at <span class="math inline">\(m=0\)</span>.</li>
+<li>Evaluate <span class="math inline">\(\bm{\eta}^{(m)},\,\bm{W}^{(m)}\)</span> and <span class="math inline">\(\bm{z}^{(m)}\)</span> at <span class="math inline">\(\bm{\beta}^{(m)}\)</span>.</li>
+<li>Calculate <span class="math display">\[\bm{\beta}^{(m+1)} =[\bm{X}^T\bm{W}^{(m)}\bm{X}]^{-1}\bm{X}^T\bm{W}^{(m)}[\bm{\eta}^{(m)}+\bm{z}^{(m)}].\]</span></li>
+<li>If <span class="math inline">\(||\bm{\beta}^{(m+1)}-\bm{\beta}^{(m)} ||&gt; \epsilon\)</span>, for some prespecified (small) tolerance <span class="math inline">\(\epsilon\)</span> then set <span class="math inline">\(m\to m+1\)</span> and go to 2.</li>
+<li>Use <span class="math inline">\(\bm{\beta}^{(m+1)}\)</span> as the solution for <span class="math inline">\(\hat{\bm{\beta}}\)</span>.</li>
+</ol>
+<p>As this algorithm involves iteratively minimising a weighted sum of squares, it is sometimes known as <em>iteratively (re)weighted least squares</em>.</p>
+<p><strong>Notes</strong></p>
+<ol style="list-style-type: decimal">
+<li>Recall that the canonical link function is <span class="math inline">\(g(\mu)=b^{&#39;-1}(\mu)\)</span> and with this link <span class="math inline">\(\eta_i=g(\mu_i)=\theta_i\)</span>. Then <span class="math display">\[
+{1\over{g&#39;(\mu_i)}}={{\partial\mu_i}\over{\partial\eta_i}}
+={{\partial\mu_i}\over{\partial\theta_i}}=b&#39;&#39;(\theta_i),\quad i = 1, \ldots, n.
+\]</span> Therefore <span class="math inline">\(\text{Var}(Y_i)g&#39;(\mu_i)=a(\phi_i)\)</span> which does not depend on <span class="math inline">\(\bm{\beta}\)</span>, and hence <span class="math display">\[
+{\partial\over{\partial\beta_j}}\left[{{x_{ik}}\over{\text{Var}(Y_i)g&#39;(\mu_i)}}\right]=0
+\]</span> for all <span class="math inline">\(j=1,\ldots ,p\)</span>. It follows that <span class="math inline">\(\bm{H}(\bm{\theta})=-\mathcal{I}(\bm{\beta})\)</span> and, for the canonical link, Newton-Raphson and Fisher scoring are equivalent.</li>
+<li>The linear model is a generalised linear model with identity link, <span class="math inline">\(\eta_i=g(\mu_i)=\mu_i\)</span> and <span class="math inline">\(\text{Var}(Y_i)=\sigma^2\)</span> for all <span class="math inline">\(i = 1, \ldots, n\)</span>. Therefore <span class="math inline">\(w_i=[\text{Var}(Y_i)g&#39;(\mu_i)^2]^{-1}=\sigma^{-2}\)</span> and <span class="math inline">\(z_i=(y_i-\mu_i)g&#39;(\mu_i)=y_i-\eta_i\)</span> for <span class="math inline">\(i = 1, \ldots, n\)</span>. Hence <span class="math inline">\(\bm{z}+\bm{\eta}=\bm{y}\)</span> and <span class="math inline">\(\bm{W}=\sigma^{-2}\bm{I}\)</span>, neither of which depend on <span class="math inline">\(\bm{\beta}\)</span>. So the Fisher scoring algorithm converges in a single iteration to the usual least squares estimate.</li>
+<li>Estimation of an unknown scale parameter <span class="math inline">\(\sigma^2\)</span> is discussed later. A common (to all <span class="math inline">\(i\)</span>) <span class="math inline">\(\sigma^2\)</span> has no effect on <span class="math inline">\(\hat{\bm{\beta}}\)</span>.</li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="components-of-a-generalised-linear-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sn-glminfer.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MATH3012.pdf", "MATH3012.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
