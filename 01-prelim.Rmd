@@ -276,6 +276,7 @@ It provides a means for comparing different possible values of $\bm \theta$, bas
 the probabilities (or probability densities) that they assign to the observed data $y_1, \ldots, y_n$.
 
 **Notes**
+
 1. Frequently it is more convenient to consider the *log-likelihood* function
   $\ell(\bm \theta) = \log L(\bm \theta)$.
 1. Nothing in the definition of the likelihood requires $y_1, \ldots, y_n$ to be
@@ -295,7 +296,6 @@ The log-likelihood is
 $$
 \ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
 $$
-
 
 
 **Example (Normal)**.
