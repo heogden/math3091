@@ -44,7 +44,7 @@ account of this.
 
 ## Regression Models
 Many statistical models, and all the ones we shall deal 
-with in MATH3012, can 
+with in MATH3091, can 
 be formulated as *regression* models.
 
 In practical applications, we often distinguish between a *response*

@@ -7,7 +7,7 @@ documentclass: book
 papersize: A4
 fontsize: 12pt
 link-citations: yes
-description: "The course notes for MATH3012: Statistical Methods II"
+description: "The course notes for MATH3091: Statistical Modelling II"
 
 ---
 
@@ -17,7 +17,7 @@ knitr::opts_knit$set(root.dir = 'datasets')
 
 # Preface {-}
 
-The pre-requisite module MATH2010: Statistical Methods I covered in detail the theory of linear
+The pre-requisite module MATH2010: Statistical Modelling I covered in detail the theory of linear
 regression models, where explanatory variables are used to explain the variation in a
 response variable, which is assumed to be normally distributed.
 
