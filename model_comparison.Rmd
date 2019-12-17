@@ -1,0 +1,234 @@
+# Comparing statistical models
+
+## Introduction
+
+If we have a set of competing probability models
+which might have generated the observed data, we may want to determine which of
+the models is most appropriate.
+In practice, we proceed by comparing models pairwise.
+Suppose that we have two competing alternatives, $f^{(0)}_{\bm Y}$ (model
+$M_0$) and $f^{(1)}_{\bm Y}$  (model $M_1$) for $f_{\bm Y}$,
+the joint distribution of $Y_1, \ldots, Y_n$.
+Often $H_0$ and $H_1$
+both take the same parametric form, $f_{\bm Y}(\bm{y};\bm \theta)$ but
+with $\bm \theta\in\Theta^{(0)}$ for $H_0$ and $\bm \theta\in\Theta^{(1)}$ for $H_1$,
+where $\Theta^{(0)}$ and $\Theta^{(1)}$ are alternative sets of possible values
+for $\bm \theta$. Alternatively, we may be uncertain about the
+best parametric model for the data, and have candidate models 
+
+## Hypothesis testing
+
+A hypothesis test provides one mechanism for comparing two competing statistical
+models.
+A hypothesis test does not treat the two hypotheses (models) symmetrically. One
+hypothesis, 
+\[\text{$H_0$: the data were generated from model $M_0$},\] 
+is accorded special status, and referred to as the 
+*null hypothesis*. The null hypothesis is the reference model, and will be assumed to
+be appropriate unless the observed data strongly indicate that $H_0$ is
+inappropriate, and that 
+\[\text{$H_1$: the data were generated from model $M_1$},\] 
+(the *alternative* hypothesis) should be
+preferred. 
+The fact that a hypothesis test does not reject $H_0$ should not be taken
+as evidence that $H_0$ is true and $H_1$ is not, or that $H_0$ is  better
+supported by the data than $H_1$, merely that the data does not provide
+sufficient evidence to reject $H_0$ in favour of $H_1$. 
+
+A hypothesis test is defined by its *critical region* or 
+*rejection region*, which we shall denote by $C$. $C$ is a subset of $\mathbb{R}^n$ and is the set
+of possible $\bm{y}$ which would lead to rejection
+of $H_0$ in favour of $H_1$, *i.e.*
+
+- If $\bm{y} \in C$, $H_0$ is rejected in favour of $H_1$;
+- If $\bm{y} \not\in C$, $H_0$ is not rejected.
+
+As $\bm Y$ is a random variable, there remains the possibility that a hypothesis
+test will produce an erroneous result.
+We define the *size* (or *significance level*) of the test
+\[\alpha = \max_{\bm \theta\in\Theta^{(0)}}P(\bm Y\in C;\bm \theta)\]
+This is the maximum probability of erroneously rejecting $H_0$, over all
+possible distributions for $\bm Y$ implied by $H_0$.
+We also define the power function 
+\[\omega(\bm \theta)= P(\bm Y\in C;\bm \theta)\]
+It represents the probability of rejecting $H_0$
+for a particular value of $\bm \theta$.
+Clearly we would like to find a test with where
+$\omega(\bm \theta)$ is large for every $\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}$, 
+while at the same time avoiding erroneous rejection of $H_0$.
+In other words, a good test will
+have small size, but large power.
+
+The general hypothesis testing procedure is to fix $\alpha$ to be some small
+value (often 0.05), so that the probability of erroneous rejection of $H_0$ is
+limited. In doing this, we are giving $H_0$ precedence over $H_1$.
+Given our specified $\alpha$, we try to choose a test, defined by its
+rejection region $C$, to make $\omega(\bm \theta)$ as large  as possible for
+$\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}$.
+
+## Likelihood ratio tests for nested hypotheses {#sn:lrt}
+
+Suppose that $H_0$ and $H_1$ both take the same parametric form,
+$f_{\bm Y}(\bm{y};\bm \theta)$ with $\bm \theta\in\Theta^{(0)}$ for $H_0$ and $\bm \theta\in\Theta^{(1)}$
+for $H_1$, where $\Theta^{(0)}$ and $\Theta^{(1)}$ are alternative sets of
+possible values for $\bm \theta$.
+A *likelihood ratio test* of $H_0$ against $H_1$ has a critical region
+of the form
+\begin{equation}
+C=\left\{ \bm{y}: 
+\frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)} 
+>k\right\}
+(\#eq:lrtCritical)
+\end{equation}
+where $k$ is determined by $\alpha$, the size of the test, so
+\[\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.\]
+Therefore, we will only reject
+$H_0$ if $H_1$ offers a distribution for $Y_1, \ldots, Y_n$ which makes the observed data
+much more probable than any distribution under $H_0$.
+This is intuitively appealing and  tends to produce good tests (large power)
+across a wide range of examples.
+
+In order to determine $k$ in \@ref(eq:lrtCritical), we need
+to know the distribution of the likelihood ratio, or an equivalent statistic,
+under $H_0$.
+In general, this will not be available to us.
+However, we can make use of an important asymptotic result.
+
+First we notice that, as $\log$ is a strictly increasing function, the rejection
+region is equivalent to
+
+\[
+C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
+\]
+where
+\[
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
+\]
+Now, provided that $H_0$ is *nested within* $H_1$, in other words
+$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
+$\Theta^{(1)}$) then under
+$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
+$n\to\infty$
+$$
+L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
+$$
+has a chi-squared distribution with degrees of freedom equal to the difference in
+the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
+
+\begin{proof}
+First we note that in the case where $\bm \theta$ is one-dimensional and $\bm \theta=(\theta)$,
+a Taylor series expansion of $\ell(\theta)$  around the
+MLE $\hat{\theta}$ gives
+$$
+\ell(\theta)=\ell(\hat{\theta})+(\theta-\hat{\theta})
+U(\hat{\theta})+{1\over 2}(\theta-\hat{\theta})^2 U'(\hat{\theta}) +\;\ldots
+$$
+Now, $U(\hat{\theta})=0$, and if we approximate $U'(\hat{\theta})\equiv
+H(\hat{\theta})$ by $E[H(\theta)]\equiv -{\cal I}(\theta)$, and also ignore higher order
+terms, we obtain
+$$
+2[\ell (\hat{\theta})-\ell(\theta)]=
+(\theta-\hat{\theta})^2 {\cal I}(\theta)
+$$
+As $\hat{\theta}$ is asymptotically
+$N[\theta,{\cal I}(\theta)^{-1}]$, $(\theta-\hat{\theta})^2 {\cal I}(\theta)$ is
+asymptotically $\chi^2_1$, and hence so is $2[\ell(\hat \theta)-\ell (\theta)]$.
+
+Similarly it can be shown that when $\bm \theta\in\Theta$, a multidimensional space,
+$2[\ell(\bm{\hat \theta})-\ell (\bm \theta)]$ is asymptotically
+$\chi^2_p$, where $p$ is the dimension of $\Theta$.
+
+Let the dimensions of $\Theta^{(0)}$ and $\Theta^{(1)}$ be $d_0$ and $d_1$ respectively. Now, suppose that $H_0$ is true and  $\bm \theta\in\Theta^{(0)}$ and therefore
+$\bm \theta\in\Theta^{(1)}$. Furthermore, suppose that $\ell(\bm \theta)$
+is maximised in $\Theta^{(0)}$ by $\hat{\bm \theta}^{(0)}$ and is maximised
+in $\Theta^{(1)}$ by $\hat{\bm \theta}^{(1)}$. Then
+\begin{align*}
+L_{01}&\equiv  2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)\cr
+&= 2\log L(\hat{\bm \theta}^{(1)})-2\log L(\hat{\bm \theta}^{(0)})\cr
+&= 2[\log L(\hat{\bm \theta}^{(1)})-\log L(\bm \theta)]
+ -2[\log L(\hat{\bm \theta}^{(0)})-\log L(\bm \theta)]\cr
+&= L_1-L_0.
+\end{align*}
+
+Therefore $L_1=L_{01}+L_0$ and we know that, under $H_0$, $L_1$ has
+a $\chi^2_{d_1}$ distribution and $L_0$ has
+a $\chi^2_{d_0}$ distribution.
+Furthermore, it is possible to show (although we will not do so here)
+that under $H_0$, $L_{01}$ and $L_0$ are independent.
+It can also be shown that under $H_0$  the difference $ L_1-L_0$
+can be expressed as a quadratic form of normal random variables.
+Therefore, it follows that under $H_0$, the log likelihood ratio
+statistic $L_{01}$ has a $\chi^2_{d_1-d_0}$ distribution.
+\end{proof}
+
+**Example (Bernoulli)**.
+$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
+variables. Suppose that we require a size $\alpha$ test of the hypothesis
+$H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
+$\alpha$ and
+$p_0$ are specified.
+
+Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the
+log likelihood ratio statistic is
+$$
+L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
++2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).
+$$
+As $d_1=1$ and $d_0=0$, under $H_0$, the log likelihood ratio statistic
+has an asymptotic $\chi^2_1$ distribution.
+For a log likelihood ratio test, we only reject $H_0$ in favour of $H_1$ when the test
+statistic is too large (observed data are much more probable under model $H_1$ than
+under model $H_0$), so in this case we reject $H_0$ when the observed value
+of the test statistic above is 'too large' to have come from a
+$\chi^2_1$ distribution.
+What we mean by 'too large' depends on the significance level $\alpha$ of the
+test. For example, if $\alpha=0.05$, a common choice, then we should reject $H_0$
+if the test statistic is greater than the 3.84, the 95\% point of the
+$\chi^2_1$ distribution.
+
+## Information criteria for model comparison
+
+It is more difficult to use the likelihood ratio test 
+of Section \@ref(sn:lrt) to compare two models if those
+models are not nested. An alternative approach 
+is to record some criterion measuring the quality
+of the model for each of a candidate set of models, then
+choose the model which is the best according to this criterion.
+
+When we were estimating the unknown parameters $\theta$ of a model, we chose
+the value which maximised the likelihood: that is, the value of $\theta$ that maximises
+the probability of observing the data we actually saw.
+It is tempting to use a similar system for choosing between two models,
+and to choose the model which has the greater likelihood, under which
+the probability of seeing the data we actually observed is maximised.
+However, if we do this we will always end up choosing complicated models,
+which fit the observed data very closely, but do not meet our
+requirement of parsimony.
+
+For a given model depending on parameters $\theta \in \mathbb{R}^p$, 
+let $\hat L$ be the likelihood function for that model evaluated
+at the MLE $\hat \theta$. It is not sensible to choose
+between models by maximising $\hat L$ directly, and instead it is 
+common to choose a model to maximise a criteria of the form
+\[\hat L - \text{penalty},\]
+where the penalty term will be large for complex models, and small
+for simple models. 
+
+Equivalently, we may choose between models by minimising
+a criteria of the form
+\[ - 2 \hat L + \text{penalty}.\]
+By convention, 
+many commonly-used criteria for model comparison take this form.
+For instance, the
+Akaike information criterion (AIC) is
+\[\text{AIC} = - 2 \hat L + 2 p,\]
+where $p$ is the dimension of the unknown parameter in the candidate model, and
+the Bayesian information criterion (BIC) is
+\[\text{BIC} = - 2 \hat L + \log(n) p,\]
+where $n$ is the number of observations.
+
+

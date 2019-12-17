@@ -188,7 +188,7 @@ on the explanatory variables, we will want to determine which of
 the models is most appropriate.
 
 As described previously, we proceed by comparing models pairwise
-using a generalised likelihood ratio test.
+using a likelihood ratio test.
 For linear models this kind of comparison is restricted to situations where
 one of the models, $H_0$, is *nested* in the other, $H_1$.
 This usually means that the explanatory variables
@@ -213,7 +213,7 @@ $$\beta_{q+1}=\beta_{q+2}=\cdots=\beta_p=0.
 $$
 
 
-Now, a generalised likelihood ratio test of $H_0$ against $H_1$
+Now, a likelihood ratio test of $H_0$ against $H_1$
 has a critical region of the form
 $$
 C=\left\{ \bm{y}:{{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(1)}}L(\bm{\beta},\sigma^2)}\over
@@ -239,7 +239,7 @@ Therefore
 \end{align*}
 This form applies for both $\bm \theta\in\Theta^{(0)}$ and $\bm \theta\in\Theta^{(1)}$, with only the model changing. Let the deviances under models $H_0$ and $H_1$ be denoted by $D_0$ and $D_1$
 respectively.
-Then the critical region for the generalised likelihood ratio test
+Then the critical region for the likelihood ratio test
 is of the form
 \[{{(2\pi D_1/n)^{-{n\over 2}}}\over{(2\pi D_0/n)^{-{n\over 2}}}}>k\]
 so
