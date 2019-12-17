@@ -1,4 +1,4 @@
-# Inference about parameters of a model {#inference}
+# Parametric statistical inference {#inference}
 
 ## Introduction
 
