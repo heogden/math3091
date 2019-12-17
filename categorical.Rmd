@@ -563,7 +563,7 @@ $$
 that is, the probability of each level of $R$
 given a particular combination of $S$ and $C$, does not
 depend on which level $S$ takes.
-Table \ref{tab:lymphoma_cond_prob} shows the estimated
+Table \ref{tab:lymphoma_cp} shows the estimated
 conditional probabilities for the `lymphoma` data.
 The probability of remission depends only on a patient's cell type, and not on their
 sex.
