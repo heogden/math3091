@@ -1,4 +1,4 @@
-# Linear Models {#sn:lm}
+# Linear Models {#lm}
 
 ## Introduction
 

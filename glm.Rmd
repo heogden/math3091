@@ -1,5 +1,37 @@
 # Generalised Linear Models {#glm}
 
+## Regression models for non-normal data
+
+The linear model of Chapter \@ref(lm) assumes each response $Y_i \sim N(\mu_i, \sigma^2)$,
+where the mean $\mu_i$ depends
+on explanatory variables through $\mu_i = \bm x_i^T \bm \beta$.
+For many types of data, this assumption of normality
+of the response may not be justified. For instance, we might have
+
+- a binary
+response ($Y_i \in \{0, 1\}$), for instance representing whether or
+not a patient recovers from a disease. A natural model is that
+$Y_i \sim \text{Bernoulli}(p_i)$, and we might want to model how
+the 'success' probability $p_i$ depends on explanatory variables $\bm x_i$.
+- a count response ($Y_i \in \{0, 1, 2, 3, \ldots\}$), for instance
+representing the number of customers arrive at a shop. A natural model
+is that $Y_i \sim \text{Poisson}(\lambda_i)$, and we might want to model
+how the rate $\lambda_i$ depends on explanatory variables.
+
+In Section \@ref(sn:ef), we define the exponential family, which
+includes the Bernoulli and Poisson distributions as special cases.
+In a generalised linear model, the response distribution is assumed
+to be a member of the exponential family.
+
+To complete the specification of a generalised linear model,
+we will need to model how the parameters of the response distribution
+(e.g. the success probability $p_i$ or the rate
+$\lambda_i$) depend on explanatory variables $\bm x_i$.
+We need to do this in a way which respects constraints on 
+the possible values which these parameters may take: for instance, we
+ **should not** model $p_i = \bm x_i^T \bm \beta$
+directly, as we need to enforce $p_i \in [0, 1]$.
+
 ## The Exponential family {#sn:ef}
 A probability distribution is said to be a member of the exponential family if its probability density
 function (or probability function, if discrete) can be written in the form
@@ -288,7 +320,7 @@ The canonical link functions are:
 
 ### The linear model
 
-The linear model considered in Section \@ref(sn:lm) is also a generalised linear
+The linear model considered in Chapter \@ref(lm) is also a generalised linear
 model. We assume ${Y_1,\ldots ,Y_n}$ are independent normally distributed
 random variables, and the normal distribution is a member of the
 exponential family.
