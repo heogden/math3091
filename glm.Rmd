@@ -32,7 +32,7 @@ the possible values which these parameters may take: for instance, we
  **should not** model $p_i = \bm x_i^T \bm \beta$
 directly, as we need to enforce $p_i \in [0, 1]$.
 
-## The Exponential family {#sn:ef}
+## The exponential family {#sn:ef}
 A probability distribution is said to be a member of the exponential family if its probability density
 function (or probability function, if discrete) can be written in the form
 \begin{equation}

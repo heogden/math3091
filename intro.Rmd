@@ -42,7 +42,7 @@ modelling strategies will take
 account of this.
 
 
-## Regression Models
+## Regression models
 Many statistical models, and all the ones we shall deal 
 with in MATH3091, can 
 be formulated as *regression* models.

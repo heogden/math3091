@@ -105,7 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#elements-of-statistical-modelling"><i class="fa fa-check"></i><b>1.1</b> Elements of statistical modelling</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#regression-models"><i class="fa fa-check"></i><b>1.2</b> Regression Models</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#regression-models"><i class="fa fa-check"></i><b>1.2</b> Regression models</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#example-data-to-be-analysed"><i class="fa fa-check"></i><b>1.3</b> Example data to be analysed</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#nitric-nitric-acid"><i class="fa fa-check"></i><b>1.3.1</b> <code>nitric</code>: Nitric acid</a></li>
 <li class="chapter" data-level="1.3.2" data-path="intro.html"><a href="intro.html#birth-weight-of-newborn-babies"><i class="fa fa-check"></i><b>1.3.2</b> <code>birth</code>: Weight of newborn babies</a></li>
@@ -140,7 +140,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>5</b> Generalised Linear Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="glm.html"><a href="glm.html#regression-models-for-non-normal-data"><i class="fa fa-check"></i><b>5.1</b> Regression models for non-normal data</a></li>
-<li class="chapter" data-level="5.2" data-path="glm.html"><a href="glm.html#sn:ef"><i class="fa fa-check"></i><b>5.2</b> The Exponential family</a></li>
+<li class="chapter" data-level="5.2" data-path="glm.html"><a href="glm.html#sn:ef"><i class="fa fa-check"></i><b>5.2</b> The exponential family</a></li>
 <li class="chapter" data-level="5.3" data-path="glm.html"><a href="glm.html#components-of-a-generalised-linear-model"><i class="fa fa-check"></i><b>5.3</b> Components of a generalised linear model</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="glm.html"><a href="glm.html#the-random-component"><i class="fa fa-check"></i><b>5.3.1</b> The random component</a></li>
 <li class="chapter" data-level="5.3.2" data-path="glm.html"><a href="glm.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>5.3.2</b> The systematic (or structural) component</a></li>
@@ -202,7 +202,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To complete the specification of a generalised linear model, we will need to model how the parameters of the response distribution (e.g. the success probability <span class="math inline">\(p_i\)</span> or the rate <span class="math inline">\(\lambda_i\)</span>) depend on explanatory variables <span class="math inline">\(\bm x_i\)</span>. We need to do this in a way which respects constraints on the possible values which these parameters may take: for instance, we <strong>should not</strong> model <span class="math inline">\(p_i = \bm x_i^T \bm \beta\)</span> directly, as we need to enforce <span class="math inline">\(p_i \in [0, 1]\)</span>.</p>
 </div>
 <div id="sn:ef" class="section level2">
-<h2><span class="header-section-number">5.2</span> The Exponential family</h2>
+<h2><span class="header-section-number">5.2</span> The exponential family</h2>
 A probability distribution is said to be a member of the exponential family if its probability density function (or probability function, if discrete) can be written in the form
 <span class="math display" id="eq:ef">\[\begin{equation}
   f_Y(y;\theta,\phi)=\exp\left({{y\theta-b(\theta)}\over{a(\phi)}} +c(y,\phi)\right).
