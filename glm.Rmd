@@ -606,7 +606,7 @@ single iteration to the usual least squares estimate.
 1. Estimation of an unknown scale parameter $\sigma^2$ is discussed later.
 A common (to all $i$) $\sigma^2$ has no effect on $\hat{\bm{\beta}}$.
 
-## Inference {#sn:glminfer}
+## Confidence intervals {#sn:glminfer}
 
 Recall from Section \@ref(sn:asnmle) that the maximum likelihood estimator $\hat{\bm{\beta}}$ is
 asymptotically normally distributed with mean $\bm{\beta}$ (it is unbiased)

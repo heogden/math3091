@@ -115,7 +115,7 @@
 <li class="chapter" data-level="5.4.3" data-path="glm.html"><a href="glm.html#sn:count"><i class="fa fa-check"></i><b>5.4.3</b> Models for count data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="glm.html"><a href="glm.html#maximum-likelihood-estimation-2"><i class="fa fa-check"></i><b>5.5</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="5.6" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>5.6</b> Inference</a></li>
+<li class="chapter" data-level="5.6" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>5.6</b> Confidence intervals</a></li>
 <li class="chapter" data-level="5.7" data-path="glm.html"><a href="glm.html#sn:compglm"><i class="fa fa-check"></i><b>5.7</b> Comparing generalised linear models</a><ul>
 <li class="chapter" data-level="5.7.1" data-path="glm.html"><a href="glm.html#sn:glmlrt"><i class="fa fa-check"></i><b>5.7.1</b> The likelihood ratio test</a></li>
 </ul></li>
@@ -529,7 +529,7 @@ The resulting iterative algorithm is called <em>Fisher scoring</em>. Notice that
 </ol>
 </div>
 <div id="sn:glminfer" class="section level2">
-<h2><span class="header-section-number">5.6</span> Inference</h2>
+<h2><span class="header-section-number">5.6</span> Confidence intervals</h2>
 <p>Recall from Section <a href="inference.html#sn:asnmle">2.6</a> that the maximum likelihood estimator <span class="math inline">\(\hat{\bm{\beta}}\)</span> is asymptotically normally distributed with mean <span class="math inline">\(\bm{\beta}\)</span> (it is unbiased) and variance covariance matrix <span class="math inline">\({\cal I}(\bm{\beta})^{-1}\)</span>. For ‘large enough <span class="math inline">\(n\)</span>’ we treat this distribution as an approximation.</p>
 <p>Therefore, standard errors (estimated standard deviations) are given by <span class="math display">\[
 s.e.(\hat{\beta}_i)=[{\cal I}(\hat{\bm{\beta}})^{-1}]_{ii}^{{1\over 2}}
