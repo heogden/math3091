@@ -1,0 +1,280 @@
+# Linear Models {#sn:lm}
+
+## Introduction
+
+In practical applications, we often distinguish between a *response* variable and a group of
+*explanatory* variables.
+The aim is to determine the pattern of dependence of the response variable on the explanatory
+variables.
+We denote the $n$ observations of the response variable by $\bm{y}=(y_1,y_2,\ldots ,y_n)^T$.
+These are assumed to be observations of *random variables*
+$\bm Y=(Y_1,Y_2,\ldots ,Y_n)^T$.
+Associated with each $y_i$ is a vector $\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T$ of values of $p$
+explanatory variables.
+
+In a linear model, we assume that 
+\begin{align}
+Y_i&= \beta_1 x_{i1} +\beta_2 x_{i2} +\ldots + \beta_p x_{ip} + \epsilon_i \cr
+&= \sum_{j=1}^p x_{ij} \beta_j + \epsilon_i \cr
+&=  \bm{x}_i^T\bm{\beta} + \epsilon_i \cr
+&= [\bm{X}\bm{\beta}]_i + \epsilon_i,\qquad i=1,\ldots ,n  (\#eq:lmNonMat)
+\end{align}
+where $\epsilon_i \sim N(0, \sigma^2)$ independently,
+\[\bm{X}= \begin{pmatrix}
+\bm{x}_1^T \\
+\vdots \\
+\bm{x}_n^T
+\end{pmatrix}
+=\begin{pmatrix}
+x_{11} & \cdots &x_{1p}\cr
+\vdots & \ddots &\vdots\cr
+x_{n1} &\cdots &x_{np}
+\end{pmatrix}\]
+and
+$\bm{\beta}=(\beta_1,\ldots ,\beta_p)^T$ is a vector of fixed but unknown parameters
+describing the dependence of $Y_i$ on $\bm{x}_i$.
+The four ways of describing the linear model in \@ref(eq:lmNonMat) are equivalent, but the most
+economical is the matrix form
+\begin{equation}
+\bm{Y}=\bm{X}\bm{\beta} + \bm{\epsilon}. (\#eq:lmMat)
+\end{equation}
+where $\bm{\epsilon}=(\epsilon_1,\epsilon_2,\ldots ,\epsilon_n)^T$.
+
+The $n\times p$ matrix $\bm{X}$ consists of known (observed) constants
+and is called the *design matrix*. The $i$th row of $\bm{X}$ is $\bm{x}_i^T$, the
+explanatory data corresponding to the $i$th observation of the response.
+The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th explanatory variable.
+
+The error vector $\bm{\epsilon}$ has a multivariate normal distribution
+with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
+since $\text{Var}(\epsilon_i)=\sigma^2$, and $\text{Cov}(\epsilon_i,\epsilon_j)=0$
+as $\epsilon_1, \ldots, \epsilon_n$ are independent of one another.
+It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate normal
+with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
+*i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
+
+### Example: The null model {-}
+ The null model
+$$
+Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
+$$
+$$
+\bm{X}=\begin{pmatrix}
+1\cr
+1\cr
+\vdots
+\cr 1
+\end{pmatrix}
+\qquad
+\bm{\beta}=(\beta_1).
+$$
+One (dummy) explanatory variable. In practice, this variable is present
+in all models.
+
+### Example: simple linear regression {-}
+ Simple linear regression
+$$
+Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
+$$
+$$
+\bm{X}=\begin{pmatrix} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n \end{pmatrix}
+\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2 \end{pmatrix}
+$$
+Two explanatory variables; the dummy variable
+and one 'real' variable.
+
+### Example: Polynomial regression {-}
+$$
+Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
+$$
+$$
+\bm{X}= \begin{pmatrix}
+1&x_1&x_1^2&\cdots&x_1^{p-1}\cr
+1&x_2&x_2^2&\cdots&x_2^{p-1}\cr
+\vdots&\vdots&\vdots&\ddots&\vdots\cr
+1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix}
+\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
+$$
+$p$ explanatory variables; the dummy variable
+and one 'real' variable, transformed to $p-1$ variables.
+
+### Example: Multiple regression {-}
+$$
+Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
+$$
+$$
+\bm{X}= \begin{pmatrix} 1&x_{11}&x_{12}&\cdots&x_{1\,p-1}\cr
+1&x_{21}&x_{22}&\cdots&x_{2\,p-1}\cr
+\vdots&\vdots&\vdots&\ddots&\vdots\cr
+1&x_{n1}&x_{n2}&\cdots&x_{n\,p-1} 
+\end{pmatrix}
+\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
+$$
+$p$ explanatory variables; the dummy variable
+and $p-1$ 'real' variables.
+
+## Maximum likelihood estimation
+
+The regression coefficients $\beta_1, \ldots, \beta_p$ describe
+the pattern by which the response depends on the explanatory variables.
+We use the observed data $y_1, \ldots, y_n$ to *estimate* this pattern of dependence.
+
+The likelihood for a linear model is
+\begin{equation}
+L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{x}_i^T\bm{\beta})^2\right).
+(\#eq:lmLikelihood)
+\end{equation}
+This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
+$$
+\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}
+$$
+and
+$$
+\hat \sigma^2 = \frac{1}{n} \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2.
+$$
+
+The corresponding fitted values are
+\[\hat{\bm{y}}=\bm{X}\hat{\bm{\beta}}=\bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}\]
+or
+\[\hat{y}_i=\bm{x}_i^T\hat{\bm{\beta}}, \quad i = 1, \ldots, n.\]
+
+The residuals $\bm{r} = (r_1, \ldots, r_n)$ are
+$\bm{r}=\bm{y}-\bm{\hat y}$
+or $r_i=y_i-\bm{x}_i^T\hat{\bm{\beta}}$ for $i = 1, \ldots, n.$.
+These residuals describe the variability in the observed responses $y_1, \ldots, y_n$ which
+has not been explained by the linear model.
+We call
+\[D= \sum_{i=1}^n r_i^2 = \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2\]
+the *residual sum of squares* or *deviance* for the linear model.
+
+## Properties of the MLE
+
+
+
+As $\bm Y$ is normally distributed, and $\hat{\bm{\beta}}= (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{Y}$ is
+a linear function of $\bm Y$, then $\hat{\bm{\beta}}$
+ must also be normally distributed.
+ We have
+$E(\hat{\bm{\beta}})=\bm{\beta}$ and $\text{Var}(\hat{\bm{\beta}})=\sigma^2(\bm{X}^T\bm{X})^{-1}$,
+so
+ \[\hat{\bm{\beta}} \sim N(\bm{\beta}, \sigma^2(\bm{X}^T\bm{X})^{-1}).\]
+
+It is possible to prove (although we shall not do so here)
+that
+$$
+{D\over\sigma^2}\sim\chi^2_{n-p}
+$$
+which implies that
+$$
+E(\hat \sigma^2)={{n-p}\over n}\sigma^2,
+$$
+so the maximum likelihood estimator is biased for $\sigma^2$ (although
+still asymptotically unbiased as ${{n-p}\over n}\to 1$ as $n\to\infty$).
+We often use the unbiased estimator of $\sigma^2$
+$$
+\tilde \sigma^2={D\over {n-p}}={1\over {n-p}}\sum_{i=1}^n r_i^2.
+$$
+The denominator $n-p$, the number of observations minus the number of
+linear coefficients in the model is called the *degrees of freedom* of the model.
+Therefore, we estimate the residual variance by the deviance
+divided by the degrees of freedom.
+
+## Comparing linear models
+
+If we have a set of competing linear models
+which might explain the dependence of the response
+on the explanatory variables, we will want to determine which of
+the models is most appropriate.
+
+As described previously, we proceed by comparing models pairwise
+using a generalised likelihood ratio test.
+For linear models this kind of comparison is restricted to situations where
+one of the models, $H_0$, is *nested* in the other, $H_1$.
+This usually means that the explanatory variables
+present in $H_0$ are a subset of those present in $H_1$.
+In this case model $H_0$ is a special case of model $H_1$, where certain coefficients
+are set equal to zero.
+We let $\bm \theta$ represent the collection of linear parameters for model $H_1$,
+together with the residual variance $\sigma^2$, and let $\Theta^{(1)}$ be the
+unrestricted parameter space for $\bm \theta$.
+Then $\Theta^{(0)}$ is the parameter space corresponding
+to model $H_0$, *i.e.* with the appropriate coefficients constrained to
+zero.
+
+We will assume that model $H_1$ contains $p$ linear parameters and
+model $H_0$ a subset of $q<p$ of these.
+Without loss of generality, we can think of $H_1$ as the model
+$$
+Y_i=\sum_{j=1}^p x_{ij} \beta_j + \epsilon_i, \quad i = 1, \ldots, n
+$$
+and $H_0$ being the same model with
+$$\beta_{q+1}=\beta_{q+2}=\cdots=\beta_p=0.
+$$
+
+
+Now, a generalised likelihood ratio test of $H_0$ against $H_1$
+has a critical region of the form
+$$
+C=\left\{ \bm{y}:{{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(1)}}L(\bm{\beta},\sigma^2)}\over
+{\max_{(\bm{\beta},\sigma^2)\in \Theta^{(0)}}L(\bm{\beta},\sigma^2)}} >k\right\}
+$$
+where $k$ is determined by $\alpha$, the size of the test, so
+$$
+\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm{\beta},\sigma^2)=\alpha.
+$$
+For a linear model,
+$$
+L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
+\exp\left(-{1\over{2\sigma^2}} \sum_{i=1}^n (y_i-\bm{x}_i^T\bm{\beta})^2\right).
+$$
+This is maximised with respect to $(\bm{\beta},\sigma^2)$ at
+$\bm{\beta}=\hat{\bm{\beta}}$ and $\sigma^2=\hat \sigma^2=D/n$.
+Therefore
+\begin{align*}
+\max_{\bm{\beta},\sigma^2} L(\bm{\beta},\sigma^2)&=(2\pi D/n)^{-{n\over 2}}
+\exp\left(-{n\over{2D}} \sum_{i=1}^n (y_i-\bm{x}_i^T\hat{\bm{\beta}})^2\right)\cr
+&=(2\pi D/n)^{-{n\over 2}}
+\exp\left(-{n\over2}\right).
+\end{align*}
+This form applies for both $\bm \theta\in\Theta^{(0)}$ and $\bm \theta\in\Theta^{(1)}$, with only the model changing. Let the deviances under models $H_0$ and $H_1$ be denoted by $D_0$ and $D_1$
+respectively.
+Then the critical region for the generalised likelihood ratio test
+is of the form
+\[{{(2\pi D_1/n)^{-{n\over 2}}}\over{(2\pi D_0/n)^{-{n\over 2}}}}>k\]
+so
+\[\left({{D_0}\over{D_1}}\right)^{n\over 2}>k,\]
+and
+\[\left({{D_0}\over{D_1}}-1\right){{n-p}\over{p-q}}>k'\]
+for some $k'$. Rearranging,
+\[{{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k'.\]
+We refer to the left hand side of this inequality as the $F$-statistic.
+We reject the simpler model $H_0$ in favour of the more complex model $H_1$ if
+$F$ is 'too large'.
+
+As we have required $H_0$ to be nested in $H_1$, $F \sim F_{p-q, \, n-p}$
+when $H_0$ is true. 
+To see this, note that
+$$
+{{D_0}\over\sigma^2}={{D_0-D_1}\over\sigma^2}+{{D_1}\over\sigma^2}.
+$$
+Furthermore, under $H_0$,
+$D_1/\sigma^2 \sim \chi^2_{n-p}$ and
+$D_0/\sigma^2 \sim \chi^2_{n-q}$.
+It is possible to show (although we will not do so here)
+that under $H_0$, $(D_0-D_1)/\sigma^2$ and $D_0/\sigma^2$ are independent.
+Therefore, from the properties of the chi-squared distribution, it follows that
+under $H_0$, $(D_0-D_1)/\sigma^2 \sim \chi^2_{p-q}$, and
+$F \sim F_{p-q,\,n-p}$ distribution.
+
+
+Therefore, the precise critical region can be evaluated given the
+size, $\alpha$,  of the test.
+We reject $H_0$ in favour of $H_1$ when
+$$
+{{(D_0-D_1)/(p-q)}\over{D_1/(n-p)}}>k
+$$
+where $k$ is the $100(1-\alpha)\%$ point of the $F_{p-q,\,n-p}$ distribution.
+
+
+

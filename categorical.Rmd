@@ -1,4 +1,4 @@
-# Categorical data {#chap:categorical}
+# Models for categorical data {#chap:categorical}
 
 
 ## Introduction

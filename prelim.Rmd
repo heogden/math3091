@@ -1,0 +1,212 @@
+# Preliminaries {#prelim}
+
+## Elements of statistical modelling
+
+
+Probability and statistics can be characterised as the study of variability.
+In particular, statistical inference is the  science of analysing
+statistical data, viewed as the outcome of some random process, in order to
+draw conclusions about that random process.
+
+Statistical models help us to *understand* the random process by which observed data
+have been generated. This may be of interest in itself, but also allows us to make
+*predictions* and perhaps most importantly *decisions* contingent on
+our inferences concerning the process.
+
+It is also important, as part of the modelling process, to acknowledge
+that our conclusions are only based on a (potentially small) sample
+of possible observations of the process and are therefore subject to error.
+The science of statistical inference therefore involves assessment of the uncertainties
+associated with the conclusions we draw.
+
+Probability theory is the mathematics associated with randomness and
+uncertainty. We usually try to describe random processes using probability
+models. Then, statistical inference may involve estimating any unspecified
+features of a model, comparing competing models, and assessing the
+appropriateness of a model; all in the light of observed data.
+
+In order to identify 'good' statistical models, we require some principles on which
+to base our modelling procedures. In general, we have three requirements of a statistical model
+
+* Plausibility
+* Parsimony
+* Goodness of fit
+
+The first of these is not a statistical consideration, and
+a subject-matter expert usually needs to be
+consulted about this. For some objectives, like prediction, 
+it might be considered unimportant. Parsimony and goodness of 
+fit are statistical issues. Indeed,
+there is usually a trade-off between the two and our statistical 
+modelling strategies will take
+account of this.
+
+
+## Regression Models
+Many statistical models, and all the ones we shall deal 
+with in MATH3091, can 
+be formulated as *regression* models.
+
+In practical applications, we often distinguish between a *response*
+variable and a group of *explanatory* variables. The aim is to determine
+the pattern of dependence of the response variable on the explanatory
+variables.  A regression model has the general form
+
+> response = function(structure and randomness)
+
+The structural part of the model describes how the response depends 
+on the explanatory variables and the random part defines the probability
+distribution of the response. Together, they produce the response and the
+statistical modeller's task is to 'separate' these out. 
+
+## Example data to be analysed
+
+### `nitric`: Nitric acid
+
+This data set relates to 21 successive days of operation of a plant
+oxidising ammonia to nitric acid. The response `yield` is ten times the percentage of ingoing
+ammonia that is lost as unabsorbed nitric acid (an indirect measure of the
+yield). The aim here is to study how the yield depends on flow of air to the plant (`flow`),
+temperature of the cooling water
+entering the absorption tower (`temp`) and concentration of nitric acid in the
+absorbing liquid (`conc`). These data will be analysed  in worksheet 2 using multiple linear 
+regression models.   
+
+```{r nitric, include = FALSE, fig.pos = "tb", fig.cap = "A pairs plot of the `nitric` data"}
+nitric <- read.csv("nitric.csv")
+pairs(nitric)
+```
+
+
+
+### `birth`: Weight of newborn babies
+
+This data set contains weights of 24 newborn babies. There are two explanatory 
+variables, sex (`Sex`) and gestational age in weeks (`Age`) together with the response
+variable, birth weight in grams (`Weight`).  The aim here is to study how birth weight
+depends on sex and  gestational age. This data set will be analysed  in
+worksheet 3 by using multiple linear regression models including
+both categorical and continuous explanatory variables.  
+
+
+```{r birth, include = FALSE, fig.pos = "tb", fig.cap = "The `birth` data"}
+birth <- read.csv("birth.csv")
+plot(birth$Age, birth$Weight, xlab="Age (weeks)", ylab="Birthweight (g)",
+     col = birth$Sex, pch = birth$Sex)
+legend("bottomright", legend = c("Male", "Female"), pch = 1:2, col = 1:2)
+```
+
+
+### `survival`: Time to death
+
+This data set, analysed in worksheet 4, contains survival 
+times in 10 hour units (`time`) of 48 rats each allocated to one of 12 combinations
+of  3 poisons (`poison`) and 4 treatments (`treatment`). 
+The aim here is to study how survival time depends
+on the poison and the treatment, and to determine whether there is an interaction
+between these two categorical variables.
+
+```{r, include = FALSE, fig.pos = "tb", fig.cap = "The `survival` data"}
+survival <- read.csv("survival.csv")
+survival$poison <- as.factor(survival$poison)
+survival$treatment <- as.factor(survival$treatment)
+par(mfrow = c(1, 2))
+plot(time ~ poison + treatment, data = survival)
+```
+
+### `beetle`: Mortality from carbon disulphide
+
+This data set represents the number of beetles exposed (`exposed`) and number 
+killed (`killed`) in eight groups exposed to different doses (`dose`)
+of a particular insecticide. Interest is focussed on how mortality is 
+related to dose. It seems sensible to model the number of beetles 
+killed in each group as the binomial random variable with 
+probability of death depending on dose. 
+This will be discussed in worksheet 5.
+
+```{r, include = FALSE}
+beetle <- read.csv("beetle.csv")
+beetle
+```
+
+
+
+### `shuttle`: Challenger disaster
+
+This data set concerns the 23 space shuttle flights
+before the Challenger disaster.  The disaster is thought to have 
+been caused by the failure of a number of O-rings, 
+of which there were six in total. The data 
+consist of four variables, the number of
+damaged O-rings for each
+pre-Challenger flight (`n_damaged`), 
+together with the launch temperature in degrees
+Fahrenheit (`temp`), the pressure at which the pre-launch test of O-ring leakage was
+carried out (`pressure`) and the name of the orbiter (`orbiter`).
+The Challenger launch
+temperature on 20th January 1986 was 31F.
+The aim is to predict the probability of
+O-ring damage at the Challenger launch. 
+ This will be discussed in worksheet 6.
+
+```{r, include = FALSE}
+shuttle <- read.csv("shuttle.csv")
+head(shuttle) 
+```
+
+ 
+### `heart`: Treatment for heart attack
+
+This data set represents the results of a clinical trial
+to assess the effectiveness of a thrombolytic (clot-busting) treatment
+for patients who have suffered an acute myocardial infarction (heart attack).
+There are four categorical explanatory variables, representing
+
+- the `site` of infarction: anterior, inferior or other
+- the `time` between infarction and treatment: $\le 12$ or $>12$ hours
+- whether the patient was already taking Beta-blocker medication prior to the infarction, `blocker`: yes or no
+- the `treatment` the patient was given: active or placebo.
+
+For each combination of these categorical variables, 
+the dataset gives the total number of patients (`n_patients`),
+and the number who survived for
+for 35 days (`n_survived`). The aim is to find out how
+these categorical variables affect a patient's chance
+of survival. These data will be analysed in worksheet 7.
+
+```{r, include = FALSE}
+heart <- read.csv("heart.csv")
+head(heart)
+```
+
+### `accident`: Road traffic accidents
+
+This example concerns the number of road accidents (`number`) and the 
+volume of traffic (`volume`), on each of two roads in Cambridge (`road`),
+at various times of day (`time`, taking values `morning`, `midday` or `afternoon`).
+We should be able to answer questions like:  
+
+1. Is Mill Road more dangerous than Trumpington Road?
+1. How does time of day affect the rate of road accident? 
+
+These issues will be considered in worksheet 8. 
+
+```{r, include = FALSE}
+accident <- read.csv("accident.csv")
+head(accident)
+```
+
+
+### `lymphoma`: Lymphoma patients
+The  `lymphoma` data set represents 30 lymphoma 
+patients classified by sex (`Sex`), cell type of lymphoma (`Cell`) and response to 
+treatment (`Remis`). It is an example of data which may be represented as
+a three-way ($2\times 2\times 2$)
+contingency table. The aim here is to study the 
+complex dependence structures between the three classifying factors. 
+This is taken up in worksheet 9. 
+
+```{r, include = FALSE}
+lymphoma <- read.csv("lymphoma.csv")
+head(lymphoma)
+```
