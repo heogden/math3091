@@ -13,8 +13,9 @@ Often $H_0$ and $H_1$
 both take the same parametric form, $f_{\bm Y}(\bm{y};\bm \theta)$ but
 with $\bm \theta\in\Theta^{(0)}$ for $H_0$ and $\bm \theta\in\Theta^{(1)}$ for $H_1$,
 where $\Theta^{(0)}$ and $\Theta^{(1)}$ are alternative sets of possible values
-for $\bm \theta$. Alternatively, we may be uncertain about the
-best parametric model for the data, and have candidate models 
+for $\bm \theta$. In the regression setting, we are often interested
+in determining which of a set of explanatory variables have an impact
+on the distribution of the response.
 
 ## Hypothesis testing
 
