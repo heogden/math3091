@@ -74,7 +74,7 @@ the probabilities (or probability densities) that they assign to the observed da
 1. Any factors which depend on $y_1, \ldots, y_n$ alone (and not on $\bm \theta$) can be ignored
   when writing down the likelihood. Such factors give no information about the   relative likelihoods of different possible values of $\bm \theta$.
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, independent identically distributed
 (i.i.d.) Bernoulli$(p)$ random
 variables. Here $\theta=(p)$ and the likelihood is
@@ -85,9 +85,9 @@ The log-likelihood is
 $$
 \ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
 $$
+```
 
-
-**Example (Normal)**.
+```{example, name = "Normal"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and the likelihood is
 \begin{align*}
@@ -101,7 +101,7 @@ L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 The log-likelihood is
 \[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
 -{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
-
+```
 
 ## Maximum  likelihood estimation 
 
@@ -135,7 +135,7 @@ $\ell(\bm \theta)$ with respect to $\theta_1, \ldots, \theta_p$, and solving the
 simultaneous equations. It should also be checked that the stationary point is a
 maximum.
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 Bernoulli$(p)$ random variables. Here $\bm \theta=(p)$ and
 the log-likelihood is
@@ -148,8 +148,9 @@ the log-likelihood is
   Note that
   \[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0\]
    everywhere, so the stationary point is clearly a maximum.
+```
 
-**Example (Normal)**.
+```{example, name = "Normal"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
  and the log-likelihood is
@@ -176,7 +177,6 @@ $\hat{\mu}=  \bar y$ and
 \[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
 {1\over n}\sum(y_i-\bar y)^2.\]
 
-
 Strictly,
 to show that this stationary point is a maximum, we need to show that the
 Hessian matrix (the matrix of second derivatives with elements
@@ -191,6 +191,7 @@ $$
 0   &-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
 $$
 which is clearly negative definite.
+```
 
 ## Score {#score}
 
@@ -238,14 +239,15 @@ E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
 \end{align*}
 \end{proof}
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Here $\bm \theta=(p)$ and
 \[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]
 Since $E[U(p)] = 0$, we must have $E[\bar Y]=p$ (which we already
 know is correct).
+```
 
-**Example (Normal)**.
+```{example, name = "Normal"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
 $N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
@@ -255,6 +257,7 @@ u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y
 Since $E[\bm U(\mu,\sigma^2)] = {\bm 0}$, we must have
 $E[\bar Y]=\mu$ and 
 $E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.$
+```
 
 ## Information {#info}
 
@@ -335,7 +338,7 @@ Now
 \end{align*}
 \end{proof}
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Here $\bm \theta=(p)$ and
 \begin{align*}
@@ -343,10 +346,9 @@ u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 -H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
 {\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
 \end{align*}
+```
 
-\newpage
-
-**Example (Normal)**.
+```{example, name = "Normal"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
 Here $\bm \theta=(\mu,\sigma^2)$ and
 \begin{align*}
@@ -367,6 +369,7 @@ $$
 0& \frac{n}{2(\sigma^2)^2}
 \end{pmatrix}.
 $$
+```
 
 ## Asymptotic distribution of the MLE {#sn:asnmle}
 
@@ -449,7 +452,7 @@ $$
 $$
 For $\alpha=0.1,0.05,0.01$, $z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58$.
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 If $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables then asymptotically $\hat{p}=\bar y$ has a  $N(p,{p(1-p)}/ n)$
 distribution, and a large sample 95\% confidence interval
@@ -465,3 +468,4 @@ for $p$ is
 [\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
 \bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}].
 \end{align*}
+```

@@ -214,12 +214,18 @@ f_{\bm Y}(\bm y)=f_{Y_1}(y_1)f_{Y_2}(y_2)\cdots f_{Y_n}(y_n)
 <li>Nothing in the definition of the likelihood requires <span class="math inline">\(y_1, \ldots, y_n\)</span> to be observations of independent random variables, although we shall frequently make this assumption.</li>
 <li>Any factors which depend on <span class="math inline">\(y_1, \ldots, y_n\)</span> alone (and not on <span class="math inline">\(\bm \theta\)</span>) can be ignored when writing down the likelihood. Such factors give no information about the relative likelihoods of different possible values of <span class="math inline">\(\bm \theta\)</span>.</li>
 </ol>
-<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, independent identically distributed (i.i.d.) Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\theta=(p)\)</span> and the likelihood is <span class="math display">\[
+
+<div class="example">
+<span id="exm:unnamed-chunk-8" class="example"><strong>Example 2.1  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, independent identically distributed (i.i.d.) Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\theta=(p)\)</span> and the likelihood is <span class="math display">\[
 L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}.
 \]</span> The log-likelihood is <span class="math display">\[
 \ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
-\]</span></p>
-<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and the likelihood is
+\]</span>
+</div>
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-9" class="example"><strong>Example 2.2  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and the likelihood is
 <span class="math display">\[\begin{align*}
 L(\mu,\sigma^2) &amp;=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
@@ -228,8 +234,10 @@ L(\mu,\sigma^2) &amp;=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 &amp;\propto (\sigma^2)^{-{n\over 2}}
 \exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
 \end{align*}\]</span>
-<p>The log-likelihood is <span class="math display">\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]</span></p>
+The log-likelihood is <span class="math display">\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+-{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]</span>
+</div>
+
 </div>
 </div>
 <div id="maximum-likelihood-estimation" class="section level2">
@@ -238,8 +246,14 @@ L(\mu,\sigma^2) &amp;=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
 <p>We call the value of <span class="math inline">\(\bm \theta\)</span> which maximises the likelihood <span class="math inline">\(L(\theta)\)</span> the <em>maximum likelihood estimate</em> (MLE) of <span class="math inline">\(\bm \theta\)</span>, denoted by <span class="math inline">\(\hat{\bm \theta}\)</span>. <span class="math inline">\(\hat{\bm \theta}\)</span> depends on <span class="math inline">\(\bm y\)</span>, as different observed data samples lead to different likelihood functions. The corresponding function of <span class="math inline">\(\bm Y\)</span> is called the <em>maximum likelihood estimator</em> and is also denoted by <span class="math inline">\(\hat{\bm \theta}\)</span>.</p>
 <p>Note that as <span class="math inline">\(\bm \theta=(\theta_1, \ldots, \theta_p)\)</span>, the MLE for any component of <span class="math inline">\(\bm \theta\)</span> is given by the corresponding component of <span class="math inline">\(\hat{\bm \theta}=(\hat{\theta}_1,\ldots ,\hat{\theta}_p)^T\)</span>. Similarly, the MLE for any function of parameters <span class="math inline">\(g(\bm \theta)\)</span> is given by <span class="math inline">\(g(\hat{\bm \theta})\)</span>.</p>
 <p>As <span class="math inline">\(\log\)</span> is a strictly increasing function, the value of <span class="math inline">\(\bm \theta\)</span> which maximises <span class="math inline">\(L(\bm \theta)\)</span> also maximises <span class="math inline">\(\ell(\bm \theta) = \log L (\bm \theta)\)</span>. It is almost always easier to maximise <span class="math inline">\(\ell(\bm \theta)\)</span>. This is achieved in the usual way; finding a stationary point by differentiating <span class="math inline">\(\ell(\bm \theta)\)</span> with respect to <span class="math inline">\(\theta_1, \ldots, \theta_p\)</span>, and solving the resulting <span class="math inline">\(p\)</span> simultaneous equations. It should also be checked that the stationary point is a maximum.</p>
-<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and the log-likelihood is <span class="math display">\[\ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p).\]</span> Differentiating with respect to <span class="math inline">\(p\)</span>, <span class="math display">\[\frac{\partial}{\partial p} \ell(p) = \frac{n\bar y}{p}-\frac{n(1-\bar y)}{1-p}\]</span> so the MLE <span class="math inline">\(\hat p\)</span> solves <span class="math display">\[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]</span> Solving this for <span class="math inline">\(\hat{p}\)</span> gives <span class="math inline">\(\hat{p}=\bar y\)</span>. Note that <span class="math display">\[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}&lt;0\]</span> everywhere, so the stationary point is clearly a maximum.</p>
-<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and and the log-likelihood is <span class="math display">\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
+
+<div class="example">
+<span id="exm:unnamed-chunk-10" class="example"><strong>Example 2.3  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and the log-likelihood is <span class="math display">\[\ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p).\]</span> Differentiating with respect to <span class="math inline">\(p\)</span>, <span class="math display">\[\frac{\partial}{\partial p} \ell(p) = \frac{n\bar y}{p}-\frac{n(1-\bar y)}{1-p}\]</span> so the MLE <span class="math inline">\(\hat p\)</span> solves <span class="math display">\[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]</span> Solving this for <span class="math inline">\(\hat{p}\)</span> gives <span class="math inline">\(\hat{p}=\bar y\)</span>. Note that <span class="math display">\[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}&lt;0\]</span> everywhere, so the stationary point is clearly a maximum.
+</div>
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-11" class="example"><strong>Example 2.4  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and and the log-likelihood is <span class="math display">\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
 -{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]</span> Differentiating with respect to <span class="math inline">\(\mu\)</span> <span class="math display">\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
   {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]</span> so <span class="math inline">\((\hat \mu, \hat \sigma^2)\)</span> solve
 <span class="math display" id="eq:normalScoreMu">\[\begin{equation}
@@ -254,11 +268,13 @@ Differentiating with respect to <span class="math inline">\(\sigma^2\)</span> <s
 \end{equation}\]</span>
 <p>Solving <a href="inference.html#eq:normalScoreMu">(2.1)</a> and <a href="inference.html#eq:normalScoreSs">(2.2)</a>, we obtain <span class="math inline">\(\hat{\mu}= \bar y\)</span> and <span class="math display">\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
 {1\over n}\sum(y_i-\bar y)^2.\]</span></p>
-<p>Strictly, to show that this stationary point is a maximum, we need to show that the Hessian matrix (the matrix of second derivatives with elements <span class="math inline">\([\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)\)</span>) is negative definite at <span class="math inline">\(\bm \theta=\hat{\bm \theta}\)</span>, that is <span class="math inline">\(\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}&lt;0\)</span> for every <span class="math inline">\(\bm{a}\ne {\bf 0}\)</span>. Here <span class="math display">\[
+Strictly, to show that this stationary point is a maximum, we need to show that the Hessian matrix (the matrix of second derivatives with elements <span class="math inline">\([\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)\)</span>) is negative definite at <span class="math inline">\(\bm \theta=\hat{\bm \theta}\)</span>, that is <span class="math inline">\(\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}&lt;0\)</span> for every <span class="math inline">\(\bm{a}\ne {\bf 0}\)</span>. Here <span class="math display">\[
 \bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
 - \frac{n}{\hat \sigma^2 } &amp; 0 \cr
 0   &amp;-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
-\]</span> which is clearly negative definite.</p>
+\]</span> which is clearly negative definite.
+</div>
+
 </div>
 <div id="score" class="section level2">
 <h2><span class="header-section-number">2.4</span> Score</h2>
@@ -274,13 +290,21 @@ u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
 <li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
 </ol>
 
-<p><strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and <span class="math display">\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]</span> Since <span class="math inline">\(E[U(p)] = 0\)</span>, we must have <span class="math inline">\(E[\bar Y]=p\)</span> (which we already know is correct).</p>
-<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+
+<div class="example">
+<span id="exm:unnamed-chunk-12" class="example"><strong>Example 2.5  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and <span class="math display">\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]</span> Since <span class="math inline">\(E[U(p)] = 0\)</span>, we must have <span class="math inline">\(E[\bar Y]=p\)</span> (which we already know is correct).
+</div>
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-13" class="example"><strong>Example 2.6  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
 <span class="math display">\[\begin{align*}
 u_1(\mu,\sigma^2)&amp;= {{n(\bar y-\mu)}/{\sigma^2}}\cr
 u_2(\mu,\sigma^2)&amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
 \end{align*}\]</span>
-<p>Since <span class="math inline">\(E[\bm U(\mu,\sigma^2)] = {\bm 0}\)</span>, we must have <span class="math inline">\(E[\bar Y]=\mu\)</span> and <span class="math inline">\(E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.\)</span></p>
+Since <span class="math inline">\(E[\bm U(\mu,\sigma^2)] = {\bm 0}\)</span>, we must have <span class="math inline">\(E[\bar Y]=\mu\)</span> and <span class="math inline">\(E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.\)</span>
+</div>
+
 </div>
 <div id="info" class="section level2">
 <h2><span class="header-section-number">2.5</span> Information</h2>
@@ -304,19 +328,24 @@ u_2(\mu,\sigma^2)&amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^
 <li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
 </ol>
 
-<strong>Example (Bernoulli)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and
+
+<div class="example">
+<span id="exm:unnamed-chunk-14" class="example"><strong>Example 2.7  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and
 <span class="math display">\[\begin{align*}
 u(p)&amp;= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 -H(p)&amp;= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
 {\cal I}(p)&amp;= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
 \end{align*}\]</span>
+</div>
 
-<strong>Example (Normal)</strong>. <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+
+<div class="example">
+<span id="exm:unnamed-chunk-15" class="example"><strong>Example 2.8  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
 <span class="math display">\[\begin{align*}
 u_1(\mu,\sigma^2) &amp;=  \frac{n(\bar y-\mu)}{\sigma^2} \\
 u_2(\mu,\sigma^2) &amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
 \end{align*}\]</span>
-<p>Therefore <span class="math display">\[
+Therefore <span class="math display">\[
 -\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
 \frac{n}{\sigma^2} &amp; \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
 \frac{n(\bar y-\mu)}{(\sigma^2)^2}&amp;
@@ -327,7 +356,9 @@ u_2(\mu,\sigma^2) &amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\
 \frac{n}{\sigma^2} &amp; 0 \cr
 0&amp; \frac{n}{2(\sigma^2)^2}
 \end{pmatrix}.
-\]</span></p>
+\]</span>
+</div>
+
 </div>
 <div id="sn:asnmle" class="section level2">
 <h2><span class="header-section-number">2.6</span> Asymptotic distribution of the MLE</h2>
@@ -358,7 +389,9 @@ P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^
 [\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{1\over 2},
 \hat{\theta}_i+z_{1-\frac{\alpha}{2}}[{\cal I}(\hat{\bm \theta})^{-1}]_{ii}^{1\over 2}].
 \]</span> For <span class="math inline">\(\alpha=0.1,0.05,0.01\)</span>, <span class="math inline">\(z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58\)</span>.</p>
-<strong>Example (Bernoulli)</strong>. If <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables then asymptotically <span class="math inline">\(\hat{p}=\bar y\)</span> has a <span class="math inline">\(N(p,{p(1-p)}/ n)\)</span> distribution, and a large sample 95% confidence interval for <span class="math inline">\(p\)</span> is
+
+<div class="example">
+<span id="exm:unnamed-chunk-16" class="example"><strong>Example 2.9  (Bernoulli)  </strong></span>If <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables then asymptotically <span class="math inline">\(\hat{p}=\bar y\)</span> has a <span class="math inline">\(N(p,{p(1-p)}/ n)\)</span> distribution, and a large sample 95% confidence interval for <span class="math inline">\(p\)</span> is
 <span class="math display">\[\begin{align*}
 &amp; [\hat{p}- 1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2},
 \hat{p}+1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2}]
@@ -370,6 +403,8 @@ P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^
 [\bar y-1.96[\bar y(1-\bar y)/n]^{1\over 2},
 \bar y+1.96[\bar y(1-\bar y)/n]^{1\over 2}].
 \end{align*}\]</span>
+</div>
+
 
 </div>
 </div>

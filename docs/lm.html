@@ -217,9 +217,9 @@ x_{n1} &amp;\cdots &amp;x_{np}
 <p>where <span class="math inline">\(\bm{\epsilon}=(\epsilon_1,\epsilon_2,\ldots ,\epsilon_n)^T\)</span>.</p>
 <p>The <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(\bm{X}\)</span> consists of known (observed) constants and is called the <em>design matrix</em>. The <span class="math inline">\(i\)</span>th row of <span class="math inline">\(\bm{X}\)</span> is <span class="math inline">\(\bm{x}_i^T\)</span>, the explanatory data corresponding to the <span class="math inline">\(i\)</span>th observation of the response. The <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bm{X}\)</span> contains the <span class="math inline">\(n\)</span> observations of the <span class="math inline">\(j\)</span>th explanatory variable.</p>
 <p>The error vector <span class="math inline">\(\bm{\epsilon}\)</span> has a multivariate normal distribution with mean vector <span class="math inline">\({\bf 0}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, since <span class="math inline">\(\text{Var}(\epsilon_i)=\sigma^2\)</span>, and <span class="math inline">\(\text{Cov}(\epsilon_i,\epsilon_j)=0\)</span> as <span class="math inline">\(\epsilon_1, \ldots, \epsilon_n\)</span> are independent of one another. It follows from <a href="lm.html#eq:lmMat">(4.2)</a> that the distribution of <span class="math inline">\(\bm Y\)</span> is multivariate normal with mean vector <span class="math inline">\(\bm{X}\bm{\beta}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, <em>i.e.</em> <span class="math inline">\(\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})\)</span>.</p>
-<div id="example-the-null-model" class="section level4 unnumbered">
-<h4>Example: The null model</h4>
-<p>The null model <span class="math display">\[
+
+<div class="example">
+<span id="exm:unnamed-chunk-18" class="example"><strong>Example 4.1  (The null model)  </strong></span> The null model <span class="math display">\[
 Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}=\begin{pmatrix}
@@ -230,20 +230,22 @@ Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
 \end{pmatrix}
 \qquad
 \bm{\beta}=(\beta_1).
-\]</span> One (dummy) explanatory variable. In practice, this variable is present in all models.</p>
+\]</span> One (dummy) explanatory variable. In practice, this variable is present in all models.
 </div>
-<div id="example-simple-linear-regression" class="section level4 unnumbered">
-<h4>Example: simple linear regression</h4>
-<p>Simple linear regression <span class="math display">\[
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-19" class="example"><strong>Example 4.2  (Simple linear regression)  </strong></span> Simple linear regression <span class="math display">\[
 Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}=\begin{pmatrix} 1&amp;x_1\cr 1&amp;x_2\cr \vdots&amp;\vdots\cr 1&amp;x_n \end{pmatrix}
 \qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2 \end{pmatrix}
-\]</span> Two explanatory variables; the dummy variable and one ‘real’ variable.</p>
+\]</span> Two explanatory variables; the dummy variable and one ‘real’ variable.
 </div>
-<div id="example-polynomial-regression" class="section level4 unnumbered">
-<h4>Example: Polynomial regression</h4>
-<p><span class="math display">\[
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-20" class="example"><strong>Example 4.3  (Polynomial regression)  </strong></span><span class="math display">\[
 Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}= \begin{pmatrix}
@@ -252,11 +254,12 @@ Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \q
 \vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\cr
 1&amp;x_n&amp;x_n^2&amp;\cdots&amp;x_n^{p-1} \end{pmatrix}
 \qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
-\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and one ‘real’ variable, transformed to <span class="math inline">\(p-1\)</span> variables.</p>
+\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and one ‘real’ variable, transformed to <span class="math inline">\(p-1\)</span> variables.
 </div>
-<div id="example-multiple-regression" class="section level4 unnumbered">
-<h4>Example: Multiple regression</h4>
-<p><span class="math display">\[
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-21" class="example"><strong>Example 4.4  (Multiple regression)  </strong></span><span class="math display">\[
 Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}= \begin{pmatrix} 1&amp;x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1\,p-1}\cr
@@ -265,8 +268,9 @@ Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon
 1&amp;x_{n1}&amp;x_{n2}&amp;\cdots&amp;x_{n\,p-1} 
 \end{pmatrix}
 \qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
-\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and <span class="math inline">\(p-1\)</span> ‘real’ variables.</p>
+\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and <span class="math inline">\(p-1\)</span> ‘real’ variables.
 </div>
+
 </div>
 <div id="maximum-likelihood-estimation-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Maximum likelihood estimation</h2>

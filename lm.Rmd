@@ -53,7 +53,7 @@ It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
 *i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
 
-#### Example: The null model {-}
+```{example, name = "The null model"}
  The null model
 $$
 Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
@@ -70,8 +70,9 @@ $$
 $$
 One (dummy) explanatory variable. In practice, this variable is present
 in all models.
+```
 
-#### Example: simple linear regression {-}
+```{example, name = "Simple linear regression"}
  Simple linear regression
 $$
 Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
@@ -82,8 +83,9 @@ $$
 $$
 Two explanatory variables; the dummy variable
 and one 'real' variable.
+```
 
-#### Example: Polynomial regression {-}
+```{example, name = "Polynomial regression"}
 $$
 Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
 $$
@@ -97,8 +99,9 @@ $$
 $$
 $p$ explanatory variables; the dummy variable
 and one 'real' variable, transformed to $p-1$ variables.
+```
 
-#### Example: Multiple regression {-}
+```{example, name = "Multiple regression"}
 $$
 Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
 $$
@@ -112,6 +115,7 @@ $$
 $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
+```
 
 ## Maximum likelihood estimation
 

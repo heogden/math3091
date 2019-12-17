@@ -87,7 +87,7 @@ $a(\phi)$ is sometimes of the form $a(\phi)=\sigma^2/w$ where $w$ is a known
 *weight* and $\sigma^2$ is called the *dispersion parameter*
 or *scale parameter*.
 
-**Example (Normal distribution)**.
+```{example, name = "Normal distribution"}
 Suppose $Y\sim N(\mu, \, \sigma^2)$. Then
 \begin{align*}
 f_Y(y;\mu,\sigma^2)&= {1\over{\sqrt{2\pi\sigma^2}}}
@@ -105,8 +105,8 @@ Therefore
 \[\text{Var}(Y)=a(\phi)b''(\theta)=\sigma^2\]
 and the variance function is
 \[V(\mu)=1.\]
-
-**Example (Poisson distribution)**.
+```
+```{example, name = "Poisson distribution"}
 Suppose $Y\sim \text{Poisson}(\lambda)$. Then
 \begin{align*}
 f_Y(y;\lambda)&= {{\exp(-\lambda)\lambda^y}\over{y!}}
@@ -121,8 +121,9 @@ Therefore
 \[\text{Var}(Y)=a(\phi)b''(\theta)=\exp\theta=\lambda\]
 and the variance function is
 \[V(\mu)=\mu.\]
+```
 
-**Example (Bernoulli distribution)**.
+```{example, name = "Bernoulli distribution"}
 Suppose $Y\sim \text{Bernoulli}(p)$. Then
 \begin{align*}
 f_Y(y;p)&= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
@@ -137,8 +138,9 @@ Therefore
 \[\text{Var}(Y)=a(\phi)b''(\theta)={{\exp\theta}\over{(1+\exp\theta})^2}=p(1-p)\]
 and the variance function is
 \[V(\mu)=\mu(1-\mu).\]
+```
 
-**Example (Binomial distribution)**.
+```{example, name = "Binomial distribution"}
 Suppose $Y^*\sim \text{Binomial}(n,p)$.
 Here, $n$ is assumed known (as usual) and
 the random variable $Y= Y^*/n$ is taken as the *proportion*
@@ -160,7 +162,7 @@ and the variance function is
 \[V(\mu)=\mu(1-\mu).\]
 Here, we can write $a(\phi)\equiv \sigma^2/w$ where the scale parameter
 $\sigma^2=1$ and the weight $w$ is $n$, the binomial denominator.
-
+```
 
 ## Components of a generalised linear model
 
@@ -840,9 +842,7 @@ we call them the *fitted values*. Hence, for a particular generalised
 linear model, the scaled deviance function describes how discrepancies between
 the observed and fitted values are penalised.
 
-\newpage
-
-**Example (Poisson)**.
+```{example, name = "Poisson"}
 Suppose $Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n$.
 Recall from Section \@ref(sn:ef) that $\theta=\log\lambda$,
 $b(\theta)=\exp\theta$, $\mu=b'(\theta)=\exp\theta$ and
@@ -858,8 +858,9 @@ and
 $$
 X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
 $$
+```
 
-**Example (Binomial)**.
+```{example, name = "Binomial"}
 Suppose $n_iY_i\sim$ Binomial$(n_i,p_i),\;i = 1, \ldots, n$.
 Recall from Section \@ref(sn:ef) that $\theta=\log{p\over{1-p}}$,
 $b(\theta)=\log(1+\exp\theta)$,
@@ -879,6 +880,7 @@ X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
 (1-\hat{\mu}^{(0)}_i)}}.
 $$
 Bernoulli data are binomial with $n_i=1,\;i = 1, \ldots, n$.
+```
 
 ## Models with unknown $a(\phi)$ {#sn:unknowndisp}
 
@@ -971,7 +973,7 @@ $$
 is an alternative unbiased estimator of $\sigma^2$.
 This estimator tends to be more reliable in small samples.
 
-**Example (Normal)**.
+```{example, name = "Normal"}
 Suppose $Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n$.
 Recall from Section \@ref(sn:ef) that $\theta=\mu$,
 $b(\theta)=\theta^2/2$,
@@ -988,7 +990,7 @@ which is just the residual sum of squares for model $H_0$. Therefore, we estimat
 $\sigma^2$ for a normal GLM by its residual sum of squares for the model
 divided by its degrees of freedom.
 From \@ref(eq:pearsonGoFunknown), the estimate for $\sigma^2$ based on $X^2$ is identical.
-
+```
 
 
 ## Residuals

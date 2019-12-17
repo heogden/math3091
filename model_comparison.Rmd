@@ -165,7 +165,7 @@ Therefore, it follows that under $H_0$, the log likelihood ratio
 statistic $L_{01}$ has a $\chi^2_{d_1-d_0}$ distribution.
 \end{proof}
 
-**Example (Bernoulli)**.
+```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
 variables. Suppose that we require a size $\alpha$ test of the hypothesis
 $H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
@@ -189,6 +189,7 @@ What we mean by 'too large' depends on the significance level $\alpha$ of the
 test. For example, if $\alpha=0.05$, a common choice, then we should reject $H_0$
 if the test statistic is greater than the 3.84, the 95\% point of the
 $\chi^2_1$ distribution.
+```
 
 ## Information criteria for model comparison
 
