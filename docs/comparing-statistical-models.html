@@ -218,20 +218,43 @@ C=\left\{ \bm{y}:
 \end{equation}\]</span>
 <p>where <span class="math inline">\(k\)</span> is determined by <span class="math inline">\(\alpha\)</span>, the size of the test, so <span class="math display">\[\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.\]</span> Therefore, we will only reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(H_1\)</span> offers a distribution for <span class="math inline">\(Y_1, \ldots, Y_n\)</span> which makes the observed data much more probable than any distribution under <span class="math inline">\(H_0\)</span>. This is intuitively appealing and tends to produce good tests (large power) across a wide range of examples.</p>
 <p>In order to determine <span class="math inline">\(k\)</span> in <a href="comparing-statistical-models.html#eq:lrtCritical">(3.1)</a>, we need to know the distribution of the likelihood ratio, or an equivalent statistic, under <span class="math inline">\(H_0\)</span>. In general, this will not be available to us. However, we can make use of an important asymptotic result.</p>
-<p>First we notice that, as <span class="math inline">\(\log\)</span> is a strictly increasing function, the rejection region is equivalent to</p>
-<p><span class="math display">\[
+<p>First we notice that, as <span class="math inline">\(\log\)</span> is a strictly increasing function, the rejection region is equivalent to <span class="math display">\[
 C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) &gt;k&#39;\right\}
 \]</span> where <span class="math display">\[
 \max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
-\]</span> Now, provided that <span class="math inline">\(H_0\)</span> is <em>nested within</em> <span class="math inline">\(H_1\)</span>, in other words <span class="math inline">\(\Theta^{(0)}\subset\Theta^{(1)}\)</span> (<span class="math inline">\(\Theta^{(0)}\)</span> is a subspace of <span class="math inline">\(\Theta^{(1)}\)</span>) then under <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span>, asymptotically as <span class="math inline">\(n\to\infty\)</span> <span class="math display">\[
-L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
-\]</span> has a chi-squared distribution with degrees of freedom equal to the difference in the dimensions of <span class="math inline">\(\Theta^{(1)}\)</span> and <span class="math inline">\(\Theta^{(0)}\)</span>.</p>
+\]</span> Write <span class="math display">\[L_{01}\equiv 2\log \left(\frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
+  {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}\right)\]</span> for the <em>log-likelihood ratio</em> test statistic. Provided that <span class="math inline">\(H_0\)</span> is <em>nested within</em> <span class="math inline">\(H_1\)</span>, the following result provides a useful large-<span class="math inline">\(n\)</span> approximation to the distribution of <span class="math inline">\(L_{01}\)</span>.</p>
+
+<div class="theorem">
+<span id="thm:unnamed-chunk-21" class="theorem"><strong>Theorem 3.1  </strong></span>Suppose that <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span> and <span class="math inline">\(H_1\)</span>: <span class="math inline">\(\bm \theta\in\Theta^{(1)}\)</span>, where <span class="math inline">\(\Theta^{(0)}\subset\Theta^{(1)}\)</span>. Let <span class="math inline">\(d_0 = \dim(\Theta^{(0)})\)</span> and <span class="math inline">\(d_1 = \dim(\Theta^{(1)})\)</span>. Under <span class="math inline">\(H_0\)</span>, the distribution of <span class="math inline">\(L_{01}\)</span> tends towards <span class="math inline">\(\chi^2_{d_1 - d_0}\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>.
+</div>
+
+
+<div class="proof">
+<p> <span class="proof"><em>Proof. </em></span> First we note that in the case where <span class="math inline">\(\bm \theta\)</span> is one-dimensional and <span class="math inline">\(\bm \theta=(\theta)\)</span>, a Taylor series expansion of <span class="math inline">\(\ell(\theta)\)</span> around the MLE <span class="math inline">\(\hat{\theta}\)</span> gives <span class="math display">\[
+\ell(\theta)=\ell(\hat{\theta})+(\theta-\hat{\theta})
+U(\hat{\theta})+{1\over 2}(\theta-\hat{\theta})^2 U&#39;(\hat{\theta}) +\;\ldots
+\]</span> Now, <span class="math inline">\(U(\hat{\theta})=0\)</span>, and if we approximate <span class="math inline">\(U&#39;(\hat{\theta})\equiv H(\hat{\theta})\)</span> by <span class="math inline">\(E[H(\theta)]\equiv -{\cal I}(\theta)\)</span>, and also ignore higher order terms, we obtain <span class="math display">\[
+2[\ell (\hat{\theta})-\ell(\theta)]=
+(\theta-\hat{\theta})^2 {\cal I}(\theta)
+\]</span> As <span class="math inline">\(\hat{\theta}\)</span> is asymptotically <span class="math inline">\(N[\theta,{\cal I}(\theta)^{-1}]\)</span>, <span class="math inline">\((\theta-\hat{\theta})^2 {\cal I}(\theta)\)</span> is asymptotically <span class="math inline">\(\chi^2_1\)</span>, and hence so is <span class="math inline">\(2[\ell(\hat \theta)-\ell (\theta)]\)</span>.</p>
+<p>Similarly it can be shown that when <span class="math inline">\(\bm \theta\in\Theta\)</span>, a multidimensional space, <span class="math inline">\(2[\ell(\bm{\hat \theta})-\ell (\bm \theta)]\)</span> is asymptotically <span class="math inline">\(\chi^2_p\)</span>, where <span class="math inline">\(p\)</span> is the dimension of <span class="math inline">\(\Theta\)</span>.</p>
+Now, suppose that <span class="math inline">\(H_0\)</span> is true and <span class="math inline">\(\bm \theta\in\Theta^{(0)}\)</span> and therefore <span class="math inline">\(\bm \theta\in\Theta^{(1)}\)</span>. Furthermore, suppose that <span class="math inline">\(\ell(\bm \theta)\)</span> is maximised in <span class="math inline">\(\Theta^{(0)}\)</span> by <span class="math inline">\(\hat{\bm \theta}^{(0)}\)</span> and is maximised in <span class="math inline">\(\Theta^{(1)}\)</span> by <span class="math inline">\(\hat{\bm \theta}^{(1)}\)</span>. Then
+<span class="math display">\[\begin{align*}
+L_{01}&amp;\equiv  2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
+{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)\cr
+&amp;= 2\log L(\hat{\bm \theta}^{(1)})-2\log L(\hat{\bm \theta}^{(0)})\cr
+&amp;= 2[\log L(\hat{\bm \theta}^{(1)})-\log L(\bm \theta)]
+ -2[\log L(\hat{\bm \theta}^{(0)})-\log L(\bm \theta)]\cr
+&amp;= L_1-L_0.
+\end{align*}\]</span>
+Therefore <span class="math inline">\(L_1=L_{01}+L_0\)</span> and we know that, under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(L_1\)</span> has a <span class="math inline">\(\chi^2_{d_1}\)</span> distribution and <span class="math inline">\(L_0\)</span> has a <span class="math inline">\(\chi^2_{d_0}\)</span> distribution. Furthermore, it is possible to show (although we will not do so here) that under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(L_{01}\)</span> and <span class="math inline">\(L_0\)</span> are independent. It can also be shown that under <span class="math inline">\(H_0\)</span> the difference <span class="math inline">\(L_1-L_0\)</span> can be expressed as a quadratic form of normal random variables. Therefore, it follows that under <span class="math inline">\(H_0\)</span>, the log likelihood ratio statistic <span class="math inline">\(L_{01}\)</span> has a <span class="math inline">\(\chi^2_{d_1-d_0}\)</span> distribution.
+</div>
 
 
 <div class="example">
-<p><span id="exm:unnamed-chunk-17" class="example"><strong>Example 3.1  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Suppose that we require a size <span class="math inline">\(\alpha\)</span> test of the hypothesis <span class="math inline">\(H_0\)</span>: <span class="math inline">\(p=p_0\)</span> against the general alternative <span class="math inline">\(H_1\)</span>: ‘<span class="math inline">\(p\)</span> is unrestricted’ where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(p_0\)</span> are specified.</p>
+<p><span id="exm:unnamed-chunk-23" class="example"><strong>Example 3.1  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Suppose that we require a size <span class="math inline">\(\alpha\)</span> test of the hypothesis <span class="math inline">\(H_0\)</span>: <span class="math inline">\(p=p_0\)</span> against the general alternative <span class="math inline">\(H_1\)</span>: ‘<span class="math inline">\(p\)</span> is unrestricted’ where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(p_0\)</span> are specified.</p>
 Here <span class="math inline">\(\bm \theta=(p)\)</span>, <span class="math inline">\(\Theta^{(0)}=\{p_0\}\)</span> and <span class="math inline">\(\Theta^{(1)}=(0,1)\)</span> and the log likelihood ratio statistic is <span class="math display">\[
 L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
 +2n(1-\bar y)\log\left({{1-\bar y}\over{1-p_0}}\right).

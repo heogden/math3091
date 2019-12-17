@@ -97,7 +97,6 @@ However, we can make use of an important asymptotic result.
 
 First we notice that, as $\log$ is a strictly increasing function, the rejection
 region is equivalent to
-
 \[
 C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
@@ -106,19 +105,25 @@ where
 \[
 \max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
 \]
-Now, provided that $H_0$ is *nested within* $H_1$, in other words
-$\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
-$\Theta^{(1)}$) then under
-$H_0$: $\bm \theta\in\Theta^{(0)}$, asymptotically as
-$n\to\infty$
-$$
-L_{01}\equiv 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right)
-$$
-has a chi-squared distribution with degrees of freedom equal to the difference in
-the dimensions of $\Theta^{(1)}$ and $\Theta^{(0)}$.
+Write 
+\[L_{01}\equiv 2\log \left(\frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
+  {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}\right)\]
+for the *log-likelihood ratio* test statistic.
+Provided that $H_0$ is *nested within* $H_1$, the following
+result provides a useful large-$n$ approximation to the
+distribution of $L_{01}$.
 
-\begin{proof}
+```{theorem}
+Suppose that $H_0$: $\bm \theta\in\Theta^{(0)}$
+and $H_1$: $\bm \theta\in\Theta^{(1)}$, where
+$\Theta^{(0)}\subset\Theta^{(1)}$.
+Let $d_0 = \dim(\Theta^{(0)})$ and $d_1 = \dim(\Theta^{(1)})$.
+Under $H_0$, the distribution of $L_{01}$
+tends towards $\chi^2_{d_1 - d_0}$ as 
+$n \rightarrow \infty$.
+```
+
+```{proof}
 First we note that in the case where $\bm \theta$ is one-dimensional and $\bm \theta=(\theta)$,
 a Taylor series expansion of $\ell(\theta)$  around the
 MLE $\hat{\theta}$ gives
@@ -141,7 +146,7 @@ Similarly it can be shown that when $\bm \theta\in\Theta$, a multidimensional sp
 $2[\ell(\bm{\hat \theta})-\ell (\bm \theta)]$ is asymptotically
 $\chi^2_p$, where $p$ is the dimension of $\Theta$.
 
-Let the dimensions of $\Theta^{(0)}$ and $\Theta^{(1)}$ be $d_0$ and $d_1$ respectively. Now, suppose that $H_0$ is true and  $\bm \theta\in\Theta^{(0)}$ and therefore
+Now, suppose that $H_0$ is true and  $\bm \theta\in\Theta^{(0)}$ and therefore
 $\bm \theta\in\Theta^{(1)}$. Furthermore, suppose that $\ell(\bm \theta)$
 is maximised in $\Theta^{(0)}$ by $\hat{\bm \theta}^{(0)}$ and is maximised
 in $\Theta^{(1)}$ by $\hat{\bm \theta}^{(1)}$. Then
@@ -159,11 +164,11 @@ a $\chi^2_{d_1}$ distribution and $L_0$ has
 a $\chi^2_{d_0}$ distribution.
 Furthermore, it is possible to show (although we will not do so here)
 that under $H_0$, $L_{01}$ and $L_0$ are independent.
-It can also be shown that under $H_0$  the difference $ L_1-L_0$
+It can also be shown that under $H_0$  the difference $L_1-L_0$
 can be expressed as a quadratic form of normal random variables.
 Therefore, it follows that under $H_0$, the log likelihood ratio
 statistic $L_{01}$ has a $\chi^2_{d_1-d_0}$ distribution.
-\end{proof}
+```
 
 ```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random

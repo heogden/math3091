@@ -225,7 +225,7 @@ A probability distribution is said to be a member of the exponential family if i
 <p>The variance is the product of two functions; <span class="math inline">\(b&#39;&#39;(\theta)\)</span> depends on the canonical parameter <span class="math inline">\(\theta\)</span> (and hence <span class="math inline">\(\mu\)</span>) only and is called the <em>variance function</em> (<span class="math inline">\(V(\mu)\equiv b&#39;&#39;(\theta)\)</span>); <span class="math inline">\(a(\phi)\)</span> is sometimes of the form <span class="math inline">\(a(\phi)=\sigma^2/w\)</span> where <span class="math inline">\(w\)</span> is a known <em>weight</em> and <span class="math inline">\(\sigma^2\)</span> is called the <em>dispersion parameter</em> or <em>scale parameter</em>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-22" class="example"><strong>Example 5.1  (Normal distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim N(\mu, \, \sigma^2)\)</span>. Then
+<span id="exm:unnamed-chunk-28" class="example"><strong>Example 5.1  (Normal distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim N(\mu, \, \sigma^2)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;\mu,\sigma^2)&amp;= {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}(y-\mu)^2\right)\quad\;\; y\in\mathbb{R};\;\;\mu\in\mathbb{R}\cr
@@ -238,7 +238,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 </div>
  
 <div class="example">
-<span id="exm:unnamed-chunk-23" class="example"><strong>Example 5.2  (Poisson distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span>. Then
+<span id="exm:unnamed-chunk-29" class="example"><strong>Example 5.2  (Poisson distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;\lambda)&amp;= {{\exp(-\lambda)\lambda^y}\over{y!}}
 \qquad y\in\{0,1,\ldots\};\quad\lambda\in{\cal R}_+\cr
@@ -249,7 +249,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-24" class="example"><strong>Example 5.3  (Bernoulli distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Bernoulli}(p)\)</span>. Then
+<span id="exm:unnamed-chunk-30" class="example"><strong>Example 5.3  (Bernoulli distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Bernoulli}(p)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;p)&amp;= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
 p\in(0,1)\cr
@@ -260,7 +260,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-25" class="example"><strong>Example 5.4  (Binomial distribution)  </strong></span>Suppose <span class="math inline">\(Y^*\sim \text{Binomial}(n,p)\)</span>. Here, <span class="math inline">\(n\)</span> is assumed known (as usual) and the random variable <span class="math inline">\(Y= Y^*/n\)</span> is taken as the <em>proportion</em> of successes, so
+<span id="exm:unnamed-chunk-31" class="example"><strong>Example 5.4  (Binomial distribution)  </strong></span>Suppose <span class="math inline">\(Y^*\sim \text{Binomial}(n,p)\)</span>. Here, <span class="math inline">\(n\)</span> is assumed known (as usual) and the random variable <span class="math inline">\(Y= Y^*/n\)</span> is taken as the <em>proportion</em> of successes, so
 <span class="math display">\[\begin{align*}
 f_Y(y;p)&amp;=\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\qquad
 y\in\left\{0,{1\over n},{2\over n},\ldots ,1\right\};  \quad p\in(0,1)\cr
@@ -660,7 +660,7 @@ X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\text{Var}}(Y_i)}}.
 </ol>
 
 <div class="example">
-<span id="exm:unnamed-chunk-26" class="example"><strong>Example 5.5  (Poisson)  </strong></span>Suppose <span class="math inline">\(Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log\lambda\)</span>, <span class="math inline">\(b(\theta)=\exp\theta\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\exp\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
+<span id="exm:unnamed-chunk-32" class="example"><strong>Example 5.5  (Poisson)  </strong></span>Suppose <span class="math inline">\(Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log\lambda\)</span>, <span class="math inline">\(b(\theta)=\exp\theta\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\exp\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
 <span class="math display">\[\begin{align*}
 L_{0s}&amp;=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
 -[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
@@ -674,7 +674,7 @@ X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-27" class="example"><strong>Example 5.6  (Binomial)  </strong></span>Suppose <span class="math inline">\(n_iY_i\sim\)</span> Binomial<span class="math inline">\((n_i,p_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log{p\over{1-p}}\)</span>, <span class="math inline">\(b(\theta)=\log(1+\exp\theta)\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)={{\exp\theta}\over{1+\exp\theta}}\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
+<span id="exm:unnamed-chunk-33" class="example"><strong>Example 5.6  (Binomial)  </strong></span>Suppose <span class="math inline">\(n_iY_i\sim\)</span> Binomial<span class="math inline">\((n_i,p_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log{p\over{1-p}}\)</span>, <span class="math inline">\(b(\theta)=\log(1+\exp\theta)\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)={{\exp\theta}\over{1+\exp\theta}}\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
 <span class="math display">\[\begin{align*}
 L_{0s}&amp;=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
 -\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] 
@@ -728,7 +728,7 @@ X^2={1\over\sigma^2}
 \]</span> is an alternative unbiased estimator of <span class="math inline">\(\sigma^2\)</span>. This estimator tends to be more reliable in small samples.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-28" class="example"><strong>Example 5.7  (Normal)  </strong></span>Suppose <span class="math inline">\(Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\mu\)</span>, <span class="math inline">\(b(\theta)=\theta^2/2\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1\)</span>, so <span class="math inline">\(m_i=1,\;i = 1, \ldots, n\)</span>. Therefore, by <a href="glm.html#eq:devunknowndisp">(5.17)</a>,
+<span id="exm:unnamed-chunk-34" class="example"><strong>Example 5.7  (Normal)  </strong></span>Suppose <span class="math inline">\(Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\mu\)</span>, <span class="math inline">\(b(\theta)=\theta^2/2\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1\)</span>, so <span class="math inline">\(m_i=1,\;i = 1, \ldots, n\)</span>. Therefore, by <a href="glm.html#eq:devunknowndisp">(5.17)</a>,
 <span class="math display" id="eq:devnormal">\[\begin{equation}
 D_{0s}=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
 -[\frac{1}{2}{{\hat{\mu}}^{(s)^2}_i}-\frac{1}{2}{{\hat{\mu}}^{(0)^2}_i}]

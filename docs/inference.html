@@ -283,21 +283,39 @@ u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta), \quad i=1
 \]</span> and <span class="math inline">\(\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T\)</span>. Then we call <span class="math inline">\(\bm{u}(\bm \theta)\)</span> the <em>vector of scores</em> or <em>score vector</em>. Where <span class="math inline">\(p=1\)</span> and <span class="math inline">\(\bm \theta=(\theta)\)</span>, the <em>score</em> is the scalar defined as <span class="math display">\[
 u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
 \]</span> The maximum likelihood estimate <span class="math inline">\(\hat{\bm \theta}\)</span> satisfies <span class="math display">\[u(\hat{\bm \theta})={\bm 0},\]</span> that is, <span class="math display">\[u_i(\hat{\bm \theta})=0, \quad i=1,\ldots ,p.\]</span> Note that <span class="math inline">\(u(\bm{\theta})\)</span> is a function of <span class="math inline">\(\bm \theta\)</span> for fixed (observed) <span class="math inline">\(\bm y\)</span>. However, if we replace <span class="math inline">\(y_1, \ldots, y_n\)</span> in <span class="math inline">\(u(\bm{\theta})\)</span>, by the corresponding random variables <span class="math inline">\(Y_1, \ldots, Y_n\)</span> then we obtain a vector of random variables <span class="math inline">\(U(\bm{\theta})\equiv [U_1(\bm \theta),\ldots ,U_p(\bm \theta)]^T\)</span>.</p>
-<p>An important result in likelihood theory is that the expected score at the true (but unknown) value of <span class="math inline">\(\bm \theta\)</span> is zero, <em>i.e.</em> <span class="math display">\[E[U(\bm{\theta})]={\bf 0}\]</span> or <span class="math display">\[E[U_i(\bm \theta)]= 0,
-\quad i=1,\ldots ,p,\]</span> provided that</p>
+<p>An important result in likelihood theory is that the expected score at the true (but unknown) value of <span class="math inline">\(\bm \theta\)</span> is zero:</p>
+
+<div class="theorem">
+<p><span id="thm:unnamed-chunk-12" class="theorem"><strong>Theorem 2.1  </strong></span>We have <span class="math inline">\(E[U(\bm{\theta})]={\bm 0}\)</span>, <em>i.e.</em> <span class="math inline">\(E[U_i(\bm \theta)]= 0,\)</span> <span class="math inline">\(i=1,\ldots ,p,\)</span> provided that</p>
 <ol style="list-style-type: decimal">
 <li>The expectation exists.</li>
 <li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
 </ol>
+</div>
 
 
-<div class="example">
-<span id="exm:unnamed-chunk-12" class="example"><strong>Example 2.5  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and <span class="math display">\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]</span> Since <span class="math inline">\(E[U(p)] = 0\)</span>, we must have <span class="math inline">\(E[\bar Y]=p\)</span> (which we already know is correct).
+<div class="proof">
+ <span class="proof"><em>Proof. </em></span> Our proof is for continuous <span class="math inline">\(\bm y\)</span> – in the discrete case, replace <span class="math inline">\(\int\)</span> by <span class="math inline">\(\sum\)</span>. For each <span class="math inline">\(i=1, \ldots, n\)</span>
+<span class="math display">\[\begin{align*}
+E[U_i(\bm \theta)]&amp;=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
+&amp;= \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= {{\partial}\over{\partial\theta_i}} 1 =0,
+\end{align*}\]</span>
+as required.
 </div>
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-13" class="example"><strong>Example 2.6  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+<span id="exm:unnamed-chunk-14" class="example"><strong>Example 2.5  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and <span class="math display">\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]</span> Since <span class="math inline">\(E[U(p)] = 0\)</span>, we must have <span class="math inline">\(E[\bar Y]=p\)</span> (which we already know is correct).
+</div>
+
+
+<div class="example">
+<span id="exm:unnamed-chunk-15" class="example"><strong>Example 2.6  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
 <span class="math display">\[\begin{align*}
 u_1(\mu,\sigma^2)&amp;= {{n(\bar y-\mu)}/{\sigma^2}}\cr
 u_2(\mu,\sigma^2)&amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
@@ -321,16 +339,57 @@ Since <span class="math inline">\(E[\bm U(\mu,\sigma^2)] = {\bm 0}\)</span>, we 
 [\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
 \qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
 \]</span></p>
-<p>An important result in likelihood theory is that the variance-covariance matrix of the score vector is equal to the expected information matrix <em>i.e.</em> <span class="math display">\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]</span> or <span class="math display">\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
+<p>An important result in likelihood theory is that the variance-covariance matrix of the score vector is equal to the expected information matrix:</p>
+
+<div class="theorem">
+<p><span id="thm:unnamed-chunk-16" class="theorem"><strong>Theorem 2.2  </strong></span>We have <span class="math inline">\(\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\)</span>, <em>i.e.</em> <span class="math display">\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
 \quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]</span> provided that</p>
 <ol style="list-style-type: decimal">
 <li>The variance exists.</li>
 <li>The sample space for <span class="math inline">\(\bm Y\)</span> does not depend on <span class="math inline">\(\bm \theta\)</span>.</li>
 </ol>
+</div>
+
+
+<div class="proof">
+<p> <span class="proof"><em>Proof. </em></span> Our proof is for continuous <span class="math inline">\(\bm y\)</span> – in the discrete case, replace <span class="math inline">\(\int\)</span> by <span class="math inline">\(\sum\)</span>.</p>
+For each <span class="math inline">\(i = 1,\ldots, p\)</span> and <span class="math inline">\(j = 1, \ldots, p\)</span>,
+<span class="math display">\[\begin{align*}
+\text{Var}[U(\bm{\theta})]_{ij}&amp;= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
+&amp;= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
+{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
+{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
+&amp;= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
+ {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
+\end{align*}\]</span>
+Now
+<span class="math display">\[\begin{align*}
+[\mathcal{I}(\bm \theta)]_{ij}&amp;=E\left[-{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
+&amp;=\int -{{\partial^2}\over
+{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;=\int -{{\partial}\over{\partial\theta_i}}\left[
+{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;=\int \left[
+-{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
++ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
+ f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
+&amp;= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
++ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
+{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
+&amp;= \text{Var}[U(\bm{\theta})]_{ij},
+\end{align*}\]</span>
+as required.
+</div>
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-14" class="example"><strong>Example 2.7  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and
+<span id="exm:unnamed-chunk-18" class="example"><strong>Example 2.7  (Bernoulli)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(p)\)</span> and
 <span class="math display">\[\begin{align*}
 u(p)&amp;= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 -H(p)&amp;= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
@@ -340,7 +399,7 @@ u(p)&amp;= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-15" class="example"><strong>Example 2.8  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
+<span id="exm:unnamed-chunk-19" class="example"><strong>Example 2.8  (Normal)  </strong></span><span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. <span class="math inline">\(N(\mu,\sigma^2)\)</span> random variables. Here <span class="math inline">\(\bm \theta=(\mu,\sigma^2)\)</span> and
 <span class="math display">\[\begin{align*}
 u_1(\mu,\sigma^2) &amp;=  \frac{n(\bar y-\mu)}{\sigma^2} \\
 u_2(\mu,\sigma^2) &amp;= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
@@ -391,7 +450,7 @@ P\left(\hat{\theta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm \theta)^{-1}]_{ii}^
 \]</span> For <span class="math inline">\(\alpha=0.1,0.05,0.01\)</span>, <span class="math inline">\(z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58\)</span>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-16" class="example"><strong>Example 2.9  (Bernoulli)  </strong></span>If <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables then asymptotically <span class="math inline">\(\hat{p}=\bar y\)</span> has a <span class="math inline">\(N(p,{p(1-p)}/ n)\)</span> distribution, and a large sample 95% confidence interval for <span class="math inline">\(p\)</span> is
+<span id="exm:unnamed-chunk-20" class="example"><strong>Example 2.9  (Bernoulli)  </strong></span>If <span class="math inline">\(y_1, \ldots, y_n\)</span> are observations of <span class="math inline">\(Y_1, \ldots, Y_n\)</span>, i.i.d. Bernoulli<span class="math inline">\((p)\)</span> random variables then asymptotically <span class="math inline">\(\hat{p}=\bar y\)</span> has a <span class="math inline">\(N(p,{p(1-p)}/ n)\)</span> distribution, and a large sample 95% confidence interval for <span class="math inline">\(p\)</span> is
 <span class="math display">\[\begin{align*}
 &amp; [\hat{p}- 1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2},
 \hat{p}+1.96[{\cal I}(\hat{p})^{-1}]^{1\over 2}]

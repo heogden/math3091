@@ -215,18 +215,20 @@ $Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\e
 [U_1(\bm \theta),\ldots ,U_p(\bm \theta)]^T$.
 
 An important result in likelihood theory is that the expected score
-at the true (but unknown) value of $\bm \theta$ is zero, *i.e.*
-\[E[U(\bm{\theta})]={\bf 0}\]
-or
-\[E[U_i(\bm \theta)]= 0,
-\quad i=1,\ldots ,p,\]
-provided that
+at the true (but unknown) value of $\bm \theta$ is zero:
+
+```{theorem}
+We have $E[U(\bm{\theta})]={\bm 0}$, *i.e.*
+$E[U_i(\bm \theta)]= 0,$ $i=1,\ldots ,p,$ provided that
 
 1. The expectation exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
+```
 
+```{proof}
+Our proof is for continuous $\bm y$ -- in the discrete case,
+replace $\int$ by $\sum$.
 For each $i=1, \ldots, n$
 \begin{align*}
 E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
@@ -235,9 +237,10 @@ E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
 &= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &= \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
 &= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= {{\partial}\over{\partial\theta_i}} 1 =0.
+&= {{\partial}\over{\partial\theta_i}} 1 =0,
 \end{align*}
-\end{proof}
+as required.
+```
 
 ```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
@@ -292,9 +295,11 @@ $$
 
 An important result in likelihood theory is that the variance-covariance matrix
 of the score vector is equal to the
-expected information matrix *i.e.*
-\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]
-or
+expected information matrix:
+
+```{theorem}
+We have $\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)$,
+*i.e.*
 \[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
 \quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]
 provided that
@@ -302,7 +307,11 @@ provided that
 1. The variance exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
+```
+
+```{proof}
+Our proof is for continuous $\bm y$ -- in the discrete case, 
+replace $\int$ by $\sum$.
 
 For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
 \begin{align*}
@@ -334,9 +343,10 @@ Now
 &= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
 + \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
 {{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
-&= \text{Var}[U(\bm{\theta})]_{ij}
+&= \text{Var}[U(\bm{\theta})]_{ij},
 \end{align*}
-\end{proof}
+as required.
+```
 
 ```{example, name = "Bernoulli"}
 $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random

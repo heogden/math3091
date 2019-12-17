@@ -219,7 +219,7 @@ x_{n1} &amp;\cdots &amp;x_{np}
 <p>The error vector <span class="math inline">\(\bm{\epsilon}\)</span> has a multivariate normal distribution with mean vector <span class="math inline">\({\bf 0}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, since <span class="math inline">\(\text{Var}(\epsilon_i)=\sigma^2\)</span>, and <span class="math inline">\(\text{Cov}(\epsilon_i,\epsilon_j)=0\)</span> as <span class="math inline">\(\epsilon_1, \ldots, \epsilon_n\)</span> are independent of one another. It follows from <a href="lm.html#eq:lmMat">(4.2)</a> that the distribution of <span class="math inline">\(\bm Y\)</span> is multivariate normal with mean vector <span class="math inline">\(\bm{X}\bm{\beta}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, <em>i.e.</em> <span class="math inline">\(\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})\)</span>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-18" class="example"><strong>Example 4.1  (The null model)  </strong></span> The null model <span class="math display">\[
+<span id="exm:unnamed-chunk-24" class="example"><strong>Example 4.1  (The null model)  </strong></span> The null model <span class="math display">\[
 Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}=\begin{pmatrix}
@@ -235,7 +235,7 @@ Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-19" class="example"><strong>Example 4.2  (Simple linear regression)  </strong></span> Simple linear regression <span class="math display">\[
+<span id="exm:unnamed-chunk-25" class="example"><strong>Example 4.2  (Simple linear regression)  </strong></span> Simple linear regression <span class="math display">\[
 Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}=\begin{pmatrix} 1&amp;x_1\cr 1&amp;x_2\cr \vdots&amp;\vdots\cr 1&amp;x_n \end{pmatrix}
@@ -245,7 +245,7 @@ Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-20" class="example"><strong>Example 4.3  (Polynomial regression)  </strong></span><span class="math display">\[
+<span id="exm:unnamed-chunk-26" class="example"><strong>Example 4.3  (Polynomial regression)  </strong></span><span class="math display">\[
 Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}= \begin{pmatrix}
@@ -259,7 +259,7 @@ Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \q
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-21" class="example"><strong>Example 4.4  (Multiple regression)  </strong></span><span class="math display">\[
+<span id="exm:unnamed-chunk-27" class="example"><strong>Example 4.4  (Multiple regression)  </strong></span><span class="math display">\[
 Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
 \]</span> <span class="math display">\[
 \bm{X}= \begin{pmatrix} 1&amp;x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1\,p-1}\cr
