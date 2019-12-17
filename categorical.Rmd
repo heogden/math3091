@@ -1,7 +1,7 @@
 # Models for categorical data {#chap:categorical}
 
 
-## Introduction
+## Contingency tables
 
 A particularly important application of generalised linear models
 is the analysis of categorical data.
@@ -134,6 +134,8 @@ Nodular & 8 & 5\\
 \end{tabular}
 \caption{\label{tab:lymphoma_margins} The two-way Cell type/Sex margin for the \texttt{lymphoma} dataset.}
 \end{table}
+
+## Log-linear models
 
 We can model contingency table data using generalised linear models.
 To do this, we assume that the cell counts are observations
@@ -412,7 +414,7 @@ a Poisson log-linear model, certain terms **must** be present in any
 model we fit. If they are removed, the inferences would no longer be
 valid.
 
-## Interpreting log-linear models {#sn:loginter}
+## Interpreting log-linear models for two-way tables {#sn:loginter}
 
 Log-linear models for contingency tables enable us to determine
 important properties concerning the joint distribution
@@ -485,6 +487,9 @@ $C$ are independent variables.
 Absence of main effects is generally less interesting,
 and main effects are typically not removed from a log-linear
 model.
+
+## Interpreting log-linear models for multiway tables
+
 
 In multiway tables, absence of a two-factor interaction
 does not necessarily mean that the two variables are independent.
@@ -614,7 +619,7 @@ $$
 P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
 $$
 
-```{r, inclulde = FALSE}
+```{r, include = FALSE}
 p_no_m <- lymphoma_p_margins[, 1]
 p_yes_m <- lymphoma_p_margins[, 2]
 p_yes_m/(p_yes_m + p_no_m)
@@ -646,6 +651,8 @@ no conditional independence structure. This is the model without
 the highest order interaction term.
 1. Model 5 containing  $X_1*X_2*X_3$. This is the saturated model.
 No more simplification of dependence structure is possible.
+
+## Simpson's paradox 
 
 Conditional and marginal association of two variables can therefore often
 appear somewhat different. Sometimes, the association can be 'reversed'

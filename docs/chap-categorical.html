@@ -48,43 +48,6 @@
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -161,10 +124,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.10" data-path="glm.html"><a href="glm.html#residuals"><i class="fa fa-check"></i><b>5.10</b> Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>6</b> Models for categorical data</a><ul>
-<li class="chapter" data-level="6.1" data-path="chap-categorical.html"><a href="chap-categorical.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:multinomial"><i class="fa fa-check"></i><b>6.2</b> Multinomial sampling</a></li>
-<li class="chapter" data-level="6.3" data-path="chap-categorical.html"><a href="chap-categorical.html#product-multinomial-sampling"><i class="fa fa-check"></i><b>6.3</b> Product multinomial sampling</a></li>
-<li class="chapter" data-level="6.4" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:loginter"><i class="fa fa-check"></i><b>6.4</b> Interpreting log-linear models</a></li>
+<li class="chapter" data-level="6.1" data-path="chap-categorical.html"><a href="chap-categorical.html#contingency-tables"><i class="fa fa-check"></i><b>6.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="6.2" data-path="chap-categorical.html"><a href="chap-categorical.html#log-linear-models"><i class="fa fa-check"></i><b>6.2</b> Log-linear models</a></li>
+<li class="chapter" data-level="6.3" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:multinomial"><i class="fa fa-check"></i><b>6.3</b> Multinomial sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="chap-categorical.html"><a href="chap-categorical.html#product-multinomial-sampling"><i class="fa fa-check"></i><b>6.4</b> Product multinomial sampling</a></li>
+<li class="chapter" data-level="6.5" data-path="chap-categorical.html"><a href="chap-categorical.html#sn:loginter"><i class="fa fa-check"></i><b>6.5</b> Interpreting log-linear models for two-way tables</a></li>
+<li class="chapter" data-level="6.6" data-path="chap-categorical.html"><a href="chap-categorical.html#interpreting-log-linear-models-for-multiway-tables"><i class="fa fa-check"></i><b>6.6</b> Interpreting log-linear models for multiway tables</a></li>
+<li class="chapter" data-level="6.7" data-path="chap-categorical.html"><a href="chap-categorical.html#simpsons-paradox"><i class="fa fa-check"></i><b>6.7</b> Simpson’s paradox</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -191,8 +157,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \)
 <div id="chap:categorical" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Models for categorical data</h1>
-<div id="introduction-3" class="section level2">
-<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<div id="contingency-tables" class="section level2">
+<h2><span class="header-section-number">6.1</span> Contingency tables</h2>
 <p>A particularly important application of generalised linear models is the analysis of categorical data. Here, the data are observations of one or more categorical variables on each of a number of units (often individuals). Therefore, each of the units are <em>cross-classified</em> by the categorical variables.</p>
 <p>For example, the <code>job</code> dataset gives the job satisfaction and income band of 901 individuals from the 1984 General Social Survey, which is summarised in Table .</p>
 
@@ -204,15 +170,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <p>For <em>multiway</em> tables, higher order margins may be calculated. For example, for <code>lymphoma</code>, the two-way Cell type/Sex margin is shown in Table .</p>
 
+</div>
+<div id="log-linear-models" class="section level2">
+<h2><span class="header-section-number">6.2</span> Log-linear models</h2>
 <p>We can model contingency table data using generalised linear models. To do this, we assume that the cell counts are observations of independent Poisson random variables. This is intuitively sensible as the cell counts are non-negative integers (the sample space for the Poisson distribution). Therefore, if the table has <span class="math inline">\(n\)</span> cells, which we label <span class="math inline">\(1,\ldots ,n\)</span>, then the observed cell counts <span class="math inline">\(y_1,\ldots ,y_n\)</span> are assumed to be observations of independent Poisson random variables <span class="math inline">\(Y_1,\ldots ,Y_n\)</span>. We denote the means of these Poisson random variables by <span class="math inline">\(\mu_1,\ldots ,\mu_n\)</span>. The canonical link function for the Poisson distribution is the log function, and we assume this link function throughout. A generalised linear model for Poisson data using the log link function is called a <em>log-linear model</em>, as we have already seen in Section <a href="glm.html#sn:count">5.4.3</a>.</p>
-<p>The explanatory variables in a log-linear model for contingency table data are the cross-classifying variables. As these variables are categorical, they are <em>factors</em>. As usual with factors, we can include interactions in the model as well as just main effects. Such a model will describe how the expected count in each cell depends on the classifying variables, and any interactions between them. Interpretation of these models will be discussed further in Section <a href="chap-categorical.html#sn:loginter">6.4</a>.</p>
+<p>The explanatory variables in a log-linear model for contingency table data are the cross-classifying variables. As these variables are categorical, they are <em>factors</em>. As usual with factors, we can include interactions in the model as well as just main effects. Such a model will describe how the expected count in each cell depends on the classifying variables, and any interactions between them. Interpretation of these models will be discussed further in Section <a href="chap-categorical.html#sn:loginter">6.5</a>.</p>
 <p>Table  shows the original data structure of the <code>job</code> dataset. It provides exactly the same data as the contingency table in Table , but in a different format, sometimes called <em>long</em> format. A log-linear model is just a Poisson GLM, where the response variable is <code>Count</code>, and <code>Income</code> and <code>Satisfaction</code> are explanatory variables.</p>
 
 <p>Table  shows the <code>lymphoma</code> dataset in long format. Again, a log-linear model for the contingency table (Table ) is just a Poisson GLM for this data, where in this case the response variable is <code>Cell</code>, and <code>Sex</code> and <code>Remis</code> are explanatory variables.</p>
 
 </div>
 <div id="sn:multinomial" class="section level2">
-<h2><span class="header-section-number">6.2</span> Multinomial sampling</h2>
+<h2><span class="header-section-number">6.3</span> Multinomial sampling</h2>
 <p>Although the assumption of Poisson distributed observations is convenient for the purposes of modelling, it might not be a realistic assumption, because of the way in which the data have been collected. Frequently, when contingency table data are obtained, the total number of observations (the <em>grand total</em>, the sum of all the cell counts) is fixed in advance. In this case, no individual cell count can exceed the prespecified fixed total, so the assumption of Poisson sampling is invalid as the sample space is bounded. Furthermore, with a fixed total, the observations can no longer be observations of independent random variables.</p>
 <p>For example, consider the <code>lymphoma</code> contingency table from Table . It may be that these data were collected over a fixed period of time, and that in that time there happened to be 30 patients. In this case, the Poisson assumption is perfectly valid. However, it may have been decided at the outset to collect data on 30 patients, in which case the grand total is fixed at 30, and the Poisson assumption is not valid.</p>
 When the grand total is fixed, a more appropriate distribution for the cell counts is the <em>multinomial</em> distribution. The multinomial distribution is the distribution of cell counts arising when a prespecified total of <span class="math inline">\(N\)</span> items are each independently assigned to one of <span class="math inline">\(n\)</span> cells, where the probability of being classified into cell <span class="math inline">\(i\)</span> is <span class="math inline">\(p_i\)</span>, <span class="math inline">\({i=1,\ldots ,n}\)</span>, so <span class="math inline">\(\sum_{i=1}^n p_i=1.\)</span> The probability function for the multinomial distribution is
@@ -259,7 +228,7 @@ Now any Poisson log-linear model with an intercept can be expressed as <span cla
 <p>Therefore, we can analyse contingency table data using Poisson log-linear models, even when the data has been obtained by multinomial sampling. All that is required is that we ensure that the Poisson model contains an intercept term.</p>
 </div>
 <div id="product-multinomial-sampling" class="section level2">
-<h2><span class="header-section-number">6.3</span> Product multinomial sampling</h2>
+<h2><span class="header-section-number">6.4</span> Product multinomial sampling</h2>
 <p>Sometimes margins other than just the grand total may be prespecified. For example, consider the <code>lymphoma</code> contingency table in Table . It may have been decided at the outset to collect data on 18 male patients and 12 female patients. Alternatively, perhaps the distribution of both the Sex and Cell type of the patients was fixed in advance as in Table . In cases where a margin is fixed by design, the data consist of a number of fixed total subgroups, defined by the fixed margin. Neither Poisson nor multinomial sampling assumptions are valid. The appropriate distribution combines a separate, independent multinomial for each subgroup. For example, if just the Sex margin is fixed as above, then the appropriate distribution for modelling the data is two independent multinomials, one for males with <span class="math inline">\(N=18\)</span> and one for females with <span class="math inline">\(N=12\)</span>. Each of these multinomials has four cells, representing the cross-classification of the relevant patients by Cell Type and Remission. Alternatively, if it is the Cell type/Sex margin which has been fixed, then the appropriate distribution is four independent two-cell multinomials (binomials) representing the remission classification for each of the four fixed-total patient subgroups.</p>
 <p>When the data are modelled using independent multinomials, then the joint distribution of the cell counts <span class="math inline">\(Y_1, \ldots, Y_n\)</span> is the product of terms of the same form as <a href="chap-categorical.html#eq:multinom">(6.1)</a>, one for each fixed-total subgroup. We call this a distribution a <em>product multinomial</em>. Each subgroup has its own fixed total. The full joint density is a product of <span class="math inline">\(n\)</span> terms, as before, with each cell count appearing exactly once.</p>
 <p>For example, if the Sex margin is fixed for <code>lymphoma</code>, then the product multinomial distribution has the form <span class="math display">\[f_{\bm{Y}}(\bm{y};{\bf p})=
@@ -271,12 +240,12 @@ $\sum_{i=1}^4 y_{fi}=N_f$} \\
 0 &amp; \text{otherwise,}
 \end{cases}
 \]</span> where <span class="math inline">\(N_m\)</span> and <span class="math inline">\(N_f\)</span> are the two fixed marginal totals (18 and 12 respectively), <span class="math inline">\(y_{m1},\ldots ,y_{m4}\)</span> are the cell counts for the Cell type/Remission cross-classification for males and <span class="math inline">\(y_{f1},\ldots ,y_{f4}\)</span> are the corresponding cell counts for females. Here <span class="math inline">\(\sum_{i=1}^4 p_{mi}=\sum_{i=1}^4 p_{fi}=1\)</span>, <span class="math inline">\(E(Y_{mi})=N_mp_{mi}\)</span>, <span class="math inline">\(i=1,\ldots ,4\)</span>, and <span class="math inline">\(E(Y_{fi})=N_fp_{fi}\)</span>, <span class="math inline">\(i=1,\ldots ,4\)</span>.</p>
-<p>Using similar results to those used in Section <a href="chap-categorical.html#sn:multinomial">6.2</a> (but not proved here), we can analyse contingency table data using Poisson log-linear models, even when the data has been obtained by product multinomial sampling. However, we must ensure that the Poisson model contains a term corresponding to the fixed margin (and all marginal terms). Then, the estimated means for the specified margin are equal to the corresponding fixed totals.</p>
+<p>Using similar results to those used in Section <a href="chap-categorical.html#sn:multinomial">6.3</a> (but not proved here), we can analyse contingency table data using Poisson log-linear models, even when the data has been obtained by product multinomial sampling. However, we must ensure that the Poisson model contains a term corresponding to the fixed margin (and all marginal terms). Then, the estimated means for the specified margin are equal to the corresponding fixed totals.</p>
 <p>For example, for the <code>lymphoma</code> dataset, for inferences obtained using a Poisson model to be valid when the Sex margin is fixed in advance, the Poisson model must contain the Sex main effect (and the intercept). For inferences obtained using a Poisson model to be valid when the Cell type/Sex margin is fixed in advance, the Poisson model must contain the Cell type/Sex interaction, and all marginal terms (the Cell type main effect, the Sex main effect and the intercept).</p>
 <p>Therefore, when analysing product multinomial data using a Poisson log-linear model, certain terms <strong>must</strong> be present in any model we fit. If they are removed, the inferences would no longer be valid.</p>
 </div>
 <div id="sn:loginter" class="section level2">
-<h2><span class="header-section-number">6.4</span> Interpreting log-linear models</h2>
+<h2><span class="header-section-number">6.5</span> Interpreting log-linear models for two-way tables</h2>
 <p>Log-linear models for contingency tables enable us to determine important properties concerning the joint distribution of the classifying variables. In particular, the form of our preferred log linear model for a table will have implications for how the variables are associated.</p>
 <p>Each combination of the classifying variables occurs exactly once in a contingency table. Therefore, the model with the highest order interaction (between all the variables) and all marginal terms (all other interactions) is the saturated model. The implication of this model is that every combination of levels of the variables has its own mean (probability) and that there are no relationships between these means (no structure). The variables are highly dependent.</p>
 To consider the implications of simpler models, we first consider a two-way <span class="math inline">\(r\times c\)</span> table where the two classifying variables <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> have <span class="math inline">\(r\)</span> and <span class="math inline">\(c\)</span> levels respectively. The saturated model <span class="math inline">\(R*C\)</span> implies that the two variables are associated. If we remove the RC interaction, we have the model <span class="math inline">\(R+C\)</span>, <span class="math display">\[
@@ -310,6 +279,9 @@ P(R=j)P(C=k)&amp;=
 k=1,\ldots ,c.
 \end{align*}\]</span>
 <p>Absence of the interaction <span class="math inline">\(R*C\)</span> in a log-linear model implies that <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span> are independent variables. Absence of main effects is generally less interesting, and main effects are typically not removed from a log-linear model.</p>
+</div>
+<div id="interpreting-log-linear-models-for-multiway-tables" class="section level2">
+<h2><span class="header-section-number">6.6</span> Interpreting log-linear models for multiway tables</h2>
 <p>In multiway tables, absence of a two-factor interaction does not necessarily mean that the two variables are independent. For example, consider the <code>lymphoma</code> dataset, with 3 binary classifying variables Sex (<span class="math inline">\(S\)</span>), Cell type (<span class="math inline">\(C\)</span>) and Remission (<span class="math inline">\(R\)</span>). After comparing the fit of several possible models, we find that a reasonable log-linear model for these data is <span class="math inline">\(R * C + C * S\)</span>. Hence the interaction between remission and sex is absent. The fitted cell probabilities from this log-linear model are shown in Table .</p>
 
 <p>The estimated probabilities for the two-way Sex/Remission margin (together with the corresponding one-way margins) are shown in Table .</p>
@@ -327,11 +299,6 @@ P(X_1|X_2,X_3,\ldots ,X_r)=P(X_1|X_3,\ldots ,X_r)
 \]</span> or <span class="math display">\[
 P(X_2|X_1,X_3,\ldots ,X_r)=P(X_2|X_3,\ldots ,X_r).
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_no_m &lt;-<span class="st"> </span>lymphoma_p_margins[, <span class="dv">1</span>]
-p_yes_m &lt;-<span class="st"> </span>lymphoma_p_margins[, <span class="dv">2</span>]
-p_yes_m<span class="op">/</span>(p_yes_m <span class="op">+</span><span class="st"> </span>p_no_m)</code></pre></div>
-<pre><code>##    Female      Male       Sum 
-## 0.5520362 0.2986425 0.4000000</code></pre>
 <p>Although for the <code>lymphoma</code> dataset <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span> are conditionally independent given <span class="math inline">\(C\)</span>, they are not marginally independent. Using the marginal cell probabilities from Table , we find that the probability of remission is <span class="math inline">\(0.30\)</span> for men and <span class="math inline">\(0.55\)</span> for women. Male patients have a much lower probability of remission. The reason for this is that, although <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span> are not directly associated, they are both associated with <span class="math inline">\(C\)</span>. Observing the estimated values it is clear that patients with nodular cell type have a greater probability of remission, and furthermore, that female patients are more likely to have this cell type than males. Hence women are more likely to have remission than men.</p>
 <p>Suppose the factors for a three-way tables are <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span>. We can list all possible models and the implications for the conditional independence structure:</p>
 <ol style="list-style-type: decimal">
@@ -341,6 +308,9 @@ p_yes_m<span class="op">/</span>(p_yes_m <span class="op">+</span><span class="s
 <li>Model 4 containing the terms <span class="math inline">\(X_1*X_2, X_2*X_3, X_1*X_3\)</span>. There is no conditional independence structure. This is the model without the highest order interaction term.</li>
 <li>Model 5 containing <span class="math inline">\(X_1*X_2*X_3\)</span>. This is the saturated model. No more simplification of dependence structure is possible.</li>
 </ol>
+</div>
+<div id="simpsons-paradox" class="section level2">
+<h2><span class="header-section-number">6.7</span> Simpson’s paradox</h2>
 <p>Conditional and marginal association of two variables can therefore often appear somewhat different. Sometimes, the association can be ‘reversed’ so that what looks like a positive association marginally, becomes a negative association conditionally. This is known as <em>Simpson’s paradox</em>.</p>
 <p>In 1972-74, a survey of women was carried out in an area of Newcastle. A follow-up survey was carried out 20 years later. Among the variables observed in the initial survey was whether or not the individual was a smoker and among those in the follow-up survey was whether the individual was still alive, or had died in the intervening period. A summary of the responses is shown in Table .</p>
 
