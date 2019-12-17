@@ -365,7 +365,7 @@ then we get the link function
 \[g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,\]
 which is called the **probit** link.
 
-### Models for count data
+### Models for count data {#sn:count}
 
 If $Y_i$ represent counts of the number of times an event occurs
 in a fixed time (or a fixed region of space), we might model

@@ -147,7 +147,8 @@ We denote the means of these Poisson random variables by $\mu_1,\ldots ,\mu_n$.
 The canonical link function for the Poisson distribution
 is the log function, and we assume this link function throughout.
 A generalised linear model for Poisson data using
-the log link function is called a *log-linear model*.
+the log link function is called a *log-linear model*, as we have
+already seen in Section \@ref(sn:count).
 
 The explanatory variables in a log-linear model for contingency table data are
 the cross-classifying variables. As these variables are categorical, they are

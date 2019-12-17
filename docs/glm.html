@@ -149,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.4" data-path="glm.html"><a href="glm.html#examples-of-generalised-linear-models"><i class="fa fa-check"></i><b>5.4</b> Examples of generalised linear models</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="glm.html"><a href="glm.html#the-linear-model"><i class="fa fa-check"></i><b>5.4.1</b> The linear model</a></li>
 <li class="chapter" data-level="5.4.2" data-path="glm.html"><a href="glm.html#models-for-binary-data"><i class="fa fa-check"></i><b>5.4.2</b> Models for binary data</a></li>
-<li class="chapter" data-level="5.4.3" data-path="glm.html"><a href="glm.html#models-for-count-data"><i class="fa fa-check"></i><b>5.4.3</b> Models for count data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="glm.html"><a href="glm.html#sn:count"><i class="fa fa-check"></i><b>5.4.3</b> Models for count data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="glm.html"><a href="glm.html#maximum-likelihood-estimation-2"><i class="fa fa-check"></i><b>5.5</b> Maximum likelihood estimation</a></li>
 <li class="chapter" data-level="5.6" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>5.6</b> Inference</a></li>
@@ -406,7 +406,7 @@ g(\mu)\equiv b^{&#39;-1}(\mu)
 <p>When the canonical (logit) link is used, we have <span class="math display">\[\text{logit}(p_i) = \log \frac{p_i}{1-p_i} = \eta_i = \bm{x}_i^T\bm{\beta}.\]</span> This implies <span class="math display">\[p_i = \frac{ \exp(\eta_i) }{1+ \exp(\eta_i)} = \frac{1}{1+ \exp(-\eta_i)}.\]</span> The function <span class="math inline">\(F(\eta) = \frac{1}{1+ \exp(-\eta)}\)</span> is the cumulative distribution function (cdf) of a distribution called the logistic distribution.</p>
 <p>The cumulative distribution functions of other distributions are also commonly used to generate link functions for binary regression. For example, if we let <span class="math display">\[p_i = \Phi(\bm{x}_i^T \bm{\beta}) = \Phi(\eta_i),\]</span> where <span class="math inline">\(\Phi(\cdot)\)</span> is the cdf of the standard normal distribution, then we get the link function <span class="math display">\[g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,\]</span> which is called the <strong>probit</strong> link.</p>
 </div>
-<div id="models-for-count-data" class="section level3">
+<div id="sn:count" class="section level3">
 <h3><span class="header-section-number">5.4.3</span> Models for count data</h3>
 <p>If <span class="math inline">\(Y_i\)</span> represent counts of the number of times an event occurs in a fixed time (or a fixed region of space), we might model <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>.</p>
 <p>With the canonical (log) link, we have <span class="math display">\[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]</span> or <span class="math display">\[\lambda_i = \exp\{\eta_i\} = \exp\{\bm{x}_i^T\bm{\beta}\}.\]</span> This model is often called a log-linear model.</p>
