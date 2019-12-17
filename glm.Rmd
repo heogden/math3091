@@ -318,6 +318,8 @@ The canonical link functions are:
 | Poisson | $\exp\theta$ | $\exp\theta$ | $\log\mu$ | $g(\mu)=\log\mu$ | Log |
 | Binomial | $\log(1+\exp\theta)$ | $\frac{\exp\theta}{1+\exp\theta}$ | $\log{\frac{\mu}{1-\mu}}$ | $g(\mu)=\log{\frac{\mu}{1-\mu}}$ | Logit |
 
+## Examples of generalised linear models
+
 ### The linear model
 
 The linear model considered in Chapter \@ref(lm) is also a generalised linear
@@ -337,7 +339,7 @@ $$
 \mu_i=\eta_i, \quad i = 1, \ldots, n.
 $$
 
-## Models for binary data
+### Models for binary data
 
  In binary regression, we assume either $Y_i \sim \text{Bernoulli}(p_i)$,
  or $Y_i \sim \text{binomial}(n_i, p_i)$, where $n_i$ are known.
@@ -345,32 +347,50 @@ $$
 the success probability $p_i$ as a function of the explanatory variables $\bm x_i$.
 
 When the canonical (logit) link is used, we have
-$$
-\theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
-$$
+\[\text{logit}(p_i) = \log \frac{p_i}{1-p_i} = \eta_i = \bm{x}_i^T\bm{\beta}.\]
 This implies
-$$
-p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
-$$
-This is the cumulative distribution function (cdf)
-of the logistic distribution taking values in the real line
-$(-\infty < \eta < \infty)$. It can be easily verified that
-$F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is a cdf of a random variable since it is
-non-negative and  increases  monotonically to 1 from zero. 
+\[p_i = \frac{ \exp(\eta_i) }{1+ \exp(\eta_i)} = \frac{1}{1+ \exp(-\eta_i)}.\]
+The function $F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is the
+cumulative distribution function (cdf) of a distribution called the
+ logistic distribution.
 
 The cumulative distribution functions of other distributions are also
 commonly used to generate link functions for binary regression.
 For example, if we let
-$$
-p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
-$$
+\[p_i = \Phi(\bm{x}_i^T \bm{\beta}) = \Phi(\eta_i),\]
 where $\Phi(\cdot)$ is the cdf of the standard normal distribution,
 then we get the link function
-$$
-g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
-$$
-which is called the probit link.
+\[g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,\]
+which is called the **probit** link.
 
+### Models for count data
+
+If $Y_i$ represent counts of the number of times an event occurs
+in a fixed time (or a fixed region of space), we might model
+$Y_i \sim \text{Poisson}(\lambda_i)$.
+
+With the canonical (log) link, we have
+\[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]
+or
+\[\lambda_i = \exp\{\eta_i\} = \exp\{\bm{x}_i^T\bm{\beta}\}.\]
+This model is often called a log-linear model.
+
+Now suppose that $Y_i$ represents a count of the number of events
+which occur in a given region $i$, for instance the number
+of times a particular drug is prescribed on a given
+day, in a district $i$ of a country. We might want to 
+model the prescription rate **per patient** in the district $\lambda_i^*$.
+Write $N_i$ is the number of patients registered in district $i$,
+often called the **exposure** of observation $i$.
+We model $Y_i \sim \text{Poisson}(N_i \lambda_i^*)$, where
+\[\log \lambda_i^*  = \bm{x}_i^T\bm{\beta}.\]
+Equivalently, we may write the model as $Y_i \sim \text{Poisson}(\lambda_i)$,
+where
+\[\log \lambda_i = \log N_i + \bm{x}_i^T\bm{\beta},\]
+(since $\lambda_i = N_i \lambda_i^*$, so $\log \lambda_i = \log N_i + \log \lambda_i^*$).
+The log-exposure $\log N_i$ appears as a fixed term in the linear predictor, 
+without any associated parameter. Such a fixed term
+is called an **offset**.
 
 ## Maximum likelihood estimation
 

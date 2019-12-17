@@ -150,17 +150,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="glm.html"><a href="glm.html#the-random-component"><i class="fa fa-check"></i><b>5.3.1</b> The random component</a></li>
 <li class="chapter" data-level="5.3.2" data-path="glm.html"><a href="glm.html#the-systematic-or-structural-component"><i class="fa fa-check"></i><b>5.3.2</b> The systematic (or structural) component</a></li>
 <li class="chapter" data-level="5.3.3" data-path="glm.html"><a href="glm.html#the-link-function"><i class="fa fa-check"></i><b>5.3.3</b> The link function</a></li>
-<li class="chapter" data-level="5.3.4" data-path="glm.html"><a href="glm.html#the-linear-model"><i class="fa fa-check"></i><b>5.3.4</b> The linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="glm.html"><a href="glm.html#maximum-likelihood-estimation-2"><i class="fa fa-check"></i><b>5.4</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="5.5" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>5.5</b> Inference</a></li>
-<li class="chapter" data-level="5.6" data-path="glm.html"><a href="glm.html#sn:compglm"><i class="fa fa-check"></i><b>5.6</b> Comparing generalised linear models</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="glm.html"><a href="glm.html#sn:glmlrt"><i class="fa fa-check"></i><b>5.6.1</b> The likelihood ratio test</a></li>
+<li class="chapter" data-level="5.4" data-path="glm.html"><a href="glm.html#examples-of-generalised-linear-models"><i class="fa fa-check"></i><b>5.4</b> Examples of generalised linear models</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="glm.html"><a href="glm.html#the-linear-model"><i class="fa fa-check"></i><b>5.4.1</b> The linear model</a></li>
+<li class="chapter" data-level="5.4.2" data-path="glm.html"><a href="glm.html#models-for-binary-data"><i class="fa fa-check"></i><b>5.4.2</b> Models for binary data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="glm.html"><a href="glm.html#models-for-count-data"><i class="fa fa-check"></i><b>5.4.3</b> Models for count data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="glm.html"><a href="glm.html#scaled-deviance-and-the-saturated-model"><i class="fa fa-check"></i><b>5.7</b> Scaled deviance and the saturated model</a></li>
-<li class="chapter" data-level="5.8" data-path="glm.html"><a href="glm.html#sn:unknowndisp"><i class="fa fa-check"></i><b>5.8</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
-<li class="chapter" data-level="5.9" data-path="glm.html"><a href="glm.html#residuals"><i class="fa fa-check"></i><b>5.9</b> Residuals</a></li>
-<li class="chapter" data-level="5.10" data-path="glm.html"><a href="glm.html#example-binary-regression"><i class="fa fa-check"></i><b>5.10</b> Example: Binary Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="glm.html"><a href="glm.html#maximum-likelihood-estimation-2"><i class="fa fa-check"></i><b>5.5</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="5.6" data-path="glm.html"><a href="glm.html#sn:glminfer"><i class="fa fa-check"></i><b>5.6</b> Inference</a></li>
+<li class="chapter" data-level="5.7" data-path="glm.html"><a href="glm.html#sn:compglm"><i class="fa fa-check"></i><b>5.7</b> Comparing generalised linear models</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="glm.html"><a href="glm.html#sn:glmlrt"><i class="fa fa-check"></i><b>5.7.1</b> The likelihood ratio test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="glm.html"><a href="glm.html#scaled-deviance-and-the-saturated-model"><i class="fa fa-check"></i><b>5.8</b> Scaled deviance and the saturated model</a></li>
+<li class="chapter" data-level="5.9" data-path="glm.html"><a href="glm.html#sn:unknowndisp"><i class="fa fa-check"></i><b>5.9</b> Models with unknown <span class="math inline">\(a(\phi)\)</span></a></li>
+<li class="chapter" data-level="5.10" data-path="glm.html"><a href="glm.html#residuals"><i class="fa fa-check"></i><b>5.10</b> Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="chap-categorical.html"><a href="chap-categorical.html"><i class="fa fa-check"></i><b>6</b> Models for categorical data</a><ul>
 <li class="chapter" data-level="6.1" data-path="chap-categorical.html"><a href="chap-categorical.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
@@ -374,8 +377,11 @@ g(\mu)\equiv b^{&#39;-1}(\mu)
 </tbody>
 </table>
 </div>
+</div>
+<div id="examples-of-generalised-linear-models" class="section level2">
+<h2><span class="header-section-number">5.4</span> Examples of generalised linear models</h2>
 <div id="the-linear-model" class="section level3">
-<h3><span class="header-section-number">5.3.4</span> The linear model</h3>
+<h3><span class="header-section-number">5.4.1</span> The linear model</h3>
 <p>The linear model considered in Chapter <a href="lm.html#lm">4</a> is also a generalised linear model. We assume <span class="math inline">\({Y_1,\ldots ,Y_n}\)</span> are independent normally distributed random variables, and the normal distribution is a member of the exponential family.</p>
 <p>Furthermore, the explanatory variables enter a linear model through the linear predictor <span class="math display">\[
 \eta_i=\bm{x}_i^T\bm{\beta}, \quad i = 1, \ldots, n.
@@ -384,9 +390,21 @@ g(\mu)\equiv b^{&#39;-1}(\mu)
 \mu_i=\eta_i, \quad i = 1, \ldots, n.
 \]</span></p>
 </div>
+<div id="models-for-binary-data" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Models for binary data</h3>
+<p>In binary regression, we assume either <span class="math inline">\(Y_i \sim \text{Bernoulli}(p_i)\)</span>, or <span class="math inline">\(Y_i \sim \text{binomial}(n_i, p_i)\)</span>, where <span class="math inline">\(n_i\)</span> are known. The objective is to model the success probability <span class="math inline">\(p_i\)</span> as a function of the explanatory variables <span class="math inline">\(\bm x_i\)</span>.</p>
+<p>When the canonical (logit) link is used, we have <span class="math display">\[\text{logit}(p_i) = \log \frac{p_i}{1-p_i} = \eta_i = \bm{x}_i^T\bm{\beta}.\]</span> This implies <span class="math display">\[p_i = \frac{ \exp(\eta_i) }{1+ \exp(\eta_i)} = \frac{1}{1+ \exp(-\eta_i)}.\]</span> The function <span class="math inline">\(F(\eta) = \frac{1}{1+ \exp(-\eta)}\)</span> is the cumulative distribution function (cdf) of a distribution called the logistic distribution.</p>
+<p>The cumulative distribution functions of other distributions are also commonly used to generate link functions for binary regression. For example, if we let <span class="math display">\[p_i = \Phi(\bm{x}_i^T \bm{\beta}) = \Phi(\eta_i),\]</span> where <span class="math inline">\(\Phi(\cdot)\)</span> is the cdf of the standard normal distribution, then we get the link function <span class="math display">\[g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,\]</span> which is called the <strong>probit</strong> link.</p>
+</div>
+<div id="models-for-count-data" class="section level3">
+<h3><span class="header-section-number">5.4.3</span> Models for count data</h3>
+<p>If <span class="math inline">\(Y_i\)</span> represent counts of the number of times an event occurs in a fixed time (or a fixed region of space), we might model <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>.</p>
+<p>With the canonical (log) link, we have <span class="math display">\[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]</span> or <span class="math display">\[\lambda_i = \exp\{\eta_i\} = \exp\{\bm{x}_i^T\bm{\beta}\}.\]</span> This model is often called a log-linear model.</p>
+<p>Now suppose that <span class="math inline">\(Y_i\)</span> represents a count of the number of events which occur in a given region <span class="math inline">\(i\)</span>, for instance the number of times a particular drug is prescribed on a given day, in a district <span class="math inline">\(i\)</span> of a country. We might want to model the prescription rate <strong>per patient</strong> in the district <span class="math inline">\(\lambda_i^*\)</span>. Write <span class="math inline">\(N_i\)</span> is the number of patients registered in district <span class="math inline">\(i\)</span>, often called the <strong>exposure</strong> of observation <span class="math inline">\(i\)</span>. We model <span class="math inline">\(Y_i \sim \text{Poisson}(N_i \lambda_i^*)\)</span>, where <span class="math display">\[\log \lambda_i^*  = \bm{x}_i^T\bm{\beta}.\]</span> Equivalently, we may write the model as <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>, where <span class="math display">\[\log \lambda_i = \log N_i + \bm{x}_i^T\bm{\beta},\]</span> (since <span class="math inline">\(\lambda_i = N_i \lambda_i^*\)</span>, so <span class="math inline">\(\log \lambda_i = \log N_i + \log \lambda_i^*\)</span>). The log-exposure <span class="math inline">\(\log N_i\)</span> appears as a fixed term in the linear predictor, without any associated parameter. Such a fixed term is called an <strong>offset</strong> term.</p>
+</div>
 </div>
 <div id="maximum-likelihood-estimation-2" class="section level2">
-<h2><span class="header-section-number">5.4</span> Maximum likelihood estimation</h2>
+<h2><span class="header-section-number">5.5</span> Maximum likelihood estimation</h2>
 <p>The regression coefficients <span class="math inline">\({\beta_1,\ldots ,\beta_p}\)</span> describe the pattern by which the response depends on the explanatory variables. We use the observed data <span class="math inline">\({y_1,\ldots ,y_n}\)</span> to <em>estimate</em> this pattern of dependence.</p>
 As usual, we maximise the log-likelihood function which, from <a href="glm.html#eq:glmrandom">(5.2)</a>, can be written
 <span class="math display" id="eq:glmloglikelihood">\[\begin{equation}
@@ -535,7 +553,7 @@ The resulting iterative algorithm is called <em>Fisher scoring</em>. Notice that
 </ol>
 </div>
 <div id="sn:glminfer" class="section level2">
-<h2><span class="header-section-number">5.5</span> Inference</h2>
+<h2><span class="header-section-number">5.6</span> Inference</h2>
 <p>Recall from Section <a href="inference.html#sn:asnmle">2.6</a> that the maximum likelihood estimator <span class="math inline">\(\hat{\bm{\beta}}\)</span> is asymptotically normally distributed with mean <span class="math inline">\(\bm{\beta}\)</span> (it is unbiased) and variance covariance matrix <span class="math inline">\({\cal I}(\bm{\beta})^{-1}\)</span>. For ‘large enough <span class="math inline">\(n\)</span>’ we treat this distribution as an approximation.</p>
 <p>Therefore, standard errors (estimated standard deviations) are given by <span class="math display">\[
 s.e.(\hat{\beta}_i)=[{\cal I}(\hat{\bm{\beta}})^{-1}]_{ii}^{{1\over 2}}
@@ -555,9 +573,9 @@ P\left(\hat{\beta}_i-z_{1-\frac{\alpha}{2}}[\mathcal{I}(\bm{\beta})^{-1}]_{ii}^{
 \]</span> For <span class="math inline">\(\alpha=0.10,0.05,0.01\)</span>, <span class="math inline">\(z_{1-\frac{\alpha}{2}}=1.64,1.96,2.58\)</span>, respectively.</p>
 </div>
 <div id="sn:compglm" class="section level2">
-<h2><span class="header-section-number">5.6</span> Comparing generalised linear models</h2>
+<h2><span class="header-section-number">5.7</span> Comparing generalised linear models</h2>
 <div id="sn:glmlrt" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> The likelihood ratio test</h3>
+<h3><span class="header-section-number">5.7.1</span> The likelihood ratio test</h3>
 <p>If we have a set of competing generalised linear models which might explain the dependence of the response on the explanatory variables, we will want to determine which of the models is most appropriate. Recall that we have three main requirements of a statistical model; plausibility, parsimony and goodness of fit, of which parsimony and goodness of fit are statistical issues.</p>
 <p>As with linear models, we proceed by comparing models pairwise using a likelihood ratio test. This kind of comparison is restricted to situations where one of the models, <span class="math inline">\(H_0\)</span>, is <em>nested</em> in the other, <span class="math inline">\(H_1\)</span>. Then the asymptotic distribution of the log likelihood ratio statistic under <span class="math inline">\(H_0\)</span> is a chi-squared distribution with known degrees of freedom.</p>
 <p>For generalised linear models, ‘nested’ means that <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> are</p>
@@ -578,13 +596,13 @@ L_{01}&amp;\equiv 2\log \left({{\max_{\bm{\theta}\in \Theta^{(1)}} L(\bm{\theta}
 &amp;=2\log L(\hat{\bm{\theta}}^{(1)})-2\log L(\hat{\bm{\theta}}^{(0)}),  
   \tag{5.12}
 \end{align}\]</span>
-<p>where <span class="math inline">\(\hat{\bm{\theta}}^{(1)}\)</span> and <span class="math inline">\(\hat{\bm{\theta}}^{(0)}\)</span> follow from <span class="math inline">\(b&#39;(\hat{\theta}_i)=\hat{\mu}_i\)</span>, <span class="math inline">\(g(\hat{\mu}_i)=\hat{\eta_i}\)</span>, <span class="math inline">\(i = 1, \ldots, n\)</span> where <span class="math inline">\(\hat{\bm{\eta}}\)</span> for each model is the linear predictor evaluated at the corresponding maximum likelihood estimate for <span class="math inline">\(\bm{\beta}\)</span>. Here, we assume that <span class="math inline">\(a(\phi_i),\;i = 1, \ldots, n\)</span> are known; unknown <span class="math inline">\(a(\phi)\)</span> is discussed in Section <a href="glm.html#sn:unknowndisp">5.8</a>.</p>
+<p>where <span class="math inline">\(\hat{\bm{\theta}}^{(1)}\)</span> and <span class="math inline">\(\hat{\bm{\theta}}^{(0)}\)</span> follow from <span class="math inline">\(b&#39;(\hat{\theta}_i)=\hat{\mu}_i\)</span>, <span class="math inline">\(g(\hat{\mu}_i)=\hat{\eta_i}\)</span>, <span class="math inline">\(i = 1, \ldots, n\)</span> where <span class="math inline">\(\hat{\bm{\eta}}\)</span> for each model is the linear predictor evaluated at the corresponding maximum likelihood estimate for <span class="math inline">\(\bm{\beta}\)</span>. Here, we assume that <span class="math inline">\(a(\phi_i),\;i = 1, \ldots, n\)</span> are known; unknown <span class="math inline">\(a(\phi)\)</span> is discussed in Section <a href="glm.html#sn:unknowndisp">5.9</a>.</p>
 <p>Recall that we reject <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span> when <span class="math inline">\(L_{01}\)</span> is ‘too large’ (the observed data are much more probable under <span class="math inline">\(H_1\)</span> than <span class="math inline">\(H_0\)</span>). To determine a threshold value <span class="math inline">\(k\)</span> for <span class="math inline">\(L_{01}\)</span>, beyond which we reject <span class="math inline">\(H_0\)</span>, we set the size of the test <span class="math inline">\(\alpha\)</span> and use the result of Section <a href="comparing-statistical-models.html#sn:lrt">3.3</a> that, because <span class="math inline">\(H_0\)</span> is nested in <span class="math inline">\(H_1\)</span>, <span class="math inline">\(L_{01}\)</span> has an asymptotic chi-squared distribution with <span class="math inline">\(p-q\)</span> degrees of freedom. For example, if <span class="math inline">\(\alpha=0.05\)</span>, we reject <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span> when <span class="math inline">\(L_{01}\)</span> is greater than the 95% point of the <span class="math inline">\(\chi^2_{p-q}\)</span> distribution.</p>
 <p>Note that setting up our model selection procedure in this way is consistent with our desire for parsimony. The simpler model is <span class="math inline">\(H_0\)</span>, and we do not reject <span class="math inline">\(H_0\)</span> in favour of the more complex model <span class="math inline">\(H_1\)</span> unless the data provide convincing evidence for <span class="math inline">\(H_1\)</span> over <span class="math inline">\(H_0\)</span>, that is unless <span class="math inline">\(H_1\)</span> fits the data significantly better.</p>
 </div>
 </div>
 <div id="scaled-deviance-and-the-saturated-model" class="section level2">
-<h2><span class="header-section-number">5.7</span> Scaled deviance and the saturated model</h2>
+<h2><span class="header-section-number">5.8</span> Scaled deviance and the saturated model</h2>
 <p>Consider a model where <span class="math inline">\(\bm{\beta}\)</span> is <span class="math inline">\(n\)</span>-dimensional, and therefore <span class="math inline">\(\bm{\eta}=\bm{X}\bm{\beta}\)</span>. Assuming that <span class="math inline">\(\bm{X}\)</span> is invertible, then this model places no constraints on the linear predictor <span class="math inline">\(\bm{\eta}=(\eta_1,\ldots ,\eta_n)\)</span>. It can take any value in <span class="math inline">\(\mathbb{R}^n\)</span>. Correspondingly the means <span class="math inline">\(\bm{\mu}\)</span> and the canonical parameters <span class="math inline">\(\bm{\theta}\)</span> are unconstrained. The model is of dimension <span class="math inline">\(n\)</span> and can be parameterised equivalently using <span class="math inline">\(\bm{\beta}\)</span>, <span class="math inline">\(\bm{\eta}\)</span>, <span class="math inline">\(\bm{\mu}\)</span> or <span class="math inline">\(\bm{\theta}\)</span>. Such a model is called the <em>saturated</em> model.</p>
 As the canonical parameters <span class="math inline">\(\bm{\theta}\)</span> are unconstrained, we can calculate their maximum likelihood estimates <span class="math inline">\(\hat{\bm{\theta}}\)</span> directly from their likelihood <a href="glm.html#eq:glmrandom">(5.2)</a> (without first having to calculate <span class="math inline">\(\hat{\bm{\beta}}\)</span>)
 <span class="math display" id="eq:lsaturated">\[\begin{equation}
@@ -655,8 +673,8 @@ X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
 \]</span> Bernoulli data are binomial with <span class="math inline">\(n_i=1,\;i = 1, \ldots, n\)</span>.</p>
 </div>
 <div id="sn:unknowndisp" class="section level2">
-<h2><span class="header-section-number">5.8</span> Models with unknown <span class="math inline">\(a(\phi)\)</span></h2>
-<p>The theory of Section <a href="glm.html#sn:compglm">5.6</a> has assumed that <span class="math inline">\(a(\phi)\)</span> is known. This is the case for both the Poisson distribution (<span class="math inline">\(a(\phi)=1\)</span>) and the binomial distribution (<span class="math inline">\(a(\phi)=1/n\)</span>). Neither the scaled deviance <a href="glm.html#eq:dsaturated">(5.14)</a> nor Pearson <span class="math inline">\(X^2\)</span> statistic <a href="glm.html#eq:pearsonGoF">(5.16)</a> can be evaluated unless <span class="math inline">\(a(\phi)\)</span> is known. Therefore, when <span class="math inline">\(a(\phi)\)</span> is not known, we cannot use the scaled deviance as a measure of goodness of fit, or to compare models using <a href="glm.html#eq:LRsaturated">(5.15)</a>. For such models, there is no equivalent goodness of fit test, but we can develop a test for comparing nested models.</p>
+<h2><span class="header-section-number">5.9</span> Models with unknown <span class="math inline">\(a(\phi)\)</span></h2>
+<p>The theory of Section <a href="glm.html#sn:compglm">5.7</a> has assumed that <span class="math inline">\(a(\phi)\)</span> is known. This is the case for both the Poisson distribution (<span class="math inline">\(a(\phi)=1\)</span>) and the binomial distribution (<span class="math inline">\(a(\phi)=1/n\)</span>). Neither the scaled deviance <a href="glm.html#eq:dsaturated">(5.14)</a> nor Pearson <span class="math inline">\(X^2\)</span> statistic <a href="glm.html#eq:pearsonGoF">(5.16)</a> can be evaluated unless <span class="math inline">\(a(\phi)\)</span> is known. Therefore, when <span class="math inline">\(a(\phi)\)</span> is not known, we cannot use the scaled deviance as a measure of goodness of fit, or to compare models using <a href="glm.html#eq:LRsaturated">(5.15)</a>. For such models, there is no equivalent goodness of fit test, but we can develop a test for comparing nested models.</p>
 Here we assume that <span class="math inline">\(a(\phi_i)=\sigma^2/m_i,\;i = 1, \ldots, n\)</span> where <span class="math inline">\(\sigma^2\)</span> is a common unknown scale parameter and <span class="math inline">\(m_1,\ldots ,m_n\)</span> are known weights. (A linear model takes this form, as <span class="math inline">\(\text{Var}(Y_i)=\sigma^2,\;i = 1, \ldots, n\)</span>, so <span class="math inline">\(m_i=1,\;i = 1, \ldots, n\)</span>.) Under this assumption
 <span class="math display" id="eq:devunknowndisp">\[\begin{equation}
 L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
@@ -665,7 +683,7 @@ L_{0s}={2\over\sigma^2}\sum_{i=1}^nm_iy_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)
 \tag{5.17}
 \end{equation}\]</span>
 <p>where <span class="math inline">\(D_{0s}\)</span> is defined to be twice the sum above, which can be calculated using the observed data. We call <span class="math inline">\(D_{0s}\)</span> the <em>deviance</em> of the model.</p>
-In order to test nested models <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> as set up in Section <a href="glm.html#sn:glmlrt">5.6.1</a>, we calculate the test statistic
+In order to test nested models <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> as set up in Section <a href="glm.html#sn:glmlrt">5.7.1</a>, we calculate the test statistic
 <span class="math display" id="eq:LRunknowndisp">\[\begin{align}
 &amp;F={{L_{01}/(p-q)}\over{L_{1s}/(n-p)}}={{(L_{0s}-L_{1s})/(p-q)}\over{L_{1s}/(n-p)}}
 \hbox{\hskip 1.2in}\cr
@@ -675,7 +693,7 @@ In order to test nested models <span class="math inline">\(H_0\)</span> and <spa
 \tag{5.18}
 \end{align}\]</span>
 <p>This statistic does not depend on the unknown scale parameter <span class="math inline">\(\sigma^2\)</span>, so can be calculated using the observed data. Asymptotically, if <span class="math inline">\(H_0\)</span> is true, we know that <span class="math inline">\(L_{01} \sim \chi^2_{p-q}\)</span> and <span class="math inline">\(L_{1s} \sim \chi^2_{n-p}\)</span>. Furthermore, <span class="math inline">\(L_{01}\)</span> and <span class="math inline">\(L_{1s}\)</span> are independent (not proved here) so <span class="math inline">\(F\)</span> has an asymptotic <span class="math inline">\(F_{p-q, n-p}\)</span> distribution. Hence, we compare nested generalised linear models by calculating <span class="math inline">\(F\)</span> and rejecting <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span> if <span class="math inline">\(F\)</span> is too large (for example, greater than the 95% point of the relevant F distribution).</p>
-<p>The dependence of the maximum likelihood equations <span class="math inline">\(\bm{u}(\hat{\bm{\beta}})={\bf 0}\)</span> on <span class="math inline">\(\sigma^2\)</span> (where <span class="math inline">\(\bm{u}\)</span> is given by <a href="glm.html#eq:scoreglm">(5.7)</a>) can be eliminated by multiplying through by <span class="math inline">\(\sigma^2\)</span>. However, inference based on the maximum likelihood estimates, as described in Section <a href="glm.html#sn:glminfer">5.5</a>, does require knowledge of <span class="math inline">\(\sigma^2\)</span>. This is because asymptotically <span class="math inline">\(\text{Var}(\hat{\bm{\beta}})\)</span> is the inverse of the Fisher information matrix <span class="math inline">\({\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}\)</span>, and this depends on <span class="math inline">\(w_i={1\over{\text{Var}(Y_i)g&#39;(\mu_i)^2}},\)</span> where <span class="math inline">\(\text{Var}(Y_i)=a(\phi_i)b&#39;&#39;(\theta_i)=\sigma^2 b&#39;&#39;(\theta_i)/m_i\)</span> here.</p>
+<p>The dependence of the maximum likelihood equations <span class="math inline">\(\bm{u}(\hat{\bm{\beta}})={\bf 0}\)</span> on <span class="math inline">\(\sigma^2\)</span> (where <span class="math inline">\(\bm{u}\)</span> is given by <a href="glm.html#eq:scoreglm">(5.7)</a>) can be eliminated by multiplying through by <span class="math inline">\(\sigma^2\)</span>. However, inference based on the maximum likelihood estimates, as described in Section <a href="glm.html#sn:glminfer">5.6</a>, does require knowledge of <span class="math inline">\(\sigma^2\)</span>. This is because asymptotically <span class="math inline">\(\text{Var}(\hat{\bm{\beta}})\)</span> is the inverse of the Fisher information matrix <span class="math inline">\({\cal I}(\bm{\beta})=\bm{X}^T\bm{W}\bm{X}\)</span>, and this depends on <span class="math inline">\(w_i={1\over{\text{Var}(Y_i)g&#39;(\mu_i)^2}},\)</span> where <span class="math inline">\(\text{Var}(Y_i)=a(\phi_i)b&#39;&#39;(\theta_i)=\sigma^2 b&#39;&#39;(\theta_i)/m_i\)</span> here.</p>
 <p>Therefore, to calculate standard errors and confidence intervals, we need to supply an estimate <span class="math inline">\(\hat \sigma^2\)</span> of <span class="math inline">\(\sigma^2\)</span>. Generally, we do not use the maximum likelihood estimate. Instead, we notice that, from <a href="glm.html#eq:devunknowndisp">(5.17)</a>, <span class="math inline">\(L_{0s}=D_{0s}/\sigma^2\)</span>, and we know that asymptotically, if model <span class="math inline">\(H_0\)</span> is an adequate fit, <span class="math inline">\(L_{0s}\)</span> has a <span class="math inline">\(\chi^2_{n-q}\)</span> distribution. Hence <span class="math display">\[
 E(L_{0s})=E\left({1\over{\sigma^2}}D_{0s}\right)=n-q\quad\Rightarrow\quad
 E\left({1\over{n-q}}D_{0s}\right)=\sigma^2.
@@ -700,7 +718,7 @@ D_{0s}=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
 <p>which is just the residual sum of squares for model <span class="math inline">\(H_0\)</span>. Therefore, we estimate <span class="math inline">\(\sigma^2\)</span> for a normal GLM by its residual sum of squares for the model divided by its degrees of freedom. From <a href="glm.html#eq:pearsonGoFunknown">(5.19)</a>, the estimate for <span class="math inline">\(\sigma^2\)</span> based on <span class="math inline">\(X^2\)</span> is identical.</p>
 </div>
 <div id="residuals" class="section level2">
-<h2><span class="header-section-number">5.9</span> Residuals</h2>
+<h2><span class="header-section-number">5.10</span> Residuals</h2>
 <p>Recall that for linear models, we define the residuals to be the differences between the observed and fitted values <span class="math inline">\(y_i-\hat{\mu}^{(0)}_i,\;i = 1, \ldots, n\)</span>. From <a href="glm.html#eq:devnormal">(5.20)</a> we notice that both the scaled deviance and Pearson <span class="math inline">\(X^2\)</span> statistic for a normal GLM are the sum of the squared residuals divided by <span class="math inline">\(\sigma^2\)</span>. We can generalise this to define residuals for other generalised linear models in a natural way.</p>
 <p>For any GLM we define the <em>Pearson residuals</em> to be <span class="math display">\[
 r^P_i={{y_i-\hat{\mu}_i^{(0)}}\over{\hat{\text{Var}}(Y_i)^{1\over 2}}}\qquad i = 1, \ldots, n.
@@ -709,25 +727,11 @@ r^P_i={{y_i-\hat{\mu}_i^{(0)}}\over{\hat{\text{Var}}(Y_i)^{1\over 2}}}\qquad i =
 \left[ 2 {{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
 -[b(\hat{\theta}^{(s)}_i)-b(\hat{\theta}^{(0)}_i)]}
 \over{a(\phi_i)}}\right]^{1\over 2}, \quad i = 1, \ldots, n,\]</span> where <span class="math inline">\(\text{sign}(x)=1\)</span> if <span class="math inline">\(x&gt;0\)</span> and <span class="math inline">\(-1\)</span> if <span class="math inline">\(x&lt;0\)</span>. Then, from <a href="glm.html#eq:dsaturated">(5.14)</a>, the scaled deviance, <span class="math inline">\(L_{0s}\)</span>, is the sum of the squared deviance residuals.</p>
-<p>When <span class="math inline">\(a(\phi)=\sigma^2/m\)</span> and <span class="math inline">\(\sigma^2\)</span> is unknown, as in Section <a href="glm.html#sn:unknowndisp">5.8</a>, the residuals are based on <a href="glm.html#eq:devunknowndisp">(5.17)</a> and <a href="glm.html#eq:pearsonGoFunknown">(5.19)</a>, and the expressions above need to be multiplied through by <span class="math inline">\(\sigma^2\)</span> to eliminate dependence on the unknown scale parameter. Therefore, for a normal GLM the Pearson and deviance residuals are both equal to the usual residuals, <span class="math inline">\(y_i-\hat{\mu}^{(0)}_i,\;i = 1, \ldots, n\)</span>.</p>
+<p>When <span class="math inline">\(a(\phi)=\sigma^2/m\)</span> and <span class="math inline">\(\sigma^2\)</span> is unknown, as in Section <a href="glm.html#sn:unknowndisp">5.9</a>, the residuals are based on <a href="glm.html#eq:devunknowndisp">(5.17)</a> and <a href="glm.html#eq:pearsonGoFunknown">(5.19)</a>, and the expressions above need to be multiplied through by <span class="math inline">\(\sigma^2\)</span> to eliminate dependence on the unknown scale parameter. Therefore, for a normal GLM the Pearson and deviance residuals are both equal to the usual residuals, <span class="math inline">\(y_i-\hat{\mu}^{(0)}_i,\;i = 1, \ldots, n\)</span>.</p>
 <p>Residual plots are most commonly of use in normal linear models, where they provide an essential check of the model assumptions. This kind of check is less important for a model without an unknown scale parameter as the scaled deviance provides a useful overall assessment of fit which takes into account most aspects of the model.</p>
 <p>However, when data have been collected in serial order, a plot of the deviance or Pearson residuals against the order may again be used as a check for potential serial correlation.</p>
 <p>Otherwise, residual plots are most useful when a model fails to fit (scaled deviance is too high). Then, examining the residuals may give an indication of the reason(s) for lack of fit. For example, there may be a small number of outlying observations.</p>
 <p>A plot of deviance or Pearson residuals against the linear predictor should produce something that looks like a random scatter. If not, then this may be due to incorrect link function, wrong scale for an explanatory variable, or perhaps a missing polynomial term in an explanatory variable.</p>
-</div>
-<div id="example-binary-regression" class="section level2">
-<h2><span class="header-section-number">5.10</span> Example: Binary Regression</h2>
-<p>In binary regression the data either follow the binomial or the Bernoulli distribution. The objective is to model the success probability <span class="math inline">\(p\)</span> as a function of the explanatory variables.</p>
-<p>When the canonical (logit) link is used, we have <span class="math display">\[
-\theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
-\]</span> This implies <span class="math display">\[
-p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
-\]</span> This is the cumulative distribution function (cdf) of the logistic distribution taking values in the real line <span class="math inline">\((-\infty &lt; \eta &lt; \infty)\)</span>. It can be easily verified that <span class="math inline">\(F(\eta) = \frac{1}{1+ \exp(-\eta)}\)</span> is a cdf of a random variable since it is non-negative and increases monotonically to 1 from zero.</p>
-<p>The cumulative distribution functions of other distributions are also commonly used to generate link functions for binary regression. For example, if we let <span class="math display">\[
-p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
-\]</span> where <span class="math inline">\(\Phi(\cdot)\)</span> is the cdf of the standard normal distribution, then we get the link function <span class="math display">\[
-g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
-\]</span> which is called the probit link.</p>
 
 </div>
 </div>
