@@ -64,7 +64,7 @@ inference.
 It provides a means for comparing different possible values of $\bm \theta$, based on
 the probabilities (or probability densities) that they assign to the observed data $y_1, \ldots, y_n$.
 
-**Notes**
+#### Notes {-}
 
 1. Frequently it is more convenient to consider the *log-likelihood* function
   $\ell(\bm \theta) = \log L(\bm \theta)$.
@@ -299,7 +299,6 @@ provided that
 1. The variance exists.
 1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
 
-\newpage
 \begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
 
 For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,

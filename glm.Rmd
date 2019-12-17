@@ -790,9 +790,8 @@ L_{0s}=2\sum_{i=1}^n{{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
 which can be calculated using the observed data, provided that $a(\phi_i),\;
 i = 1, \ldots, n$ is known.
 
-\newpage
 
-**Notes**
+#### Notes {-}
 
 1. The log likelihood ratio statistic \@ref(eq:LRglm) for testing $H_0$
 against a non-saturated alternative $H_1$ can be written as

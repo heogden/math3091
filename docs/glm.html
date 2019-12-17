@@ -133,12 +133,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4" data-path="comparing-statistical-models.html"><a href="comparing-statistical-models.html#information-criteria-for-model-comparison"><i class="fa fa-check"></i><b>3.4</b> Information criteria for model comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>4</b> Linear Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
-<li class="chapter" data-level="" data-path="lm.html"><a href="lm.html#example-the-null-model"><i class="fa fa-check"></i>Example: The null model</a></li>
-<li class="chapter" data-level="" data-path="lm.html"><a href="lm.html#example-simple-linear-regression"><i class="fa fa-check"></i>Example: simple linear regression</a></li>
-<li class="chapter" data-level="" data-path="lm.html"><a href="lm.html#example-polynomial-regression"><i class="fa fa-check"></i>Example: Polynomial regression</a></li>
-<li class="chapter" data-level="" data-path="lm.html"><a href="lm.html#example-multiple-regression"><i class="fa fa-check"></i>Example: Multiple regression</a></li>
-</ul></li>
+<li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.2</b> Maximum likelihood estimation</a></li>
 <li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.3</b> Properties of the MLE</a></li>
 <li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.4</b> Comparing linear models</a></li>
@@ -400,7 +395,7 @@ g(\mu)\equiv b^{&#39;-1}(\mu)
 <h3><span class="header-section-number">5.4.3</span> Models for count data</h3>
 <p>If <span class="math inline">\(Y_i\)</span> represent counts of the number of times an event occurs in a fixed time (or a fixed region of space), we might model <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>.</p>
 <p>With the canonical (log) link, we have <span class="math display">\[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]</span> or <span class="math display">\[\lambda_i = \exp\{\eta_i\} = \exp\{\bm{x}_i^T\bm{\beta}\}.\]</span> This model is often called a log-linear model.</p>
-<p>Now suppose that <span class="math inline">\(Y_i\)</span> represents a count of the number of events which occur in a given region <span class="math inline">\(i\)</span>, for instance the number of times a particular drug is prescribed on a given day, in a district <span class="math inline">\(i\)</span> of a country. We might want to model the prescription rate <strong>per patient</strong> in the district <span class="math inline">\(\lambda_i^*\)</span>. Write <span class="math inline">\(N_i\)</span> is the number of patients registered in district <span class="math inline">\(i\)</span>, often called the <strong>exposure</strong> of observation <span class="math inline">\(i\)</span>. We model <span class="math inline">\(Y_i \sim \text{Poisson}(N_i \lambda_i^*)\)</span>, where <span class="math display">\[\log \lambda_i^*  = \bm{x}_i^T\bm{\beta}.\]</span> Equivalently, we may write the model as <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>, where <span class="math display">\[\log \lambda_i = \log N_i + \bm{x}_i^T\bm{\beta},\]</span> (since <span class="math inline">\(\lambda_i = N_i \lambda_i^*\)</span>, so <span class="math inline">\(\log \lambda_i = \log N_i + \log \lambda_i^*\)</span>). The log-exposure <span class="math inline">\(\log N_i\)</span> appears as a fixed term in the linear predictor, without any associated parameter. Such a fixed term is called an <strong>offset</strong> term.</p>
+<p>Now suppose that <span class="math inline">\(Y_i\)</span> represents a count of the number of events which occur in a given region <span class="math inline">\(i\)</span>, for instance the number of times a particular drug is prescribed on a given day, in a district <span class="math inline">\(i\)</span> of a country. We might want to model the prescription rate <strong>per patient</strong> in the district <span class="math inline">\(\lambda_i^*\)</span>. Write <span class="math inline">\(N_i\)</span> is the number of patients registered in district <span class="math inline">\(i\)</span>, often called the <strong>exposure</strong> of observation <span class="math inline">\(i\)</span>. We model <span class="math inline">\(Y_i \sim \text{Poisson}(N_i \lambda_i^*)\)</span>, where <span class="math display">\[\log \lambda_i^*  = \bm{x}_i^T\bm{\beta}.\]</span> Equivalently, we may write the model as <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>, where <span class="math display">\[\log \lambda_i = \log N_i + \bm{x}_i^T\bm{\beta},\]</span> (since <span class="math inline">\(\lambda_i = N_i \lambda_i^*\)</span>, so <span class="math inline">\(\log \lambda_i = \log N_i + \log \lambda_i^*\)</span>). The log-exposure <span class="math inline">\(\log N_i\)</span> appears as a fixed term in the linear predictor, without any associated parameter. Such a fixed term is called an <strong>offset</strong>.</p>
 </div>
 </div>
 <div id="maximum-likelihood-estimation-2" class="section level2">
@@ -627,8 +622,8 @@ L_{0s}=2\sum_{i=1}^n{{y_i[\hat{\theta}^{(s)}_i-\hat{\theta}^{(0)}_i]
   \tag{5.14}
 \end{equation}\]</span>
 <p>which can be calculated using the observed data, provided that <span class="math inline">\(a(\phi_i),\; i = 1, \ldots, n\)</span> is known.</p>
-
-<p><strong>Notes</strong></p>
+<div id="notes-1" class="section level4 unnumbered">
+<h4>Notes</h4>
 <ol style="list-style-type: decimal">
 <li>The log likelihood ratio statistic <a href="glm.html#eq:LRglm">(5.12)</a> for testing <span class="math inline">\(H_0\)</span> against a non-saturated alternative <span class="math inline">\(H_1\)</span> can be written as
 <span class="math display" id="eq:LRsaturated">\[\begin{align}
@@ -671,6 +666,7 @@ L_{0s}&amp;=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(
 X^2=\sum_{i=1}^n {{n_i(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}
 (1-\hat{\mu}^{(0)}_i)}}.
 \]</span> Bernoulli data are binomial with <span class="math inline">\(n_i=1,\;i = 1, \ldots, n\)</span>.</p>
+</div>
 </div>
 <div id="sn:unknowndisp" class="section level2">
 <h2><span class="header-section-number">5.9</span> Models with unknown <span class="math inline">\(a(\phi)\)</span></h2>
