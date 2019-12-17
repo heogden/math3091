@@ -467,6 +467,8 @@ for $p$ is
 
 ## Comparing statistical models
 
+### Introduction
+
 If we have a set of competing probability models
 which might have generated the observed data, we may want to determine which of
 the models is most appropriate.
@@ -478,22 +480,23 @@ The most common situation is where $H_0$ and $H_1$
 both take the same parametric form, $f_{\bm Y}(\bm{y};\bm \theta)$ but
 with $\bm \theta\in\Theta^{(0)}$ for $H_0$ and $\bm \theta\in\Theta^{(1)}$ for $H_1$,
 where $\Theta^{(0)}$ and $\Theta^{(1)}$ are alternative sets of possible values
-for $\bm \theta$.
+for $\bm \theta$. Alternatively, we may be uncertain about the
+best parametric model for the data, and have candidate models 
 
-A hypothesis test provides a mechanism for comparing the two competing statistical
+## Hypothesis testing
+
+A hypothesis test provides one mechanism for comparing two competing statistical
 models, $H_0$ and $H_1$.
 A hypothesis test does not treat the two hypotheses (models) symmetrically. One
 hypothesis, $H_0$, is accorded special status, and referred to as the 
 *null hypothesis*. The null hypothesis is the reference model, and will be assumed to
 be appropriate unless the observed data strongly indicate that $H_0$ is
 inappropriate, and that $H_1$ (the *alternative* hypothesis) should be
-preferred.
-
-Hence, the fact that a hypothesis test does not reject $H_0$ should not be taken
+preferred. 
+The fact that a hypothesis test does not reject $H_0$ should not be taken
 as evidence that $H_0$ is true and $H_1$ is not, or that $H_0$ is  better
 supported by the data than $H_1$, merely that the data does not provide
-sufficient evidence to reject $H_0$ in favour of $H_1$.
-
+sufficient evidence to reject $H_0$ in favour of $H_1$. 
 
 A hypothesis test is defined by its *critical region* or 
 *rejection region*, which we shall denote by $C$. $C$ is a subset of $\mathbb{R}^n$ and is the set
@@ -526,17 +529,21 @@ Given our specified $\alpha$, we try to choose a test, defined by its
 rejection region $C$, to make $\omega(\bm \theta)$ as large  as possible for
 $\bm \theta\in\Theta^{(1)}\setminus\Theta^{(0)}$.
 
+## Likelihood ratio tests for nested hypotheses {#sn:lrt}
 
 Suppose that $H_0$ and $H_1$ both take the same parametric form,
 $f_{\bm Y}(\bm{y};\bm \theta)$ with $\bm \theta\in\Theta^{(0)}$ for $H_0$ and $\bm \theta\in\Theta^{(1)}$
 for $H_1$, where $\Theta^{(0)}$ and $\Theta^{(1)}$ are alternative sets of
 possible values for $\bm \theta$.
-A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
+A *likelihood ratio test* of $H_0$ against $H_1$ has a critical region
 of the form
-\[C=\left\{ \bm{y}: 
+\begin{equation}
+C=\left\{ \bm{y}: 
 \frac{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)} 
->k\right\}\]
+>k\right\}
+(\#eq:lrtCritical)
+\end{equation}
 where $k$ is determined by $\alpha$, the size of the test, so
 \[\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.\]
 Therefore, we will only reject
@@ -545,73 +552,23 @@ much more probable than any distribution under $H_0$.
 This is intuitively appealing and  tends to produce good tests (large power)
 across a wide range of examples.
 
-**Example (Bernoulli)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Suppose that we require a size $\alpha$ test of the hypothesis
-$H_0$: $p=p_0$ against the general alternative $H_1$: '$p$ is unrestricted' where
-$\alpha$ and
-$p_0$ are specified.
-
-Here $\bm \theta=(p)$, $\Theta^{(0)}=\{p_0\}$ and $\Theta^{(1)}=(0,1)$ and the
-generalised likelihood ratio test rejects $H_0$ when
-\[{{\max_{p\in(0,1)}L(p)}\over{\max_{p=p_0}L(p)}} > k\]
-or equivalently when
-\[{{\bar y^{\sum_i y_i}(1-\bar y)^{n-\sum_i y_i}}\over {p_0^{\sum_i y_i}(1-p_0)^{n-\sum_i y_i}}} > k\]
-or
-\begin{equation}
-\left({{\bar y}\over{p_0}}\right)^{n\bar y}
-\left({{1-\bar y}\over{1-p_0}}\right)^{n(1-\bar y)} >k. 
-  (\#eq:her1)
-\end{equation}
-Now the left hand side of \@ref(eq:her1) is minimised as a function of $\bar y$
-at $\bar y=p_0$ and increases as
-$\bar y$ moves away from $p_0$ in either direction.
-Therefore, the rejection region \@ref(eq:her1) is equivalent to
-$$
-C=\left\{ \bm{y}:\bar y > k' \text{ or } \bar y < k''\right\}
-$$
-where $k'$ and $k''$ are chosen so that
-$$
-P(\bm{y}\in C;p_0)=\alpha.
-$$
-Therefore, we can use the binomial$(n,p_0)$ distribution to find a precise rejection
-region for a test of specified size $\alpha$.
-
-Alternatively, if $n$ is large, we can use the asymptotic distribution of
-$\bar y$, $N(p_0,p_0[1-p_0]/n)$.
-
-
-## The log-likelihood ratio statistic {#sn:lrt}
-
-A *generalised likelihood ratio test* of $H_0$ against $H_1$ has a critical region
-of the form
-$$
-C=\left\{ \bm{y}:{{\max_{\bm \theta\in \Theta^{(1)}} L(\bm \theta)}\over
-{\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}} >k\right\}
-$$
-where $k$ is determined by $\alpha$, the size of the test, so
-$$
-\max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
-$$
-
-Therefore, in order to determine $k$, we need
+In order to determine $k$ in \@ref(eq:lrtCritical), we need
 to know the distribution of the likelihood ratio, or an equivalent statistic,
 under $H_0$.
 In general, this will not be available to us.
 However, we can make use of an important asymptotic result.
 
-
 First we notice that, as $\log$ is a strictly increasing function, the rejection
 region is equivalent to
 
-$$
+\[
 C=\left\{ \bm{y}: 2\log \left({{\max_{\bm \theta\in \Theta^{(1)}}L(\bm \theta)}\over
 {\max_{\bm \theta\in \Theta^{(0)}}L(\bm \theta)}}\right) >k'\right\}
-$$
+\]
 where
-$$
+\[
 \max_{\bm \theta\in\Theta^{(0)}}P(\bm{y}\in C;\bm \theta)=\alpha.
-$$
+\]
 Now, provided that $H_0$ is *nested within* $H_1$, in other words
 $\Theta^{(0)}\subset\Theta^{(1)}$ ($\Theta^{(0)}$ is a subspace of
 $\Theta^{(1)}$) then under
@@ -696,375 +653,45 @@ test. For example, if $\alpha=0.05$, a common choice, then we should reject $H_0
 if the test statistic is greater than the 3.84, the 95\% point of the
 $\chi^2_1$ distribution.
 
-<!-- \begin{figure}[hbt] -->
-<!-- \begin{center} -->
-<!-- \includegraphics[height=3in]{chsq1} -->
-<!-- \end{center} --
-## Likelihood-based statistical theory
+## Information criteria for model comparison
 
-## The likelihood function
+It is more difficult to use the likelihood ratio test 
+of Section \@ref(sn:lrt) to compare two models if those
+models are not nested. An alternative approach 
+is to record some criterion measuring the quality
+of the model for each of a candidate set of models, then
+choose the model which is the best according to this criterion.
 
-Probability distributions like the binomial,  Poisson  and normal,
-enable us to calculate probabilities, and other quantities of interest 
-(e.g. expectations) for a probability model of a random process.
-Therefore, given the model, we can make statements about possible
-outcomes of the process.
+When we were estimating the unknown parameters $\theta$ of a model, we chose
+the value which maximised the likelihood: that is, the value of $\theta$ that maximises
+the probability of observing the data we actually saw.
+It is tempting to use a similar system for choosing between two models,
+and to choose the model which has the greater likelihood, under which
+the probability of seeing the data we actually observed is maximised.
+However, if we do this we will always end up choosing complicated models,
+which fit the observed data very closely, but do not meet our
+requirement of parsimony.
 
-Statistical inference is concerned with the inverse problem.
-Given outcomes of a random process (observed data), what conclusions
-(inferences) can we draw about the process itself?
+For a given model depending on parameters $\theta \in \mathbb{R}^p$, 
+let $\hat L$ be the likelihood function for that model evaluated
+at the MLE $\hat \theta$. It is not sensible to choose
+between models by maximising $\hat L$ directly, and instead it is 
+common to choose a model to maximise a criteria of the form
+\[\hat L - \text{penalty},\]
+where the penalty term will be large for complex models, and small
+for simple models. 
 
-We assume that the $n$ observations of the response
-$\bm y=(y_1,\ldots ,y_n)^T$ are observations of random variables
-$\bm Y=(Y_1,\ldots ,Y_n)^T$, which have joint p.d.f. $f_{\bm Y}$ (joint
-p.f. for discrete variables).
-We use the observed data $\bm y$ to make inferences about $f_{\bm Y}$.
-
-We usually make certain assumptions about $f_{\bm Y}$. In particular,
-we often assume that $y_1, \ldots, y_n$ are observations of
-*independent* random variables.
-Hence
-$$
-f_{\bm Y}(\bm y)=f_{Y_1}(y_1)f_{Y_2}(y_2)\cdots f_{Y_n}(y_n)
-=\prod_{i=1}^n f_{Y_i}(y_i).
-$$
-
-
-In parametric statistical inference, we specify a joint
-distribution $f_{\bm Y}$, for $\bm Y$, which is known, except for the values of
-parameters $\theta_1,\theta_2,\ldots ,\theta_p$ (sometimes denoted by $\bm \theta$).
-Then we use the observed data $\bm y$ to make inferences about
-$\theta_1,\theta_2,\ldots ,\theta_p$. In this case, we usually write $f_{\bm Y}$ as
-$f_{\bm Y}(\bm y;\bm \theta)$, to make explicit the dependence on the unknown
-$\bm \theta$.
-
-Until now, we have thought of the joint density $f_{\bm Y}(\bm y;\bm \theta)$ as a function
-of $\bm{y}$ for fixed $\bm \theta$, which describes the relative probabilities of different
-possible values of $\bm y$, given a particular set of parameters $\bm \theta$.
-However, in statistical inference, we have observed $y_1, \ldots, y_n$ (values of $Y_1, \ldots, Y_n$).
-Knowledge of the probability of alternative possible realisations of $\bm Y$
-is largely irrelevant.
-What we want to know about is $\bm \theta$.
-
-Our only link between the observed data $y_1, \ldots, y_n$ and
-$\bm \theta$ is through the function $f_{\bm Y}(\bm y;\bm \theta)$. 
-Therefore, it seems sensible
-that parametric statistical inference should be based on this function.
-We can think of $f_{\bm Y}(\bm y;\bm \theta)$ as a function
-of $\bm \theta$ for fixed $\bm{y}$, which describes the relative *likelihoods* of
-different possible (sets of) $\bm \theta,$ given observed data $y_1, \ldots, y_n$.
-We write 
-\[L(\bm \theta; \bm y) = f_{\bm Y}(\bm y;\bm \theta)\]
-for this *likelihood*,
-which is a function of the unknown parameter $\bm \theta$. For convenience, we often
-drop $\bm y$ from the notation, and write $L(\bm \theta)$.
-
-The likelihood function is of central importance in parametric statistical
-inference.
-It provides a means for comparing different possible values of $\bm \theta$, based on
-the probabilities (or probability densities) that they assign to the observed data $y_1, \ldots, y_n$.
-
-**Notes**
-
-1. Frequently it is more convenient to consider the *log-likelihood* function
-  $\ell(\bm \theta) = \log L(\bm \theta)$.
-1. Nothing in the definition of the likelihood requires $y_1, \ldots, y_n$ to be
-  observations of independent random variables, although we shall frequently
-  make this assumption.
-1. Any factors which depend on $y_1, \ldots, y_n$ alone (and not on $\bm \theta$) can be ignored
-  when writing down the likelihood. Such factors give no information about the   relative likelihoods of different possible values of $\bm \theta$.
-
-**Example (Bernoulli)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, independent identically distributed
-(i.i.d.) Bernoulli$(p)$ random
-variables. Here $\theta=(p)$ and the likelihood is
-$$
-L(p)=\prod_{i=1}^n p^{y_i}(1-p)^{1-y_i}=p^{\sum_{i=1}^n y_i}(1-p)^{n-\sum_{i=1}^n y_i}.
-$$
-The log-likelihood is
-$$
-\ell(p) = \log L(p) =n\bar y\log p+n(1-\bar y)\log(1-p).
-$$
+Equivalently, we may choose between models by minimising
+a criteria of the form
+\[ - 2 \hat L + \text{penalty}.\]
+By convention, 
+many commonly-used criteria for model comparison take this form.
+For instance, the
+Akaike information criterion (AIC) is
+\[\text{AIC} = - 2 \hat L + 2 p,\]
+where $p$ is the dimension of the unknown parameter in the candidate model, and
+the Bayesian information criterion (BIC) is
+\[\text{BIC} = - 2 \hat L + \log(n) p,\]
+where $n$ is the number of observations.
 
 
-**Example (Normal)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and the likelihood is
-\begin{align*}
-L(\mu,\sigma^2) &=  \prod_{i=1}^n {1\over{\sqrt{2\pi\sigma^2}}}
-\exp\left(-{1\over{2\sigma^2}}(y_i-\mu)^2\right) \\
-&=(2\pi\sigma^2)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right) \\
-&\propto (\sigma^2)^{-{n\over 2}}
-\exp\left(-{1\over{2\sigma^2}}\sum(y_i-\mu)^2\right).
-\end{align*}
-The log-likelihood is
-\[\ell(\mu, \sigma^2) = \log L(\mu,\sigma^2)=-{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
-
-
-## Maximum  likelihood estimation 
-
-One of the primary tasks of parametric statistical inference is
-*estimation* of the unknown parameters $\theta_1, \ldots, \theta_p$.
-Consider the value of $\bm \theta$ which maximises the
-likelihood function. This is the 'most likely' value of $\bm \theta$, the one which makes
-the observed data 'most probable'. When we are searching for an estimate of
-$\bm \theta$, this would seem to be a good candidate.
-
-We call the value of $\bm \theta$ which maximises the likelihood $L(\theta)$
-the *maximum likelihood estimate* (MLE) of $\bm \theta$, denoted by
-$\hat{\bm \theta}$.
-$\hat{\bm \theta}$ depends on $\bm y$, as different observed data samples
-lead to different likelihood functions.
-The corresponding function of $\bm Y$ is called the
-*maximum likelihood estimator*  and is also denoted by $\hat{\bm \theta}$.
-
-Note that as $\bm \theta=(\theta_1, \ldots, \theta_p)$, the MLE for any component
-of $\bm \theta$ is given by the corresponding component of
-$\hat{\bm \theta}=(\hat{\theta}_1,\ldots ,\hat{\theta}_p)^T$.
-Similarly, the MLE for any function of parameters $g(\bm \theta)$ is given
-by $g(\hat{\bm \theta})$.
-
-As $\log$ is a strictly increasing
-function, the value of $\bm \theta$ which maximises 
-$L(\bm \theta)$ also maximises $\ell(\bm \theta) = \log L (\bm \theta)$.
-It is almost always easier to maximise $\ell(\bm \theta)$.
-This is achieved in the usual way; finding a stationary point by differentiating
-$\ell(\bm \theta)$ with respect to $\theta_1, \ldots, \theta_p$, and solving the resulting $p$
-simultaneous equations. It should also be checked that the stationary point is a
-maximum.
-
-**Example (Bernoulli)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
-Bernoulli$(p)$ random variables. Here $\bm \theta=(p)$ and
-the log-likelihood is
-\[\ell(p)=n\bar y\log p+n(1-\bar y)\log(1-p).\]
-  Differentiating with respect to $p$,
-  \[\frac{\partial}{\partial p} \ell(p) = \frac{n\bar y}{p}-\frac{n(1-\bar y)}{1-p}\]
-    so the MLE $\hat p$ solves
-    \[\frac{n\bar y}{\hat{p}} -{{n(1-\bar y)}\over{1-\hat{p}}} = 0.\]
-  Solving this for $\hat{p}$ gives $\hat{p}=\bar y$.
-  Note that
-  \[\frac{\partial^2}{\partial p^2} \ell(p)= {{-n\bar y}/p^2}-{{n(1-\bar y)}/({1-p})^2}<0\]
-   everywhere, so the stationary point is clearly a maximum.
-
-**Example (Normal)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and
- and the log-likelihood is
-\[\ell(\mu,\sigma^2) = -{n\over 2}\log(2\pi)-{n\over 2}\log(\sigma^2)
--{1\over{2\sigma^2}}\sum(y_i-\mu)^2.\]
-   Differentiating with respect to $\mu$
-\[{\partial\over{\partial \mu}} \ell(\mu,\sigma^2)=
-  {1\over{\sigma^2}}\sum(y_i-\mu)={{n(\bar y-\mu)}\over{\sigma^2}}\]
-  so $(\hat \mu, \hat \sigma^2)$ solve
-\begin{equation}
-  \frac{n(\bar y-\hat{\mu})}{\hat \sigma^2} = 0.
-  (\#eq:normalScoreMu)
-\end{equation}
-  Differentiating with respect to $\sigma^2$
-\[\frac{\partial}{\partial \sigma^2} \ell (\mu,\sigma^2)=
-- \frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum(y_i-\mu)^2,\]
-so
-\begin{equation}
-  -{n\over {2\hat \sigma^2}}+{1\over{2(\hat \sigma^2)^2}}\sum(y_i-\hat{\mu})^2 = 0
-  (\#eq:normalScoreSs)
-\end{equation}
-Solving \@ref(eq:normalScoreMu) and \@ref(eq:normalScoreSs), we obtain
-$\hat{\mu}=  \bar y$ and
-\[\hat \sigma^2 =  {1\over n}\sum(y_i-\hat{\mu})^2=
-{1\over n}\sum(y_i-\bar y)^2.\]
-
-
-Strictly,
-to show that this stationary point is a maximum, we need to show that the
-Hessian matrix (the matrix of second derivatives with elements
-$[\bm{H}(\bm \theta)]_{ij}={{\partial^2}\over{\partial\theta_i\partial\theta_j}}\ell(\theta)$)
-is negative definite at $\bm \theta=\hat{\bm \theta}$, that is $\bm{a}^T \bm{H}(\hat{\bm \theta})\bm{a}<0$ for
-every
-$\bm{a}\ne {\bf 0}$.
-Here
-$$
-\bm{H}(\hat{\mu},\hat \sigma^2)= \begin{pmatrix}
-- \frac{n}{\hat \sigma^2 } & 0 \cr
-0   &-\frac{n}{2(\hat \sigma^2)^2} \end{pmatrix}
-$$
-which is clearly negative definite.
-
-## Score {#score}
-
-Let
-$$
-u_i(\bm \theta)\equiv{{\partial}\over{\partial\theta_i}} \ell(\theta), \quad i=1,\ldots ,p
-$$
-and $\bm{u}(\bm \theta)\equiv[u_1(\bm \theta),\ldots ,u_p(\bm \theta)]^T$. Then we call $\bm{u}(\bm \theta)$ the
-*vector of scores* or *score vector*.
-Where $p=1$ and $\bm \theta=(\theta)$, the *score* is the scalar defined as
-$$
-u(\theta)\equiv{{\partial}\over{\partial\theta}}\ell(\theta).
-$$
-The maximum likelihood estimate $\hat{\bm \theta}$ satisfies
-\[u(\hat{\bm \theta})={\bm 0},\]
-that is,
-\[u_i(\hat{\bm \theta})=0, \quad i=1,\ldots ,p.\]
-Note that $u(\bm{\theta})$ is a function of $\bm \theta$ for fixed (observed) $\bm y$.
-However, if we replace $y_1, \ldots, y_n$ in $u(\bm{\theta})$, by the corresponding random variables
-$Y_1, \ldots, Y_n$ then we obtain a vector of random variables $U(\bm{\theta})\equiv
-[U_1(\bm \theta),\ldots ,U_p(\bm \theta)]^T$.
-
-An important result in likelihood theory is that the expected score
-at the true (but unknown) value of $\bm \theta$ is zero, *i.e.*
-\[E[U(\bm{\theta})]={\bf 0}\]
-or
-\[E[U_i(\bm \theta)]= 0,
-\quad i=1,\ldots ,p,\]
-provided that
-
-1. The expectation exists.
-1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
-
-\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
-
-For each $i=1, \ldots, n$
-\begin{align*}
-E[U_i(\bm \theta)]&=\int U_i(\bm \theta)f_{\bm Y}(\bm y, \bm \theta) d\bm y\cr
-&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= {{\partial}\over{\partial\theta_i}}\int f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= {{\partial}\over{\partial\theta_i}} 1 =0.
-\end{align*}
-\end{proof}
-
-**Example (Bernoulli)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Here $\bm \theta=(p)$ and
-\[u(p)=n\bar y/ p-n(1-\bar y)/(1-p).\]
-Since $E[U(p)] = 0$, we must have $E[\bar Y]=p$ (which we already
-know is correct).
-
-**Example (Normal)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d.
-$N(\mu,\sigma^2)$ random variables. Here $\bm \theta=(\mu,\sigma^2)$ and
-\begin{align*}
-u_1(\mu,\sigma^2)&= {{n(\bar y-\mu)}/{\sigma^2}}\cr
-u_2(\mu,\sigma^2)&= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum_{i=1}^n{(y_i-\mu)^2}
-\end{align*}
-Since $E[\bm U(\mu,\sigma^2)] = {\bm 0}$, we must have
-$E[\bar Y]=\mu$ and 
-$E[{\textstyle{1\over n}}\sum_{i=1}^n{(Y_i-\mu)^2}]=\sigma^2.$
-
-## Information {#info}
-
-Suppose that $y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, whose joint p.d.f.
-$L(\theta)$ is completely specified except
-for the values of $p$ unknown parameters $\bm \theta=(\theta_1, \ldots, \theta_p)^T$.
-Previously, we defined the Hessian matrix $H(\bm{\theta})$ to be the matrix with
-components
-$$
-[H(\bm{\theta})]_{ij}\equiv{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \ell(\theta)
-\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
-$$
-We call the matrix $-H(\bm{\theta})$ the *observed information matrix*.
-Where $p=1$ and $\bm \theta=(\theta)$, the *observed information* is a
-scalar defined as
-$$
--H(\theta)\equiv-{{\partial}\over{\partial\theta^2}}\ell(\theta).
-$$
-
-<!-- Here, we are interpreting $\bm \theta$ as the true (but unknown) value of -->
-<!-- the parameter. -->
-As with the score, if we replace $y_1, \ldots, y_n$ in $H(\bm{\theta})$, by the
-corresponding random variables
-$Y_1, \ldots, Y_n$, we obtain a matrix of random variables.
-Then, we define the *expected information matrix* or
-*Fisher information matrix*
-$$
-[\mathcal{I}(\bm \theta)]_{ij}=E(-[H(\bm{\theta})]_{ij})
-\qquad i=1,\ldots ,p;\;j=1,\ldots ,p.
-$$
-
-An important result in likelihood theory is that the variance-covariance matrix
-of the score vector is equal to the
-expected information matrix *i.e.*
-\[\text{Var}[U(\bm{\theta})]=\mathcal{I}(\bm \theta)\]
-or
-\[\text{Var}[U(\bm{\theta})]_{ij}= [\mathcal{I}(\bm \theta)]_{ij}, 
-\quad i=1,\ldots ,p, \quad j=1,\ldots ,p\]
-provided that
-
-1. The variance exists.
-1. The sample space for $\bm Y$ does not depend on $\bm \theta$.
-
-\newpage
-\begin{proof}{(continuous $\bm y$ -- in discrete case replace $\int$ by $\sum$)}
-
-For each $i = 1,\ldots, p$ and $j = 1, \ldots, p$,
-\begin{align*}
-\text{Var}[U(\bm{\theta})]_{ij}&= E[U_i(\bm \theta)U_j(\bm \theta)]\cr
-&= \int {{\partial}\over{\partial\theta_i}} \ell(\theta)
-{{\partial}\over{\partial\theta_j}} \ell(\theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{\partial}\over{\partial\theta_i}} \log f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta) f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= \int {{{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)}
-{{{{\partial}\over{\partial\theta_j}}f_{\bm Y}(\bm y; \bm \theta)}\over f_{\bm Y}(\bm y; \bm \theta)} f_{\bm Y}(\bm y; \bm \theta)d\bm y\cr
-&= \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}}f_{\bm Y}(\bm y; \bm \theta)
- {{\partial}\over{\partial\theta_j}}  f_{\bm Y}(\bm y; \bm \theta)  d\bm y.
-\end{align*}
-
-Now
-\begin{align*}
-[\mathcal{I}(\bm \theta)]_{ij}&=E\left[-{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \ell(\theta)\right]\cr
-&=\int -{{\partial^2}\over
-{\partial\theta_i\partial\theta_j}} \log f_{\bm Y}(\bm y; \bm \theta)  f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=\int -{{\partial}\over{\partial\theta_i}}\left[
-{{{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}\right]
- f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&=\int \left[
--{{{{\partial^2}\over{\partial\theta_i\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)}
-+ {{{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)}\over  f_{\bm Y}(\bm y; \bm \theta)^2} \right]
- f_{\bm Y}(\bm y; \bm \theta) d\bm y\cr
-&= -{{\partial^2}\over{\partial\theta_i\partial\theta_j}}\int  f_{\bm Y}(\bm y; \bm \theta) d\bm y
-+ \int \frac{1}{f_{\bm Y}(\bm y; \bm \theta)}{{\partial}\over{\partial\theta_i}} f_{\bm Y}(\bm y; \bm \theta)
-{{\partial}\over{\partial\theta_j}} f_{\bm Y}(\bm y; \bm \theta)  d\bm y\cr
-&= \text{Var}[U(\bm{\theta})]_{ij}
-\end{align*}
-\end{proof}
-
-**Example (Bernoulli)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. Bernoulli$(p)$ random
-variables. Here $\bm \theta=(p)$ and
-\begin{align*}
-u(p)&= {{n\bar y}\over{ p}}-{{n(1-\bar y)}\over {(1-p)}}\cr
--H(p)&= {{n\bar y}\over{ p^2}}+{{n(1-\bar y)}\over {(1-p)^2}}\cr
-{\cal I}(p)&= {{n}\over{ p}}+{{n}\over {(1-p)}}={{n}\over {p(1-p)}}.
-\end{align*}
-
-\newpage
-
-**Example (Normal)**.
-$y_1, \ldots, y_n$ are observations of $Y_1, \ldots, Y_n$, i.i.d. $N(\mu,\sigma^2)$ random variables.
-Here $\bm \theta=(\mu,\sigma^2)$ and
-\begin{align*}
-u_1(\mu,\sigma^2) &=  \frac{n(\bar y-\mu)}{\sigma^2} \\
-u_2(\mu,\sigma^2) &= -{n\over {2\sigma^2}}+{1\over{2(\sigma^2)^2}}\sum(y_i-\mu)^2.
-\end{align*}
-Therefore
-$$
--\bm{H}(\mu,\sigma^2) = \begin{pmatrix}
-\frac{n}{\sigma^2} & \frac{n(\bar y-\mu)}{(\sigma^2)^2} \cr
-\frac{n(\bar y-\mu)}{(\sigma^2)^2}&
- \frac{1}{(\sigma^2)^3} \sum(y_i-\mu)^2- \frac{n}{2(\sigma^2)^2}
-\end{pmatrix}
-$$
-$$
-{\cal I}(\mu,\sigma^2)= \begin{pmatrix}
-\frac{n}{\sigma^2} & 0 \cr
-0& \frac{n}{2(\sigma^2)^2}
-\end{pmatrix}.
-$$
