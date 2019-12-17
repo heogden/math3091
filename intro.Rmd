@@ -1,4 +1,4 @@
-# Preliminaries {#prelim}
+# Introduction {#intro}
 
 ## Elements of statistical modelling
 

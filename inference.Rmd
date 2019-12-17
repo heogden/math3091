@@ -1,4 +1,4 @@
-# Likelihood-based statistical inference
+# Likelihood-based statistical inference {#inference}
 
 ## The likelihood function
 

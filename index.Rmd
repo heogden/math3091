@@ -21,32 +21,16 @@ The pre-requisite module MATH2010: Statistical Modelling I covered in detail the
 regression models, where explanatory variables are used to explain the variation in a
 response variable, which is assumed to be normally distributed.
 
-However, **in many practical situations the data are not appropriate for such analysis**.
+However, in many practical situations the data are not appropriate for such analysis.
 For example, the response variable may be **binary**, and interest may be focused on
-**assessing the dependence of the probability of 'success' on potential explanatory
-variables**. Such techniques are important in many disciplines such as finance,
-market research and medicine.
-
-Alternatively, a variety of biological and
-social science data are in the form of **cross-classified tables of counts**,
-called contingency tables. The structure of such tables can be examined
-to **determine the pattern of interdependence of the cross-classifying variables**.
+assessing the dependence of the probability of 'success' on potential explanatory
+variables. Alternatively, the response variable may be a **count** of events,
+and we may wish to infer how the rate at which events occur depends on explanatory
+variables. Such techniques are important in many disciplines such as finance,
+biology, social sciences and medicine.
 
 **The aim of this module** is to cover the theory and application of what are known as
 **generalised linear models** (GLMs). This is an extremely broad class of
 statistical models, which incorporates the linear regression models studied in
-MATH2010, but also allows binary or count response data to be modelled coherently.
+MATH2010, but also allows binary and count response data to be modelled coherently.
 
-The inference methods for the generalised linear models require extension of the theory
-developed in MATH2010. In Chapter \@ref(prelim) we shall develop or review the general
-likelihood based theory for estimation and model comparison. We shall also
-show that the inference methods used for linear and multiple regression models are
-special cases of this general theory. 
-
-The generalised linear model will be introduced in Chapter \@ref(glm) and we will develop
-general estimation and model comparison techniques by appealing to the 
-likelihood-based theory discussed in Chapter \@ref(prelim). Finally, 
-Chapter \@ref(chap:categorical) will apply the techniques to
-analyse dependence structures in multiway cross-classified
-tables known as contingency tables. The weekly practical classes will 
-demonstrate how to use `R` to fit these models to real data sets.

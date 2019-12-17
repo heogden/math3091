@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>MATH3091: Statistical Modelling II</title>
+  <title>Chapter 1 Introduction | MATH3091: Statistical Modelling II</title>
   <meta name="description" content="The course notes for MATH3091: Statistical Modelling II" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="MATH3091: Statistical Modelling II" />
+  <meta property="og:title" content="Chapter 1 Introduction | MATH3091: Statistical Modelling II" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="MATH3091: Statistical Modelling II" />
+  <meta name="twitter:title" content="Chapter 1 Introduction | MATH3091: Statistical Modelling II" />
   
   <meta name="twitter:description" content="The course notes for MATH3091: Statistical Modelling II" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="inference.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -184,24 +184,87 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \(
 \newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
 \)
-<div id="header">
-<h1 class="title">MATH3091: Statistical Modelling II</h1>
-<p class="author"><em>Dr Helen Ogden</em></p>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<div id="elements-of-statistical-modelling" class="section level2">
+<h2><span class="header-section-number">1.1</span> Elements of statistical modelling</h2>
+<p>Probability and statistics can be characterised as the study of variability. In particular, statistical inference is the science of analysing statistical data, viewed as the outcome of some random process, in order to draw conclusions about that random process.</p>
+<p>Statistical models help us to <em>understand</em> the random process by which observed data have been generated. This may be of interest in itself, but also allows us to make <em>predictions</em> and perhaps most importantly <em>decisions</em> contingent on our inferences concerning the process.</p>
+<p>It is also important, as part of the modelling process, to acknowledge that our conclusions are only based on a (potentially small) sample of possible observations of the process and are therefore subject to error. The science of statistical inference therefore involves assessment of the uncertainties associated with the conclusions we draw.</p>
+<p>Probability theory is the mathematics associated with randomness and uncertainty. We usually try to describe random processes using probability models. Then, statistical inference may involve estimating any unspecified features of a model, comparing competing models, and assessing the appropriateness of a model; all in the light of observed data.</p>
+<p>In order to identify ‘good’ statistical models, we require some principles on which to base our modelling procedures. In general, we have three requirements of a statistical model</p>
+<ul>
+<li>Plausibility</li>
+<li>Parsimony</li>
+<li>Goodness of fit</li>
+</ul>
+<p>The first of these is not a statistical consideration, and a subject-matter expert usually needs to be consulted about this. For some objectives, like prediction, it might be considered unimportant. Parsimony and goodness of fit are statistical issues. Indeed, there is usually a trade-off between the two and our statistical modelling strategies will take account of this.</p>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>The pre-requisite module MATH2010: Statistical Modelling I covered in detail the theory of linear regression models, where explanatory variables are used to explain the variation in a response variable, which is assumed to be normally distributed.</p>
-<p>However, in many practical situations the data are not appropriate for such analysis. For example, the response variable may be <strong>binary</strong>, and interest may be focused on assessing the dependence of the probability of ‘success’ on potential explanatory variables. Alternatively, the response variable may be a <strong>count</strong> of events, and we may wish to infer how the rate at which events occur depends on explanatory variables. Such techniques are important in many disciplines such as finance, biology, social sciences and medicine.</p>
-<p><strong>The aim of this module</strong> is to cover the theory and application of what are known as <strong>generalised linear models</strong> (GLMs). This is an extremely broad class of statistical models, which incorporates the linear regression models studied in MATH2010, but also allows binary and count response data to be modelled coherently.</p>
+<div id="regression-models" class="section level2">
+<h2><span class="header-section-number">1.2</span> Regression Models</h2>
+<p>Many statistical models, and all the ones we shall deal with in MATH3091, can be formulated as <em>regression</em> models.</p>
+<p>In practical applications, we often distinguish between a <em>response</em> variable and a group of <em>explanatory</em> variables. The aim is to determine the pattern of dependence of the response variable on the explanatory variables. A regression model has the general form</p>
+<blockquote>
+<p>response = function(structure and randomness)</p>
+</blockquote>
+<p>The structural part of the model describes how the response depends on the explanatory variables and the random part defines the probability distribution of the response. Together, they produce the response and the statistical modeller’s task is to ‘separate’ these out.</p>
+</div>
+<div id="example-data-to-be-analysed" class="section level2">
+<h2><span class="header-section-number">1.3</span> Example data to be analysed</h2>
+<div id="nitric-nitric-acid" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> <code>nitric</code>: Nitric acid</h3>
+<p>This data set relates to 21 successive days of operation of a plant oxidising ammonia to nitric acid. The response <code>yield</code> is ten times the percentage of ingoing ammonia that is lost as unabsorbed nitric acid (an indirect measure of the yield). The aim here is to study how the yield depends on flow of air to the plant (<code>flow</code>), temperature of the cooling water entering the absorption tower (<code>temp</code>) and concentration of nitric acid in the absorbing liquid (<code>conc</code>). These data will be analysed in worksheet 2 using multiple linear regression models.</p>
+</div>
+<div id="birth-weight-of-newborn-babies" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> <code>birth</code>: Weight of newborn babies</h3>
+<p>This data set contains weights of 24 newborn babies. There are two explanatory variables, sex (<code>Sex</code>) and gestational age in weeks (<code>Age</code>) together with the response variable, birth weight in grams (<code>Weight</code>). The aim here is to study how birth weight depends on sex and gestational age. This data set will be analysed in worksheet 3 by using multiple linear regression models including both categorical and continuous explanatory variables.</p>
+</div>
+<div id="survival-time-to-death" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> <code>survival</code>: Time to death</h3>
+<p>This data set, analysed in worksheet 4, contains survival times in 10 hour units (<code>time</code>) of 48 rats each allocated to one of 12 combinations of 3 poisons (<code>poison</code>) and 4 treatments (<code>treatment</code>). The aim here is to study how survival time depends on the poison and the treatment, and to determine whether there is an interaction between these two categorical variables.</p>
+</div>
+<div id="beetle-mortality-from-carbon-disulphide" class="section level3">
+<h3><span class="header-section-number">1.3.4</span> <code>beetle</code>: Mortality from carbon disulphide</h3>
+<p>This data set represents the number of beetles exposed (<code>exposed</code>) and number killed (<code>killed</code>) in eight groups exposed to different doses (<code>dose</code>) of a particular insecticide. Interest is focussed on how mortality is related to dose. It seems sensible to model the number of beetles killed in each group as the binomial random variable with probability of death depending on dose. This will be discussed in worksheet 5.</p>
+</div>
+<div id="shuttle-challenger-disaster" class="section level3">
+<h3><span class="header-section-number">1.3.5</span> <code>shuttle</code>: Challenger disaster</h3>
+<p>This data set concerns the 23 space shuttle flights before the Challenger disaster. The disaster is thought to have been caused by the failure of a number of O-rings, of which there were six in total. The data consist of four variables, the number of damaged O-rings for each pre-Challenger flight (<code>n_damaged</code>), together with the launch temperature in degrees Fahrenheit (<code>temp</code>), the pressure at which the pre-launch test of O-ring leakage was carried out (<code>pressure</code>) and the name of the orbiter (<code>orbiter</code>). The Challenger launch temperature on 20th January 1986 was 31F. The aim is to predict the probability of O-ring damage at the Challenger launch. This will be discussed in worksheet 6.</p>
+</div>
+<div id="heart-treatment-for-heart-attack" class="section level3">
+<h3><span class="header-section-number">1.3.6</span> <code>heart</code>: Treatment for heart attack</h3>
+<p>This data set represents the results of a clinical trial to assess the effectiveness of a thrombolytic (clot-busting) treatment for patients who have suffered an acute myocardial infarction (heart attack). There are four categorical explanatory variables, representing</p>
+<ul>
+<li>the <code>site</code> of infarction: anterior, inferior or other</li>
+<li>the <code>time</code> between infarction and treatment: <span class="math inline">\(\le 12\)</span> or <span class="math inline">\(&gt;12\)</span> hours</li>
+<li>whether the patient was already taking Beta-blocker medication prior to the infarction, <code>blocker</code>: yes or no</li>
+<li>the <code>treatment</code> the patient was given: active or placebo.</li>
+</ul>
+<p>For each combination of these categorical variables, the dataset gives the total number of patients (<code>n_patients</code>), and the number who survived for for 35 days (<code>n_survived</code>). The aim is to find out how these categorical variables affect a patient’s chance of survival. These data will be analysed in worksheet 7.</p>
+</div>
+<div id="accident-road-traffic-accidents" class="section level3">
+<h3><span class="header-section-number">1.3.7</span> <code>accident</code>: Road traffic accidents</h3>
+<p>This example concerns the number of road accidents (<code>number</code>) and the volume of traffic (<code>volume</code>), on each of two roads in Cambridge (<code>road</code>), at various times of day (<code>time</code>, taking values <code>morning</code>, <code>midday</code> or <code>afternoon</code>). We should be able to answer questions like:</p>
+<ol style="list-style-type: decimal">
+<li>Is Mill Road more dangerous than Trumpington Road?</li>
+<li>How does time of day affect the rate of road accident?</li>
+</ol>
+<p>These issues will be considered in worksheet 8.</p>
+</div>
+<div id="lymphoma-lymphoma-patients" class="section level3">
+<h3><span class="header-section-number">1.3.8</span> <code>lymphoma</code>: Lymphoma patients</h3>
+<p>The <code>lymphoma</code> data set represents 30 lymphoma patients classified by sex (<code>Sex</code>), cell type of lymphoma (<code>Cell</code>) and response to treatment (<code>Remis</code>). It is an example of data which may be represented as a three-way (<span class="math inline">\(2\times 2\times 2\)</span>) contingency table. The aim here is to study the complex dependence structures between the three classifying factors. This is taken up in worksheet 9.</p>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -231,7 +294,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/heogden/math3091/edit/master/index.Rmd",
+"link": "https://github.com/heogden/math3091/edit/master/intro.Rmd",
 "text": "Edit"
 },
 "history": {
