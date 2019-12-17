@@ -337,6 +337,41 @@ $$
 \mu_i=\eta_i, \quad i = 1, \ldots, n.
 $$
 
+## Models for binary data
+
+ In binary regression, we assume either $Y_i \sim \text{Bernoulli}(p_i)$,
+ or $Y_i \sim \text{binomial}(n_i, p_i)$, where $n_i$ are known.
+ The objective is to model
+the success probability $p_i$ as a function of the explanatory variables $\bm x_i$.
+
+When the canonical (logit) link is used, we have
+$$
+\theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
+$$
+This implies
+$$
+p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
+$$
+This is the cumulative distribution function (cdf)
+of the logistic distribution taking values in the real line
+$(-\infty < \eta < \infty)$. It can be easily verified that
+$F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is a cdf of a random variable since it is
+non-negative and  increases  monotonically to 1 from zero. 
+
+The cumulative distribution functions of other distributions are also
+commonly used to generate link functions for binary regression.
+For example, if we let
+$$
+p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
+$$
+where $\Phi(\cdot)$ is the cdf of the standard normal distribution,
+then we get the link function
+$$
+g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
+$$
+which is called the probit link.
+
+
 ## Maximum likelihood estimation
 
 The regression coefficients ${\beta_1,\ldots ,\beta_p}$ describe
@@ -992,39 +1027,6 @@ then this may be due to incorrect link function, wrong scale for an explanatory
 variable, or perhaps a missing polynomial term in an explanatory variable.
 
 
-## Example: Binary Regression
-
- In binary regression the data either follow the binomial or
-the  Bernoulli distribution. The objective is to model
-the success probability $p$ as a function of the explanatory variables.
-
-
-When the canonical (logit) link is used, we have
-$$
-\theta = \log \frac{p(\bm{x})}{1-p(\bm{x})} = \bm{x}^T\bm{\beta} = \eta.
-$$
-This implies
-$$
-p(\bm{x}) = \frac{ \exp(\eta) }{1+ \exp(\eta)} = \frac{1}{1+ \exp(-\eta)}.
-$$
-This is the cumulative distribution function (cdf)
-of the logistic distribution taking values in the real line
-$(-\infty < \eta < \infty)$. It can be easily verified that
-$F(\eta) = \frac{1}{1+ \exp(-\eta)}$ is a cdf of a random variable since it is
-non-negative and  increases  monotonically to 1 from zero. 
-
-The cumulative distribution functions of other distributions are also
-commonly used to generate link functions for binary regression.
-For example, if we let
-$$
-p(\bm{x}) = \Phi(\bm{x}^T \bm{\beta}) = \Phi(\eta),
-$$
-where $\Phi(\cdot)$ is the cdf of the standard normal distribution,
-then we get the link function
-$$
-g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,
-$$
-which is called the probit link.
 
 
 
