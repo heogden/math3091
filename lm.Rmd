@@ -47,80 +47,92 @@ The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th explanat
 
 The error vector $\bm{\epsilon}$ has a multivariate normal distribution
 with mean vector ${\bf 0}$ and variance covariance matrix $\sigma^2\bm{I}$,
-since $\text{Var}(\epsilon_i)=\sigma^2$, and $\text{Cov}(\epsilon_i,\epsilon_j)=0$
+since $\text{Var}(\epsilon_i)=\sigma^2$, and $\text{Cov}(\epsilon_i,\epsilon_j)=0$,
 as $\epsilon_1, \ldots, \epsilon_n$ are independent of one another.
 It follows from \@ref(eq:lmMat) that the distribution of $\bm Y$ is multivariate normal
 with mean vector $\bm{X}\bm{\beta}$ and variance covariance matrix $\sigma^2\bm{I}$,
 *i.e.* $\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})$.
 
+## Examples of linear model structure {#eglm}
+
 ```{example, name = "The null model"}
- The null model
+If we do not include any variables $x_i$ in the model, we have
 $$
-Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
+Y_i=\beta_0 + \epsilon_i, \qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
 $$
+so
 $$
 \bm{X}=\begin{pmatrix}
 1\cr
 1\cr
 \vdots
 \cr 1
-\end{pmatrix}
+\end{pmatrix},
 \qquad
-\bm{\beta}=(\beta_1).
+\bm{\beta}=(\beta_0).
 $$
-One (dummy) explanatory variable. In practice, this variable is present
+This is one (dummy) explanatory variable. In practice, this variable is present
 in all models.
 ```
 
 ```{example, name = "Simple linear regression"}
- Simple linear regression
+If we include a single variable $x_i$ in the model, we might have
 $$
-Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
+Y_i=\beta_0+\beta_1 x_i + \epsilon_i, \qquad \epsilon_i \sim N(0, \sigma^2) \qquad i = 1, \ldots, n
 $$
+so
 $$
-\bm{X}=\begin{pmatrix} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n \end{pmatrix}
-\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2 \end{pmatrix}
+\bm{X}=\begin{pmatrix} 1&x_1\cr 1&x_2\cr \vdots&\vdots\cr 1&x_n \end{pmatrix},
+\qquad \bm{\beta}=\begin{pmatrix} \beta_0\cr\beta_1 \end{pmatrix}.
 $$
-Two explanatory variables; the dummy variable
+There are two explanatory variables: the dummy variable
 and one 'real' variable.
 ```
 
-```{example, name = "Polynomial regression"}
+```{example, polylm, name = "Polynomial regression"}
+If we want to allow for a non-linear impact of $x_i$ on the mean of $Y_i$,
+we might model
 $$
-Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
+Y_i=\beta_0+\beta_1 x_i+\beta_2 x_i^2 +\ldots +\beta_{p-1} x_i^{p-1} + \epsilon_i,
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
 $$
+so
 $$
 \bm{X}= \begin{pmatrix}
 1&x_1&x_1^2&\cdots&x_1^{p-1}\cr
 1&x_2&x_2^2&\cdots&x_2^{p-1}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
-1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix}
-\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
+1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix},
+\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{p-1} \end{pmatrix}.
 $$
-$p$ explanatory variables; the dummy variable
+There are $p$ explanatory variables: the dummy variable
 and one 'real' variable, transformed to $p-1$ variables.
 ```
 
 ```{example, name = "Multiple regression"}
+To include multiple explanatory variables, we might model
 $$
-Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
+Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2} +\ldots +\beta_{p-1} x_{i\,p-1} + \epsilon_i, 
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
 $$
+so
 $$
 \bm{X}= \begin{pmatrix} 1&x_{11}&x_{12}&\cdots&x_{1\,p-1}\cr
 1&x_{21}&x_{22}&\cdots&x_{2\,p-1}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
 1&x_{n1}&x_{n2}&\cdots&x_{n\,p-1} 
-\end{pmatrix}
-\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
+\end{pmatrix},
+\qquad \bm{\beta}=\begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{p-1} \end{pmatrix}.
 $$
-$p$ explanatory variables; the dummy variable
+There are $p$ explanatory variables: the dummy variable
 and $p-1$ 'real' variables.
 ```
-```{example, name = "One categorical explanatory variable"}
+```{example, catlm, name = "A categorical explanatory variable"}
 Suppose $x_i$ is a categorical variable, taking
 values in a set of $k$ possible categories $\{c_1, \ldots, c_k\}$.
 We wish to model
-\[Y_i = \alpha_{x_i} + \epsilon_i, \qquad i = 1, \ldots, n,\]
+\[Y_i = \mu_{x_i} + \epsilon_i, 
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,\]
 so that the mean of $Y_i$ is the same for all observations
 in the same category, but differs for different categories.
 
@@ -133,19 +145,18 @@ where
 \[z_{ij} = \begin{cases} 1 & \text{if $x_i = c_j$} \\
 0 & \text{otherwise}. \end{cases}\]
 We then have
-\[Y_i=\beta_1+\beta_2 z_{i1}+\beta_3 z_{i2} +\ldots +\beta_{k+1} z_{ik} + \epsilon_i,\]
-where $\alpha_j = \beta_1 + \beta_{j+1}$, or 
+\[Y_i=\beta_0+\beta_1 z_{i1}+\beta_2 z_{i2} +\ldots +\beta_{k} z_{ik} + \epsilon_i,\]
+where $\mu_j = \beta_1 + \beta_{j}$, or 
 \[\bm{X}= \begin{pmatrix}
 1 & z_{11} & z_{12} &\cdots & z_{1k}\cr
-1&x_2&x_2^2&\cdots&x_2^{p-1}\cr
+1 & z_{21} & z_{22} &\cdots & z_{2k}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
-1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix}
-\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_{k+1} \end{pmatrix}\]
-
-
+1 & z_{n1} & z_{n2} &\cdots & z_{nk}
+\end{pmatrix},
+\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{k} \end{pmatrix}.\]
 It is not possible
 to estimate all of the $\bm \beta$ parameters separately,
-as they only affect the distribution through $\beta_1 + \beta_{j+1}$.
+as they only affect the distribution through the combination $\beta_1 + \beta_{j}$.
 Instead, we choose a **reference category** $c_l$,
 and set $\beta_l = 0$. The intercept term $\beta_1$ then
 gives the mean for the reference category, with $\beta_j$

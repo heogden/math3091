@@ -97,9 +97,10 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>4</b> Linear Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#the-linear-model"><i class="fa fa-check"></i><b>4.1</b> The linear model</a></li>
-<li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.2</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.3</b> Properties of the MLE</a></li>
-<li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.4</b> Comparing linear models</a></li>
+<li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#eglm"><i class="fa fa-check"></i><b>4.2</b> Examples of linear model structure</a></li>
+<li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.4</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="4.5" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.5</b> Comparing linear models</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>5</b> Generalised Linear Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="glm.html"><a href="glm.html#regression-models-for-non-normal-data"><i class="fa fa-check"></i><b>5.1</b> Regression models for non-normal data</a></li>
@@ -191,7 +192,7 @@ A probability distribution is said to be a member of the exponential family if i
 <p>The variance is the product of two functions; <span class="math inline">\(b&#39;&#39;(\theta)\)</span> depends on the canonical parameter <span class="math inline">\(\theta\)</span> (and hence <span class="math inline">\(\mu\)</span>) only and is called the <em>variance function</em> (<span class="math inline">\(V(\mu)\equiv b&#39;&#39;(\theta)\)</span>); <span class="math inline">\(a(\phi)\)</span> is sometimes of the form <span class="math inline">\(a(\phi)=\sigma^2/w\)</span> where <span class="math inline">\(w\)</span> is a known <em>weight</em> and <span class="math inline">\(\sigma^2\)</span> is called the <em>dispersion parameter</em> or <em>scale parameter</em>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-29" class="example"><strong>Example 5.1  (Normal distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim N(\mu, \, \sigma^2)\)</span>. Then
+<span id="exm:normEF" class="example"><strong>Example 5.1  (Normal distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim N(\mu, \, \sigma^2)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;\mu,\sigma^2)&amp;= {1\over{\sqrt{2\pi\sigma^2}}}
 \exp\left(-{1\over{2\sigma^2}}(y-\mu)^2\right)\quad\;\; y\in\mathbb{R};\;\;\mu\in\mathbb{R}\cr
@@ -204,7 +205,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 </div>
  
 <div class="example">
-<span id="exm:unnamed-chunk-30" class="example"><strong>Example 5.2  (Poisson distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span>. Then
+<span id="exm:poisEF" class="example"><strong>Example 5.2  (Poisson distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;\lambda)&amp;= {{\exp(-\lambda)\lambda^y}\over{y!}}
 \qquad y\in\{0,1,\ldots\};\quad\lambda\in{\cal R}_+\cr
@@ -215,7 +216,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-31" class="example"><strong>Example 5.3  (Bernoulli distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Bernoulli}(p)\)</span>. Then
+<span id="exm:bernEF" class="example"><strong>Example 5.3  (Bernoulli distribution)  </strong></span>Suppose <span class="math inline">\(Y\sim \text{Bernoulli}(p)\)</span>. Then
 <span class="math display">\[\begin{align*}
 f_Y(y;p)&amp;= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
 p\in(0,1)\cr
@@ -226,7 +227,7 @@ This is in the form <a href="glm.html#eq:ef">(5.1)</a>, with <span class="math i
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-32" class="example"><strong>Example 5.4  (Binomial distribution)  </strong></span>Suppose <span class="math inline">\(Y^*\sim \text{Binomial}(n,p)\)</span>. Here, <span class="math inline">\(n\)</span> is assumed known (as usual) and the random variable <span class="math inline">\(Y= Y^*/n\)</span> is taken as the <em>proportion</em> of successes, so
+<span id="exm:binEF" class="example"><strong>Example 5.4  (Binomial distribution)  </strong></span>Suppose <span class="math inline">\(Y^*\sim \text{Binomial}(n,p)\)</span>. Here, <span class="math inline">\(n\)</span> is assumed known (as usual) and the random variable <span class="math inline">\(Y= Y^*/n\)</span> is taken as the <em>proportion</em> of successes, so
 <span class="math display">\[\begin{align*}
 f_Y(y;p)&amp;=\left({n\atop{ny}}\right) p^{ny} (1-p)^{n(1-y)}\qquad
 y\in\left\{0,{1\over n},{2\over n},\ldots ,1\right\};  \quad p\in(0,1)\cr
@@ -276,6 +277,7 @@ x_{11}&amp;\cdots&amp;x_{1p}\cr\vdots&amp;\ddots&amp;\vdots\cr x_{n1}&amp;\cdots
   \tag{5.4}
 \end{equation}\]</span>
 <p>Again, we call the <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(\bm{X}\)</span> the <em>design matrix</em>. The <span class="math inline">\(i\)</span>th row of <span class="math inline">\(\bm{X}\)</span> is <span class="math inline">\(\bm{x}_i^T\)</span>, the explanatory data corresponding to the <span class="math inline">\(i\)</span>th observation of the response. The <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bm{X}\)</span> contains the <span class="math inline">\(n\)</span> observations of the <span class="math inline">\(j\)</span>th explanatory variable.</p>
+<p>As for the linear model in Section <a href="lm.html#eglm">4.2</a>, this structure allows quite general dependence of the linear predictor on explanatory variables. For instance, we can allow non-linear dependence of <span class="math inline">\(\eta_i\)</span> on a variable <span class="math inline">\(x_i\)</span> through polynomial regression (as in Example <a href="lm.html#exm:polylm">4.3</a>), or include categorical explanatory variables (as in Example <a href="lm.html#exm:catlm">4.5</a>).</p>
 </div>
 <div id="the-link-function" class="section level3">
 <h3><span class="header-section-number">5.3.3</span> The link function</h3>
@@ -283,7 +285,7 @@ x_{11}&amp;\cdots&amp;x_{1p}\cr\vdots&amp;\ddots&amp;\vdots\cr x_{n1}&amp;\cdots
 <p>The link between the distribution of <span class="math inline">\(\bm{Y}\)</span> and the linear predictor <span class="math inline">\(\bm{\eta}\)</span> is provided by the <em>link function</em> <span class="math inline">\(g\)</span>, <span class="math display">\[
 \eta_i=g(\mu_i),\quad i = 1, \ldots, n,
 \]</span> where <span class="math inline">\(\mu_i\equiv E(Y_i),\;i = 1, \ldots, n\)</span>. Hence, the dependence of the distribution of the response on the explanatory variables is established as <span class="math display">\[
-g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta},\quad i = 1, \ldots, n,
+g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta},\quad i = 1, \ldots, n.
 \]</span></p>
 <p>In principle, the link function <span class="math inline">\(g\)</span> can be any one-to-one differentiable function. However, we note that <span class="math inline">\(\eta_i\)</span> can in principle take any value in <span class="math inline">\(\mathbb{R}\)</span> (as we make no restriction on possible values taken by explanatory variables or model parameters). However, for some exponential family distributions <span class="math inline">\(\mu_i\)</span> is restricted. For example, for the Poisson distribution <span class="math inline">\(\mu_i\in\mathbb{R}_+\)</span>; for the Bernoulli distribution <span class="math inline">\(\mu_i\in(0,1)\)</span>. If <span class="math inline">\(g\)</span> is not chosen carefully, then there may exist a possible <span class="math inline">\(\bm{x}_i\)</span> and <span class="math inline">\(\bm{\beta}\)</span> such that <span class="math inline">\(\eta_i\ne g(\mu_i)\)</span> for any possible value of <span class="math inline">\(\mu_i\)</span>. Therefore, ‘sensible’ choices of link function map the set of allowed values for <span class="math inline">\(\mu_i\)</span> onto <span class="math inline">\(\mathbb{R}\)</span>.</p>
 Recall that for a random variable <span class="math inline">\(Y\)</span> with a distribution from the exponential family, <span class="math inline">\(E(Y)=b&#39;(\theta)\)</span>. Hence, for a generalised linear model <span class="math display">\[
@@ -358,23 +360,23 @@ g(\mu)\equiv b^{&#39;-1}(\mu)
 <h2><span class="header-section-number">5.4</span> Examples of generalised linear models</h2>
 <div id="the-linear-model-1" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> The linear model</h3>
-<p>The linear model considered in Chapter <a href="lm.html#lm">4</a> is also a generalised linear model. We assume <span class="math inline">\({Y_1,\ldots ,Y_n}\)</span> are independent normally distributed random variables, and the normal distribution is a member of the exponential family.</p>
-<p>Furthermore, the explanatory variables enter a linear model through the linear predictor <span class="math display">\[
+<p>The linear model considered in Chapter <a href="lm.html#lm">4</a> is also a generalised linear model. We assume <span class="math inline">\({Y_1,\ldots ,Y_n}\)</span> are independent normally distributed random variables, so that <span class="math inline">\(Y_i \sim N(\mu_i, \sigma^2)\)</span>. We have seen in Example <a href="glm.html#exm:normEF">5.1</a> that the normal distribution is a member of the exponential family.</p>
+<p>The explanatory variables enter a linear model through the linear predictor <span class="math display">\[
 \eta_i=\bm{x}_i^T\bm{\beta}, \quad i = 1, \ldots, n.
 \]</span></p>
-<p>Finally, the link between <span class="math inline">\(E(\bm{Y})=\bm{\mu}\)</span> and the linear predictor <span class="math inline">\(\bm{\eta}\)</span> is through the (canonical) identity link function <span class="math display">\[
+<p>The link between <span class="math inline">\(E(\bm{Y})=\bm{\mu}\)</span> and the linear predictor <span class="math inline">\(\bm{\eta}\)</span> is through the (canonical) identity link function <span class="math display">\[
 \mu_i=\eta_i, \quad i = 1, \ldots, n.
 \]</span></p>
 </div>
 <div id="models-for-binary-data" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> Models for binary data</h3>
-<p>In binary regression, we assume either <span class="math inline">\(Y_i \sim \text{Bernoulli}(p_i)\)</span>, or <span class="math inline">\(Y_i \sim \text{binomial}(n_i, p_i)\)</span>, where <span class="math inline">\(n_i\)</span> are known. The objective is to model the success probability <span class="math inline">\(p_i\)</span> as a function of the explanatory variables <span class="math inline">\(\bm x_i\)</span>.</p>
+<p>In binary regression, we assume either <span class="math inline">\(Y_i \sim \text{Bernoulli}(p_i)\)</span>, or <span class="math inline">\(Y_i \sim \text{binomial}(n_i, p_i)\)</span>, where <span class="math inline">\(n_i\)</span> are known. The objective is to model the success probability <span class="math inline">\(p_i\)</span> as a function of the explanatory variables <span class="math inline">\(\bm x_i\)</span>. We have seen in Examples <a href="glm.html#exm:bernEF">5.3</a> and <a href="glm.html#exm:binEF">5.4</a> that the Bernoulli and binomial distributions are members of the exponential family.</p>
 <p>When the canonical (logit) link is used, we have <span class="math display">\[\text{logit}(p_i) = \log \frac{p_i}{1-p_i} = \eta_i = \bm{x}_i^T\bm{\beta}.\]</span> This implies <span class="math display">\[p_i = \frac{ \exp(\eta_i) }{1+ \exp(\eta_i)} = \frac{1}{1+ \exp(-\eta_i)}.\]</span> The function <span class="math inline">\(F(\eta) = \frac{1}{1+ \exp(-\eta)}\)</span> is the cumulative distribution function (cdf) of a distribution called the logistic distribution.</p>
 <p>The cumulative distribution functions of other distributions are also commonly used to generate link functions for binary regression. For example, if we let <span class="math display">\[p_i = \Phi(\bm{x}_i^T \bm{\beta}) = \Phi(\eta_i),\]</span> where <span class="math inline">\(\Phi(\cdot)\)</span> is the cdf of the standard normal distribution, then we get the link function <span class="math display">\[g(\mu) = g(p) = \Phi^{-1}(\mu) = \eta,\]</span> which is called the <strong>probit</strong> link.</p>
 </div>
 <div id="sn:count" class="section level3">
 <h3><span class="header-section-number">5.4.3</span> Models for count data</h3>
-<p>If <span class="math inline">\(Y_i\)</span> represent counts of the number of times an event occurs in a fixed time (or a fixed region of space), we might model <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>.</p>
+<p>If <span class="math inline">\(Y_i\)</span> represent counts of the number of times an event occurs in a fixed time (or a fixed region of space), we might model <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>. We have seen in Example <a href="glm.html#exm:poisEF">5.2</a> that the Poisson distribution is a member of the exponential family.</p>
 <p>With the canonical (log) link, we have <span class="math display">\[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]</span> or <span class="math display">\[\lambda_i = \exp\{\eta_i\} = \exp\{\bm{x}_i^T\bm{\beta}\}.\]</span> This model is often called a log-linear model.</p>
 <p>Now suppose that <span class="math inline">\(Y_i\)</span> represents a count of the number of events which occur in a given region <span class="math inline">\(i\)</span>, for instance the number of times a particular drug is prescribed on a given day, in a district <span class="math inline">\(i\)</span> of a country. We might want to model the prescription rate <strong>per patient</strong> in the district <span class="math inline">\(\lambda_i^*\)</span>. Write <span class="math inline">\(N_i\)</span> is the number of patients registered in district <span class="math inline">\(i\)</span>, often called the <strong>exposure</strong> of observation <span class="math inline">\(i\)</span>. We model <span class="math inline">\(Y_i \sim \text{Poisson}(N_i \lambda_i^*)\)</span>, where <span class="math display">\[\log \lambda_i^*  = \bm{x}_i^T\bm{\beta}.\]</span> Equivalently, we may write the model as <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda_i)\)</span>, where <span class="math display">\[\log \lambda_i = \log N_i + \bm{x}_i^T\bm{\beta},\]</span> (since <span class="math inline">\(\lambda_i = N_i \lambda_i^*\)</span>, so <span class="math inline">\(\log \lambda_i = \log N_i + \log \lambda_i^*\)</span>). The log-exposure <span class="math inline">\(\log N_i\)</span> appears as a fixed term in the linear predictor, without any associated parameter. Such a fixed term is called an <strong>offset</strong>.</p>
 </div>
@@ -626,7 +628,7 @@ X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\text{Var}}(Y_i)}}.
 </ol>
 
 <div class="example">
-<span id="exm:unnamed-chunk-33" class="example"><strong>Example 5.5  (Poisson)  </strong></span>Suppose <span class="math inline">\(Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log\lambda\)</span>, <span class="math inline">\(b(\theta)=\exp\theta\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\exp\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
+<span id="exm:unnamed-chunk-27" class="example"><strong>Example 5.5  (Poisson)  </strong></span>Suppose <span class="math inline">\(Y_i\sim \text{Poisson}(\lambda_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log\lambda\)</span>, <span class="math inline">\(b(\theta)=\exp\theta\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\exp\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)=1\cdot\mu\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
 <span class="math display">\[\begin{align*}
 L_{0s}&amp;=2\sum_{i=1}^n y_i[\log\hat{\mu}^{(s)}_i-\log\hat{\mu}^{(0)}_i]
 -[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]\cr
@@ -640,7 +642,7 @@ X^2=\sum_{i=1}^n {{(y_i-\hat{\mu}_i^{(0)})^2}\over{\hat{\mu}_i^{(0)}}}.
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-34" class="example"><strong>Example 5.6  (Binomial)  </strong></span>Suppose <span class="math inline">\(n_iY_i\sim\)</span> Binomial<span class="math inline">\((n_i,p_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log{p\over{1-p}}\)</span>, <span class="math inline">\(b(\theta)=\log(1+\exp\theta)\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)={{\exp\theta}\over{1+\exp\theta}}\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
+<span id="exm:unnamed-chunk-28" class="example"><strong>Example 5.6  (Binomial)  </strong></span>Suppose <span class="math inline">\(n_iY_i\sim\)</span> Binomial<span class="math inline">\((n_i,p_i),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\log{p\over{1-p}}\)</span>, <span class="math inline">\(b(\theta)=\log(1+\exp\theta)\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)={{\exp\theta}\over{1+\exp\theta}}\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={1\over n}\cdot\mu(1-\mu)\)</span>. Therefore, by <a href="glm.html#eq:dsaturated">(5.14)</a> and <a href="glm.html#eq:pearsonGoF">(5.16)</a>
 <span class="math display">\[\begin{align*}
 L_{0s}&amp;=2\sum_{i=1}^n n_iy_i\left[\log{\hat{\mu}^{(s)}_i\over{1-\hat{\mu}^{(s)}_i}}
 -\log{\hat{\mu}^{(0)}_i\over{1-\hat{\mu}^{(0)}_i}}\right] 
@@ -694,7 +696,7 @@ X^2={1\over\sigma^2}
 \]</span> is an alternative unbiased estimator of <span class="math inline">\(\sigma^2\)</span>. This estimator tends to be more reliable in small samples.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-35" class="example"><strong>Example 5.7  (Normal)  </strong></span>Suppose <span class="math inline">\(Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\mu\)</span>, <span class="math inline">\(b(\theta)=\theta^2/2\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1\)</span>, so <span class="math inline">\(m_i=1,\;i = 1, \ldots, n\)</span>. Therefore, by <a href="glm.html#eq:devunknowndisp">(5.17)</a>,
+<span id="exm:unnamed-chunk-29" class="example"><strong>Example 5.7  (Normal)  </strong></span>Suppose <span class="math inline">\(Y_i\sim N(\mu_i,\sigma^2),\;i = 1, \ldots, n\)</span>. Recall from Section <a href="glm.html#sn:ef">5.2</a> that <span class="math inline">\(\theta=\mu\)</span>, <span class="math inline">\(b(\theta)=\theta^2/2\)</span>, <span class="math inline">\(\mu=b&#39;(\theta)=\theta\)</span> and <span class="math inline">\(\text{Var}(Y)=a(\phi)V(\mu)={\sigma^2}\cdot 1\)</span>, so <span class="math inline">\(m_i=1,\;i = 1, \ldots, n\)</span>. Therefore, by <a href="glm.html#eq:devunknowndisp">(5.17)</a>,
 <span class="math display" id="eq:devnormal">\[\begin{equation}
 D_{0s}=2\sum_{i=1}^n y_i[\hat{\mu}^{(s)}_i-\hat{\mu}^{(0)}_i]
 -[\frac{1}{2}{{\hat{\mu}}^{(s)^2}_i}-\frac{1}{2}{{\hat{\mu}}^{(0)^2}_i}]

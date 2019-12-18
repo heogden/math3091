@@ -87,7 +87,7 @@ $a(\phi)$ is sometimes of the form $a(\phi)=\sigma^2/w$ where $w$ is a known
 *weight* and $\sigma^2$ is called the *dispersion parameter*
 or *scale parameter*.
 
-```{example, name = "Normal distribution"}
+```{example, normEF, name = "Normal distribution"}
 Suppose $Y\sim N(\mu, \, \sigma^2)$. Then
 \begin{align*}
 f_Y(y;\mu,\sigma^2)&= {1\over{\sqrt{2\pi\sigma^2}}}
@@ -106,7 +106,7 @@ Therefore
 and the variance function is
 \[V(\mu)=1.\]
 ```
-```{example, name = "Poisson distribution"}
+```{example, poisEF, name = "Poisson distribution"}
 Suppose $Y\sim \text{Poisson}(\lambda)$. Then
 \begin{align*}
 f_Y(y;\lambda)&= {{\exp(-\lambda)\lambda^y}\over{y!}}
@@ -123,7 +123,7 @@ and the variance function is
 \[V(\mu)=\mu.\]
 ```
 
-```{example, name = "Bernoulli distribution"}
+```{example, bernEF, name = "Bernoulli distribution"}
 Suppose $Y\sim \text{Bernoulli}(p)$. Then
 \begin{align*}
 f_Y(y;p)&= p^y(1-p)^{1-y}\qquad y\in\{0,1\};\quad
@@ -140,7 +140,7 @@ and the variance function is
 \[V(\mu)=\mu(1-\mu).\]
 ```
 
-```{example, name = "Binomial distribution"}
+```{example, binEF, name = "Binomial distribution"}
 Suppose $Y^*\sim \text{Binomial}(n,p)$.
 Here, $n$ is assumed known (as usual) and
 the random variable $Y= Y^*/n$ is taken as the *proportion*
@@ -237,6 +237,13 @@ explanatory data corresponding to the $i$th observation of the response.
 The $j$th column of $\bm{X}$ contains the $n$ observations of the $j$th
 explanatory variable.
 
+As for the linear model in Section \@ref(eglm), 
+this structure allows quite general dependence of the linear
+predictor on explanatory variables. For instance, we can allow
+non-linear dependence of $\eta_i$ on a variable $x_i$ through polynomial 
+regression (as in Example \@ref(exm:polylm)), or include
+categorical explanatory variables (as in Example \@ref(exm:catlm)).
+
 ### The link function
 
 For specifying the pattern of dependence of the response variable
@@ -256,7 +263,7 @@ where $\mu_i\equiv E(Y_i),\;i = 1, \ldots, n$.
 Hence, the dependence of the distribution of the response
 on the explanatory variables is established as
 $$
-g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta},\quad i = 1, \ldots, n,
+g(E[Y_i])=g(\mu_i)=\eta_i=\bm{x}_i^T\bm{\beta},\quad i = 1, \ldots, n.
 $$
 
 In principle, the link function $g$ can be any one-to-one
@@ -326,16 +333,18 @@ The canonical link functions are:
 
 The linear model considered in Chapter \@ref(lm) is also a generalised linear
 model. We assume ${Y_1,\ldots ,Y_n}$ are independent normally distributed
-random variables, and the normal distribution is a member of the
+random variables, so that $Y_i \sim N(\mu_i, \sigma^2)$.
+We have seen in Example \@ref(exm:normEF) that
+the normal distribution is a member of the
 exponential family.
 
-Furthermore, the explanatory variables enter a linear model
+The explanatory variables enter a linear model
 through the linear predictor
 $$
 \eta_i=\bm{x}_i^T\bm{\beta}, \quad i = 1, \ldots, n.
 $$
 
-Finally, the link between $E(\bm{Y})=\bm{\mu}$ and the linear predictor
+The link between $E(\bm{Y})=\bm{\mu}$ and the linear predictor
 $\bm{\eta}$ is through the (canonical) identity link function
 $$
 \mu_i=\eta_i, \quad i = 1, \ldots, n.
@@ -347,6 +356,8 @@ $$
  or $Y_i \sim \text{binomial}(n_i, p_i)$, where $n_i$ are known.
  The objective is to model
 the success probability $p_i$ as a function of the explanatory variables $\bm x_i$.
+We have seen in Examples \@ref(exm:bernEF) and \@ref(exm:binEF) that
+the Bernoulli and binomial distributions are members of the exponential family.
 
 When the canonical (logit) link is used, we have
 \[\text{logit}(p_i) = \log \frac{p_i}{1-p_i} = \eta_i = \bm{x}_i^T\bm{\beta}.\]
@@ -370,6 +381,9 @@ which is called the **probit** link.
 If $Y_i$ represent counts of the number of times an event occurs
 in a fixed time (or a fixed region of space), we might model
 $Y_i \sim \text{Poisson}(\lambda_i)$.
+We have seen in Example \@ref(exm:poisEF) that
+the Poisson distribution is a member of the
+exponential family.
 
 With the canonical (log) link, we have
 \[\log \lambda_i = \eta_i = \bm{x}_i^T\bm{\beta},\]

@@ -97,9 +97,10 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>4</b> Linear Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#the-linear-model"><i class="fa fa-check"></i><b>4.1</b> The linear model</a></li>
-<li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.2</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.3</b> Properties of the MLE</a></li>
-<li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.4</b> Comparing linear models</a></li>
+<li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#eglm"><i class="fa fa-check"></i><b>4.2</b> Examples of linear model structure</a></li>
+<li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.4</b> Properties of the MLE</a></li>
+<li class="chapter" data-level="4.5" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.5</b> Comparing linear models</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>5</b> Generalised Linear Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="glm.html"><a href="glm.html#regression-models-for-non-normal-data"><i class="fa fa-check"></i><b>5.1</b> Regression models for non-normal data</a></li>
@@ -182,76 +183,82 @@ x_{n1} &amp;\cdots &amp;x_{np}
 \end{equation}\]</span>
 <p>where <span class="math inline">\(\bm{\epsilon}=(\epsilon_1,\epsilon_2,\ldots ,\epsilon_n)^T\)</span>.</p>
 <p>The <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(\bm{X}\)</span> consists of known (observed) constants and is called the <em>design matrix</em>. The <span class="math inline">\(i\)</span>th row of <span class="math inline">\(\bm{X}\)</span> is <span class="math inline">\(\bm{x}_i^T\)</span>, the explanatory data corresponding to the <span class="math inline">\(i\)</span>th observation of the response. The <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bm{X}\)</span> contains the <span class="math inline">\(n\)</span> observations of the <span class="math inline">\(j\)</span>th explanatory variable.</p>
-<p>The error vector <span class="math inline">\(\bm{\epsilon}\)</span> has a multivariate normal distribution with mean vector <span class="math inline">\({\bf 0}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, since <span class="math inline">\(\text{Var}(\epsilon_i)=\sigma^2\)</span>, and <span class="math inline">\(\text{Cov}(\epsilon_i,\epsilon_j)=0\)</span> as <span class="math inline">\(\epsilon_1, \ldots, \epsilon_n\)</span> are independent of one another. It follows from <a href="lm.html#eq:lmMat">(4.2)</a> that the distribution of <span class="math inline">\(\bm Y\)</span> is multivariate normal with mean vector <span class="math inline">\(\bm{X}\bm{\beta}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, <em>i.e.</em> <span class="math inline">\(\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})\)</span>.</p>
+<p>The error vector <span class="math inline">\(\bm{\epsilon}\)</span> has a multivariate normal distribution with mean vector <span class="math inline">\({\bf 0}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, since <span class="math inline">\(\text{Var}(\epsilon_i)=\sigma^2\)</span>, and <span class="math inline">\(\text{Cov}(\epsilon_i,\epsilon_j)=0\)</span>, as <span class="math inline">\(\epsilon_1, \ldots, \epsilon_n\)</span> are independent of one another. It follows from <a href="lm.html#eq:lmMat">(4.2)</a> that the distribution of <span class="math inline">\(\bm Y\)</span> is multivariate normal with mean vector <span class="math inline">\(\bm{X}\bm{\beta}\)</span> and variance covariance matrix <span class="math inline">\(\sigma^2\bm{I}\)</span>, <em>i.e.</em> <span class="math inline">\(\bm Y\sim N(\bm{X}\bm{\beta},\sigma^2\bm{I})\)</span>.</p>
+</div>
+<div id="eglm" class="section level2">
+<h2><span class="header-section-number">4.2</span> Examples of linear model structure</h2>
 
 <div class="example">
-<span id="exm:unnamed-chunk-24" class="example"><strong>Example 4.1  (The null model)  </strong></span> The null model <span class="math display">\[
-Y_i=\beta_1 + \epsilon_i \qquad i = 1, \ldots, n
-\]</span> <span class="math display">\[
+<span id="exm:unnamed-chunk-24" class="example"><strong>Example 4.1  (The null model)  </strong></span>If we do not include any variables <span class="math inline">\(x_i\)</span> in the model, we have <span class="math display">\[
+Y_i=\beta_0 + \epsilon_i, \qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
+\]</span> so <span class="math display">\[
 \bm{X}=\begin{pmatrix}
 1\cr
 1\cr
 \vdots
 \cr 1
-\end{pmatrix}
+\end{pmatrix},
 \qquad
-\bm{\beta}=(\beta_1).
-\]</span> One (dummy) explanatory variable. In practice, this variable is present in all models.
+\bm{\beta}=(\beta_0).
+\]</span> This is one (dummy) explanatory variable. In practice, this variable is present in all models.
 </div>
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-25" class="example"><strong>Example 4.2  (Simple linear regression)  </strong></span> Simple linear regression <span class="math display">\[
-Y_i=\beta_1+\beta_2 x_i + \epsilon_i \qquad i = 1, \ldots, n
-\]</span> <span class="math display">\[
-\bm{X}=\begin{pmatrix} 1&amp;x_1\cr 1&amp;x_2\cr \vdots&amp;\vdots\cr 1&amp;x_n \end{pmatrix}
-\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2 \end{pmatrix}
-\]</span> Two explanatory variables; the dummy variable and one ‘real’ variable.
+<span id="exm:unnamed-chunk-25" class="example"><strong>Example 4.2  (Simple linear regression)  </strong></span>If we include a single variable <span class="math inline">\(x_i\)</span> in the model, we might have <span class="math display">\[
+Y_i=\beta_0+\beta_1 x_i + \epsilon_i, \qquad \epsilon_i \sim N(0, \sigma^2) \qquad i = 1, \ldots, n
+\]</span> so <span class="math display">\[
+\bm{X}=\begin{pmatrix} 1&amp;x_1\cr 1&amp;x_2\cr \vdots&amp;\vdots\cr 1&amp;x_n \end{pmatrix},
+\qquad \bm{\beta}=\begin{pmatrix} \beta_0\cr\beta_1 \end{pmatrix}.
+\]</span> There are two explanatory variables: the dummy variable and one ‘real’ variable.
 </div>
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-26" class="example"><strong>Example 4.3  (Polynomial regression)  </strong></span><span class="math display">\[
-Y_i=\beta_1+\beta_2 x_i+\beta_3 x_i^2 +\ldots +\beta_p x_i^{p-1} + \epsilon_i \qquad i = 1, \ldots, n
-\]</span> <span class="math display">\[
+<span id="exm:polylm" class="example"><strong>Example 4.3  (Polynomial regression)  </strong></span>If we want to allow for a non-linear impact of <span class="math inline">\(x_i\)</span> on the mean of <span class="math inline">\(Y_i\)</span>, we might model <span class="math display">\[
+Y_i=\beta_0+\beta_1 x_i+\beta_2 x_i^2 +\ldots +\beta_{p-1} x_i^{p-1} + \epsilon_i,
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
+\]</span> so <span class="math display">\[
 \bm{X}= \begin{pmatrix}
 1&amp;x_1&amp;x_1^2&amp;\cdots&amp;x_1^{p-1}\cr
 1&amp;x_2&amp;x_2^2&amp;\cdots&amp;x_2^{p-1}\cr
 \vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\cr
-1&amp;x_n&amp;x_n^2&amp;\cdots&amp;x_n^{p-1} \end{pmatrix}
-\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
-\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and one ‘real’ variable, transformed to <span class="math inline">\(p-1\)</span> variables.
+1&amp;x_n&amp;x_n^2&amp;\cdots&amp;x_n^{p-1} \end{pmatrix},
+\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{p-1} \end{pmatrix}.
+\]</span> There are <span class="math inline">\(p\)</span> explanatory variables: the dummy variable and one ‘real’ variable, transformed to <span class="math inline">\(p-1\)</span> variables.
 </div>
 
 
 <div class="example">
-<span id="exm:unnamed-chunk-27" class="example"><strong>Example 4.4  (Multiple regression)  </strong></span><span class="math display">\[
-Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon_i \qquad i = 1, \ldots, n
-\]</span> <span class="math display">\[
+<span id="exm:unnamed-chunk-26" class="example"><strong>Example 4.4  (Multiple regression)  </strong></span>To include multiple explanatory variables, we might model <span class="math display">\[
+Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2} +\ldots +\beta_{p-1} x_{i\,p-1} + \epsilon_i, 
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,
+\]</span> so <span class="math display">\[
 \bm{X}= \begin{pmatrix} 1&amp;x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1\,p-1}\cr
 1&amp;x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2\,p-1}\cr
 \vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\cr
 1&amp;x_{n1}&amp;x_{n2}&amp;\cdots&amp;x_{n\,p-1} 
-\end{pmatrix}
-\qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
-\]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and <span class="math inline">\(p-1\)</span> ‘real’ variables.
+\end{pmatrix},
+\qquad \bm{\beta}=\begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{p-1} \end{pmatrix}.
+\]</span> There are <span class="math inline">\(p\)</span> explanatory variables: the dummy variable and <span class="math inline">\(p-1\)</span> ‘real’ variables.
 </div>
  
 <div class="example">
-<p><span id="exm:unnamed-chunk-28" class="example"><strong>Example 4.5  (One categorical explanatory variable)  </strong></span>Suppose <span class="math inline">\(x_i\)</span> is a categorical variable, taking values in a set of <span class="math inline">\(k\)</span> possible categories <span class="math inline">\(\{c_1, \ldots, c_k\}\)</span>. We wish to model <span class="math display">\[Y_i = \alpha_{x_i} + \epsilon_i, \qquad i = 1, \ldots, n,\]</span> so that the mean of <span class="math inline">\(Y_i\)</span> is the same for all observations in the same category, but differs for different categories.</p>
-<p>We can rewrite the model as a form of multiple regression by first defining a new explanatory variable <span class="math inline">\(\bm{z}_i\)</span> (sometimes called the <strong>one-hot encoding</strong>) <span class="math display">\[\bm{z}_i = (z_{i1}, \ldots, z_{ik})^T,\]</span> where <span class="math display">\[z_{ij} = \begin{cases} 1 &amp; \text{if $x_i = c_j$} \\
-0 &amp; \text{otherwise}. \end{cases}\]</span> We then have <span class="math display">\[Y_i=\beta_1+\beta_2 z_{i1}+\beta_3 z_{i2} +\ldots +\beta_{k+1} z_{ik} + \epsilon_i,\]</span> where <span class="math inline">\(\alpha_j = \beta_1 + \beta_{j+1}\)</span>, or <span class="math display">\[\bm{X}= \begin{pmatrix}
+<p><span id="exm:catlm" class="example"><strong>Example 4.5  (A categorical explanatory variable)  </strong></span>Suppose <span class="math inline">\(x_i\)</span> is a categorical variable, taking values in a set of <span class="math inline">\(k\)</span> possible categories <span class="math inline">\(\{c_1, \ldots, c_k\}\)</span>. We wish to model <span class="math display">\[Y_i = \mu_{x_i} + \epsilon_i, 
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,\]</span> so that the mean of <span class="math inline">\(Y_i\)</span> is the same for all observations in the same category, but differs for different categories.</p>
+We can rewrite the model as a form of multiple regression by first defining a new explanatory variable <span class="math inline">\(\bm{z}_i\)</span> (sometimes called the <strong>one-hot encoding</strong>) <span class="math display">\[\bm{z}_i = (z_{i1}, \ldots, z_{ik})^T,\]</span> where <span class="math display">\[z_{ij} = \begin{cases} 1 &amp; \text{if $x_i = c_j$} \\
+0 &amp; \text{otherwise}. \end{cases}\]</span> We then have <span class="math display">\[Y_i=\beta_0+\beta_1 z_{i1}+\beta_2 z_{i2} +\ldots +\beta_{k} z_{ik} + \epsilon_i,\]</span> where <span class="math inline">\(\mu_j = \beta_1 + \beta_{j}\)</span>, or <span class="math display">\[\bm{X}= \begin{pmatrix}
 1 &amp; z_{11} &amp; z_{12} &amp;\cdots &amp; z_{1k}\cr
-1&amp;x_2&amp;x_2^2&amp;\cdots&amp;x_2^{p-1}\cr
+1 &amp; z_{21} &amp; z_{22} &amp;\cdots &amp; z_{2k}\cr
 \vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\cr
-1&amp;x_n&amp;x_n^2&amp;\cdots&amp;x_n^{p-1} \end{pmatrix}
-\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_{k+1} \end{pmatrix}\]</span></p>
-It is not possible to estimate all of the <span class="math inline">\(\bm \beta\)</span> parameters separately, as they only affect the distribution through <span class="math inline">\(\beta_1 + \beta_{j+1}\)</span>. Instead, we choose a <strong>reference category</strong> <span class="math inline">\(c_l\)</span>, and set <span class="math inline">\(\beta_l = 0\)</span>. The intercept term <span class="math inline">\(\beta_1\)</span> then gives the mean for the reference category, with <span class="math inline">\(\beta_j\)</span> giving the difference in mean between category <span class="math inline">\(c_j\)</span> and the reference category. In <code>R</code>, categorical variables are called <code>factor</code>s, and by default the reference category will be the first category when the names of the categories (the <code>levels</code> of the <code>factor</code>) are sorted alphabetically.
+1 &amp; z_{n1} &amp; z_{n2} &amp;\cdots &amp; z_{nk}
+\end{pmatrix},
+\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{k} \end{pmatrix}.\]</span> It is not possible to estimate all of the <span class="math inline">\(\bm \beta\)</span> parameters separately, as they only affect the distribution through the combination <span class="math inline">\(\beta_1 + \beta_{j}\)</span>. Instead, we choose a <strong>reference category</strong> <span class="math inline">\(c_l\)</span>, and set <span class="math inline">\(\beta_l = 0\)</span>. The intercept term <span class="math inline">\(\beta_1\)</span> then gives the mean for the reference category, with <span class="math inline">\(\beta_j\)</span> giving the difference in mean between category <span class="math inline">\(c_j\)</span> and the reference category. In <code>R</code>, categorical variables are called <code>factor</code>s, and by default the reference category will be the first category when the names of the categories (the <code>levels</code> of the <code>factor</code>) are sorted alphabetically.
 </div>
 
 </div>
 <div id="maximum-likelihood-estimation-1" class="section level2">
-<h2><span class="header-section-number">4.2</span> Maximum likelihood estimation</h2>
+<h2><span class="header-section-number">4.3</span> Maximum likelihood estimation</h2>
 <p>The regression coefficients <span class="math inline">\(\beta_1, \ldots, \beta_p\)</span> describe the pattern by which the response depends on the explanatory variables. We use the observed data <span class="math inline">\(y_1, \ldots, y_n\)</span> to <em>estimate</em> this pattern of dependence.</p>
 The likelihood for a linear model is
 <span class="math display" id="eq:lmLikelihood">\[\begin{equation}
@@ -268,7 +275,7 @@ L(\bm{\beta},\sigma^2)=\left(2\pi\sigma^2\right)^{-{n\over 2}}
 <p>The residuals <span class="math inline">\(\bm{r} = (r_1, \ldots, r_n)\)</span> are <span class="math inline">\(\bm{r}=\bm{y}-\bm{\hat y}\)</span> or <span class="math inline">\(r_i=y_i-\bm{x}_i^T\hat{\bm{\beta}}\)</span> for <span class="math inline">\(i = 1, \ldots, n.\)</span>. These residuals describe the variability in the observed responses <span class="math inline">\(y_1, \ldots, y_n\)</span> which has not been explained by the linear model. We call <span class="math display">\[D= \sum_{i=1}^n r_i^2 = \sum_{i=1}^n \left(y_i-\bm{x}_i^T\hat{\bm{\beta}}\right)^2\]</span> the <em>residual sum of squares</em> or <em>deviance</em> for the linear model.</p>
 </div>
 <div id="properties-of-the-mle" class="section level2">
-<h2><span class="header-section-number">4.3</span> Properties of the MLE</h2>
+<h2><span class="header-section-number">4.4</span> Properties of the MLE</h2>
 <p>As <span class="math inline">\(\bm Y\)</span> is normally distributed, and <span class="math inline">\(\hat{\bm{\beta}}= (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{Y}\)</span> is a linear function of <span class="math inline">\(\bm Y\)</span>, then <span class="math inline">\(\hat{\bm{\beta}}\)</span> must also be normally distributed. We have <span class="math inline">\(E(\hat{\bm{\beta}})=\bm{\beta}\)</span> and <span class="math inline">\(\text{Var}(\hat{\bm{\beta}})=\sigma^2(\bm{X}^T\bm{X})^{-1}\)</span>, so <span class="math display">\[\hat{\bm{\beta}} \sim N(\bm{\beta}, \sigma^2(\bm{X}^T\bm{X})^{-1}).\]</span></p>
 <p>It is possible to prove (although we shall not do so here) that <span class="math display">\[
 {D\over\sigma^2}\sim\chi^2_{n-p}
@@ -279,7 +286,7 @@ E(\hat \sigma^2)={{n-p}\over n}\sigma^2,
 \]</span> The denominator <span class="math inline">\(n-p\)</span>, the number of observations minus the number of linear coefficients in the model is called the <em>degrees of freedom</em> of the model. Therefore, we estimate the residual variance by the deviance divided by the degrees of freedom.</p>
 </div>
 <div id="comparing-linear-models" class="section level2">
-<h2><span class="header-section-number">4.4</span> Comparing linear models</h2>
+<h2><span class="header-section-number">4.5</span> Comparing linear models</h2>
 <p>If we have a set of competing linear models which might explain the dependence of the response on the explanatory variables, we will want to determine which of the models is most appropriate.</p>
 <p>As described previously, we proceed by comparing models pairwise using a likelihood ratio test. For linear models this kind of comparison is restricted to situations where one of the models, <span class="math inline">\(H_0\)</span>, is <em>nested</em> in the other, <span class="math inline">\(H_1\)</span>. This usually means that the explanatory variables present in <span class="math inline">\(H_0\)</span> are a subset of those present in <span class="math inline">\(H_1\)</span>. In this case model <span class="math inline">\(H_0\)</span> is a special case of model <span class="math inline">\(H_1\)</span>, where certain coefficients are set equal to zero. We let <span class="math inline">\(\bm \theta\)</span> represent the collection of linear parameters for model <span class="math inline">\(H_1\)</span>, together with the residual variance <span class="math inline">\(\sigma^2\)</span>, and let <span class="math inline">\(\Theta^{(1)}\)</span> be the unrestricted parameter space for <span class="math inline">\(\bm \theta\)</span>. Then <span class="math inline">\(\Theta^{(0)}\)</span> is the parameter space corresponding to model <span class="math inline">\(H_0\)</span>, <em>i.e.</em> with the appropriate coefficients constrained to zero.</p>
 <p>We will assume that model <span class="math inline">\(H_1\)</span> contains <span class="math inline">\(p\)</span> linear parameters and model <span class="math inline">\(H_0\)</span> a subset of <span class="math inline">\(q&lt;p\)</span> of these. Without loss of generality, we can think of <span class="math inline">\(H_1\)</span> as the model <span class="math display">\[
