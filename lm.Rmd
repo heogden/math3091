@@ -127,44 +127,92 @@ $$
 There are $p$ explanatory variables: the dummy variable
 and $p-1$ 'real' variables.
 ```
-```{example, catlm, name = "A categorical explanatory variable"}
+```{example, catlm, name = "One categorical explanatory variable"}
 Suppose $x_i$ is a categorical variable, taking
-values in a set of $k$ possible categories $\{c_1, \ldots, c_k\}$.
+values in a set of $k$ possible categories.
+For simplicity of notation, we will give each category
+a number, and write $x_i \in \{1, \ldots, k\}$.
 We wish to model
 \[Y_i = \mu_{x_i} + \epsilon_i, 
 \qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,\]
 so that the mean of $Y_i$ is the same for all observations
 in the same category, but differs for different categories.
 
+We could rewrite this model to include an intercept, as 
+\[Y_i = \beta_0 + \beta_{x_i} + \epsilon_i, 
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,\]
+so that $\mu_j = \beta_0 + \beta_{j}$, for $j = 1, \ldots, k$.
+It is not possible
+to estimate all of the $\bm \beta$ parameters separately,
+as they only affect the distribution through the combination $\beta_0 + \beta_{j}$.
+Instead, we choose a **reference category** $l$,
+and set $\beta_l = 0$. The intercept term $\beta_0$ then
+gives the mean for the reference category, with $\beta_j$
+giving the difference in mean between category $j$ and the reference
+category. In `R`, categorical variables are called `factor`s,
+and by default the reference category will be the first
+category when the names of the categories (the `levels` of the `factor`)
+are sorted alphabetically.
+
 We can rewrite the model as a form
 of multiple regression by first
 defining a new explanatory variable $\bm{z}_i$
-(sometimes called the **one-hot encoding**)
 \[\bm{z}_i = (z_{i1}, \ldots, z_{ik})^T,\]
 where
-\[z_{ij} = \begin{cases} 1 & \text{if $x_i = c_j$} \\
+\[z_{ij} = \begin{cases} 1 & \text{if $x_i = j$} \\
 0 & \text{otherwise}. \end{cases}\]
+$\bm{z}_i$ is sometimes called the **one-hot encoding**
+of $x_i$, as it contains precisely one $1$ (corresponding
+to the category $x_i$), and is $0$ everywhere else.
 We then have
 \[Y_i=\beta_0+\beta_1 z_{i1}+\beta_2 z_{i2} +\ldots +\beta_{k} z_{ik} + \epsilon_i,\]
-where $\mu_j = \beta_1 + \beta_{j}$, or 
+so
 \[\bm{X}= \begin{pmatrix}
 1 & z_{11} & z_{12} &\cdots & z_{1k}\cr
 1 & z_{21} & z_{22} &\cdots & z_{2k}\cr
 \vdots&\vdots&\vdots&\ddots&\vdots\cr
 1 & z_{n1} & z_{n2} &\cdots & z_{nk}
 \end{pmatrix},
-\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{k} \end{pmatrix}.\]
-It is not possible
-to estimate all of the $\bm \beta$ parameters separately,
-as they only affect the distribution through the combination $\beta_1 + \beta_{j}$.
-Instead, we choose a **reference category** $c_l$,
-and set $\beta_l = 0$. The intercept term $\beta_1$ then
-gives the mean for the reference category, with $\beta_j$
-giving the difference in mean between category $c_j$ and the reference
-category. In `R`, categorical variables are called `factor`s,
-and by default the reference category will be the first
-category when the names of the categories (the `levels` of the `factor`)
-are sorted alphabetically.
+\qquad \bm{\beta}= \begin{pmatrix} \beta_0\cr\beta_1\cr\vdots\cr\beta_{k} \end{pmatrix},\]
+where each row of $\bm X$ will have two ones, and the remaining entries 
+will be zero.
+```
+```{example, catlm2, name = "Two categorical explanatory variables"}
+Suppose we have two categorical variables 
+$x_{i1} \in \{1, \ldots, k_1\}$ and 
+$x_{i2} \in \{1, \ldots, k_2\}.$
+We might consider a model 
+\[Y_i=\beta_0+\beta^{(1)}_{x_{i1}} + \beta^{(2)}_{x_{i2}} + \epsilon_i,
+\qquad \epsilon_i \sim N(0, \sigma^2), \qquad i = 1, \ldots, n,\]
+where 
+\[\bm \beta = \left(\beta_0, \beta^{(1)}_1, \ldots, \beta^{(1)}_{k_1}, \beta^{(2)}_1, \ldots, \beta^{(2)}_{k_2}\right)^T,\]
+where as in Example \@ref(exm:catlm) we choose reference categories
+$l_1$ and $l_2$ for each categorical variable, and set 
+$\beta^{(1)}_{l_1} = \beta^{(2)}_{l_2} = 0$.
+The terms $\beta^{(1)}_j$ are called the **main effects** for
+the categorical variables $x_{i1}$, and $\beta^{(2)}_j$ are the main
+effects for $x_{i2}$. 
+
+We might also want to allow an **interaction** between $x_{i1}$
+and $x_{i2}$, letting
+\[Y_i=\beta_0+\beta^{(1)}_{x_{i1}} + \beta^{(2)}_{x_{i2}} + \beta^{(1, 2)}_{x_{i1}, x_{i2}} 
++ \epsilon_i,\]
+where
+\[\bm \beta = \left(\beta_0, \beta^{(1)}_1, \ldots, \beta^{(1)}_{k_1}, \beta^{(2)}_1, \ldots, \beta^{(2)}_{k_2},\beta^{(1, 2)}_{11}, \beta^{(1, 2)}_{1, 2}, \ldots, 
+\beta^{(1, 2)}_{k_1, k_2}\right)^T.\]
+The terms $\beta^{(1, 2)}_{j_1, j_2}$ are called the **interaction effects**.
+This model is equivalent to
+\[Y_i= \mu_{x_{i1}, x_{i2}} 
++ \epsilon_i,\]
+allowing a different mean for each possible combination of categories. 
+To allow us to estimate the parameters, given reference categories
+$l_1$ and $l_2$, we set
+\[\beta^{(1)}_{l_1} = \beta^{(2)}_{l_2} = 0; \qquad
+\beta^{(1, 2)}_{l_1, j} = 0, \quad j = 1, \ldots, k_2; \qquad
+\beta^{(1, 2)}_{j, l_2} = 0, \quad j = 1, \ldots, k_1.\]
+As in Example \@ref(exm:catlm), it is possible to rewrite the model
+with a design matrix $\bm X$,
+by using one-hot encoding of $x_{i1}$ and $x_{i2}$.
 ```
 
 ## Maximum likelihood estimation

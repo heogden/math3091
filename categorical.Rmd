@@ -153,9 +153,10 @@ the log link function is called a *log-linear model*, as we have
 already seen in Section \@ref(sn:count).
 
 The explanatory variables in a log-linear model for contingency table data are
-the cross-classifying variables. As these variables are categorical, they are
-*factors*. As usual with factors, we can include interactions in the model
-as well as just main effects. Such a model will describe how the expected count
+the cross-classifying variables, or *factors*. 
+As usual with categorical variables, we can include interactions in the model
+as well as just main effects (see Example \@ref(exm:catlm2)). 
+Such a model will describe how the expected count
 in each cell depends on the classifying variables, and any interactions between
 them. Interpretation of these models will be discussed further in
 Section \@ref(sn:loginter).

@@ -242,7 +242,8 @@ this structure allows quite general dependence of the linear
 predictor on explanatory variables. For instance, we can allow
 non-linear dependence of $\eta_i$ on a variable $x_i$ through polynomial 
 regression (as in Example \@ref(exm:polylm)), or include
-categorical explanatory variables (as in Example \@ref(exm:catlm)).
+categorical explanatory variables (as in Examples \@ref(exm:catlm)
+and \@ref(exm:catlm2)).
 
 ### The link function
 
