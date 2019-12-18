@@ -1,6 +1,6 @@
 # Linear Models {#lm}
 
-## Introduction
+## The linear model
 
 In practical applications, we often distinguish between a *response* variable and a group of
 *explanatory* variables.
@@ -115,6 +115,45 @@ $$
 $$
 $p$ explanatory variables; the dummy variable
 and $p-1$ 'real' variables.
+```
+```{example, name = "One categorical explanatory variable"}
+Suppose $x_i$ is a categorical variable, taking
+values in a set of $k$ possible categories $\{c_1, \ldots, c_k\}$.
+We wish to model
+\[Y_i = \alpha_{x_i} + \epsilon_i, \qquad i = 1, \ldots, n,\]
+so that the mean of $Y_i$ is the same for all observations
+in the same category, but differs for different categories.
+
+We can rewrite the model as a form
+of multiple regression by first
+defining a new explanatory variable $\bm{z}_i$
+(sometimes called the **one-hot encoding**)
+\[\bm{z}_i = (z_{i1}, \ldots, z_{ik})^T,\]
+where
+\[z_{ij} = \begin{cases} 1 & \text{if $x_i = c_j$} \\
+0 & \text{otherwise}. \end{cases}\]
+We then have
+\[Y_i=\beta_1+\beta_2 z_{i1}+\beta_3 z_{i2} +\ldots +\beta_{k+1} z_{ik} + \epsilon_i,\]
+where $\alpha_j = \beta_1 + \beta_{j+1}$, or 
+\[\bm{X}= \begin{pmatrix}
+1 & z_{11} & z_{12} &\cdots & z_{1k}\cr
+1&x_2&x_2^2&\cdots&x_2^{p-1}\cr
+\vdots&\vdots&\vdots&\ddots&\vdots\cr
+1&x_n&x_n^2&\cdots&x_n^{p-1} \end{pmatrix}
+\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_{k+1} \end{pmatrix}\]
+
+
+It is not possible
+to estimate all of the $\bm \beta$ parameters separately,
+as they only affect the distribution through $\beta_1 + \beta_{j+1}$.
+Instead, we choose a **reference category** $c_l$,
+and set $\beta_l = 0$. The intercept term $\beta_1$ then
+gives the mean for the reference category, with $\beta_j$
+giving the difference in mean between category $c_j$ and the reference
+category. In `R`, categorical variables are called `factor`s,
+and by default the reference category will be the first
+category when the names of the categories (the `levels` of the `factor`)
+are sorted alphabetically.
 ```
 
 ## Maximum likelihood estimation

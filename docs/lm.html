@@ -96,7 +96,7 @@
 <li class="chapter" data-level="3.4" data-path="comparing-statistical-models.html"><a href="comparing-statistical-models.html#information-criteria-for-model-comparison"><i class="fa fa-check"></i><b>3.4</b> Information criteria for model comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>4</b> Linear Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="lm.html"><a href="lm.html#the-linear-model"><i class="fa fa-check"></i><b>4.1</b> The linear model</a></li>
 <li class="chapter" data-level="4.2" data-path="lm.html"><a href="lm.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>4.2</b> Maximum likelihood estimation</a></li>
 <li class="chapter" data-level="4.3" data-path="lm.html"><a href="lm.html#properties-of-the-mle"><i class="fa fa-check"></i><b>4.3</b> Properties of the MLE</a></li>
 <li class="chapter" data-level="4.4" data-path="lm.html"><a href="lm.html#comparing-linear-models"><i class="fa fa-check"></i><b>4.4</b> Comparing linear models</a></li>
@@ -110,7 +110,7 @@
 <li class="chapter" data-level="5.3.3" data-path="glm.html"><a href="glm.html#the-link-function"><i class="fa fa-check"></i><b>5.3.3</b> The link function</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="glm.html"><a href="glm.html#examples-of-generalised-linear-models"><i class="fa fa-check"></i><b>5.4</b> Examples of generalised linear models</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="glm.html"><a href="glm.html#the-linear-model"><i class="fa fa-check"></i><b>5.4.1</b> The linear model</a></li>
+<li class="chapter" data-level="5.4.1" data-path="glm.html"><a href="glm.html#the-linear-model-1"><i class="fa fa-check"></i><b>5.4.1</b> The linear model</a></li>
 <li class="chapter" data-level="5.4.2" data-path="glm.html"><a href="glm.html#models-for-binary-data"><i class="fa fa-check"></i><b>5.4.2</b> Models for binary data</a></li>
 <li class="chapter" data-level="5.4.3" data-path="glm.html"><a href="glm.html#sn:count"><i class="fa fa-check"></i><b>5.4.3</b> Models for count data</a></li>
 </ul></li>
@@ -157,8 +157,8 @@
 \)
 <div id="lm" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Linear Models</h1>
-<div id="introduction-2" class="section level2">
-<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<div id="the-linear-model" class="section level2">
+<h2><span class="header-section-number">4.1</span> The linear model</h2>
 <p>In practical applications, we often distinguish between a <em>response</em> variable and a group of <em>explanatory</em> variables. The aim is to determine the pattern of dependence of the response variable on the explanatory variables. We denote the <span class="math inline">\(n\)</span> observations of the response variable by <span class="math inline">\(\bm{y}=(y_1,y_2,\ldots ,y_n)^T\)</span>. These are assumed to be observations of <em>random variables</em> <span class="math inline">\(\bm Y=(Y_1,Y_2,\ldots ,Y_n)^T\)</span>. Associated with each <span class="math inline">\(y_i\)</span> is a vector <span class="math inline">\(\bm{x}_i=(x_{i1},x_{i2},\ldots ,x_{ip})^T\)</span> of values of <span class="math inline">\(p\)</span> explanatory variables.</p>
 In a linear model, we assume that
 <span class="math display" id="eq:lmNonMat">\[\begin{align}
@@ -235,6 +235,18 @@ Y_i=\beta_1+\beta_2 x_{i1}+\beta_3 x_{i2} +\ldots +\beta_p x_{i\,p-1} + \epsilon
 \end{pmatrix}
 \qquad \bm{\beta}=\begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_p \end{pmatrix}
 \]</span> <span class="math inline">\(p\)</span> explanatory variables; the dummy variable and <span class="math inline">\(p-1\)</span> ‘real’ variables.
+</div>
+ 
+<div class="example">
+<p><span id="exm:unnamed-chunk-28" class="example"><strong>Example 4.5  (One categorical explanatory variable)  </strong></span>Suppose <span class="math inline">\(x_i\)</span> is a categorical variable, taking values in a set of <span class="math inline">\(k\)</span> possible categories <span class="math inline">\(\{c_1, \ldots, c_k\}\)</span>. We wish to model <span class="math display">\[Y_i = \alpha_{x_i} + \epsilon_i, \qquad i = 1, \ldots, n,\]</span> so that the mean of <span class="math inline">\(Y_i\)</span> is the same for all observations in the same category, but differs for different categories.</p>
+<p>We can rewrite the model as a form of multiple regression by first defining a new explanatory variable <span class="math inline">\(\bm{z}_i\)</span> (sometimes called the <strong>one-hot encoding</strong>) <span class="math display">\[\bm{z}_i = (z_{i1}, \ldots, z_{ik})^T,\]</span> where <span class="math display">\[z_{ij} = \begin{cases} 1 &amp; \text{if $x_i = c_j$} \\
+0 &amp; \text{otherwise}. \end{cases}\]</span> We then have <span class="math display">\[Y_i=\beta_1+\beta_2 z_{i1}+\beta_3 z_{i2} +\ldots +\beta_{k+1} z_{ik} + \epsilon_i,\]</span> where <span class="math inline">\(\alpha_j = \beta_1 + \beta_{j+1}\)</span>, or <span class="math display">\[\bm{X}= \begin{pmatrix}
+1 &amp; z_{11} &amp; z_{12} &amp;\cdots &amp; z_{1k}\cr
+1&amp;x_2&amp;x_2^2&amp;\cdots&amp;x_2^{p-1}\cr
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\cr
+1&amp;x_n&amp;x_n^2&amp;\cdots&amp;x_n^{p-1} \end{pmatrix}
+\qquad \bm{\beta}= \begin{pmatrix} \beta_1\cr\beta_2\cr\vdots\cr\beta_{k+1} \end{pmatrix}\]</span></p>
+It is not possible to estimate all of the <span class="math inline">\(\bm \beta\)</span> parameters separately, as they only affect the distribution through <span class="math inline">\(\beta_1 + \beta_{j+1}\)</span>. Instead, we choose a <strong>reference category</strong> <span class="math inline">\(c_l\)</span>, and set <span class="math inline">\(\beta_l = 0\)</span>. The intercept term <span class="math inline">\(\beta_1\)</span> then gives the mean for the reference category, with <span class="math inline">\(\beta_j\)</span> giving the difference in mean between category <span class="math inline">\(c_j\)</span> and the reference category. In <code>R</code>, categorical variables are called <code>factor</code>s, and by default the reference category will be the first category when the names of the categories (the <code>levels</code> of the <code>factor</code>) are sorted alphabetically.
 </div>
 
 </div>
