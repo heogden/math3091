@@ -3,7 +3,6 @@
 .RData
 .Ruserdata
 _*
-*.pdf
 *~
 practicals/scripts/*
 *.zip
