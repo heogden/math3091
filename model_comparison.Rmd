@@ -217,25 +217,25 @@ which fit the observed data very closely, but do not meet our
 requirement of parsimony.
 
 For a given model depending on parameters $\theta \in \mathbb{R}^p$, 
-let $\hat L$ be the likelihood function for that model evaluated
+let $\hat \ell = \ell(\hat \theta)$ be the log-likelihood function for that model evaluated
 at the MLE $\hat \theta$. It is not sensible to choose
-between models by maximising $\hat L$ directly, and instead it is 
+between models by maximising $\hat \ell$ directly, and instead it is 
 common to choose a model to maximise a criteria of the form
-\[\hat L - \text{penalty},\]
+\[\hat \ell - \text{penalty},\]
 where the penalty term will be large for complex models, and small
 for simple models. 
 
 Equivalently, we may choose between models by minimising
 a criteria of the form
-\[ - 2 \hat L + \text{penalty}.\]
+\[ - 2 \hat \ell + \text{penalty}.\]
 By convention, 
 many commonly-used criteria for model comparison take this form.
 For instance, the
 Akaike information criterion (AIC) is
-\[\text{AIC} = - 2 \hat L + 2 p,\]
+\[\text{AIC} = - 2 \hat \ell + 2 p,\]
 where $p$ is the dimension of the unknown parameter in the candidate model, and
 the Bayesian information criterion (BIC) is
-\[\text{BIC} = - 2 \hat L + \log(n) p,\]
+\[\text{BIC} = - 2 \hat \ell + \log(n) p,\]
 where $n$ is the number of observations.
 
 

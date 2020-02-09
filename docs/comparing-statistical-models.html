@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Comparing statistical models | MATH3091: Statistical Modelling II</title>
   <meta name="description" content="The course notes for MATH3091: Statistical Modelling II" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Comparing statistical models | MATH3091: Statistical Modelling II" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inference.html">
-<link rel="next" href="lm.html">
+<link rel="prev" href="inference.html"/>
+<link rel="next" href="lm.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -233,8 +233,8 @@ L_{01}=2n\bar y\log\left({{\bar y}\over{p_0}}\right)
 <h2><span class="header-section-number">3.4</span> Information criteria for model comparison</h2>
 <p>It is more difficult to use the likelihood ratio test of Section <a href="comparing-statistical-models.html#sn:lrt">3.3</a> to compare two models if those models are not nested. An alternative approach is to record some criterion measuring the quality of the model for each of a candidate set of models, then choose the model which is the best according to this criterion.</p>
 <p>When we were estimating the unknown parameters <span class="math inline">\(\theta\)</span> of a model, we chose the value which maximised the likelihood: that is, the value of <span class="math inline">\(\theta\)</span> that maximises the probability of observing the data we actually saw. It is tempting to use a similar system for choosing between two models, and to choose the model which has the greater likelihood, under which the probability of seeing the data we actually observed is maximised. However, if we do this we will always end up choosing complicated models, which fit the observed data very closely, but do not meet our requirement of parsimony.</p>
-<p>For a given model depending on parameters <span class="math inline">\(\theta \in \mathbb{R}^p\)</span>, let <span class="math inline">\(\hat L\)</span> be the likelihood function for that model evaluated at the MLE <span class="math inline">\(\hat \theta\)</span>. It is not sensible to choose between models by maximising <span class="math inline">\(\hat L\)</span> directly, and instead it is common to choose a model to maximise a criteria of the form <span class="math display">\[\hat L - \text{penalty},\]</span> where the penalty term will be large for complex models, and small for simple models.</p>
-<p>Equivalently, we may choose between models by minimising a criteria of the form <span class="math display">\[ - 2 \hat L + \text{penalty}.\]</span> By convention, many commonly-used criteria for model comparison take this form. For instance, the Akaike information criterion (AIC) is <span class="math display">\[\text{AIC} = - 2 \hat L + 2 p,\]</span> where <span class="math inline">\(p\)</span> is the dimension of the unknown parameter in the candidate model, and the Bayesian information criterion (BIC) is <span class="math display">\[\text{BIC} = - 2 \hat L + \log(n) p,\]</span> where <span class="math inline">\(n\)</span> is the number of observations.</p>
+<p>For a given model depending on parameters <span class="math inline">\(\theta \in \mathbb{R}^p\)</span>, let <span class="math inline">\(\hat \ell = \ell(\hat \theta)\)</span> be the log-likelihood function for that model evaluated at the MLE <span class="math inline">\(\hat \theta\)</span>. It is not sensible to choose between models by maximising <span class="math inline">\(\hat \ell\)</span> directly, and instead it is common to choose a model to maximise a criteria of the form <span class="math display">\[\hat \ell - \text{penalty},\]</span> where the penalty term will be large for complex models, and small for simple models.</p>
+<p>Equivalently, we may choose between models by minimising a criteria of the form <span class="math display">\[ - 2 \hat \ell + \text{penalty}.\]</span> By convention, many commonly-used criteria for model comparison take this form. For instance, the Akaike information criterion (AIC) is <span class="math display">\[\text{AIC} = - 2 \hat \ell + 2 p,\]</span> where <span class="math inline">\(p\)</span> is the dimension of the unknown parameter in the candidate model, and the Bayesian information criterion (BIC) is <span class="math display">\[\text{BIC} = - 2 \hat \ell + \log(n) p,\]</span> where <span class="math inline">\(n\)</span> is the number of observations.</p>
 
 </div>
 </div>
@@ -296,8 +296,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
