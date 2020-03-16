@@ -12,9 +12,9 @@ You could use `good_at_maths` directly, but you would need to be careful
 to understand
 what `R` is doing in that case, because `good_at_maths` is a factor.
 In this case, `R` will convert the factor response
-`good_at_maths` to a number ($0$ or $1$): what happens when you try 
-`as.numeric(timss$good_at_maths)`? Do the entries which are $1$ correspond
-to children who agree or disagree with the statement?
+`good_at_maths` to a number: what happens when you try 
+`as.numeric(timss$good_at_maths)`? What happens to
+the entries for children who agree or disagree with the statement?
 Does this match with the definition of $Y_i$ in the coursework?
 If not, you need to be careful when interpreting the fitted model.
 
