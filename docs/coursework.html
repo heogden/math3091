@@ -192,11 +192,21 @@ $(document).ready(function () {
 </div>
 
 
-<div id="errata-in-printed-version-of-notes" class="section level2">
-<h2>Errata in printed version of notes</h2>
-<ul>
-<li>p25, Section 3.4: the maximised likelihood <span class="math inline">\(\hat L\)</span> should be replaced by the maximised log-likelihood <span class="math inline">\(\hat \ell\)</span> throughout.</li>
-</ul>
+<div id="coursework-frequently-asked-questions" class="section level2">
+<h2>Coursework: Frequently Asked Questions</h2>
+<div id="why-is-one-of-the-categories-in-the-books-variable-nov-25" class="section level3">
+<h3>Why is one of the categories in the <code>books</code> variable <code>Nov-25</code>?</h3>
+<p>This error can be introduced if you open the data in excel, and re-save the file. It is caused by excel converting <code>11-25</code> to <code>Nov-25</code>. To avoid it, do not press save if you open <code>timss.csv</code> in Excel: you can read the data into <code>R</code> directly.</p>
+</div>
+<div id="should-i-use-good_at_maths-as-the-response-variable-how-can-i-convert-to-the-numeric-response-y_i-given-in-the-coursework" class="section level3">
+<h3>Should I use <code>good_at_maths</code> as the response variable? How can I convert to the numeric response <span class="math inline">\(Y_i\)</span> given in the coursework?</h3>
+<p>You could use <code>good_at_maths</code> directly, but you would need to be careful to understand what <code>R</code> is doing in that case, because <code>good_at_maths</code> is a factor. In this case, <code>R</code> will convert the factor response <code>good_at_maths</code> to a number (<span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>): what happens when you try <code>as.numeric(timss$good_at_maths)</code>? Do the entries which are <span class="math inline">\(1\)</span> correspond to children who agree or disagree with the statement? Does this match with the definition of <span class="math inline">\(Y_i\)</span> in the coursework? If not, you need to be careful when interpreting the fitted model.</p>
+<p>Rather than using <code>good_at_maths</code> as the response variable directly, you could create a new response variable (e.g. called <code>y</code>) which is numeric (<span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>), making sure that the new variable is <span class="math inline">\(0\)</span> for children who disagree with the statement, and <span class="math inline">\(1\)</span> for those who agree. You could do this by making suitable changes to <code>as.numeric(timss$good_at_maths)</code>, or by using the <code>ifelse</code> function.</p>
+</div>
+<div id="should-i-follow-everything-done-in-the-computer-worksheets-for-a-binary-response-should-i-start-off-by-fitting-a-linear-model-to-the-data" class="section level3">
+<h3>Should I follow everything done in the computer worksheets for a binary response? Should I start off by fitting a linear model to the data?</h3>
+<p>You may find that you run out of space in your report if you replicate every step from the computer worksheets, so I recommend focussing on fitting the type of models which are appropriate for a binary response.</p>
+</div>
 </div>
 
 
