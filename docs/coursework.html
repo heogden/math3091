@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -83,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -157,18 +157,6 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
@@ -207,6 +195,14 @@ $(document).ready(function () {
 <h3>Should I follow everything done in the computer worksheets for a binary response? Should I start off by fitting a linear model to the data?</h3>
 <p>You may find that you run out of space in your report if you replicate every step from the computer worksheets, so I recommend focussing on fitting the type of models which are appropriate for a binary response.</p>
 </div>
+<div id="how-should-i-interpret-diagnostic-plots-for-a-glm" class="section level3">
+<h3>How should I interpret diagnostic plots for a GLM?</h3>
+<p>I would be a bit cautious about interpreting diagnostic plots (e.g. residual or Q-Q plots) for GLMs: these plots are really designed for linear models, and often don’t look “good” for a binary response, even if the assumptions of the model are met. Interpreting these plots is not a requirement of this coursework.</p>
+</div>
+<div id="how-can-i-interpret-the-estimates-of-the-coefficients" class="section level3">
+<h3>How can I interpret the estimates of the coefficients?</h3>
+<p>In simple cases, you can use the sign of the estimate to say whether a student is more or less likely to agree with the statement, if you changing one explanatory variable at a time and keep all other variables fixed. In more complex cases, or if you are unsure about the interpretation, you could try making some plots of predicted probabilities against explanatory variables, to examine the effect of changing the values of explanatory variables. For instance, you might plot how the predicted probability of agreeing with the statement changes with score (with separate lines for the different levels of other explanatory variables of interest).</p>
+</div>
 </div>
 
 
@@ -226,6 +222,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

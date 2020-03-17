@@ -32,3 +32,26 @@ You may find that you run out of space
 in your report if you replicate every step from the computer worksheets,
 so I recommend focussing on fitting the type of models which
 are appropriate for a binary response.
+
+### How should I interpret diagnostic plots for a GLM?
+
+I would be a bit cautious about interpreting diagnostic plots
+(e.g. residual or Q-Q plots) for 
+GLMs: these plots are really designed for linear models, and often don't
+look "good" for a binary response, even if the assumptions of the model
+are met. Interpreting these plots is not a requirement of
+this coursework.
+
+### How can I interpret the estimates of the coefficients?
+
+In simple cases, you can use the sign of the estimate to say whether
+a student is more or less likely to agree with the statement, if you
+changing one explanatory variable at a time and keep all other
+variables fixed. In more complex
+cases, or if you are unsure about the interpretation, you could
+try making some plots of predicted probabilities against explanatory
+variables, to examine the effect of changing the values of explanatory
+variables. For instance, you might plot how the predicted probability of
+agreeing with the statement changes with score (with 
+separate lines for the different levels of other
+explanatory variables of interest).
